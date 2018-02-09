@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -62,7 +62,7 @@ public class StartingNewCallFragment extends BaseFragment {
     @BindView(R.id.chat_name_edit_text)
     EditText friendName;
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     @Nullable
     @BindView(R.id.confirm_button)
     ImageButton confirmButton;

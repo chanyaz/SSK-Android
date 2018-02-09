@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,14 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.Model;
 import base.app.data.friendship.FriendRequest;
 import base.app.data.friendship.FriendsListChangedEvent;
 import base.app.data.friendship.FriendsManager;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.friends.FriendsAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
@@ -58,7 +57,7 @@ public class FriendsFragment extends BaseFragment {
     AutofitRecyclerView friendsRecyclerView;
 
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     @Nullable
     @BindView(R.id.friend_requests_count)
     TextView friendRequestCount;

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -39,7 +39,7 @@ public class ClubRadioFragment extends BaseFragment {
     RecyclerView recyclerView;
 
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
 
     ClubRadioAdapter adapter;
 

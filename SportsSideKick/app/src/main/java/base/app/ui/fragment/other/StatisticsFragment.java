@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,7 +48,7 @@ public class StatisticsFragment extends BaseFragment {
     String javascriptString = "javascript:( function () { var style = document.createElement('style'); style.innerHTML = '{border-bottom: 0 none;} footer {display: none;}'; document.head.appendChild(style) } ) ()";
 
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     @BindView(R.id.pin_button)
     ImageView pinButton;
 

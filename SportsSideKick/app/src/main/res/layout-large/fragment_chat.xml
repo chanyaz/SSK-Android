@@ -73,14 +73,14 @@
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
         android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
-        android:visibility="gone"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
+        android:visibility="gone" />
 
 
     <!-- Input container -->

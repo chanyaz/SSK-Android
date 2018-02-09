@@ -35,7 +35,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -80,10 +80,10 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
     View view;
     @BindView(R.id.progress_bar_veb_view)
-    AVLoadingIndicatorView progressBarVebView;
+    View progressBarVebView;
 
     @BindView(R.id.sign_up_progress_bar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     @BindView(R.id.sign_up_text)
     TextView signUpText;
     @BindView(R.id.sign_up_firstname)

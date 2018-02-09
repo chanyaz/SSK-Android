@@ -6,14 +6,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_constraintBottom_toTopOf="@+id/preview_video_view">
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
         android:id="@+id/progressBar"
         android:layout_width="@dimen/progress_bar_width"
         android:layout_height="@dimen/progress_bar_height"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
         android:visibility="gone"
-        app:indicatorName="LineSpinFadeLoaderIndicator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintLeft_toLeftOf="parent"

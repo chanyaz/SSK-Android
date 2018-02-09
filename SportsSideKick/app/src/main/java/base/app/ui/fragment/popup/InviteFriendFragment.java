@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,7 +32,7 @@ import butterknife.OnClick;
 public class InviteFriendFragment extends BaseFragment {
 
     @BindView(R.id.invvite_progress_bar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
 
     @BindView(R.id.invite_text)
     TextView inviteText;

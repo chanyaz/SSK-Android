@@ -17,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -85,7 +84,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @BindView(R.id.contentImage) ImageView contentImage;
         @BindView(R.id.play_button) ImageView playButton;
         @BindView(R.id.content_container) View contentContainer;
-        @Nullable @BindView(R.id.progressBar) AVLoadingIndicatorView progressBar;
+        @Nullable @BindView(R.id.progressBar) View progressBar;
         ViewHolder(View view) {
             super(view);
             this.view = view;

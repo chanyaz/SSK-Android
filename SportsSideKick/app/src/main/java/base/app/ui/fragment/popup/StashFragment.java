@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,7 +42,7 @@ public class StashFragment extends BaseFragment {
     AutofitRecyclerView stashRecyclerView;
 
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.26;
 
     public StashFragment() {

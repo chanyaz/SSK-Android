@@ -18,20 +18,19 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import base.app.R;
-import base.app.ui.adapter.stream.FindOfficialAdapter;
-import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
 import base.app.data.Model;
 import base.app.data.friendship.PeopleSearchManager;
 import base.app.data.user.UserInfo;
+import base.app.ui.adapter.friends.FriendsAdapter;
+import base.app.ui.adapter.stream.FindOfficialAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +54,7 @@ public class AddFriendFragment extends BaseFragment {
     EditText friendName;
 
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
 
     @BindView(R.id.people_recycler_view)
     RecyclerView peopleRecyclerView;

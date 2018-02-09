@@ -55,7 +55,6 @@ import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
 import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.apache.commons.io.FilenameUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -129,7 +128,7 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.chat_heads_view)
     RecyclerView chatHeadsView;
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
 
     @BindView(R.id.info_message)
     TextView infoMessage;

@@ -20,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -98,7 +97,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.wall_top_info_container)
     View wallTopInfoContainer;
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     @Nullable
     @BindView(R.id.login_holder)
     LinearLayout loginHolder;

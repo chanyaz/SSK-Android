@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,7 +41,7 @@ public class FriendRequestsFragment extends BaseFragment {
     RecyclerView requestsRecyclerView;
 
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
 
     @BindView(R.id.no_result)
     TextView noResult;

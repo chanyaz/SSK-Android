@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -114,10 +114,10 @@ public class FriendFragment extends BaseFragment {
 
     @Nullable
     @BindView(R.id.chat_room_progress_bar)
-    AVLoadingIndicatorView roomProgressBar;
+    View roomProgressBar;
     @Nullable
     @BindView(R.id.friend_progress_bar)
-    AVLoadingIndicatorView friendProgressBar;
+    View friendProgressBar;
     @Nullable
     @BindView(R.id.friends_community)
     TextView friendsCommunityText;

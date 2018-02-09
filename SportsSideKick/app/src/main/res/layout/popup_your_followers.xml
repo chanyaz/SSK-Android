@@ -72,13 +72,13 @@
         android:text="@string/friends_following_you"
         android:textColor="@color/white" />
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
         android:id="@+id/progressBar"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
-        android:elevation="@dimen/elevation_2"
-        app:indicatorName="LineSpinFadeLoaderIndicator" />
+        android:elevation="@dimen/elevation_2" />
 
     <!-- FRIENDS  LIST-->
     <RelativeLayout

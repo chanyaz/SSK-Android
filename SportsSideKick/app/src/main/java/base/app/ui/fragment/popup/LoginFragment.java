@@ -29,7 +29,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -76,7 +76,7 @@ public class LoginFragment extends BaseFragment
     @BindView(R.id.login_password)
     EditText passwordEditText;
     @BindView(R.id.login_progress_bar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     @BindView(R.id.login_text)
     TextView loginText;
     @BindView(R.id.reset_text)

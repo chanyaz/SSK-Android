@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wang.avi.AVLoadingIndicatorView;
+
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -44,7 +44,7 @@ public class FollowersFragment extends BaseFragment {
     RecyclerView followersRecyclerView;
 
     @BindView(R.id.progressBar)
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
 
     @BindView(R.id.no_result)
     TextView noResult;

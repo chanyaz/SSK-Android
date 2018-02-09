@@ -14,8 +14,6 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.wang.avi.AVLoadingIndicatorView;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -49,7 +47,7 @@ public class StoreFragment extends BaseFragment {
     ImageView shareToWallButton;
     ImageView homeButton;
     View view;
-    AVLoadingIndicatorView progressBar;
+    View progressBar;
     View webContainer;
     boolean withNavigation;
     WallStoreItem item;
