@@ -126,7 +126,7 @@ public class LoginFragment extends BaseFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.popup_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
