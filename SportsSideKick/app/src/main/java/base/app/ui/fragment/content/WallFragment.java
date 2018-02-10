@@ -146,7 +146,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
 
-        scrollUp();
         return view;
     }
 
@@ -272,8 +271,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         });
         adapter.addAll(wallItems);
         adapter.notifyDataSetChanged();
-
-        scrollUp();
     }
 
     @Subscribe
