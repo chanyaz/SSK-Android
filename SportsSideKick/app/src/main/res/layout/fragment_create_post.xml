@@ -59,167 +59,180 @@
             android:textSize="@dimen/font_size_18" />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/contentImage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_150"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_buttons_container"
-        android:adjustViewBounds="true"
-        android:alpha="0.5"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/background_post_create" />
-
-    <TextView
-        android:id="@+id/removeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/contentImage"
-        android:layout_alignParentEnd="true"
-        android:padding="@dimen/padding_10"
-        android:text="@string/delete"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/authorImage"
-        android:layout_width="@dimen/width_26"
-        android:layout_height="@dimen/height_26"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/contentImage"
-        android:layout_marginStart="@dimen/margin_15"
-        android:layout_marginTop="@dimen/margin_10"
-        android:src="?profileImageIcon"
-        android:visibility="visible" />
-
-
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/contentImage"
-        android:layout_alignTop="@+id/contentImage"
-        android:foregroundGravity="center">
+        android:layout_below="@+id/top_buttons_container">
 
-        <ImageButton
-            android:id="@+id/cameraButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="@dimen/width_60"
-            android:layout_height="@dimen/width_60"
-            android:background="@drawable/black_circle"
-            android:foreground="?selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/camera_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/progressBar"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/galleryButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="@dimen/width_60"
-            android:layout_height="@dimen/width_60"
-            android:background="@drawable/black_circle"
-            android:foreground="?selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:src="@drawable/chat_button_image"
-            android:tint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/progressBar"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="@dimen/progress_bar_height"
-            android:layout_height="@dimen/progress_bar_height"
-            android:elevation="@dimen/elevation_2"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/authorName"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/authorImage"
-        android:layout_alignTop="@+id/authorImage"
-        android:layout_below="@id/contentImage"
-        android:layout_marginStart="@dimen/margin_5"
-        android:layout_toEndOf="@+id/authorImage"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:textColor="@color/colorGray"
-        android:textSize="@dimen/font_size_12"
-        tools:text="Chris Reeves" />
-
-    <EditText
-        android:id="@+id/titleField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/authorImage"
-        android:layout_marginEnd="@dimen/margin_5"
-        android:layout_marginStart="@dimen/margin_15"
-        android:layout_marginTop="@dimen/margin_5"
-        android:background="@null"
-        android:hint="@string/post_title_hint"
-        android:inputType="textCapSentences"
-        android:textColor="@color/colorPrimaryVeryLight"
-        android:textColorHint="@color/colorPrimaryVeryLight"
-        android:textSize="@dimen/font_size_18"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/bodyTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/titleField"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="@dimen/margin_15"
-        android:layout_marginStart="@dimen/margin_15"
-        android:layout_marginTop="@dimen/margin_5"
-        android:animateLayoutChanges="true"
-        android:background="@null"
-        android:hint="@string/post_body_hint"
-        android:inputType="textCapSentences|textMultiLine"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:textSize="@dimen/font_size_16" />
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bodyTextField"
-        android:layout_margin="13dp"
-        app:cardCornerRadius="2dp">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/tutorial_create_post"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/contentImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_150"
+                android:layout_alignParentStart="true"
+                android:adjustViewBounds="true"
+                android:alpha="0.5"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/background_post_create" />
 
             <TextView
-                style="@style/boldText"
-                android:layout_width="match_parent"
+                android:id="@+id/removeButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/post_create_tip_header"
-                android:textAllCaps="true"
-                android:textColor="#4d4e4c"
-                tools:textStyle="bold" />
+                android:layout_alignBottom="@+id/contentImage"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/padding_10"
+                android:text="@string/delete"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/authorImage"
+                android:layout_width="@dimen/width_26"
+                android:layout_height="@dimen/height_26"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/contentImage"
+                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_10"
+                android:src="?profileImageIcon"
+                android:visibility="visible" />
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/contentImage"
+                android:layout_alignTop="@+id/contentImage"
+                android:foregroundGravity="center">
+
+                <ImageButton
+                    android:id="@+id/cameraButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="@dimen/width_60"
+                    android:layout_height="@dimen/width_60"
+                    android:background="@drawable/black_circle"
+                    android:foreground="?selectableItemBackgroundBorderless"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/camera_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/progressBar"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/galleryButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="@dimen/width_60"
+                    android:layout_height="@dimen/width_60"
+                    android:background="@drawable/black_circle"
+                    android:foreground="?selectableItemBackgroundBorderless"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/chat_button_image"
+                    android:tint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/progressBar"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="@dimen/progress_bar_height"
+                    android:layout_height="@dimen/progress_bar_height"
+                    android:elevation="@dimen/elevation_2"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tutorialBody"
+                android:id="@+id/authorName"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/authorImage"
+                android:layout_alignTop="@+id/authorImage"
+                android:layout_below="@id/contentImage"
+                android:layout_marginStart="@dimen/margin_5"
+                android:layout_toEndOf="@+id/authorImage"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorGray"
+                android:textSize="@dimen/font_size_12"
+                tools:text="Chris Reeves" />
+
+            <EditText
+                android:id="@+id/titleField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/post_create_tip_body" />
+                android:layout_below="@id/authorImage"
+                android:layout_marginEnd="@dimen/margin_5"
+                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_5"
+                android:background="@null"
+                android:hint="@string/post_title_hint"
+                android:inputType="textCapSentences"
+                android:textColor="@color/colorPrimaryVeryLight"
+                android:textColorHint="@color/colorPrimaryVeryLight"
+                android:textSize="@dimen/font_size_18"
+                android:textStyle="bold" />
 
-        </LinearLayout>
+            <EditText
+                android:id="@+id/bodyTextField"
+                android:nestedScrollingEnabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleField"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="@dimen/margin_15"
+                android:layout_marginStart="@dimen/margin_15"
+                android:layout_marginTop="@dimen/margin_5"
+                android:animateLayoutChanges="true"
+                android:background="@null"
+                android:hint="@string/post_body_hint"
+                android:inputType="textCapSentences|textMultiLine"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="@dimen/font_size_16" />
 
-    </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bodyTextField"
+                android:layout_margin="13dp"
+                app:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tutorial_create_post"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/boldText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/post_create_tip_header"
+                        android:textAllCaps="true"
+                        android:textColor="#4d4e4c"
+                        tools:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tutorialBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/post_create_tip_body" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </RelativeLayout>
