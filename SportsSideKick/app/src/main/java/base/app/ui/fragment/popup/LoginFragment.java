@@ -362,8 +362,8 @@ public class LoginFragment extends BaseFragment
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         } else {
             BaseActivity activity = (BaseActivity) getActivity();
-            if (!activity.fragmentOrganizer.handleNavigationFragment()) {
-                getActivity().onBackPressed();
+            if (activity != null && !activity.fragmentOrganizer.handleNavigationFragment()) {
+                activity.onBackPressed();
             }
         }
     }
