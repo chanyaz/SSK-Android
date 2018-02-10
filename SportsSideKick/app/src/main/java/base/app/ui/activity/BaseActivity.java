@@ -71,10 +71,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.checkIfBundlesAreEqual;
 
-abstract class BaseActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
 
     public static final String TAG = "Base Activity";
-    protected FragmentOrganizer fragmentOrganizer;
+    public FragmentOrganizer fragmentOrganizer;
     protected LoginStateReceiver loginStateReceiver;
     protected CallbackManager callbackManager;
     protected ShareDialog facebookShareDialog;

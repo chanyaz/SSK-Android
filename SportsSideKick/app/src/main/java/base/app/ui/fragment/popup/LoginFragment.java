@@ -30,7 +30,6 @@ import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,10 +46,10 @@ import base.app.data.user.LoginStateReceiver.LoginStateListener;
 import base.app.data.user.PasswordResetReceiver;
 import base.app.data.user.PasswordResetReceiver.PasswordResetListener;
 import base.app.data.user.UserInfo;
+import base.app.ui.activity.BaseActivity;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.content.WallFragment;
 import base.app.util.commons.Connection;
 import base.app.util.commons.KeyboardChangeListener;
 import base.app.util.commons.Utility;
@@ -362,7 +361,10 @@ public class LoginFragment extends BaseFragment
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         } else {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+            BaseActivity activity = (BaseActivity) getActivity();
+            if (!activity.fragmentOrganizer.handleNavigationFragment()) {
+                getActivity().onBackPressed();
+            }
         }
     }
 

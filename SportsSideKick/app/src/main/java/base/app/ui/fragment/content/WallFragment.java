@@ -260,6 +260,8 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     public void refreshAdapter() {
+        if (wallItems.isEmpty()) return;
+
         adapter.clear();
         Collections.sort(wallItems, new Comparator<WallBase>() {
             @Override
@@ -316,9 +318,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                     if (items.size() > 0) {
                         wallItems.clear();
                         wallItems.addAll(items);
+                        refreshAdapter();
                     }
                     completion.setResult(items);
-                    refreshAdapter();
                     swipeRefreshLayout.setRefreshing(false);
                     offset +=pageSize;
                 }

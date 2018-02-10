@@ -507,8 +507,4 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             values.remove(position);
         }
     }
-
-    public void removeAll(List<WallBase> models) {
-        values.removeAll(models);
-    }
 }
