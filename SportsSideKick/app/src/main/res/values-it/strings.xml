@@ -217,7 +217,7 @@
     <string name="post_title_hint">Clicca qui per inserire il titolo del tuo post</string>
     <string name="post_body_hint">Clicca qui per iniziare a scrivere il tuo post…</string>
     <string name="post_create_tip_header">Per creare un nuovo post:</string>
-    <string name="post_create_tip_body"><b>1.</b> Scegli un’immagine dal tuo catalogo multimediale o scatta una nuova immagine selezionando una delle due icone nell’area dell’immagine in alto (opzionale) \n <b>2.</b> Crea un titolo selezionando il titolo e digitando. \n <b>3.</b> Crea il contenuto selezionando il testo del contenuto e digitando.</string>
+    <string name="post_create_tip_body"><![CDATA[<b>1.</b> Scegli un’immagine dal tuo catalogo multimediale o scatta una nuova immagine selezionando una delle due icone nell’area dell’immagine in alto (opzionale) <br/> <b>2.</b> Crea un titolo selezionando il titolo e digitando. <br/> <b>3.</b> Crea il contenuto selezionando il testo del contenuto e digitando.]]></string>
     <string name="pin_title">Vuoi postarlo sulla bacheca?</string>
     <string name="pin_confirm">Vuoi postarlo sulla tua bacheca?</string>
     <string name="pin_message_hint">Inserisci un messaggio con il tuo post condiviso…</string>

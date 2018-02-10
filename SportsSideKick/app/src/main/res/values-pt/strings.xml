@@ -217,7 +217,7 @@
     <string name="post_title_hint">Clique aqui para inserir o título da sua publicação</string>
     <string name="post_body_hint">Clique aqui para começar a escrever sua postagem…</string>
     <string name="post_create_tip_header">Para criar uma nova postagem:</string>
-    <string name="post_create_tip_body"><b>1.</b> Escolha uma imagem da sua biblioteca de mídia ou tire uma nova imagem selecionando um dos dois ícones na área da imagem na parte superior (opcional) \n <b>2.</b> Criar um título, selecionando o título e digitando. \n <b>3.</b> Crie conteúdo selecionando o texto do conteúdo e digitando.</string>
+    <string name="post_create_tip_body"><![CDATA[<b>1.</b> Escolha uma imagem da sua biblioteca de mídia ou tire uma nova imagem selecionando um dos dois ícones na área da imagem na parte superior (opcional) <br/> <b>2.</b> Criar um título, selecionando o título e digitando. <br/> <b>3.</b> Crie conteúdo selecionando o texto do conteúdo e digitando.]]></string>
     <string name="pin_title">Publica isto no teu mural?</string>
     <string name="pin_confirm">Gostarias de publicar isto no teu mural?</string>
     <string name="pin_message_hint">Digite uma mensagem com sua postagem compartilhada…</string>

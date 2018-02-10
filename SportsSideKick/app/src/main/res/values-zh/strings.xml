@@ -217,7 +217,7 @@
     <string name="post_title_hint">点击这里输入你的帖子的标题</string>
     <string name="post_body_hint">点击这里开始写你的帖子…</string>
     <string name="post_create_tip_header">要创建一个新帖子：</string>
-    <string name="post_create_tip_body"><b>1。</b>从媒体库中选择一张图像，或者通过选择顶部图像区域中的两个图标之一（可选）来拍摄新图像\n <b>2。</b>创建通过选择标题和输入标题。\n <b>3。</b>通过选择内容文字和输入来创建内容。</string>
+    <string name="post_create_tip_body"><![CDATA[<b>1。</b>从媒体库中选择一张图像，或者通过选择顶部图像区域中的两个图标之一（可选）来拍摄新图像<br/> <b>2。</b>创建通过选择标题和输入标题。<br/> <b>3。</b>通过选择内容文字和输入来创建内容。]]></string>
     <string name="pin_title">要发布到您的墙上吗？</string>
     <string name="pin_confirm">要将此消息发布到您的墙上吗？</string>
     <string name="pin_message_hint">输入您的共享帖子的消息…</string>
