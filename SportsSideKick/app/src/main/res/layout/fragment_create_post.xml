@@ -61,7 +61,7 @@
         android:adjustViewBounds="true"
         android:alpha="0.5"
         android:scaleType="centerCrop"
-        android:src="@drawable/image_rumours_background" />
+        android:src="@drawable/background_post_create" />
 
     <TextView
         android:id="@+id/removeButton"

@@ -45,7 +45,7 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         viewModel.postsRepo = PostsRepository()
         viewModel.view = this
         viewModel.onViewCreated()
-        contentImage.show(R.drawable.image_rumours_background)
+        contentImage.show(R.drawable.background_post_create)
         tutorialBody.text = fromHtml(getString(R.string.post_create_tip_body))
         setClickListeners()
     }
@@ -79,7 +79,7 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         galleryButton.visible()
         removeButton.hide()
 
-        contentImage.show(R.drawable.image_rumours_background)
+        contentImage.show(R.drawable.background_post_create)
     }
 
     override fun exit() {
