@@ -6,14 +6,21 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:clickable="true"
-    android:paddingTop="24dp"
-    tools:paddingTop="0dp">
+    android:focusable="false">
+
+    <View
+        android:id="@+id/topSpacer"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@color/colorGrayMediumLight"
+        android:foreground="@drawable/background_status_bar"
+        tools:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/topSpacer"
         android:background="@color/colorGrayMediumLight"
         android:orientation="horizontal"
         android:visibility="visible">
@@ -115,8 +122,8 @@
 
 
         <ProgressBar
-        style="?android:attr/progressBarStyle"
             android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="@dimen/progress_bar_height"
             android:layout_height="@dimen/progress_bar_height"
             android:elevation="@dimen/elevation_2"
@@ -177,33 +184,33 @@
         android:textSize="@dimen/font_size_16" />
 
     <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/bodyTextField"
         android:layout_margin="13dp"
-        app:cardCornerRadius="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:cardCornerRadius="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:background="@drawable/tutorial_create_post"
-            android:padding="16dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@drawable/tutorial_create_post"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
+                style="@style/boldText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/post_create_tip_header"
                 android:textAllCaps="true"
-                tools:textStyle="bold"
                 android:textColor="#4d4e4c"
-                style="@style/boldText"
-                android:text="@string/post_create_tip_header"/>
+                tools:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tutorialBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/post_create_tip_body"/>
+                android:text="@string/post_create_tip_body" />
 
         </LinearLayout>
 
