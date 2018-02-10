@@ -76,6 +76,9 @@ public class LanguageFragment extends BaseFragment implements LanguageAdapter.La
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 
+        if (getActivity() != null) {
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
