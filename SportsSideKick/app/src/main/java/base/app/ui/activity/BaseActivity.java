@@ -89,7 +89,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
             systemLanguage = systemLanguage.split("_")[0];
         }
 
-        if (savedLanguage == null || savedLanguage.equals("en")) {
+        if (savedLanguage == null) {
             savedLanguage = systemLanguage;
             Prefs.putString(CHOSEN_LANGUAGE, systemLanguage);
         }
