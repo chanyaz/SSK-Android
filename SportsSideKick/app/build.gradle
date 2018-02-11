@@ -67,9 +67,7 @@ dependencies {
     implementation 'com.android.support:customtabs:27.0.2'
     implementation 'com.android.support:animated-vector-drawable:27.0.2'
     // Push notifications
-    implementation 'com.google.firebase:firebase-core:11.8.0'
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
-    implementation 'com.google.firebase:firebase-crash:11.8.0'
     // Youtube
     implementation fileTree(include: ['YouTubeAndroidPlayerApi.jar'], dir: 'libs')
     implementation('com.google.http-client:google-http-client-android:1.20.0')
@@ -102,7 +100,9 @@ dependencies {
     // Facebook SDK is used for Analytics, Share and to populate Sign up data
     implementation 'com.facebook.android:facebook-android-sdk:4.24.0'
     // Facebook ads
-    implementation('com.facebook.android:audience-network-sdk:4.24.0')
+    compile('com.facebook.android:audience-network-sdk:4.24.0') {
+        exclude group: 'com.google.android.gms'
+    }
     // Amazon web services are used for uploading of user generated media content
     implementation 'com.amazonaws:aws-android-sdk-core:2.4.2'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.4.2'

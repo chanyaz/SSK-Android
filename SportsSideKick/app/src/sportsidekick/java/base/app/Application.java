@@ -14,7 +14,6 @@ import base.app.data.purchases.PurchaseModel;
 import base.app.data.ticker.NextMatchModel;
 import base.app.util.commons.Connection;
 import base.app.util.commons.SoundEffects;
-import rx_activity_result2.RxActivityResult;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -62,7 +61,6 @@ public class Application extends MultiDexApplication{
         PurchaseModel.getInstance().initialize(this);
         Translator.getInstance().initialize(this);
 
-        RxActivityResult.register(this);
         RxPaparazzo.register(this);
     }
 }
