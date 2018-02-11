@@ -41,8 +41,10 @@ android {
         }
     }
     lintOptions {
-        checkReleaseBuilds false
         abortOnError false
+        checkReleaseBuilds false
+        ignoreWarnings true
+        quiet true
         lintOptions {
             disable 'ContentDescription'
         }
