@@ -28,12 +28,12 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import base.app.R;
 import base.app.data.Id;
@@ -173,12 +173,12 @@ public class WallItemFragment extends BaseFragment {
             String postId;
             String wallId = null;
             if (id.contains("$$$")) {
-                String[] parts = StringUtils.split(id, "$$$");
-                if (parts.length == 2) {
-                    postId = parts[0];
-                    wallId = parts[1];
+                StringTokenizer parts = new StringTokenizer(id, "$$$");
+                if (parts.countTokens() == 2) {
+                    postId = parts.nextToken();
+                    wallId = parts.nextToken();
                 } else {
-                    postId = StringUtils.remove(id, "$$$");
+                    postId = id.replace("$$$", "");
                 }
                 WallModel.getInstance().getPostById(postId, wallId);
             }

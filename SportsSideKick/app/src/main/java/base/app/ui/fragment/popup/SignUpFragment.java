@@ -36,8 +36,6 @@ import com.facebook.login.widget.LoginButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
-import org.apache.commons.lang3.text.WordUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
@@ -61,10 +59,7 @@ import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import butterknife.Optional;
-import me.atrox.haikunator.Haikunator;
-import me.atrox.haikunator.HaikunatorBuilder;
 
 /**
  * Created by Filip on 1/16/2017.
@@ -300,32 +295,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onDestroyView() {
         super.onDestroyView();
     }
-
-    @Optional
-    @OnLongClick({R.id.or_label,R.id.sign_up_firstname})
-    public boolean populateWithDemoData() {
-        Haikunator haikunator = new HaikunatorBuilder().setTokenLength(0).setDelimiter(" ").build();
-        String name = haikunator.haikunate();
-        firstName.setText(WordUtils.capitalize(name.substring(0, name.indexOf(" "))));
-        lastName.setText(WordUtils.capitalize(name.substring(name.indexOf(" ") + 1)));
-        if (displayName != null) {
-            displayName.setText(name);
-        }
-        if (phone != null) {
-            phone.setText(
-                    new HaikunatorBuilder()
-                            .setTokenLength(10)
-                            .setDelimiter("")
-                            .setTokenChars("0123456789")
-                            .build()
-                            .haikunate().replaceAll("[^\\d.]", "")
-            );
-        }
-        email.setText(name.replace(" ", "@") + ".com");
-        password.setText("qwerty");
-        return true;
-    }
-
 
     private boolean validateInputs(){
         int idOfMessageResourceToDisplay = -1;

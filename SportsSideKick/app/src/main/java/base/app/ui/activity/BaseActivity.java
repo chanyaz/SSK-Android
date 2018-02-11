@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaeger.library.StatusBarUtil;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -33,6 +32,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -164,11 +164,11 @@ public abstract class BaseActivity extends SwipeBackActivity {
     private void handleDeepLink(Uri uri) {
         if (uri != null) {
             String lastPathSegment = uri.getLastPathSegment();
-            String[] parts = StringUtils.split(lastPathSegment, ":");
-            if (parts != null && parts.length == 3) {
-                String clubId = parts[2];
-                String postType = parts[1];
-                String postId = parts[0]; // WallPost ?
+            StringTokenizer parts = new StringTokenizer(lastPathSegment, ":");
+            if (parts.countTokens() == 3) {
+                String postId = parts.nextToken(); // WallPost ?
+                String postType = parts.nextToken();
+                String clubId = parts.nextToken();
                 Log.d(TAG, "Post id is : " + postId);
                 if (SharingManager.ItemType.WallPost.name().equals(postType)) {
                     FragmentEvent wallItemFragmentEvent = new FragmentEvent(WallItemFragment.class);
