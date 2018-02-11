@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/top_toolbar"
+                android:layout_below="@id/top_toolbar"
                 android:background="@color/colorPrimaryAbsoluteDark"
                 android:orientation="horizontal">
 
@@ -97,7 +97,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_2"
-                android:layout_below="@+id/top_toolbar"
+                android:layout_below="@id/top_toolbar"
 
                 android:orientation="horizontal">
 
@@ -127,12 +127,12 @@
                 android:id="@+id/top_split"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
-                android:layout_below="@+id/top_buttons_container"
+                android:layout_below="@id/top_buttons_container"
                 android:background="@color/colorPrimaryAbsoluteDark" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:layout_alignParentStart="true">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -184,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/coin_indicator_split_line">
+                android:layout_below="@id/coin_indicator_split_line">
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout"
@@ -230,7 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/center_spliter"
-                    android:layout_below="@+id/ssk_bundles_caption"
+                    android:layout_below="@id/ssk_bundles_caption"
                     android:layout_marginEnd="@dimen/margin_20"
                     android:layout_marginStart="@dimen/margin_20"
                     android:adjustViewBounds="true"
@@ -241,7 +241,7 @@
                     android:id="@+id/bundle_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/bundle_1"
+                    android:layout_below="@id/bundle_1"
                     android:layout_marginTop="@dimen/margin_10"
                     android:layout_marginStart="@dimen/margin_20"
                     android:layout_marginEnd="@dimen/margin_20"
@@ -257,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/center_spliter"
                     android:layout_marginTop="@dimen/margin_10"
-                    android:layout_below="@+id/bundle_2"
+                    android:layout_below="@id/bundle_2"
                     android:layout_marginEnd="@dimen/margin_20"
                     android:layout_marginStart="@dimen/margin_20"
                     android:adjustViewBounds="true"
@@ -268,7 +268,7 @@
                     android:id="@+id/bundle_5"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_below="@+id/bundle_4"
+                    android:layout_below="@id/bundle_4"
                     android:layout_marginEnd="@dimen/margin_20"
                     android:layout_marginStart="@dimen/margin_20"
                     android:layout_marginTop="@dimen/margin_20"
@@ -431,7 +431,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/bundle_5"
                     android:layout_alignStart="@+id/bundle_5"
-                    android:layout_below="@+id/bundle_5"
+                    android:layout_below="@id/bundle_5"
                     android:layout_marginTop="@dimen/margin_5"
                     android:gravity="center"
                     android:text="\u2605 BEST VALUE \u2605"
@@ -443,7 +443,7 @@
                 android:id="@+id/split_bundle_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
-                android:layout_below="@+id/bundles_container"
+                android:layout_below="@id/bundles_container"
                 android:layout_marginTop="@dimen/margin_20"
                 android:background="@color/black" />
 
@@ -453,7 +453,7 @@
                 android:layout_height="@dimen/height_1"
                 android:layout_alignEnd="@+id/bundles_container"
                 android:layout_alignStart="@+id/bundles_container"
-                android:layout_below="@+id/coin_indicator_container"
+                android:layout_below="@id/coin_indicator_container"
                 android:background="@color/black" />
 
             <ImageView
@@ -461,7 +461,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/split_bundle_line"
+                android:layout_below="@id/split_bundle_line"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/fan_special_1_phone" />
@@ -472,7 +472,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimaryVeryDark"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/monthly_bag_image"
+                android:layout_below="@id/monthly_bag_image"
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/fan_special_2_phone" />

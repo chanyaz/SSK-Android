@@ -52,7 +52,7 @@
         android:id="@+id/center_split"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:layout_centerHorizontal="true"
         android:background="@color/colorPrimaryVeryLight">
 
@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/center_split"
+        android:layout_below="@id/center_split"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
@@ -123,7 +123,7 @@
         android:id="@+id/spliter_profile"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:layout_below="@+id/top_container"
+        android:layout_below="@id/top_container"
         android:background="@color/colorPrimaryVeryDark" />
 
     <RelativeLayout
@@ -131,7 +131,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_48"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/spliter_profile"
+        android:layout_below="@id/spliter_profile"
         android:background="@color/colorPrimaryMediumDark">
 
 
@@ -167,7 +167,7 @@
         android:id="@+id/people_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search_container"
+        android:layout_below="@id/search_container"
         android:visibility="visible" />
 
 
@@ -175,7 +175,7 @@
         android:id="@+id/official_accounts_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search_container" />
+        android:layout_below="@id/search_container" />
 
     <TextView
         android:id="@+id/no_results"

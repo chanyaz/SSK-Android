@@ -55,7 +55,7 @@
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:background="@color/colorPrimary"/>
 
     <!-- CONTENT CONTAINER -->
@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_split_line"
+        android:layout_below="@id/top_split_line"
 
         android:clickable="true">
 
@@ -277,7 +277,6 @@
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/top_buttons_container_veb_view"
             android:background="@color/colorPrimary"
             android:visibility="visible"/>
 

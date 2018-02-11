@@ -71,7 +71,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:background="@color/colorPrimaryAbsoluteDark"
         android:orientation="horizontal"
-        android:layout_below="@+id/top_toolbar"
+        android:layout_below="@id/top_toolbar"
         android:layout_alignParentStart="true">
 
         <TextView
@@ -110,7 +110,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:layout_below="@+id/top_toolbar"
+        android:layout_below="@id/top_toolbar"
         android:orientation="horizontal">
 
         <View
@@ -139,7 +139,7 @@
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:background="@color/colorPrimaryAbsoluteDark" />
 
     <!-- SPLITTERS -->
@@ -147,7 +147,7 @@
     <TextView
         android:id="@+id/your_stash_caption"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/top_split_line"
+        android:layout_below="@id/top_split_line"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_20"
         android:layout_centerHorizontal="true"
@@ -174,7 +174,7 @@
         android:layout_width="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_height="match_parent"
-        android:layout_below="@+id/your_stash_description"
+        android:layout_below="@id/your_stash_description"
         android:layout_margin="@dimen/margin_15"
         android:numColumns="auto_fit"
         android:clipToPadding="false"/>

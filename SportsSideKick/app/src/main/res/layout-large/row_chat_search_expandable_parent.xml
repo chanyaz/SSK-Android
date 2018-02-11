@@ -36,7 +36,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/row_join_chat_search_name">
+                android:layout_below="@id/row_join_chat_search_name">
 
                 <ImageView
                     android:id="@+id/row_join_chat_search_icon"

@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/chat_headline_container"
+            android:layout_below="@id/chat_headline_container"
             android:background="?colorPrimarySemiLight"
             android:clickable="true">
 
@@ -103,7 +103,7 @@
                 android:id="@+id/top_split_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
-                android:layout_below="@+id/top_vertical_spliter"
+                android:layout_below="@id/top_vertical_spliter"
                 android:background="@android:color/black" />
 
             <TextView
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/popup_join_chat_caption_label_height"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/top_vertical_spliter"
+                android:layout_below="@id/top_vertical_spliter"
                 android:gravity="center"
                 android:text="@string/chats_public"
                 android:textColor="@color/white" />
@@ -120,7 +120,7 @@
                 android:id="@+id/chat_name_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_60"
-                android:layout_below="@+id/top_vertical_spliter"
+                android:layout_below="@id/top_vertical_spliter"
                 android:layout_toStartOf="@+id/chat_join_search_button"
                 android:background="@color/colorPrimaryMediumDark"
                 android:gravity="start|center_vertical"
@@ -137,7 +137,7 @@
                 android:layout_width="@dimen/create_chat_name_label_height"
                 android:layout_height="@dimen/create_chat_name_label_height"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/top_vertical_spliter"
+                android:layout_below="@id/top_vertical_spliter"
                 android:background="@color/colorPrimaryVeryLight"
                 android:src="@drawable/ic_search" />
 
@@ -147,14 +147,14 @@
                 android:id="@+id/friends_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/chat_name_edit_text" />
+                android:layout_below="@id/chat_name_edit_text" />
 
 
             <base.app.util.ui.AnimatedExpandableListView
                 android:id="@+id/join_chat_search_result_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/chat_name_edit_text"
+                android:layout_below="@id/chat_name_edit_text"
                 android:childDivider="@android:color/transparent"
                 android:childIndicator="@android:color/transparent"
                 android:divider="@android:color/transparent"
@@ -189,7 +189,7 @@
                 android:id="@+id/bottom_public_chats_recycler_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/bottom_public_chats_headline">
+                android:layout_below="@id/bottom_public_chats_headline">
 
                 <ImageView
                     android:id="@+id/bottom_public_chats_arrow"

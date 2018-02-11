@@ -60,7 +60,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/post_container"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         app:srl_direction="bottom">
 
         <android.support.v4.widget.NestedScrollView
@@ -286,7 +286,7 @@
                     android:id="@+id/bottom_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_below="@+id/read_more_holder"
+                    android:layout_below="@id/read_more_holder"
                     android:background="@color/colorPrimaryAbsoluteDark" />
 
                 <LinearLayout
@@ -336,7 +336,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/header_container"
+                    android:layout_below="@id/header_container"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="@dimen/margin_35"
                     android:animateLayoutChanges="true"

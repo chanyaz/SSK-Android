@@ -24,7 +24,7 @@
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/caption"
+        android:layout_below="@id/caption"
         android:background="@android:color/black" />
 
     <ImageView
@@ -42,7 +42,7 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
-        android:layout_below="@+id/top_split_line"
+        android:layout_below="@id/top_split_line"
         android:layout_centerHorizontal="true"
         android:background="@android:color/black" />
 
@@ -192,7 +192,7 @@
         android:tint="?memberInfoElementsTint"
         android:layout_marginStart="@dimen/margin_20"
         android:layout_toEndOf="@+id/middle_split_line"
-        android:layout_below="@+id/follow_button_image" />
+        android:layout_below="@id/follow_button_image" />
 
     <TextView
         android:id="@+id/friend_button_text"

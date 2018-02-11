@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_below="@+id/logo_second_team"
+                android:layout_below="@id/logo_second_team"
                 android:paddingEnd="@dimen/half_margin"
                 android:paddingStart="@dimen/space_0"
                 android:text="@string/match_next"
@@ -195,7 +195,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top_container">
+        android:layout_below="@id/top_container">
 
         <!-- MIDDLE SPLITTER -->
         <View
@@ -400,7 +400,7 @@
            android:layout_toStartOf="@+id/tabs_container_1"
            android:layout_alignParentBottom="true"
            android:gravity="bottom"
-           android:layout_below="@+id/left_tab_selector"
+           android:layout_below="@id/left_tab_selector"
            android:layout_marginTop="@dimen/margin_4">
 
            <RelativeLayout
@@ -446,7 +446,7 @@
                    android:layout_alignStart="@id/profile_image"
                    android:src="?nextLevelMarkerIcon"
                    android:visibility="invisible"
-                   android:layout_below="@+id/profile_image"
+                   android:layout_below="@id/profile_image"
                    android:layout_marginTop="@dimen/margin_negative_20"/>
 
                <TextView
@@ -455,7 +455,7 @@
                    android:layout_height="@dimen/profile_level_marker_size"
                    android:layout_alignEnd="@id/profile_image"
                    android:layout_alignStart="@id/profile_image"
-                   android:layout_below="@+id/profile_image"
+                   android:layout_below="@id/profile_image"
                    android:layout_marginTop="@dimen/margin_negative_20"
                    android:gravity="center"
                    android:textColor="@color/white"
@@ -497,7 +497,7 @@
                android:layout_marginEnd="@dimen/coin_lateral_margin"
                android:adjustViewBounds="true"
                android:src="?userCoinIcon"
-               android:layout_below="@+id/profile_name" />
+               android:layout_below="@id/profile_name" />
 
            <TextView
                android:id="@+id/user_coin_text"
@@ -533,7 +533,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/video_tab_radio_group"
+            android:layout_below="@id/video_tab_radio_group"
             android:orientation="vertical"
             android:weightSum="1">
 

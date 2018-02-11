@@ -34,7 +34,7 @@
         android:foregroundGravity="center"
         android:maxLines="1"
         android:lines="1"
-        android:layout_below="@+id/background"
+        android:layout_below="@id/background"
         android:gravity="center"
         android:textColor="?friendItemTextColor" />
 </RelativeLayout>

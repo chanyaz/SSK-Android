@@ -92,7 +92,7 @@
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:background="@android:color/black" />
 
     <!-- CONTENT CONTAINER -->
@@ -100,7 +100,7 @@
         android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/top_split_line"
+        android:layout_below="@id/top_split_line"
         android:background="?colorPrimarySemiLight"
         android:clickable="true">
 
@@ -219,7 +219,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/contact_info_caption"
+                android:layout_below="@id/contact_info_caption"
                 android:textColor="?yourProfileInfoDetailsColorRef"
                 android:layout_alignEnd="@+id/text_center" />
 
@@ -228,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/contact_info_email"
+                android:layout_below="@id/contact_info_email"
                 android:textColor="?yourProfileInfoDetailsColorRef" />
 
             <TextView
@@ -236,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/contact_info_phone"
+                android:layout_below="@id/contact_info_phone"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/subscribed_since"
                 android:textColor="?colorAccent" />
@@ -246,7 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/contact_info_caption"
-                android:layout_below="@+id/subscribed_since_caption"
+                android:layout_below="@id/subscribed_since_caption"
                 android:textColor="?yourProfileInfoDetailsColorRef"
                 android:layout_toStartOf="@+id/password_caption" />
 
@@ -264,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/location_caption"
-                android:layout_below="@+id/location_caption"
+                android:layout_below="@id/location_caption"
                 android:textColor="?yourProfileInfoDetailsColorRef" />
 
             <TextView
@@ -272,7 +272,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/subscribed_since_caption"
-                android:layout_below="@+id/location_value"
+                android:layout_below="@id/location_value"
                 android:layout_toEndOf="@+id/text_center"
                 android:text="@string/password"
                 android:textColor="?colorAccent" />
@@ -283,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:text="***********"
                 android:layout_alignStart="@+id/password_caption"
-                android:layout_below="@+id/password_caption"
+                android:layout_below="@id/password_caption"
                 android:textColor="?yourProfileInfoDetailsColorRef"
                 tools:ignore="HardcodedText" />
 
@@ -292,7 +292,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/subscribed_since_value"
+                android:layout_below="@id/subscribed_since_value"
                 android:layout_marginTop="@dimen/margin_10"
                 android:text="@string/chosen_language"
                 android:textColor="?colorAccent" />
@@ -302,14 +302,14 @@
                 android:layout_width="@dimen/width_20"
                 android:layout_height="@dimen/height_20"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/chosen_language_caption"
+                android:layout_below="@id/chosen_language_caption"
                 android:src="@drawable/english" />
 
             <TextView
                 android:id="@+id/chosen_language_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/chosen_language_caption"
+                android:layout_below="@id/chosen_language_caption"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_toEndOf="@+id/language_icon"
                 android:textColor="?yourProfileInfoDetailsColorRef" />
@@ -320,7 +320,7 @@
             android:id="@+id/left_horizontal_split_line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_1"
-            android:layout_below="@+id/profile_data_container"
+            android:layout_below="@id/profile_data_container"
             android:layout_marginTop="@dimen/margin_20"
             android:layout_toStartOf="@+id/center_split_line"
             android:background="@android:color/black" />
@@ -330,7 +330,7 @@
             android:id="@+id/caps_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/left_horizontal_split_line"
+            android:layout_below="@id/left_horizontal_split_line"
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/margin_30"
             android:layout_marginEnd="@dimen/margin_60"
@@ -428,7 +428,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_buttons_container"
-        android:layout_below="@+id/top_split_line"
+        android:layout_below="@id/top_split_line"
         android:layout_margin="@dimen/margin_30"
         android:layout_toEndOf="@+id/center_split" />
 
@@ -439,7 +439,7 @@
         android:layout_height="@dimen/popup_language_bottom_buttons_container_height"
         android:layout_alignParentStart="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_below="@+id/content_container"
+        android:layout_below="@id/content_container"
         android:background="?attr/popupBottomBackground"
         android:clickable="true">
 
@@ -505,7 +505,7 @@
         android:layout_width="@dimen/width_1"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_buttons_container"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:layout_centerHorizontal="true"
         android:background="@android:color/black" />
 </RelativeLayout>

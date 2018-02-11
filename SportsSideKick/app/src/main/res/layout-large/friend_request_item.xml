@@ -28,7 +28,7 @@
         android:textColor="?friendItemTextColor"/>
     <TextView
         android:id="@+id/date_prefix"
-        android:layout_below="@+id/name"
+        android:layout_below="@id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="?friendItemTextColor"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_marginStart="@dimen/margin_5"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
+        android:layout_below="@id/name"
         android:layout_toEndOf="@+id/date_prefix"
         android:textColor="?friendItemTextColor"/>
     </RelativeLayout>

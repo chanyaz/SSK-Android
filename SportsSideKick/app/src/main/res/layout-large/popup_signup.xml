@@ -38,7 +38,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top_split_line"
+        android:layout_below="@id/top_split_line"
         android:layout_centerInParent="true">
 
         <ScrollView
@@ -88,7 +88,7 @@
                         android:id="@+id/popupSignupContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/facebook_button"
+                        android:layout_below="@id/facebook_button"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/margin_15"
                         android:gravity="center">
@@ -126,7 +126,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/nickname"
-                            android:layout_below="@+id/sign_up_firstname"
+                            android:layout_below="@id/sign_up_firstname"
                             android:layout_toStartOf="@+id/horizontal_divider"
                             android:inputType="text"
                             android:textSize="@dimen/font_size_15"/>
@@ -136,7 +136,7 @@
                             style="@style/edit_text_login_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/sign_up_firstname"
+                            android:layout_below="@id/sign_up_firstname"
                             android:layout_toEndOf="@+id/horizontal_divider"
                             android:hint="@string/phone"
                             android:inputType="phone"
@@ -147,7 +147,7 @@
                             style="@style/edit_text_login_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/sign_up_display_name"
+                            android:layout_below="@id/sign_up_display_name"
                             android:layout_toStartOf="@+id/horizontal_divider"
                             android:hint="@string/email"
                             android:inputType="textEmailAddress"
@@ -159,7 +159,7 @@
                             style="@style/edit_text_login_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/sign_up_display_name"
+                            android:layout_below="@id/sign_up_display_name"
                             android:layout_toEndOf="@+id/horizontal_divider"
                             android:hint="@string/password"
                             android:inputType="textPassword"
@@ -171,7 +171,7 @@
                         android:id="@+id/popupSignupJoinNowButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/popupSignupContainer"
+                        android:layout_below="@id/popupSignupContainer"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/margin_15"
                         android:orientation="horizontal">
@@ -210,7 +210,7 @@
                         android:id="@+id/politic_and_privacy_android"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/popupSignupJoinNowButton"
+                        android:layout_below="@id/popupSignupJoinNowButton"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/margin_10"
                         android:text="@string/sign_up_text"
@@ -227,7 +227,7 @@
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:background="@color/colorPrimary" />
 
     <RelativeLayout
@@ -283,7 +283,6 @@
             android:id="@+id/web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/top_buttons_container_veb_view"
             android:background="@color/colorPrimary"
             android:visibility="visible"/>
 

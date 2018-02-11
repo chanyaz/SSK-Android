@@ -486,7 +486,7 @@
             android:id="@+id/in_common_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/friends_community"
+            android:layout_below="@id/friends_community"
             android:layout_toStartOf="@+id/left_scroll" />
 
         <ImageView
@@ -538,7 +538,7 @@
             android:layout_toStartOf="@+id/left_scroll_chat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/public_chat_text" />
+            android:layout_below="@id/public_chat_text" />
         <ImageView
             android:id="@+id/left_scroll_chat"
             android:layout_marginTop="@dimen/margin_25"

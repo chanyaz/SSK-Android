@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@id/row_chat_expanded_item_image"
         android:layout_alignStart="@id/row_chat_expanded_item_image"
-        android:layout_below="@+id/row_chat_expanded_item_image"
+        android:layout_below="@id/row_chat_expanded_item_image"
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"

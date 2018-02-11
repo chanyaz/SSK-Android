@@ -22,7 +22,7 @@
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/caption"
+        android:layout_below="@id/caption"
         android:background="@android:color/black" />
 
     <ProgressBar
@@ -37,7 +37,7 @@
         android:id="@+id/requests_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/caption"
+        android:layout_below="@id/caption"
         android:layout_above="@+id/bottom_buttons_container"
         android:layout_margin="@dimen/margin_20" />
     <TextView

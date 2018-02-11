@@ -35,7 +35,7 @@
             android:id="@+id/dialog_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/dialog_caption"
+            android:layout_below="@id/dialog_caption"
             android:layout_marginBottom="@dimen/margin_20"
             tools:text="Content"
             android:layout_marginEnd="@dimen/margin_40"
@@ -50,7 +50,7 @@
             android:id="@+id/dialog_button_container"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/height_60"
-            android:layout_below="@+id/dialog_content"
+            android:layout_below="@id/dialog_content"
             android:layout_centerHorizontal="true">
 
             <ImageButton

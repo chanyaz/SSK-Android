@@ -23,7 +23,7 @@
             android:layout_height="@dimen/height_16"
             android:layout_alignEnd="@+id/youtube_layout"
             android:layout_alignStart="@+id/youtube_layout"
-            android:layout_below="@+id/youtube_layout"
+            android:layout_below="@id/youtube_layout"
             android:layout_marginEnd="@dimen/margin_negative_18"
             android:layout_marginStart="@dimen/margin_negative_16"
             android:progress="60"

@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/post_container"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:overScrollMode="always"
         app:srl_direction="bottom">
 
@@ -330,7 +330,7 @@
                     android:id="@+id/bottom_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_below="@+id/read_more_holder"
+                    android:layout_below="@id/read_more_holder"
                     android:layout_marginBottom="-16dp"
                     android:layout_marginEnd="@dimen/padding_10"
                     android:layout_marginStart="@dimen/padding_10"
@@ -388,7 +388,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/header_container"
+                    android:layout_below="@id/header_container"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="@dimen/margin_35"
                     android:animateLayoutChanges="true"

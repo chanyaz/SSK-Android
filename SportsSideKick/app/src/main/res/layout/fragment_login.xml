@@ -10,7 +10,7 @@
         android:id="@+id/top_split_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:background="@color/colorPrimary" />
 
     <ImageView
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_buttons_container_login"
-        android:layout_below="@+id/top_buttons_container">
+        android:layout_below="@id/top_buttons_container">
 
         <RelativeLayout
             android:id="@+id/forgot_password_container"

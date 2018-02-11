@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/video_player_dummy_container"
-        android:layout_below="@+id/caption"
+        android:layout_below="@id/caption"
         android:layout_margin="@dimen/full_margin" />
 
 </RelativeLayout>

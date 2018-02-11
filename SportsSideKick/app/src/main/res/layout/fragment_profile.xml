@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/top_toolbar"
+        android:layout_below="@id/top_toolbar"
         android:visibility="gone">
 
         <LinearLayout
@@ -100,7 +100,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
-        android:layout_below="@+id/top_toolbar"
+        android:layout_below="@id/top_toolbar"
         android:orientation="horizontal"
         android:visibility="gone">
 
@@ -126,7 +126,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/top_buttons_container">
+        android:layout_below="@id/top_buttons_container">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -283,7 +283,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/contact_info_caption"
+                        android:layout_below="@id/contact_info_caption"
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_toLeftOf="@id/location_value"
                         android:ellipsize="end"
@@ -297,7 +297,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/contact_info_email"
+                        android:layout_below="@id/contact_info_email"
                         android:layout_marginStart="@dimen/margin_20"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
@@ -319,7 +319,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/subscribed_since_caption"
-                        android:layout_below="@+id/subscribed_since_caption"
+                        android:layout_below="@id/subscribed_since_caption"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
                         tools:text="1 Dec, 2020" />
@@ -339,7 +339,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/location_caption"
-                        android:layout_below="@+id/location_caption"
+                        android:layout_below="@id/location_caption"
                         android:layout_centerHorizontal="true"
                         android:layout_toLeftOf="@id/subscribed_since_value"
                         android:textColor="?popupsCaptionColor"
@@ -364,7 +364,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/password_caption"
                         android:layout_alignTop="@+id/chosen_language_value"
-                        android:layout_below="@+id/password_caption"
+                        android:layout_below="@id/password_caption"
                         android:text="***********"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
@@ -375,7 +375,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/contact_info_phone"
+                        android:layout_below="@id/contact_info_phone"
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_10"
                         android:text="@string/chosen_language"
@@ -386,7 +386,7 @@
                         android:id="@+id/language_icon"
                         android:layout_width="@dimen/width_15"
                         android:layout_height="@dimen/height_15"
-                        android:layout_below="@+id/chosen_language_caption"
+                        android:layout_below="@id/chosen_language_caption"
                         android:layout_marginStart="@dimen/margin_4"
                         android:layout_toEndOf="@+id/chosen_language_value"
                         android:src="@drawable/english" />
@@ -396,7 +396,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/chosen_language_caption"
+                        android:layout_below="@id/chosen_language_caption"
                         android:layout_marginBottom="@dimen/margin_10"
                         android:layout_marginStart="@dimen/margin_20"
                         android:text="@string/language_current"
@@ -530,7 +530,7 @@
                 android:id="@+id/holder_progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/info_container">
+                android:layout_below="@id/info_container">
 
                 <View
 
@@ -639,14 +639,14 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
-                android:layout_below="@+id/holder_progress_bar"
+                android:layout_below="@id/holder_progress_bar"
                 android:background="#2f000000" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/profile_stats_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/holder_progress_bar"
+                android:layout_below="@id/holder_progress_bar"
                 android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_10"
                 android:nestedScrollingEnabled="false" />

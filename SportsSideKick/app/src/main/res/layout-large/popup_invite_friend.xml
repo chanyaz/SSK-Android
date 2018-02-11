@@ -64,7 +64,7 @@
         android:id="@+id/enter_friend_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/top_buttons_container"
+        android:layout_below="@id/top_buttons_container"
         android:background="?colorPrimarySemiLight"
         android:padding="@dimen/margin_20"
         android:visibility="visible">
@@ -100,7 +100,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_below="@+id/enter_friend_name"
+        android:layout_below="@id/enter_friend_name"
         android:background="@drawable/popup_login_button_background">
 
         <TextView

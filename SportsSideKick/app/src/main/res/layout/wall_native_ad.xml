@@ -15,7 +15,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/wall_native_ad_media_view"
+        android:layout_below="@id/wall_native_ad_media_view"
         android:background="?nativeAdBackground"
         android:clickable="true">
 
@@ -39,7 +39,7 @@
             android:lines="1"
             android:maxLines="1"
             android:ellipsize="end"
-            android:layout_below="@+id/wall_native_ad_body"
+            android:layout_below="@id/wall_native_ad_body"
             android:textColor="@color/black"
             android:clickable="true"/>
 

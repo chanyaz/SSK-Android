@@ -22,7 +22,7 @@
             android:id="@+id/row_join_chat_search_join"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/row_join_chat_search_list"
+            android:layout_below="@id/row_join_chat_search_list"
             android:background="?colorAccent"
             android:text="@string/join_chat"
             android:textColor="@color/colorPrimary" />
