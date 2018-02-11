@@ -75,19 +75,17 @@ dependencies {
     implementation files('libs/YoutubeAndroidPlayerApi.jar')
     // Gamesparks backend
     implementation 'com.gamesparks.sdk:gamesparks-java-sdk:0.4.4-SNAPSHOT'
-    // JSON parsing
+    // Json parsing
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
-    // Video chat
-    implementation 'com.twilio:video-android:1.3.0'
-    // Facebook SDK is used for Analytics, Share and to populate Sign up data
+    // Facebook login
     implementation 'com.facebook.android:facebook-android-sdk:4.24.0'
     // Facebook ads
     implementation ('com.facebook.android:audience-network-sdk:4.24.0') {
         exclude group: 'com.google.android.gms'
     }
-    // Amazon web services are used for uploading of user generated media content
+    // Image uploading
     implementation 'com.amazonaws:aws-android-sdk-core:2.4.2'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.4.2'
     // Circle Progress UI element used for Profile icon
@@ -96,16 +94,12 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     // A small library containing a wrapper/helper for the Shared Preferences of android
     implementation 'com.pixplicity.easyprefs:library:1.8.1@aar'
-    // Checkout (Android In-App Billing Library) used for billing
-    implementation 'org.solovyev.android:checkout:1.0.0'
     // Parses HTML store items or stats for sharing
     implementation 'org.jsoup:jsoup:1.11.2'
     // Reactive extensions
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation "com.github.miguelbcr:RxPaparazzo:0.6.0-2.x"
-    // Android Library to provide swipe, click and other functionality to RecyclerView
-    implementation 'com.nikhilpanju.recyclerviewenhanced:recyclerviewenhanced:1.1.0'
     // Apache commons library to extract file name from url for image downloading
     implementation group: 'commons-io', name: 'commons-io', version: '2.5'
     // VideoView with controls
@@ -126,16 +120,20 @@ dependencies {
 
 
     // *** Not included in release, temporarily disabled
+    // Video chat
+    implementation 'com.twilio:video-android:1.3.0'
+    // Checkout (Android In-App Billing Library) used for billing
+    implementation 'org.solovyev.android:checkout:1.0.0'
 
 
-    // *** Replaceable with Kotlin or RxJava, currently are a technical debt
-    // Bind Android views and callbacks to fields and methods
+    // *** Replaceable with Kotlin or RxJava, deprecated libraries
+    // Binds Android views and callbacks to fields and methods
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Permission handling library used around the project for easier handling of permissions
     implementation 'com.github.hotchemi:permissionsdispatcher:3.0.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
-    // Event Bus
+    // Event bus
     implementation 'org.greenrobot:eventbus:3.0.0'
     // Prohibits certain actions when offline
     implementation 'com.keiferstone:nonet:2.0.0'
