@@ -59,6 +59,12 @@ android {
     }
 }
 
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
 dependencies {
     // Android support libraries
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
