@@ -123,7 +123,7 @@
         android:layout_height="@dimen/height_16"
         android:layout_alignEnd="@+id/controls_container"
         android:layout_alignStart="@+id/controls_container"
-        android:layout_above="@+id/controls_container"
+        android:layout_above="@id/controls_container"
         android:thumb="@null"
         android:layout_marginEnd="@dimen/margin_negative_18"
         android:layout_marginStart="@dimen/margin_negative_16"

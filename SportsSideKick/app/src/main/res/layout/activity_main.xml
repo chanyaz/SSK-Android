@@ -19,7 +19,7 @@
             android:id="@+id/fragment_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_menu_recycler_view" />
+            android:layout_above="@id/bottom_menu_recycler_view" />
 
         <RelativeLayout
             android:id="@+id/left_top_bar_container"
@@ -50,7 +50,7 @@
                 android:id="@+id/caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/scrollingNewsSwitcher"
+                android:layout_above="@id/scrollingNewsSwitcher"
                 android:layout_marginBottom="-2dp"
                 android:layout_marginTop="2dp"
                 android:layout_toEndOf="@+id/logo"
@@ -134,7 +134,7 @@
             android:id="@+id/shadow"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/height_2"
-            android:layout_above="@+id/bottom_menu_recycler_view"
+            android:layout_above="@id/bottom_menu_recycler_view"
             android:alpha="0.6"
             android:background="@drawable/top_gradient_drawable" />
 
@@ -155,7 +155,7 @@
             android:id="@+id/fragment_left_popup_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_menu_recycler_view"
+            android:layout_above="@id/bottom_menu_recycler_view"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="@color/transparent" />
@@ -202,7 +202,7 @@
             android:id="@+id/fragment_radio_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_menu_recycler_view"
+            android:layout_above="@id/bottom_menu_recycler_view"
             android:layout_below="@id/left_top_bar_container"
             android:orientation="vertical"
             android:visibility="gone">
@@ -222,7 +222,7 @@
             android:id="@+id/fragment_tv_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_menu_recycler_view"
+            android:layout_above="@id/bottom_menu_recycler_view"
             android:layout_below="@id/left_top_bar_container"
             android:orientation="vertical">
 

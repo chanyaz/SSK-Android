@@ -124,7 +124,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_14"
-        android:layout_above="@+id/controls_container"
+        android:layout_above="@id/controls_container"
         android:layout_alignEnd="@+id/controls_container"
         android:layout_alignStart="@+id/controls_container"
         android:layout_marginEnd="@dimen/margin_negative_18"

@@ -15,7 +15,7 @@
         android:id="@+id/content_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_above="@id/bottom_buttons_container"
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignStart="@+id/bundles_container"
         android:layout_below="@id/top_buttons_container"
@@ -150,7 +150,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/bundle_5"
+            android:layout_above="@id/bundle_5"
             android:layout_alignEnd="@+id/bundle_5"
             android:layout_alignStart="@+id/bundle_5">
 
@@ -386,7 +386,7 @@
         android:id="@+id/kit_bags_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_above="@id/bottom_buttons_container"
         android:layout_alignEnd="@+id/bundles_container"
         android:layout_alignStart="@+id/bundles_container"
         android:layout_below="@id/bundles_container"

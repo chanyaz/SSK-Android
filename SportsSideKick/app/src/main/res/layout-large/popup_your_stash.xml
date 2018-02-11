@@ -14,7 +14,7 @@
         android:id="@+id/content_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_above="@id/bottom_buttons_container"
         android:layout_below="@id/top_buttons_container"
         android:background="?colorPrimarySemiLight">
 
@@ -133,7 +133,7 @@
     <base.app.util.ui.AutofitRecyclerView
         android:id="@+id/stash_recycler_view"
         android:layout_width="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_above="@id/bottom_buttons_container"
         android:layout_height="match_parent"
         android:layout_below="@id/your_stash_description"
         android:layout_margin="@dimen/margin_20"

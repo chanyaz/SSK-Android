@@ -41,7 +41,7 @@
         android:id="@+id/middle_split_line"
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_above="@id/bottom_buttons_container"
         android:layout_below="@id/top_split_line"
         android:layout_centerHorizontal="true"
         android:background="@android:color/black" />
@@ -142,7 +142,7 @@
         android:id="@+id/chat_button_image"
         android:layout_width="@dimen/height_48"
         android:layout_height="@dimen/height_48"
-        android:layout_above="@+id/follow_button_image"
+        android:layout_above="@id/follow_button_image"
         android:layout_marginBottom="@dimen/margin_15"
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_20"

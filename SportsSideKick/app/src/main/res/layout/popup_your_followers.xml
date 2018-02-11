@@ -84,7 +84,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_above="@id/bottom_buttons_container"
         android:layout_below="@id/caption_label"
         android:background="?colorPrimarySemiLight">
 

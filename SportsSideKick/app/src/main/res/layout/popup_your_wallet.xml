@@ -190,7 +190,7 @@
                     android:id="@+id/relativeLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/bundle_5"
+                    android:layout_above="@id/bundle_5"
                     android:layout_alignEnd="@+id/bundle_5"
                     android:layout_alignStart="@+id/bundle_5">
 

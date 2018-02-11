@@ -63,7 +63,7 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/input_container"
+        android:layout_above="@id/input_container"
         android:layout_below="@id/chat_info_line"
         android:layout_marginTop="@dimen/margin_negative_48">
 
@@ -279,7 +279,7 @@
             android:id="@+id/video_layout"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:layout_above="@+id/vide_download_image_button"
+            android:layout_above="@id/vide_download_image_button"
             android:layout_below="@id/video_close_image_button"
             android:layout_centerInParent="true"
             android:background="@android:color/black">
@@ -306,7 +306,7 @@
             android:id="@+id/video_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/vide_download_image_button"
+            android:layout_above="@id/vide_download_image_button"
             android:layout_below="@id/video_close_image_button"
             android:layout_centerInParent="true" />-->
 
@@ -344,7 +344,7 @@
             android:id="@+id/image_fullscreen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/download_image_button"
+            android:layout_above="@id/download_image_button"
             android:layout_below="@id/close_image_button"
             android:layout_centerInParent="true"
             android:background="@color/colorPrimarySemiDarkSemiTransparent"

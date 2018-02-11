@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/news_holder_image"
-        android:layout_above="@+id/title_container"/>
+        android:layout_above="@id/title_container"/>
 
     <RelativeLayout
         android:id="@+id/title_container"

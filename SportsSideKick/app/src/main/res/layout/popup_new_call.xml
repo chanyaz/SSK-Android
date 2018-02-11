@@ -155,7 +155,7 @@
         android:id="@+id/chat_friends_in_chat_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/confirm_button_phone"
+        android:layout_above="@id/confirm_button_phone"
         android:background="@color/colorPrimary">
 
         <TextView
@@ -198,7 +198,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/chat_friends_in_chat_container"
+        android:layout_above="@id/chat_friends_in_chat_container"
         android:layout_below="@id/chat_top_buttons_container">
 
         <base.app.util.ui.AutofitRecyclerView

@@ -228,7 +228,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:layout_above="@+id/confirm_button">
+        android:layout_above="@id/confirm_button">
 
         <TextView
             android:id="@+id/friends_in_chat_headline"
@@ -259,7 +259,7 @@
         android:layout_below="@id/search_friends_container"
         android:layout_marginEnd="@dimen/margin_20"
         android:layout_marginStart="@dimen/margin_20"
-        android:layout_above="@+id/friends_in_chat_container">
+        android:layout_above="@id/friends_in_chat_container">
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -283,6 +283,6 @@
         android:clipToPadding="false"
         android:numColumns="auto_fit"
         android:layout_alignParentEnd="true"
-        android:layout_above="@+id/friends_in_chat_container"
+        android:layout_above="@id/friends_in_chat_container"
         android:layout_below="@id/search_friends_container" />
 </RelativeLayout>

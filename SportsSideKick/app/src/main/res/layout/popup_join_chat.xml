@@ -179,7 +179,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/chat_top_container"
-        android:layout_above="@+id/bottom_public_chats_container"/>
+        android:layout_above="@id/bottom_public_chats_container"/>
     <RelativeLayout
         android:id="@+id/bottom_public_chats_container"
         android:layout_width="match_parent"

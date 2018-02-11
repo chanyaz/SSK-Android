@@ -228,7 +228,7 @@
             android:id="@+id/chat_friends_in_chat_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/confirm_button"
+            android:layout_above="@id/confirm_button"
             android:background="?chatJoinBackgroundColorRef">
 
             <TextView
@@ -274,7 +274,7 @@
             android:layout_below="@id/chat_search_friends_container"
             android:clipToPadding="false"
             android:numColumns="auto_fit"
-            android:layout_above="@+id/chat_friends_in_chat_container" />
+            android:layout_above="@id/chat_friends_in_chat_container" />
     </RelativeLayout>
 
 

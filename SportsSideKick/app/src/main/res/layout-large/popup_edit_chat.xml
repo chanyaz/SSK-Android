@@ -222,7 +222,7 @@
             android:id="@+id/friends_in_chat_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/confirm_button"
+            android:layout_above="@id/confirm_button"
             android:background="?chatJoinBackgroundColorRef">
 
             <TextView
@@ -251,7 +251,7 @@
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/friends_in_chat_container"
+            android:layout_above="@id/friends_in_chat_container"
             android:layout_below="@id/search_friends_container"
             android:layout_marginEnd="@dimen/margin_20"
             android:layout_marginStart="@dimen/margin_20">
@@ -276,7 +276,7 @@
             android:id="@+id/friends_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/friends_in_chat_container"
+            android:layout_above="@id/friends_in_chat_container"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/search_friends_container"
             android:clipToPadding="false"

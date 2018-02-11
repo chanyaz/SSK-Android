@@ -33,7 +33,7 @@
         android:layout_marginEnd="@dimen/margin_15"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_buttons_container"
+        android:layout_above="@id/bottom_buttons_container"
         android:layout_below="@id/top_split_line">
     </android.support.v7.widget.RecyclerView>
 
