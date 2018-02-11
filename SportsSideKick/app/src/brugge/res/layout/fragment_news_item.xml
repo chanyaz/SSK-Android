@@ -54,14 +54,13 @@
         android:background="@drawable/share_to_wall"
         android:visibility="gone" />
 
-    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/rumours_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/post_container"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/top_buttons_container"
-        app:srl_direction="bottom">
+        android:layout_below="@id/top_buttons_container">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/newsItemScrollView"
@@ -236,14 +235,12 @@
                     android:id="@+id/top_horizontal_split_line"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:layout_below="@id/top_buttons_contaniner"
                     android:background="@android:color/transparent" />
 
                 <TextView
                     android:id="@+id/content_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/top_horizontal_split_line"
                     android:layout_margin="@dimen/margin_15"
                     android:animateLayoutChanges="true"
                     android:maxLines="3"
@@ -368,7 +365,7 @@
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/post_container"

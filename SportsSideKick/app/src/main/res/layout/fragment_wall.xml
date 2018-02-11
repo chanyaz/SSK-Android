@@ -7,13 +7,12 @@
     tools:context=".ui.fragment.content.WallFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
-    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/container"
-        android:descendantFocusability="blocksDescendants"
-        app:srl_direction="bottom">
+        android:descendantFocusability="blocksDescendants">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll"
@@ -258,7 +257,7 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <View
         android:id="@+id/shadow"

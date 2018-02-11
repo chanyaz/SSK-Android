@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -24,8 +25,6 @@ import android.widget.VideoView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
-import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -143,7 +142,7 @@ public class WallItemFragment extends BaseFragment {
     View shareButtonsContainer;
     @Nullable
     @BindView(R.id.swipeRefreshLayout)
-    SwipyRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     CommentsAdapter commentsAdapter;
     WallBase mPost;
@@ -209,9 +208,9 @@ public class WallItemFragment extends BaseFragment {
             }
         });
         if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
-                public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                public void onRefresh() {
                     WallModel.getInstance().getCommentsForPost(mPost, commentsAdapter.getItemCount());
                 }
             });

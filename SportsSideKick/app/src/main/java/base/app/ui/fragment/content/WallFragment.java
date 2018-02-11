@@ -3,6 +3,7 @@ package base.app.ui.fragment.content;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,8 +19,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
-import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -100,7 +99,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     @BindView(R.id.login_holder)
     LinearLayout loginHolder;
     @BindView(R.id.swipeRefreshLayout)
-    SwipyRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     List<WallBase> wallItems;
     private LoginStateReceiver loginStateReceiver;
@@ -125,9 +124,9 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             refreshAdapter();
         }
-        swipeRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+            public void onRefresh() {
                 if(!fetchingPageOfPosts) {
                     fetchingPageOfPosts = true;
                     TaskCompletionSource<List<WallBase>> competition = new TaskCompletionSource<>();

@@ -55,14 +55,13 @@
         android:background="@drawable/share_to_wall"
         android:visibility="gone" />
 
-    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/post_container"
         android:layout_below="@id/top_buttons_container"
-        android:overScrollMode="always"
-        app:srl_direction="bottom">
+        android:overScrollMode="always">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/newsItemScrollView"
@@ -420,7 +419,7 @@
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <include layout="@layout/include_input_field" />
 

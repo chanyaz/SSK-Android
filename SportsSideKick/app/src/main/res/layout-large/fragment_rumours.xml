@@ -14,16 +14,15 @@
         android:elevation="@dimen/elevation_2"
         android:visibility="visible" />
 
-    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+    <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        app:srl_direction="bottom">
+        android:layout_alignParentEnd="true">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_rumors_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </RelativeLayout>
