@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -230,6 +231,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     @BindView(R.id.scrolling_news_title)
     TextView newsLabel;
+    @BindView(R.id.scrollingNewsSwitcher)
+    TextSwitcher scrollingNewsSwitcher;
     @BindView(R.id.caption)
     TextView captionLabel;
 
@@ -275,6 +278,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        scrollingNewsSwitcher.setInAnimation(this, android.R.anim.fade_in);
+        scrollingNewsSwitcher.setOutAnimation(this, android.R.anim.fade_out);
     }
 
     @Override
