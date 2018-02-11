@@ -71,7 +71,7 @@
                 android:measureAllChildren="false"
                 android:layout_toStartOf="@+id/notification_open"
                 android:paddingBottom="@dimen/half_margin"
-                android:paddingRight="8dp">
+                android:paddingEnd="8dp">
 
                 <TextView
                     android:id="@+id/scrolling_news_title"

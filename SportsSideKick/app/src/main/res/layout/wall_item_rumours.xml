@@ -39,8 +39,8 @@
                 android:layout_marginTop="-4dp"
                 android:lineSpacingMultiplier="0.8"
                 android:paddingTop="16dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="16dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
                 tools:text="@string/lorem_ipsum"
                 android:textColor="#1b1c1a"
@@ -55,8 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
-                android:layout_marginRight="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -86,7 +86,7 @@
                 <TextView
                     android:id="@+id/comments_count"
                     android:layout_width="wrap_content"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_height="wrap_content"
                     tools:text="204"
                     android:textSize="@dimen/font_size_10"/>

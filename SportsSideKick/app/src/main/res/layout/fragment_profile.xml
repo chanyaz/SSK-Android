@@ -287,7 +287,7 @@
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_toLeftOf="@id/location_value"
                         android:ellipsize="end"
-                        android:paddingRight="16dp"
+                        android:paddingEnd="16dp"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
                         tools:text="test@test.com" />
@@ -429,7 +429,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/infoDivider"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="16dp" />
 
                     <TextView
@@ -438,7 +438,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/autoTranslateToggle"
                         android:layout_alignBottom="@+id/autoTranslateToggle"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/autoTranslateToggle"
                         android:text="@string/auto_translation"
                         android:textColor="@color/white" />
@@ -449,7 +449,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/autoTranslateToggle"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="4dp" />
+                        android:layout_marginStart="4dp" />
 
                     <TextView
                         android:id="@+id/wallNotificationsLabel"
@@ -457,7 +457,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/wallNotificationsToggle"
                         android:layout_alignBottom="@+id/wallNotificationsToggle"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/wallNotificationsToggle"
                         android:text="@string/notify_wall"
                         android:textColor="@color/white" />
@@ -468,7 +468,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/wallNotificationsToggle"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:tag="News" />
 
                     <TextView
@@ -477,7 +477,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/newsNotificationsToggle"
                         android:layout_alignBottom="@+id/newsNotificationsToggle"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/newsNotificationsToggle"
                         android:text="@string/notify_news"
                         android:textColor="@color/white" />
@@ -488,7 +488,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/newsNotificationsToggle"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:tag="Rumours" />
 
                     <TextView
@@ -497,7 +497,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/rumoursNotificationsToggle"
                         android:layout_alignBottom="@+id/rumoursNotificationsToggle"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/rumoursNotificationsToggle"
                         android:text="@string/notify_rumours"
                         android:textColor="@color/white" />
@@ -508,7 +508,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/rumoursNotificationsToggle"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginStart="4dp"
                         android:tag="Social" />
 
                     <TextView
@@ -517,7 +517,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/socialNotificationsToggle"
                         android:layout_alignBottom="@+id/socialNotificationsToggle"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/socialNotificationsToggle"
                         android:text="@string/notify_social"
                         android:textColor="@color/white" />
