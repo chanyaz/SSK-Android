@@ -183,16 +183,6 @@ public class NewsModel {
                             for (WallNews item : receivedItems) {
                                 item.setPostId("UNOFFICIAL$$$" + item.getPostId());
                             }
-                        } else if (type.equals(NewsType.SOCIAL)) {
-                            for (WallNews item : receivedItems) {
-                                String input = item.getMessage().replaceFirst("\\n", "SPLIT");
-                                String[] parts = input.split("SPLIT");
-
-                                item.setTitle(parts[0]);
-                                item.setStrap(parts[0]);
-                                item.setMessage(parts.length == 2 ? parts[1] : null);
-                                item.setBodyText(parts.length == 2 ? parts[1] : null);
-                            }
                         }
                         saveNewsToCache(receivedItems, type);
 
