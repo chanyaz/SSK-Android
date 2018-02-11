@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,13 +67,12 @@ import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
 import base.app.util.events.notify.NotificationEvent;
 import butterknife.BindView;
-import me.yokeyword.swipebackfragment.SwipeBackActivity;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.checkIfBundlesAreEqual;
 
-public abstract class BaseActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public static final String TAG = "Base Activity";
     public FragmentOrganizer fragmentOrganizer;

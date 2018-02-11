@@ -1,6 +1,7 @@
 package base.app.ui.fragment.base;
 
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -11,7 +12,6 @@ import java.util.List;
 import base.app.data.wall.WallBase;
 import base.app.util.commons.Utility;
 import base.app.util.events.BusEvent;
-import me.yokeyword.swipebackfragment.SwipeBackFragment;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -21,7 +21,7 @@ import me.yokeyword.swipebackfragment.SwipeBackFragment;
  * Base fragment that can cary argument with itself
  */
 
-public abstract class BaseFragment extends SwipeBackFragment {
+public abstract class BaseFragment extends Fragment {
 
     public static final String PRIMARY_ARG_TAG = "PRIMARY_ARG_TAG";
     public static final String SECONDARY_ARG_TAG = "SECONDARY_ARG_TAG";

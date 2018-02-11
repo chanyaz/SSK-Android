@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_70"
     android:layout_margin="@dimen/margin_10">
@@ -10,14 +9,13 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
 
-        <com.github.rongi.rotate_layout.layout.RotateLayout
+        <FrameLayout
             android:id="@+id/step_number_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/step_text_container"
             android:layout_alignParentTop="true"
-            android:background="@drawable/rumour_headers"
-            app:angle="90"> <!-- Specify rotate angle here -->
+            android:background="@drawable/rumour_headers">
 
             <TextView
                 android:id="@+id/step_number"
@@ -30,7 +28,7 @@
                 android:paddingTop="@dimen/padding_8"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary" />
-        </com.github.rongi.rotate_layout.layout.RotateLayout>
+        </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/step_text_container"
