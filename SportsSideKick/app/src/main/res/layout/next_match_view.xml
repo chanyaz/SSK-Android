@@ -62,7 +62,7 @@
             app:autoSizeMinTextSize="20sp"
             app:autoSizeStepGranularity="2sp"
             app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toTopOf="@+id/nextMatchContainer"
+            app:layout_constraintBottom_toTopOf="@id/nextMatchContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
@@ -76,7 +76,7 @@
             android:layout_centerVertical="true"
             android:layout_marginBottom="@dimen/margin_30"
             android:background="@drawable/background_next_match_countdown"
-            app:layout_constraintBottom_toTopOf="@+id/fc_logo"
+            app:layout_constraintBottom_toTopOf="@id/fc_logo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 

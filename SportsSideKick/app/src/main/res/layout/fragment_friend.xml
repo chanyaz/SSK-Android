@@ -35,7 +35,7 @@
         android:background="?colorAccent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/caption"
+        app:layout_constraintTop_toBottomOf="@id/caption"
         tools:layout_constraintTop_creator="1" />
 
     <ImageView
@@ -62,9 +62,9 @@
         android:layout_height="1dp"
 
         android:background="@android:color/black"
-        app:layout_constraintLeft_toLeftOf="@+id/profile_container"
-        app:layout_constraintRight_toRightOf="@+id/profile_container"
-        app:layout_constraintTop_toBottomOf="@+id/profile_container"
+        app:layout_constraintLeft_toLeftOf="@id/profile_container"
+        app:layout_constraintRight_toRightOf="@id/profile_container"
+        app:layout_constraintTop_toBottomOf="@id/profile_container"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
@@ -83,11 +83,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimaryMediumLight"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@id/guideline7"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_split_line"
+        app:layout_constraintTop_toBottomOf="@id/top_split_line"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1">
@@ -112,9 +112,9 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/font_size_10"
             android:textStyle="normal"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="@id/guideline"
+            app:layout_constraintLeft_toLeftOf="@id/guideline5"
             android:layout_marginStart="11dp" />
 
         <RelativeLayout
@@ -124,11 +124,11 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginStart="4dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-            app:layout_constraintRight_toLeftOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintLeft_toLeftOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/guideline"
             app:layout_constraintVertical_bias="0.0">
 
             <ProgressBar
@@ -160,11 +160,11 @@
             android:layout_marginTop="4dp"
             android:scaleType="fitCenter"
             android:src="?profileImageIcon"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-            app:layout_constraintRight_toLeftOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintLeft_toLeftOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/guideline"
             app:layout_constraintVertical_bias="0.0" />
 
 
@@ -215,9 +215,9 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:src="?nextLevelMarkerIcon"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-            app:layout_constraintRight_toLeftOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
+            app:layout_constraintLeft_toLeftOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@id/guideline4"
+            app:layout_constraintTop_toBottomOf="@id/view2" />
 
         <TextView
             android:id="@+id/profile_image_level"
@@ -234,9 +234,9 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_size_10"
             android:textStyle="normal"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-            app:layout_constraintRight_toLeftOf="@+id/guideline4"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
+            app:layout_constraintLeft_toLeftOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/view2" />
 
         <TextView
             android:id="@+id/profile_name"
@@ -253,7 +253,7 @@
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image_level" />
+            app:layout_constraintTop_toBottomOf="@id/profile_image_level" />
 
         <TextView
             android:id="@+id/profile_nick"
@@ -271,7 +271,7 @@
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+            app:layout_constraintTop_toBottomOf="@id/profile_name" />
 
         <View
             android:id="@+id/view2"
@@ -282,10 +282,10 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
             app:layout_constraintHorizontal_bias="0.58"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline3"
-            app:layout_constraintRight_toLeftOf="@+id/guideline4" />
+            app:layout_constraintLeft_toLeftOf="@id/guideline3"
+            app:layout_constraintRight_toLeftOf="@id/guideline4" />
 
         <android.support.constraint.Guideline
             android:layout_width="wrap_content"
@@ -303,10 +303,10 @@
         android:layout_marginEnd="@dimen/margin_16"
         android:layout_marginStart="@dimen/margin_16"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_container"
+        app:layout_constraintTop_toBottomOf="@id/profile_container"
         app:layout_constraintVertical_bias="0.0">
 
         <android.support.constraint.ConstraintLayout
@@ -321,7 +321,7 @@
                 android:layout_height="0dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/oup_chat"
-                app:layout_constraintBottom_toTopOf="@+id/guideline11"
+                app:layout_constraintBottom_toTopOf="@id/guideline11"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -347,7 +347,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline11" />
+                app:layout_constraintTop_toTopOf="@id/guideline11" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
@@ -362,7 +362,7 @@
                 android:layout_height="0dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/oup_videocall"
-                app:layout_constraintBottom_toTopOf="@+id/guideline12"
+                app:layout_constraintBottom_toTopOf="@id/guideline12"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -387,7 +387,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline12" />
+                app:layout_constraintTop_toTopOf="@id/guideline12" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -404,7 +404,7 @@
                 android:layout_height="0dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/oup_more"
-                app:layout_constraintBottom_toTopOf="@+id/guideline14"
+                app:layout_constraintBottom_toTopOf="@id/guideline14"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -429,7 +429,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline14" />
+                app:layout_constraintTop_toTopOf="@id/guideline14" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -466,11 +466,11 @@
         android:id="@+id/common_friends_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintBottom_toTopOf="@id/guideline10"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout2"
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
@@ -517,7 +517,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/common_friends_container"
+        app:layout_constraintTop_toBottomOf="@id/common_friends_container"
         app:layout_constraintVertical_bias="0.0">
 
         <View
@@ -563,11 +563,11 @@
         android:layout_height="0dp"
         android:background="@color/colorPrimaryMediumLight"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintBottom_toTopOf="@id/guideline9"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline8">
+        app:layout_constraintTop_toTopOf="@id/guideline8">
 
         <RelativeLayout
             android:layout_width="0dp"

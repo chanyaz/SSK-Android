@@ -82,8 +82,8 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/space_0"
             android:background="?demo_blue_semitransparent"
-            app:layout_constraintBottom_toTopOf="@+id/preview_container"
-            app:layout_constraintLeft_toRightOf="@+id/slot_3"
+            app:layout_constraintBottom_toTopOf="@id/preview_container"
+            app:layout_constraintLeft_toRightOf="@id/slot_3"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,9 +93,9 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/space_0"
             android:background="?demo_green_semitransparent"
-            app:layout_constraintBottom_toTopOf="@+id/preview_container"
+            app:layout_constraintBottom_toTopOf="@id/preview_container"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/slot_2"
+            app:layout_constraintRight_toLeftOf="@id/slot_2"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -107,17 +107,17 @@
             android:background="?demo_yellow_semitransparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/preview_container"
-            app:layout_constraintTop_toBottomOf="@+id/slot_3" />
+            app:layout_constraintRight_toLeftOf="@id/preview_container"
+            app:layout_constraintTop_toBottomOf="@id/slot_3" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/preview_container"
             android:layout_width="@dimen/space_0"
             android:layout_height="@dimen/space_0"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/slot_4"
+            app:layout_constraintLeft_toRightOf="@id/slot_4"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slot_2">
+            app:layout_constraintTop_toBottomOf="@id/slot_2">
 
             <ImageView
                 android:id="@+id/disabled_video_icon"
@@ -126,7 +126,7 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/video_disabled"
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/preview_user_name_text_view"
+                app:layout_constraintBottom_toTopOf="@id/preview_user_name_text_view"
                 app:layout_constraintDimensionRatio="4.5"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -136,7 +136,7 @@
                 android:id="@+id/preview_video_view"
                 android:layout_width="@dimen/space_0"
                 android:layout_height="@dimen/space_0"
-                app:layout_constraintBottom_toTopOf="@+id/preview_user_name_text_view"
+                app:layout_constraintBottom_toTopOf="@id/preview_user_name_text_view"
                 app:layout_constraintDimensionRatio="1.5"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -153,7 +153,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/preview_video_view" />
+                app:layout_constraintTop_toBottomOf="@id/preview_video_view" />
         </android.support.constraint.ConstraintLayout>
 
 

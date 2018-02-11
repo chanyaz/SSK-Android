@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    app:layout_constraintBottom_toTopOf="@+id/preview_video_view">
+    app:layout_constraintBottom_toTopOf="@id/preview_video_view">
 
     <ProgressBar
         style="?android:attr/progressBarStyle"
@@ -46,7 +46,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/disabled_video_icon"
+        app:layout_constraintBottom_toBottomOf="@id/disabled_video_icon"
          />
 
     <TextView
@@ -61,6 +61,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/video_view" />
+        app:layout_constraintTop_toBottomOf="@id/video_view" />
 
 </android.support.constraint.ConstraintLayout>
