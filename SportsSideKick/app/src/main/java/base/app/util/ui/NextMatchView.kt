@@ -1,13 +1,17 @@
 package base.app.util.ui
 
 import android.content.Context
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Handler
 import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import base.app.R
+import base.app.R.string
 import base.app.data.ticker.NextMatchModel
 import base.app.util.commons.NextMatchCountdown
 import kotlinx.android.synthetic.main.next_match_view.view.*
@@ -50,7 +54,16 @@ class NextMatchView(context: Context, attrs: AttributeSet)
         } else {
             nextMatchContainer.hide()
         }
-        label.text = Html.fromHtml(context.getString(R.string.slogan))
+        showSloganText()
+    }
+
+    private fun showSloganText() {
+        if (VERSION.SDK_INT >= VERSION_CODES.N) {
+            label.text = Html.fromHtml(context.getString(string.slogan), FROM_HTML_MODE_LEGACY)
+        } else {
+            @SuppressWarnings("deprecation")
+            label.text = Html.fromHtml(context.getString(string.slogan))
+        }
     }
 
     private fun updateCountdownTimer(timestamp: Long) {
