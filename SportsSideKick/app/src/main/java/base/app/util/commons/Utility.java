@@ -3,10 +3,12 @@ package base.app.util.commons;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -182,5 +184,10 @@ public class Utility {
         if(imm != null){
             imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
+    }
+
+    public static int dpToPixels(float dp){
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        return (int) (dp * metrics.density);
     }
 }

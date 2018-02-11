@@ -133,15 +133,15 @@ public class WallModel extends GSMessageHandlerAbstract {
         GSData data = new GSData(map);
         GSRequestBuilder.LogEventRequest request;
         if (post.getStrap() != null) {
-            request = createRequest("wallAddSocialPostToWall");
-            request.setEventAttribute(ITEM_TYPE, socialShare.ordinal());
-            request.setEventAttribute(POST_ID, post.getReferencedItemId());
+            request = createRequest("wallAddSocialPostToWall")
+                    .setEventAttribute(ITEM_TYPE, socialShare.ordinal())
+                    .setEventAttribute(POST_ID, "5a21b1e7e8a7928d52ace835");
         } else {
-            request = createRequest("wallPostToWall");
-            request.setEventAttribute(CLUB_ID_TAG, CLUB_ID);
+            request = createRequest("wallPostToWall")
+                    .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                    .setEventAttribute(GSConstants.POST, data);
         }
-        request.setEventAttribute(GSConstants.POST, data)
-                .send(consumer);
+        request.send(consumer);
     }
 
     public Observable<WallPost> createPostAndObserve(final WallBase post) {
@@ -341,7 +341,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         GSData data = new GSData(map);
         String typeParam = post.getType().toString()
                 .replace("newsOfficial", "news")
-                .replace("newsUnofficial", "rumours")                ;
+                .replace("newsUnofficial", "rumours");
         createRequest("wallAddPostComment")
                 .setEventAttribute(GSConstants.COMMENT, data)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
