@@ -214,6 +214,7 @@ public abstract class WallBase implements Shareable, Serializable {
 
     @JsonProperty("timestamp")
     public String getTimestampAsString() {
+        if (timestamp == null) return "";
         return String.valueOf(timestamp.longValue() / 1000) + "." + String.valueOf((int) (timestamp.longValue() % 1000) + "00");
     }
 
