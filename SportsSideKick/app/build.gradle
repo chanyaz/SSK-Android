@@ -46,7 +46,7 @@ android {
         ignoreWarnings true
         quiet true
         lintOptions {
-            disable 'ContentDescription'
+            disable 'ContentDescription', 'KeyboardInaccessibleWidget'
         }
     }
     buildTypes {
