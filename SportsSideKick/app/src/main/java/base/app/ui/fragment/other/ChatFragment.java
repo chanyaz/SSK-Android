@@ -195,6 +195,8 @@ public class ChatFragment extends BaseFragment {
     ImageView Logo;
     @BindView(R.id.backgroundImage)
     ImageView backgroundImage;
+    @BindView(R.id.loginBackgroundImage)
+    ImageView loginBackgroundImage;
     @Nullable
     @BindView(R.id.login_container)
     LinearLayout loginContainer;
@@ -364,6 +366,7 @@ public class ChatFragment extends BaseFragment {
         showLockIconWhenKeyboardClosed(view);
 
         description.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
+        ImageLoader.displayImage(R.drawable.video_chat_background, loginBackgroundImage);
 
         return view;
     }

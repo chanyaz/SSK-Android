@@ -8,6 +8,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -17,6 +18,7 @@ import base.app.data.Model;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,6 +35,8 @@ public class SignUpLoginFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.textView)
     TextView text;
+    @BindView(R.id.backgroundImage)
+    ImageView backgroundImage;
 
     public SignUpLoginFragment() {
         // Required empty public constructor
@@ -45,6 +49,7 @@ public class SignUpLoginFragment extends BaseFragment {
         if (text != null) {
             text.setText(Html.fromHtml(getString(R.string.slogan)));
         }
+        ImageLoader.displayImage(R.drawable.video_chat_background, backgroundImage);
         return view;
     }
 

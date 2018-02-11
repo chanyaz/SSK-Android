@@ -19,7 +19,7 @@
             android:id="@+id/fragment_holder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_menu_recycler_view"/>
+            android:layout_above="@+id/bottom_menu_recycler_view" />
 
         <RelativeLayout
             android:id="@+id/left_top_bar_container"
@@ -50,7 +50,7 @@
                 android:id="@+id/caption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/scrolling_news_title"
+                android:layout_above="@+id/scrollingNewsSwitcher"
                 android:layout_marginBottom="-2dp"
                 android:layout_marginTop="2dp"
                 android:layout_toEndOf="@+id/logo"
@@ -61,23 +61,24 @@
                 android:textStyle="bold" />
 
             <TextSwitcher
+                android:id="@+id/scrollingNewsSwitcher"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/half_margin"
                 android:layout_toEndOf="@+id/logo"
-                android:paddingBottom="@dimen/half_margin"
-                android:paddingRight="8dp"
                 android:layout_toStartOf="@+id/notification_open"
-                android:layout_height="wrap_content">
+                android:paddingBottom="@dimen/half_margin"
+                android:paddingRight="8dp">
 
-            <TextView
-                android:id="@+id/scrolling_news_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="?phoneLoungeTickerColor"
-                android:textSize="@dimen/font_size_10" />
+                <TextView
+                    android:id="@+id/scrolling_news_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="?phoneLoungeTickerColor"
+                    android:textSize="@dimen/font_size_10" />
 
             </TextSwitcher>
 
@@ -187,7 +188,7 @@
                 android:layout_height="match_parent"
                 android:alpha="0.4"
                 android:scaleType="centerCrop"
-                android:src="@drawable/video_chat_background" />
+                tools:src="@drawable/video_chat_background" />
 
             <base.app.util.ui.NextMatchView
                 android:layout_width="match_parent"
@@ -248,11 +249,11 @@
             android:id="@+id/drawer_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="false"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:background="@color/colorGraySemiLight">
+            android:background="@color/colorGraySemiLight"
+            android:clickable="true"
+            android:focusable="false">
 
             <android.support.percent.PercentRelativeLayout
                 android:id="@+id/profile"

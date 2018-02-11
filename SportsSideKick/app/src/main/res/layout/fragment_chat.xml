@@ -405,12 +405,12 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/loginBackgroundImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.9"
             android:scaleType="centerCrop"
-            android:src="@drawable/video_chat_background" />
-
+            tools:src="@drawable/video_chat_background" />
 
         <ImageView
             android:layout_width="match_parent"
