@@ -23,9 +23,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="@dimen/font_size_16"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:textSize="@dimen/font_size_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -49,7 +49,7 @@
             android:id="@+id/image"
             android:layout_width="@dimen/height_70"
             android:layout_height="@dimen/height_70"
-            android:tint="@color/account_creating_tint_selector"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:tint="@color/account_creating_tint_selector" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
