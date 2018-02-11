@@ -54,7 +54,6 @@ import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
 
-import org.apache.commons.io.FilenameUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -84,6 +83,7 @@ import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
+import base.app.util.commons.FilenameUtils;
 import base.app.util.commons.Utility;
 import base.app.util.events.chat.FullScreenImageEvent;
 import base.app.util.events.chat.MessageSelectedEvent;

@@ -100,8 +100,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation "com.github.miguelbcr:RxPaparazzo:0.6.0-2.x"
-    // Apache commons library to extract file name from url for image downloading
-    implementation group: 'commons-io', name: 'commons-io', version: '2.5'
     // VideoView with controls
     implementation 'com.linsea:universalvideoview:1.1.0@aar'
     // Image loader library
