@@ -382,7 +382,7 @@ public class NewsItemFragment extends BaseFragment {
                     pin(rumourShare);
                 } else if (item.getType() == social) {
                     pin(socialShare);
-                }else {
+                } else {
                     pin(newsShare);
                 }
             }
@@ -661,9 +661,12 @@ public class NewsItemFragment extends BaseFragment {
         EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
         String sharingMessage = sharedMessageField.getText().toString();
 
-        WallNews itemToPost = new WallNews();
+        WallBase itemToPost = new WallNews();
         itemToPost.setTimestamp((double) Utility.getCurrentTime());
         itemToPost.setTitle(item.getTitle() != null ? item.getTitle() : item.getMessage());
+        if (type == socialShare) {
+            itemToPost.setStrap(item.getTitle() != null ? item.getTitle() : item.getMessage());
+        }
         itemToPost.setCoverImageUrl(item.getCoverImageUrl() != null ? item.getCoverImageUrl() : item.getImage());
         if (sharingMessage.isEmpty()) {
             itemToPost.setBodyText(item.getBodyText());
@@ -693,7 +696,7 @@ public class NewsItemFragment extends BaseFragment {
             sharedMessageField.requestFocus();
         } else {
             Toast.makeText(getContext(),
-                    "Please login to pin news articles",
+                    "Please login to pin articles",
                     Toast.LENGTH_SHORT).show();
         }
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);

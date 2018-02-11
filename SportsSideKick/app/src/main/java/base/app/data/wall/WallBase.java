@@ -89,6 +89,10 @@ public abstract class WallBase implements Shareable, Serializable {
     private String translatedTo;
     @JsonProperty("message")
     private String message;
+    @JsonProperty("content")
+    private String content;
+    @JsonProperty("strap")
+    private String strap;
 
     private UserInfo poster;
 
@@ -271,7 +275,7 @@ public abstract class WallBase implements Shareable, Serializable {
     }
 
     public String getTitle() {
-        if (message != null) {
+        if (message != null && !message.isEmpty()) {
             return message;
         }
         return title;
@@ -279,6 +283,7 @@ public abstract class WallBase implements Shareable, Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+        this.strap = title;
     }
 
     public String getSubTitle() {
@@ -400,4 +405,24 @@ public abstract class WallBase implements Shareable, Serializable {
         this.coverAspectRatio = item.coverAspectRatio;
     }
 
+    @JsonProperty("content")
+    public void setContent(String content) {
+        this.bodyText = content;
+        this.content = content;
+    }
+
+    @JsonProperty("content")
+    public String getContent() {
+        return content;
+    }
+
+    @JsonProperty("strap")
+    public String getStrap() {
+        return strap;
+    }
+
+    @JsonProperty("strap")
+    public void setStrap(String strap) {
+        // Do nothing, strap is set from the title (above)
+    }
 }

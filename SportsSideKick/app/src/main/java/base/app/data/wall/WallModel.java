@@ -45,7 +45,10 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
+import static base.app.data.GSConstants.ITEM_TYPE;
+import static base.app.data.GSConstants.POST_ID;
 import static base.app.data.Model.createRequest;
+import static base.app.data.wall.WallBase.PostType.socialShare;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -128,9 +131,16 @@ public class WallModel extends GSMessageHandlerAbstract {
         });
         map.put("type", post.getTypeAsInt());
         GSData data = new GSData(map);
-        createRequest("wallPostToWall")
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
-                .setEventAttribute(GSConstants.POST, data)
+        GSRequestBuilder.LogEventRequest request;
+        if (post.getStrap() != null) {
+            request = createRequest("wallAddSocialPostToWall");
+            request.setEventAttribute(ITEM_TYPE, socialShare.ordinal());
+            request.setEventAttribute(POST_ID, post.getReferencedItemId());
+        } else {
+            request = createRequest("wallPostToWall");
+            request.setEventAttribute(CLUB_ID_TAG, CLUB_ID);
+        }
+        request.setEventAttribute(GSConstants.POST, data)
                 .send(consumer);
     }
 

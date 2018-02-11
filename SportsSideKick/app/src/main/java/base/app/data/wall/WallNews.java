@@ -23,10 +23,6 @@ public class WallNews extends WallBase {
     private String url;
     @JsonProperty("source")
     private String source;
-    @JsonProperty("content")
-    private String content;
-    @JsonProperty("strap")
-    private String strap;
     @JsonProperty("image")
     private String image;
 
@@ -73,11 +69,6 @@ public class WallNews extends WallBase {
         postId = id.getOid();
     }
 
-    @JsonProperty("strap")
-    public void setStrap(String strap) {
-        this.subTitle = strap;
-    }
-
     @JsonProperty("pubDate")
     public void setPubDate(Double pubDate) {
         this.timestamp = pubDate;
@@ -87,22 +78,6 @@ public class WallNews extends WallBase {
     public void setImage(String image) {
         this.image = image;
         this.coverImageUrl = image;
-    }
-
-    @JsonProperty("content")
-    public void setContent(String content) {
-        this.bodyText = content;
-        this.content = content;
-    }
-
-    @JsonProperty("content")
-    public String getContent() {
-        return content;
-    }
-
-    @JsonProperty("strap")
-    public String getStrap() {
-        return strap;
     }
 
     @JsonProperty("image")
