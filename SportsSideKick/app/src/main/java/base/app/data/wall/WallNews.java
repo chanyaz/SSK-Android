@@ -29,9 +29,9 @@ public class WallNews extends WallBase {
     @Override
     public void setEqualTo(WallBase item) {
         super.setEqualTo(item);
-        this.vidUrl = ((WallNews)item).vidUrl;
-        this.url = ((WallNews)item).url;
-        this.source = ((WallNews)item).source;
+        this.vidUrl = ((WallNews) item).vidUrl;
+        this.url = ((WallNews) item).url;
+        this.source = ((WallNews) item).source;
     }
 
     @JsonProperty("vidUrl")
@@ -86,8 +86,9 @@ public class WallNews extends WallBase {
     }
 
     @Override
-    public SharingManager.ItemType getItemType(){
-        if (!getSharedComment().replaceAll(" ", "").isEmpty()) {
+    public SharingManager.ItemType getItemType() {
+        if (getSharedComment() != null
+                && !getSharedComment().replaceAll(" ", "").isEmpty()) {
             return SharingManager.ItemType.NewsShare;
         }
         return SharingManager.ItemType.News;

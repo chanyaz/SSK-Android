@@ -217,7 +217,9 @@ public class NewsItemFragment extends BaseFragment {
         showComments(view);
 
         autoHideShowPostButton();
-        autoHideShowShareButton();
+        if (!Model.getInstance().isRealUser()) {
+            inputFieldComment.setEnabled(false);
+        }
 
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -470,21 +472,6 @@ public class NewsItemFragment extends BaseFragment {
         commentsListView.setAdapter(commentsAdapter);
         commentsAdapter.setTranslationView(translationView);
         translationView.setParentView(view);
-    }
-
-    private void autoHideShowShareButton() {
-        if (Model.getInstance().isRealUser()) {
-            if (shareContainer != null) {
-                shareContainer.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        shareButtons.setVisibility(View.VISIBLE);
-                    }
-                });
-            }
-        } else {
-            inputFieldComment.setEnabled(false);
-        }
     }
 
     private void autoHideShowPostButton() {
