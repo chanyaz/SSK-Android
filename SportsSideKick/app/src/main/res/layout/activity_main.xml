@@ -260,6 +260,9 @@
             <android.support.percent.PercentRelativeLayout
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
+                android:foreground="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
