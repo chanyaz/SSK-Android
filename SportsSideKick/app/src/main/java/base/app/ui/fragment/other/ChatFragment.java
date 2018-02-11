@@ -33,7 +33,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
@@ -52,7 +51,6 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.miguelbcr.ui.rx_paparazzo2.entities.FileData;
 import com.miguelbcr.ui.rx_paparazzo2.entities.Response;
-import com.nshmura.snappysmoothscroller.SnappyLinearLayoutManager;
 import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
 
@@ -247,11 +245,7 @@ public class ChatFragment extends BaseFragment {
         messageAdapter.setTranslationView(translationView);
         translationView.setParentView(view);
 
-        SnappyLinearLayoutManager snappyLinearLayoutManager = new SnappyLinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        snappyLinearLayoutManager.setSnapInterpolator(new AccelerateDecelerateInterpolator());
-        snappyLinearLayoutManager.setSnapDuration(1000);
-        snappyLinearLayoutManager.setSeekDuration(1000);
-        messageListView.setLayoutManager(snappyLinearLayoutManager);
+        messageListView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (Utility.isPhone(getActivity()) && ImsManager.getInstance().getUserChatsList().size() == 0) {
             ImsManager.getInstance().reload();
         }

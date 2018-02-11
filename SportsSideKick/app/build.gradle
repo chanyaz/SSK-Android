@@ -95,8 +95,6 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-s3:2.4.2'
     // Circle Progress UI element used for Profile icon
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
-    // Expandable layout used in Join Chat fragment
-    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
     // Permission handling library used around the project for easier handling of permissions
     implementation 'com.github.hotchemi:permissionsdispatcher:3.0.1'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
@@ -109,13 +107,11 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Checkout (Android In-App Billing Library) used for billing
     implementation 'org.solovyev.android:checkout:1.0.0'
-    // SnappySmoothScroller - used for message scrolling
-    implementation 'com.nshmura:snappysmoothscroller:1.0.0'
-    // Java library for working with real-world HTML used for share of content from webview
+    // Parses HTML store items or stats for sharing
     implementation 'org.jsoup:jsoup:1.11.2'
-    // library for monitoring network connectivity, relies on rxJava
+    // Prohibits certain actions when offline
     implementation 'com.keiferstone:nonet:2.0.0'
-    // RxJava
+    // Reactive extensions
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation "com.github.miguelbcr:RxPaparazzo:0.6.0-2.x"
