@@ -132,16 +132,16 @@
 
                                 <android.support.v7.widget.AppCompatImageView
                                     android:id="@+id/likes_icon"
-                                    android:layout_width="@dimen/width_26"
-                                    android:layout_height="@dimen/height_26"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:layout_marginEnd="@dimen/margin_5"
                                     android:background="@drawable/ic_like_count"
                                     app:backgroundTint="@color/white" />
 
                                 <android.support.v7.widget.AppCompatImageView
                                     android:id="@+id/likes_icon_liked"
-                                    android:layout_width="@dimen/width_26"
-                                    android:layout_height="@dimen/height_26"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:layout_marginEnd="@dimen/margin_5"
                                     android:background="@drawable/ic_like_count_liked"
                                     android:visibility="gone"
@@ -169,8 +169,8 @@
 
                                 <android.support.v7.widget.AppCompatImageView
                                     android:id="@+id/share_icon"
-                                    android:layout_width="@dimen/width_26"
-                                    android:layout_height="@dimen/height_26"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:layout_marginEnd="@dimen/margin_5"
                                     android:background="@drawable/ic_share"
                                     app:backgroundTint="@color/white" />
@@ -193,8 +193,8 @@
 
                                 <android.support.v7.widget.AppCompatImageView
                                     android:id="@+id/comments_icon"
-                                    android:layout_width="@dimen/width_26"
-                                    android:layout_height="@dimen/height_26"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:layout_marginEnd="@dimen/margin_5"
                                     android:background="@drawable/ic_comment"
                                     app:backgroundTint="@color/white" />
@@ -220,8 +220,8 @@
 
                                 <android.support.v7.widget.AppCompatImageView
                                     android:id="@+id/pin_icon"
-                                    android:layout_width="@dimen/width_26"
-                                    android:layout_height="@dimen/height_26"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:layout_marginEnd="@dimen/margin_5"
                                     android:background="@drawable/ic_pin"
                                     app:backgroundTint="@color/white" />
