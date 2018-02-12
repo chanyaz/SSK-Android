@@ -45,10 +45,7 @@ import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.GSConstants.ITEM_TYPE;
-import static base.app.data.GSConstants.POST_ID;
 import static base.app.data.Model.createRequest;
-import static base.app.data.wall.WallBase.PostType.socialShare;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -114,6 +111,8 @@ public class WallModel extends GSMessageHandlerAbstract {
      * Posting a new blog on this user wall
      */
     public void createPost(final WallBase post) {
+        boolean isSocial = post.getMessage() != null;
+
         post.setWallId(getCurrentUser().getUserId());
         post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
 
@@ -131,16 +130,9 @@ public class WallModel extends GSMessageHandlerAbstract {
         });
         map.put("type", post.getTypeAsInt());
         GSData data = new GSData(map);
-        GSRequestBuilder.LogEventRequest request;
-        if (post.getStrap() != null) {
-            request = createRequest("wallAddSocialPostToWall")
-                    .setEventAttribute(ITEM_TYPE, socialShare.ordinal())
-                    .setEventAttribute(POST_ID, "5a21b1e7e8a7928d52ace835");
-        } else {
-            request = createRequest("wallPostToWall")
+        GSRequestBuilder.LogEventRequest request = createRequest("wallPostToWall")
                     .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                     .setEventAttribute(GSConstants.POST, data);
-        }
         request.send(consumer);
     }
 
