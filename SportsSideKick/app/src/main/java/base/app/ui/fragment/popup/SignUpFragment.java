@@ -141,7 +141,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.popup_signup, container, false);
+        View view = inflater.inflate(R.layout.fragment_signup, container, false);
         ButterKnife.bind(this, view);
         this.registrationStateReceiver = new RegistrationStateReceiver(this);
 

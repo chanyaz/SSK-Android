@@ -218,13 +218,14 @@
             android:textSize="@dimen/font_size_18" />
 
         <ProgressBar
-        style="?android:attr/progressBarStyle"
             android:id="@+id/login_progress_bar"
+            android:theme="@style/AppTheme.BlackAccent"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="gone"/>
 
     </RelativeLayout>
 
@@ -250,8 +251,8 @@
             android:visibility="visible" />
 
         <ProgressBar
-        style="?android:attr/progressBarStyle"
             android:id="@+id/reset_progress_bar"
+            android:theme="@style/AppTheme.BlackAccent"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"

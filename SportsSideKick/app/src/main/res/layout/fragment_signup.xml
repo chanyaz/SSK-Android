@@ -237,7 +237,7 @@
                 android:textSize="@dimen/font_size_18"/>
 
             <ProgressBar
-                style="?android:attr/progressBarStyle"
+                android:theme="@style/AppTheme.BlackAccent"
                 android:id="@+id/sign_up_progress_bar"
                 android:layout_width="@dimen/prodgres_bar"
                 android:layout_height="@dimen/prodgres_bar"
