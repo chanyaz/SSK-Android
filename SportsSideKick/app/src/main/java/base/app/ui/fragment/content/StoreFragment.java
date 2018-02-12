@@ -39,8 +39,9 @@ import base.app.util.commons.Utility;
 
 public class StoreFragment extends BaseFragment {
 
-    String url;
+    public String mUrl;
     WebView webView;
+    WebViewClient webViewClient;
 
     ImageView backButton;
     ImageView forwardButton;
@@ -55,18 +56,6 @@ public class StoreFragment extends BaseFragment {
 
     public StoreFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        webView.setWebViewClient(null);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        webView.setWebViewClient(webViewClient);
     }
 
     @Override
@@ -100,58 +89,18 @@ public class StoreFragment extends BaseFragment {
         }
     }
 
-    WebViewClient webViewClient = new WebViewClient(){
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-            progressBar.setVisibility(View.VISIBLE);
-            setViewEnabled(false, shareToWallButton);
-        }
-
-        @Override
-        public void onPageFinished(final WebView webView, String url) {
-            webContainer.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
-
-            setViewEnabled(webView.canGoBack(), backButton);
-            setViewEnabled(webView.canGoForward(), forwardButton);
-
-            if (webView.getUrl().equals(getUrl())) {
-                Log.d("WEB VIEW", "Home page!");
-                setViewEnabled(false, homeButton);
-                setViewEnabled(false, shareToWallButton);
-            } else {
-                Log.d("WEB VIEW", "Product page!");
-                setViewEnabled(true, homeButton);
-                if(
-                    url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item2).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item3).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item4).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item5).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item6).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item7).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item8).toLowerCase())
-                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item9).toLowerCase())
-                ){
-                    setViewEnabled(true, shareToWallButton);
-                } else {
-                    setViewEnabled(false, shareToWallButton);
-                }
-                extractDataForWallItem(webView);
-            }
-            Log.d("WEB VIEW", "Loaded successfully!");
-        }
-    };
-
     private void extractDataForWallItem(WebView webView){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Elements imageDiv;
         Elements priceDiv;
         try {
-            doc = Jsoup.connect(url).maxBodySize(0).get();
+            doc = Jsoup.connect(mUrl)
+                    .header("Accept-Encoding", "gzip, deflate")
+                    .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
+                    .maxBodySize(0)
+                    .timeout(600000)
+                    .get();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -185,7 +134,7 @@ public class StoreFragment extends BaseFragment {
             item.setPoster(Model.getInstance().getUserInfo());
             item.setTitle(webView.getTitle());
             item.setSubTitle(price);
-            item.setUrl(url);
+            item.setUrl(mUrl);
             item.setCoverImageUrl(absoluteUrl);
             item.setTimestamp((double) Utility.getCurrentTime());
         }
@@ -193,12 +142,60 @@ public class StoreFragment extends BaseFragment {
 
     @SuppressLint("SetJavaScriptEnabled")
     protected void setupFragment() {
+        WebViewClient webViewClient = new WebViewClient() {
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                progressBar.setVisibility(View.VISIBLE);
+                setViewEnabled(false, shareToWallButton);
+            }
+
+            @Override
+            public void onPageFinished(final WebView webView, String url) {
+                mUrl = url;
+
+                webContainer.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+
+                setViewEnabled(webView.canGoBack(), backButton);
+                setViewEnabled(webView.canGoForward(), forwardButton);
+
+                if (webView.getUrl().equals(getUrl())) {
+                    Log.d("WEB VIEW", "Home page!");
+                    setViewEnabled(false, homeButton);
+                    setViewEnabled(false, shareToWallButton);
+                } else {
+                    Log.d("WEB VIEW", "Product page!");
+                    setViewEnabled(true, homeButton);
+                    if (
+                            url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item2).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item3).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item4).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item5).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item6).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item7).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item8).toLowerCase())
+                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item9).toLowerCase())
+                            ) {
+                        setViewEnabled(true, shareToWallButton);
+                    } else {
+                        setViewEnabled(false, shareToWallButton);
+                    }
+                    extractDataForWallItem(webView);
+                }
+                Log.d("WEB VIEW", "Loaded successfully!");
+            }
+        };
+
+        webView.setWebViewClient(webViewClient);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setBuiltInZoomControls(true);
-        url = getUrl();
+        mUrl = getUrl();
         withNavigation = true;
-        webView.loadUrl(url);
+        webView.loadUrl(mUrl);
     }
 
     @NonNull
@@ -247,7 +244,7 @@ public class StoreFragment extends BaseFragment {
     View.OnClickListener closeButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            webView.loadUrl(url);
+            webView.loadUrl(mUrl);
         }
     };
 }
