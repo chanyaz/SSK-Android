@@ -163,6 +163,8 @@ public class NewsItemFragment extends BaseFragment {
     EditText sharedMessageField;
     @BindView(R.id.pin_container)
     View pinContainer;
+    @BindView(R.id.comments_container)
+    View commentsContainer;
     @BindView(R.id.sharedMessageDivider)
     View sharedMessageDivider;
     @BindView(R.id.sharedMessageAvatar)
@@ -382,6 +384,13 @@ public class NewsItemFragment extends BaseFragment {
                 } else {
                     pin(newsShare);
                 }
+            }
+        });
+        commentsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputFieldComment.requestFocus();
+                Utility.showKeyboard(getContext());
             }
         });
     }

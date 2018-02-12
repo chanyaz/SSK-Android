@@ -112,7 +112,9 @@ public class WallItemFragment extends BaseFragment {
     TextView shareCount;
     @Nullable
     @BindView(R.id.pin_container)
-    LinearLayout pinContainer;
+    View pinContainer;
+    @BindView(R.id.comments_container)
+    View commentsContainer;
     @Nullable
     @BindView(R.id.social_buttons_container)
     View buttonsContainer;
@@ -151,6 +153,8 @@ public class WallItemFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_item, container, false);
         ButterKnife.bind(this, view);
+
+        setClickListeners();
 
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(
                 getContext(), LinearLayoutManager.VERTICAL, false);
@@ -240,6 +244,16 @@ public class WallItemFragment extends BaseFragment {
             imageHeader.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
         return view;
+    }
+
+    private void setClickListeners() {
+        commentsContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                post.requestFocus();
+                Utility.showKeyboard(getContext());
+            }
+        });
     }
 
     private void initializeWithData(boolean fetchComments, WallBase item) {
