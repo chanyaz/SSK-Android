@@ -46,8 +46,13 @@ public class AlertDialogActivity extends AppCompatActivity {
             cancelButton.setVisibility(View.VISIBLE);
             buttonDivider.setVisibility(View.VISIBLE);
         }
-
-        confirmButton.setOnClickListener(AlertDialogManager.getInstance().getConfirmListener());
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialogManager.getInstance().getConfirmListener().onClick(v);
+                finish();
+            }
+        });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

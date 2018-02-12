@@ -392,11 +392,8 @@ public class LoginFragment extends BaseFragment
         AlertDialogManager.getInstance().showAlertDialog(
                 getContext().getResources().getString(R.string.password_reset),
                 getContext().getResources().getString(R.string.reset_check_email),
+                null,
                 new View.OnClickListener() { // Confirm
-                    @Override
-                    public void onClick(View v) {
-                    }
-                }, new View.OnClickListener() { // Confirm
                     @Override
                     public void onClick(View v) {
                         hideForgotUI();
