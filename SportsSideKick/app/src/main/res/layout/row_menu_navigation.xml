@@ -27,7 +27,6 @@
         <TextView
             android:id="@+id/menu_text"
             android:layout_width="match_parent"
-            android:lineSpacingMultiplier="0.8"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textColor="#6a000000"
