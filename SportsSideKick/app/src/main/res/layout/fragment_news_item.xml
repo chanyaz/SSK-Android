@@ -60,6 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/post_container"
+        android:enabled="false"
         android:layout_below="@id/top_buttons_container"
         android:overScrollMode="always">
 
@@ -598,7 +599,6 @@
             android:textSize="20sp" />
 
         <RelativeLayout
-            android:id="@+id/post_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
