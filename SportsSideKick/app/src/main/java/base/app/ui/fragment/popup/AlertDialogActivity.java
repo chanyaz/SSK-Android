@@ -48,6 +48,11 @@ public class AlertDialogActivity extends AppCompatActivity {
         }
 
         confirmButton.setOnClickListener(AlertDialogManager.getInstance().getConfirmListener());
-        cancelButton.setOnClickListener(AlertDialogManager.getInstance().getCancelListener());
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

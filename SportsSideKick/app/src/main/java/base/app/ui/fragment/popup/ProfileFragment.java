@@ -247,7 +247,9 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
     @OnClick(R.id.logout_button)
     public void logoutOnClick() {
-        AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.are_you_sure), getContext().getResources().getString(R.string.logout_from_app),
+        AlertDialogManager.getInstance().showAlertDialog(
+                getContext().getResources().getString(R.string.are_you_sure),
+                getContext().getResources().getString(R.string.logout_from_app),
                 new View.OnClickListener() { // Cancel
                     @Override
                     public void onClick(View v) {
