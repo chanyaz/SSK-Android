@@ -4,8 +4,8 @@ import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.popup.AlertDialogFragment;
+import base.app.ui.fragment.base.ActivityEvent;
+import base.app.ui.fragment.popup.AlertDialogActivity;
 
 /**
  * Created by Nemanja Jovanovic on 29/03/2017.
@@ -62,6 +62,6 @@ public class AlertDialogManager {
         this.content = content;
         this.cancelListener = cancelListener;
         this.confirmListener = confirmListener;
-        EventBus.getDefault().post(new FragmentEvent(AlertDialogFragment.class));
+        EventBus.getDefault().post(new ActivityEvent(AlertDialogActivity.class));
     }
 }

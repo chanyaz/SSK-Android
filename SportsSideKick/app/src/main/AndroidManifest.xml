@@ -69,6 +69,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.fragment.popup.AlertDialogActivity"
+            android:theme="@style/DialogActivity"/>
 
         <!-- ** ** Notifications ** ** -->
         <service android:name=".data.notifications.SskFirebaseMessagingService">

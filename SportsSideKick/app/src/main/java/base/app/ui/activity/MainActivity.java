@@ -1,5 +1,6 @@
 package base.app.ui.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.menu.MenuAdapter;
 import base.app.ui.adapter.menu.SideMenuAdapter;
+import base.app.ui.fragment.base.ActivityEvent;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
@@ -306,6 +308,11 @@ public class MainActivity extends BaseActivity
         fragmentOrganizer.setUpContainer(R.id.radio_holder, radioPlayerList, true);
         // FIXME This will trigger sound?
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+    }
+
+    @Subscribe
+    public void onActivityEvent(ActivityEvent event) {
+        startActivity(new Intent(this, event.getType()));
     }
 
     @Subscribe

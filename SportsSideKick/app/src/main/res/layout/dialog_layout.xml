@@ -10,7 +10,7 @@
         android:layout_width="@dimen/width_360"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:background="?popupBottomBackgroundDarkShapeDialog"
+        android:background="@drawable/popup_bottom_background_dark_dialog"
         android:layout_centerInParent="true">
 
         <TextView
@@ -23,13 +23,13 @@
             android:gravity="center"
             tools:text="Title"
             android:textAllCaps="true"
-            android:textColor="?colorAccent" />
+            android:textColor="@color/colorAccent" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_alignParentTop="true"
-            android:background="?colorAccent" />
+            android:background="@color/colorAccent" />
 
         <TextView
             android:id="@+id/dialog_content"
@@ -42,7 +42,7 @@
             android:layout_marginStart="@dimen/margin_40"
             android:layout_marginTop="@dimen/margin_20"
             android:gravity="center_horizontal"
-            android:textColor="?alertDialogTextColor" />
+            android:textColor="@color/white" />
 
 
         <!-- BOTTOM BUTTONS CONTAINER -->
@@ -60,7 +60,7 @@
                 android:layout_marginBottom="@dimen/margin_20"
                 android:background="?selectableItemBackgroundBorderless"
                 android:scaleType="centerInside"
-                android:src="?popupCancelButtonIcon"
+                android:src="@drawable/popup_cancel_button"
                 android:visibility="visible" />
 
             <View
@@ -77,7 +77,7 @@
                 android:layout_marginBottom="@dimen/margin_20"
                 android:background="?selectableItemBackgroundBorderless"
                 android:scaleType="centerInside"
-                android:src="?popupConfirmationButtonIcon" />
+                android:src="@drawable/popup_confirmation_button" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>
