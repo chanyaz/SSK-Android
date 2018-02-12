@@ -2,6 +2,7 @@ package base.app.data.news;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -182,6 +183,24 @@ public class NewsModel {
 
                             for (WallNews item : receivedItems) {
                                 item.setPostId("UNOFFICIAL$$$" + item.getPostId());
+                            }
+                        } else if (type.equals(NewsType.SOCIAL)) {
+                            for (WallNews item : receivedItems) {
+                                String input = item.getMessage().replaceFirst("\\n", "SPLIT");
+                                String[] parts = input.split("SPLIT");
+
+                                String title = parts[0];
+                                String bodyText = parts.length == 2 ? parts[1] : null;
+                                if (bodyText != null && bodyText.startsWith("\n")) {
+                                    bodyText = bodyText.replaceFirst("\n", "");
+                                }
+                                item.setTitle(title);
+                                item.setStrap(title);
+                                item.setBodyText(bodyText);
+                                item.setMessage(bodyText);
+                                item.setContent(bodyText);
+
+                                Log.d("SocialX", item.getTitle() + "***" + item.getBodyText());
                             }
                         }
                         saveNewsToCache(receivedItems, type);

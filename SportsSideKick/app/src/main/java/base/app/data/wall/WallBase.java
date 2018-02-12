@@ -276,15 +276,11 @@ public abstract class WallBase implements Shareable, Serializable {
     }
 
     public String getTitle() {
-        if (message != null && !message.isEmpty()) {
-            return message;
-        }
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-        this.strap = title;
     }
 
     public String getSubTitle() {
@@ -428,6 +424,6 @@ public abstract class WallBase implements Shareable, Serializable {
 
     @JsonProperty("strap")
     public void setStrap(String strap) {
-        // Do nothing, strap is set from the title (above)
+        this.strap = strap;
     }
 }
