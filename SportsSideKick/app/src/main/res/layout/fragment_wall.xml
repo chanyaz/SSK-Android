@@ -73,7 +73,8 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginBottom="32dp">
 
-                        <RelativeLayout
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:id="@+id/wall_top_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -82,20 +83,21 @@
                             <TextView
                                 android:id="@+id/wall_team_left_name"
                                 fontPath="fonts/TitilliumWeb-SemiBold.ttf"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="-4dp"
+                                android:gravity="end"
+                                android:layout_marginEnd="4dp"
                                 android:maxLength="6"
                                 android:maxLines="1"
                                 android:paddingEnd="@dimen/padding_2"
                                 android:textColor="@color/white"
-                                android:textSize="32sp"
+                                android:textSize="20sp"
                                 android:textStyle="bold" />
 
                             <ImageView
                                 android:id="@+id/wall_team_left_image"
-                                android:layout_width="@dimen/width_70"
+                                android:layout_width="60dp"
                                 android:layout_height="@dimen/height_70"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_left_name" />
@@ -104,17 +106,16 @@
                                 android:id="@+id/wall_team_vs"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/wall_team_left_image"
+                                android:layout_gravity="center"
                                 android:padding="@dimen/padding_8"
                                 android:text="@string/vs"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
-                                tools:visibility="gone" />
+                                tools:visibility="visible" />
 
                             <ImageView
                                 android:id="@+id/wall_team_right_image"
-                                android:layout_width="@dimen/width_70"
+                                android:layout_width="60dp"
                                 android:layout_height="@dimen/height_70"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_vs" />
@@ -122,20 +123,20 @@
                             <TextView
                                 android:id="@+id/wall_team_right_name"
                                 fontPath="fonts/TitilliumWeb-SemiBold.ttf"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="-4dp"
-                                android:layout_toEndOf="@id/wall_team_right_image"
+                                android:gravity="start"
+                                android:layout_marginStart="4dp"
                                 android:maxLength="6"
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:paddingStart="@dimen/padding_2"
                                 android:textColor="@color/white"
-                                android:textSize="32sp"
+                                android:textSize="20sp"
                                 android:textStyle="bold" />
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/wall_team_next_match"
