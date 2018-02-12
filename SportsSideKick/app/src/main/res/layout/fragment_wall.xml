@@ -63,7 +63,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/font_size_36"
                         android:visibility="gone"
-                        tools:visibility="visible" />
+                        tools:visibility="gone" />
 
                     <RelativeLayout
                         android:id="@+id/wall_top_info_container"
@@ -81,6 +81,7 @@
                             android:gravity="center">
 
                             <TextView
+                                tools:text="AST"
                                 android:id="@+id/wall_team_left_name"
                                 fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                                 android:layout_width="0dp"
@@ -98,6 +99,7 @@
                             <ImageView
                                 android:id="@+id/wall_team_left_image"
                                 android:layout_width="60dp"
+                                tools:src="@drawable/sportingportugal"
                                 android:layout_height="@dimen/height_70"
                                 android:layout_centerVertical="true"
                                 android:layout_toEndOf="@id/wall_team_left_name" />
@@ -114,6 +116,7 @@
                                 tools:visibility="visible" />
 
                             <ImageView
+                                tools:src="@drawable/sportingportugal"
                                 android:id="@+id/wall_team_right_image"
                                 android:layout_width="60dp"
                                 android:layout_height="@dimen/height_70"
@@ -128,6 +131,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
                                 android:layout_marginStart="4dp"
+                                tools:text="SCP"
                                 android:maxLength="6"
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
@@ -151,6 +155,7 @@
                         <TextView
                             android:id="@+id/wall_team_time"
                             android:layout_width="wrap_content"
+                            tools:text="Thu 15 Feb - 3 days"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/wall_team_next_match"
                             android:layout_centerHorizontal="true"
