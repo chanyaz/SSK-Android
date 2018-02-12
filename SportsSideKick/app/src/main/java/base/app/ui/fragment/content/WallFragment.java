@@ -259,8 +259,6 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     public void refreshAdapter() {
-        if (wallItems.isEmpty()) return;
-
         adapter.clear();
         Collections.sort(wallItems, new Comparator<WallBase>() {
             @Override
@@ -303,7 +301,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     private void loadWallItemsPage(final boolean withSpinner, final TaskCompletionSource<List<WallBase>> completion){
-        if(withSpinner && wallItems.isEmpty()){
+        if(withSpinner){
             swipeRefreshLayout.setRefreshing(true);
         }
         TaskCompletionSource<List<WallBase>> getWallPostCompletion = new TaskCompletionSource<>();
