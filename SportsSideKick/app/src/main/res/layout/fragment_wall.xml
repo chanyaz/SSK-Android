@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/container"
-        android:descendantFocusability="blocksDescendants">
+        android:descendantFocusability="blocksDescendants"
+        android:enabled="false">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll"
@@ -40,8 +41,8 @@
                     <ImageView
                         android:id="@+id/wall_top_image"
                         android:layout_width="match_parent"
-                        android:background="#446600"
                         android:layout_height="240dp"
+                        android:background="#446600"
                         android:scaleType="centerCrop"
                         tools:src="@drawable/image_wall_background" />
 
@@ -75,35 +76,35 @@
                         android:layout_marginBottom="32dp">
 
                         <LinearLayout
-                            android:orientation="horizontal"
                             android:id="@+id/wall_top_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
                             <TextView
-                                tools:text="AST"
                                 android:id="@+id/wall_team_left_name"
                                 fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:gravity="end"
                                 android:layout_marginEnd="4dp"
+                                android:layout_weight="1"
+                                android:gravity="end"
                                 android:maxLength="6"
                                 android:maxLines="1"
                                 android:paddingEnd="@dimen/padding_2"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="AST" />
 
                             <ImageView
                                 android:id="@+id/wall_team_left_image"
                                 android:layout_width="60dp"
-                                tools:src="@drawable/sportingportugal"
                                 android:layout_height="@dimen/height_70"
                                 android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/wall_team_left_name" />
+                                android:layout_toEndOf="@id/wall_team_left_name"
+                                tools:src="@drawable/sportingportugal" />
 
                             <TextView
                                 android:id="@+id/wall_team_vs"
@@ -117,29 +118,29 @@
                                 tools:visibility="visible" />
 
                             <ImageView
-                                tools:src="@drawable/sportingportugal"
                                 android:id="@+id/wall_team_right_image"
                                 android:layout_width="60dp"
                                 android:layout_height="@dimen/height_70"
                                 android:layout_centerVertical="true"
-                                android:layout_toEndOf="@id/wall_team_vs" />
+                                android:layout_toEndOf="@id/wall_team_vs"
+                                tools:src="@drawable/sportingportugal" />
 
                             <TextView
                                 android:id="@+id/wall_team_right_name"
                                 fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                                 android:layout_width="0dp"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:gravity="start"
                                 android:layout_marginStart="4dp"
-                                tools:text="SCP"
+                                android:layout_weight="1"
+                                android:gravity="start"
                                 android:maxLength="6"
                                 android:maxLines="1"
                                 android:padding="@dimen/padding_8"
                                 android:paddingStart="@dimen/padding_2"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="SCP" />
 
                         </LinearLayout>
 
@@ -156,11 +157,11 @@
                         <TextView
                             android:id="@+id/wall_team_time"
                             android:layout_width="wrap_content"
-                            tools:text="Thu 15 Feb - 3 days"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/wall_team_next_match"
                             android:layout_centerHorizontal="true"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            tools:text="Thu 15 Feb - 3 days" />
                     </RelativeLayout>
 
                 </RelativeLayout>
