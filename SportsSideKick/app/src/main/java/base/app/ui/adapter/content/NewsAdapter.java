@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.TaskCompletionSource;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,6 @@ import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-
 
 public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
@@ -128,11 +128,24 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public void add(int position, WallNews model) {
         values.add(position, model);
+        notifyItemInserted(position);
     }
 
     public void remove(int position) {
         if (values.get(position) != null) {
             values.remove(position);
+            notifyItemRemoved(position);
         }
+    }
+
+    public void remove(WallNews item) {
+        int deletedFromPosition = values.indexOf(item);
+        values.remove(item);
+        notifyItemRemoved(deletedFromPosition);
+    }
+
+    public void addAll(@NotNull List<? extends WallNews> items) {
+        values.addAll(items);
+        notifyItemRangeInserted(0, items.size());
     }
 }

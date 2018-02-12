@@ -120,6 +120,8 @@ dependencies {
     implementation 'com.twilio:video-android:1.3.0'
     // Checkout (Android In-App Billing Library) used for billing
     implementation 'org.solovyev.android:checkout:1.0.0'
+    // List animations
+    implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
 
 
     // *** Replaceable with Kotlin or RxJava, deprecated libraries

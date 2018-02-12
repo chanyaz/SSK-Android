@@ -40,6 +40,7 @@
                     <ImageView
                         android:id="@+id/wall_top_image"
                         android:layout_width="match_parent"
+                        android:background="#446600"
                         android:layout_height="240dp"
                         android:scaleType="centerCrop"
                         tools:src="@drawable/image_wall_background" />

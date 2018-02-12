@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -62,6 +63,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * Created by Filip on 12/5/2016.
@@ -122,6 +124,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         if (recyclerView != null) {
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
             refreshAdapter();
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -268,7 +271,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
             }
         });
         adapter.addAll(wallItems);
-        adapter.notifyDataSetChanged();
+        adapter.notifyItemRangeChanged(0, wallItems.size());
     }
 
     @Subscribe
