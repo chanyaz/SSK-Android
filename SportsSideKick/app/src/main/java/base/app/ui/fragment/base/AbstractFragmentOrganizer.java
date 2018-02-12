@@ -158,7 +158,7 @@ abstract class AbstractFragmentOrganizer {
         String fragmentTag = createFragmentTag(fragment, true);
         transaction.addToBackStack(fragmentTag);
         transaction.replace(containerId, fragment, fragmentTag);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
 
         return fragmentTag;
     }

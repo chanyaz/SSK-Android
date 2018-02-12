@@ -262,7 +262,12 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     public void refreshAdapter() {
+        if (wallItems.isEmpty()) return;
+
+        int removedItemCount = adapter.getItemCount();
         adapter.clear();
+        adapter.notifyItemRangeRemoved(0, removedItemCount);
+
         Collections.sort(wallItems, new Comparator<WallBase>() {
             @Override
             public int compare(WallBase t1, WallBase t2) {

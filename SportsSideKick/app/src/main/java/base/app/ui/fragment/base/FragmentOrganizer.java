@@ -88,7 +88,11 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         if (getCurrentFragment().getClass().equals(initialFragment)) {
             return false;
         }
-        fragmentManager.popBackStack();
+        try {
+            fragmentManager.popBackStack();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
         Fragment fragment = getPreviousFragment();
         for (int i = 0; i < Constant.PHONE_MENU_OPTIONS.size(); i++) {
             if (fragment.getClass().equals(Constant.PHONE_MENU_OPTIONS.get(i))) {
