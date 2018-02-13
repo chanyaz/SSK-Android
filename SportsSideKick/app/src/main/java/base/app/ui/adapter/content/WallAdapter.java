@@ -317,8 +317,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case newsShare:
                 case rumourShare:
                 case socialShare:
-                    WallNews news = (WallNews) item;
-                    displayUserInfo(news, holder);
+                    WallNews news = (WallNews) item.getReferencedItem();
+                    displayUserInfo(item, holder);
                     displayCaption(news.getTitle(), holder);
                     displayPostImage(news, holder);
                     displayCommentsAndLikes(news, holder);
