@@ -52,6 +52,7 @@ import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentDeleteEvent;
+import base.app.util.events.comment.CommentSelectedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
@@ -538,18 +539,29 @@ public class NewsItemFragment extends BaseFragment {
     @OnClick(R.id.post_comment_button)
     public void postComment() {
         if (Model.getInstance().isRealUser()) {
-            PostComment comment = new PostComment();
-            comment.setComment(inputFieldComment.getText().toString());
-            comment.setPosterId(new Id(Model.getInstance().getUserInfo().getUserId()));
-            comment.setWallId(item.getWallId());
-            comment.setPostId(item.getPostId());
-            comment.setTimestamp((double) (getCurrentTime() / 1000));
-            WallModel.getInstance().postComment(comment, item);
-            inputFieldComment.getText().clear();
-            postCommentProgressBar.setVisibility(View.VISIBLE);
+            if (commentForEdit == null) {
+                PostComment comment = new PostComment();
+                comment.setComment(inputFieldComment.getText().toString());
+                comment.setPosterId(new Id(Model.getInstance().getUserInfo().getUserId()));
+                comment.setWallId(item.getWallId());
+                comment.setPostId(item.getPostId());
+                comment.setTimestamp((double) (getCurrentTime() / 1000));
+                WallModel.getInstance().postComment(comment, item);
+                inputFieldComment.getText().clear();
+                postCommentProgressBar.setVisibility(View.VISIBLE);
+            } else {
+                updateComment();
+            }
         } else {
             Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void updateComment() {
+        commentForEdit.setComment(inputFieldComment.getText().toString());
+        WallModel.getInstance().postComment(commentForEdit, item);
+        inputFieldComment.getText().clear();
+        postCommentProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Subscribe
@@ -788,5 +800,13 @@ public class NewsItemFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         translationView.setVisibility(View.GONE);
+    }
+
+    PostComment commentForEdit;
+
+    @Subscribe
+    public void setCommentForEdit(CommentSelectedEvent event) {
+        this.commentForEdit = event.getSelectedComment();
+        inputFieldComment.setText(commentForEdit.getComment());
     }
 }

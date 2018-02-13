@@ -268,10 +268,10 @@ public class WallItemFragment extends BaseFragment {
                         R.drawable.wall_detail_header_placeholder);
                 title.setText(post.getTitle());
                 content.setText(post.getBodyText());
-                if (post instanceof WallPost && ((WallPost)post).getVidUrl() != null) {
+                if (post instanceof WallPost && ((WallPost) post).getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
                     imageHeader.setVisibility(View.GONE);
-                    videoView.setVideoURI(Uri.parse(((WallPost)post).getVidUrl()));
+                    videoView.setVideoURI(Uri.parse(((WallPost) post).getVidUrl()));
                     videoView.start();
                 }
                 postContainer.setVisibility(View.VISIBLE);
@@ -352,10 +352,14 @@ public class WallItemFragment extends BaseFragment {
 
     @OnClick(R.id.post_comment_button)
     public void postComment() {
-        if (commentForEdit == null) {
-            sendComment();
+        if (Model.getInstance().isRealUser()) {
+            if (commentForEdit == null) {
+                sendComment();
+            } else {
+                updateComment();
+            }
         } else {
-            updateComment();
+            Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
         }
     }
 
