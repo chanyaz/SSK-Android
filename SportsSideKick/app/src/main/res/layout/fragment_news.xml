@@ -10,7 +10,8 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:enabled="false">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll"
@@ -27,8 +28,8 @@
                     android:id="@+id/topImage"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:scaleType="centerCrop"
                     android:background="#446600"
+                    android:scaleType="centerCrop"
                     tools:src="@drawable/image_wall_background" />
 
                 <TextView
