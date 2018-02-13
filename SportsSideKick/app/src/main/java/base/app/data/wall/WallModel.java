@@ -362,17 +362,18 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
-    public void deletePostComment(PostComment comment, int postType) {
+    public void deletePostComment(final PostComment comment, int postType) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                source.setResult(null);
+                EventBus.getDefault().post(new CommentDeleteEvent(comment));
             }
         };
         Map<String, Object> map = mapper.convertValue(comment, new TypeReference<Map<String, Object>>() {
         });
         GSData data = new GSData(map);
+        data.getBaseData().put("_id", comment.getId().getOid());
         createRequest("wallDeletePostComment")
                 .setEventAttribute(GSConstants.COMMENT, data)
                 .setEventAttribute("type", postType)
@@ -556,7 +557,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object deletedCommentObject = data.get(GSConstants.COMMENT);
                         PostComment deletedComment = mapper.convertValue(deletedCommentObject, new TypeReference<PostComment>() {
                         });
-                        CommentDeleteEvent deleteCommentEvent = new CommentDeleteEvent(post, deletedComment);
+                        CommentDeleteEvent deleteCommentEvent = new CommentDeleteEvent(deletedComment);
                         EventBus.getDefault().post(deleteCommentEvent);
                         break;
                     case GSConstants.OPERATION_UPDATE_COMMENT:

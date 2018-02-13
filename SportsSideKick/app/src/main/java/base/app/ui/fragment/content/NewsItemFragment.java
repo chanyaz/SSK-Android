@@ -567,18 +567,11 @@ public class NewsItemFragment extends BaseFragment {
 
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
-        WallBase wallItem = event.getPost();
-        if (wallItem != null) {
-            if (wallItem.getWallId().equals(item.getWallId()) && wallItem.getPostId().equals(item.getPostId())) {
-                PostComment commentToDelete = null;
-                PostComment deletedComment = event.getComment();
-                for (PostComment comment : comments) {
-                    if (comment.getId().equals(deletedComment.getId())) {
-                        commentToDelete = comment;
-                    }
-                }
-                if (commentToDelete != null) {
-                    comments.remove(commentToDelete);
+        PostComment deletedComment = event.getComment();
+        if (deletedComment.getPostId().equals(item.getPostId())) {
+            for (PostComment comment : commentsAdapter.getComments()) {
+                if (comment.getId().getOid().equals(deletedComment.getId().getOid())) {
+                    commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
                 }
             }

@@ -456,11 +456,11 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onDeleteComment(CommentDeleteEvent event) {
-        if (event.getPost().getWallId().equals(mPost.getWallId())) {
+        if (event.getComment().getWallId().equals(mPost.getWallId())) {
             PostComment commentToDelete = event.getComment();
 
             for (PostComment comment : commentsAdapter.getComments()) {
-                if (comment.getId().equals(commentToDelete.getId())) {
+                if (comment.getId().getOid().equals(commentToDelete.getId().getOid())) {
                     commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
 
