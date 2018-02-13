@@ -572,7 +572,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <View
             android:id="@+id/blurredContainer"
@@ -585,7 +585,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="48dp"
             android:layout_height="56dp"
-            android:layout_above="@id/post_container"
+            android:layout_above="@id/previewInputContainer"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
@@ -594,7 +594,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/post_container"
+            android:layout_above="@id/previewInputContainer"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
             android:text="@string/post"
@@ -603,6 +603,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:id="@+id/previewInputContainer"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 

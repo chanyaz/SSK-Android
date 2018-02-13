@@ -93,8 +93,14 @@ public abstract class WallBase implements Shareable, Serializable {
     private String content;
     @JsonProperty("strap")
     private String strap;
+    @JsonProperty("referencedItem")
+    private WallNews referencedItem;
 
     private UserInfo poster;
+
+    public WallBase getReferencedItem() {
+        return referencedItem;
+    }
 
     public UserInfo getPoster() {
         return poster;
