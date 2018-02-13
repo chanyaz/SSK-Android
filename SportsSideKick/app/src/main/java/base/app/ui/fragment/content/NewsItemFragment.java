@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -400,6 +399,12 @@ public class NewsItemFragment extends BaseFragment {
                 Utility.showKeyboard(getContext());
             }
         });
+        commentInputOverlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commentInputOverlay.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void showCommentsLikesCount() {
@@ -453,9 +458,9 @@ public class NewsItemFragment extends BaseFragment {
     }
 
     private void showSharingPreviewImage() {
-        Glide.with(getContext())
-                .load(item.getCoverImageUrl())
-                .into(image);
+        ImageLoader.displayImage(item.getCoverImageUrl(),
+                image,
+                R.drawable.wall_detail_header_placeholder);
     }
 
     private void showTextContent(WallNews item) {

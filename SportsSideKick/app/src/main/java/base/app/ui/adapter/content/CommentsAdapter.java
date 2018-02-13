@@ -166,7 +166,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        WallModel.getInstance().deletePostComment(comment, postType);
+                        WallModel.getInstance().deleteComment(comment, postType);
                     }
                 });
             }

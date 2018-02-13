@@ -362,12 +362,14 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
-    public void deletePostComment(final PostComment comment, int postType) {
+    public void deleteComment(final PostComment comment, int postType) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                EventBus.getDefault().post(new CommentDeleteEvent(comment));
+                if (!response.hasErrors()) {
+                    EventBus.getDefault().post(new CommentDeleteEvent(comment));
+                }
             }
         };
         Map<String, Object> map = mapper.convertValue(comment, new TypeReference<Map<String, Object>>() {
