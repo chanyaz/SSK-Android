@@ -122,7 +122,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase postFromServer = WallBase.postFactory(object, mapper, true);
-                    EventBus.getDefault().post(new ItemUpdateEvent(post));
+                    EventBus.getDefault().post(new ItemUpdateEvent(postFromServer));
                 }
             }
         };
