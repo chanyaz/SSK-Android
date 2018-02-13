@@ -669,6 +669,7 @@ public class NewsItemFragment extends BaseFragment {
             itemToPost.setReferencedItemId(item.getPostId());
             itemToPost.setSharedComment(sharingMessage);
         }
+        itemToPost.setReferencedItem(item);
         WallModel.getInstance().createPost(itemToPost);
 
         if (getActivity() != null) {

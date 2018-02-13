@@ -102,6 +102,10 @@ public abstract class WallBase implements Shareable, Serializable {
         return referencedItem;
     }
 
+    public void setReferencedItem(WallNews referencedItem) {
+        this.referencedItem = referencedItem;
+    }
+
     public UserInfo getPoster() {
         return poster;
     }

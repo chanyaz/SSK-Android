@@ -317,13 +317,14 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case newsShare:
                 case rumourShare:
                 case socialShare:
-                    WallNews news = (WallNews) item.getReferencedItem();
+                    WallNews referencedItem = (WallNews) item.getReferencedItem();
+                    if (referencedItem == null || referencedItem.getTitle() == null) return; // todo remove this line
                     displayUserInfo(item, holder);
-                    displayCaption(news.getTitle(), holder);
-                    displayPostImage(news, holder);
-                    displayCommentsAndLikes(news, holder);
-                    if (news.hasSharedComment()) {
-                        holder.textComment.setText(news.getSharedComment());
+                    displayCaption(referencedItem.getTitle(), holder);
+                    displayPostImage(referencedItem, holder);
+                    displayCommentsAndLikes(referencedItem, holder);
+                    if (referencedItem.hasSharedComment()) {
+                        holder.textComment.setText(referencedItem.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
                         holder.userImage.setVisibility(View.GONE);
                     } else {
@@ -331,7 +332,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                         holder.userImage.setVisibility(View.VISIBLE);
                     }
                     if (holder.playButton != null) {
-                        holder.playButton.setVisibility(TextUtils.isEmpty(news.getVidUrl()) ? View.GONE : View.VISIBLE);
+                        holder.playButton.setVisibility(TextUtils.isEmpty(referencedItem.getVidUrl()) ? View.GONE : View.VISIBLE);
                     }
                     break;
                 case rumor:

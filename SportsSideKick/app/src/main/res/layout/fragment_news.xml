@@ -27,7 +27,7 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/topImage"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="240dp"
                     android:background="#446600"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/image_wall_background" />
@@ -55,6 +55,7 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="-8dp"
                     android:layout_height="match_parent"
                     android:layout_below="@id/topImage"
                     android:clipToPadding="false"
