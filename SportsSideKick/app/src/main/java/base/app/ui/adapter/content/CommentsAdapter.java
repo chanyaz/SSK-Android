@@ -152,7 +152,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
 
         // check if this comment belongs to this user
         if (Model.getInstance().getUserInfo() != null) {
-            if (Model.getInstance().getUserInfo().getUserId().equals(comment.getPosterId())) {
+            if (Model.getInstance().getUserInfo().getUserId().equals(comment.getPosterId().getOid())) {
                 holder.edit.setVisibility(View.VISIBLE);
                 holder.delete.setVisibility(View.VISIBLE);
                 holder.edit.setOnClickListener(new View.OnClickListener() {

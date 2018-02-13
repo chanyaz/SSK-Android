@@ -143,7 +143,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
                 }
             }
         });
-        swipeRefreshLayout.setProgressViewOffset(false, 0, Utility.dpToPixels(240));
+        swipeRefreshLayout.setProgressViewOffset(false, 0, Utility.dpToPixels(248));
         if (wallItems.size() > 0) {
             swipeRefreshLayout.setRefreshing(false);
         }
