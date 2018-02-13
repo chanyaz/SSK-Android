@@ -482,7 +482,7 @@ public class NewsItemFragment extends BaseFragment {
         LinearLayoutManager commentLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         comments = new ArrayList<>();
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", getActivity().getPackageName());
-        commentsAdapter = new CommentsAdapter(imgUri);
+        commentsAdapter = new CommentsAdapter(imgUri, item.getTypeAsInt());
         commentsListView.setLayoutManager(commentLayoutManager);
         commentsListView.setAdapter(commentsAdapter);
         commentsAdapter.setTranslationView(translationView);

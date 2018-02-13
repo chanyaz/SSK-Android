@@ -28,7 +28,7 @@
                     android:id="@+id/topImage"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
-                    android:background="#446600"
+                    android:background="@color/colorPrimaryVeryLight"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/image_wall_background" />
 

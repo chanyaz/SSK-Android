@@ -362,7 +362,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
-    public void deletePostComment(PostComment comment) {
+    public void deletePostComment(PostComment comment, int postType) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -375,6 +375,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         GSData data = new GSData(map);
         createRequest("wallDeletePostComment")
                 .setEventAttribute(GSConstants.COMMENT, data)
+                .setEventAttribute("type", postType)
                 .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
                 .send(consumer);
         source.getTask();

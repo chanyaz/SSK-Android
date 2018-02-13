@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHolder> {
 
     private List<PostComment> comments;
+    private final int postType;
 
     private TranslationView translationView;
     private List<PostComment> translatedComments;
@@ -80,7 +81,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     }
 
 
-    public CommentsAdapter(String defaultImageForUserUrl) {
+    public CommentsAdapter(String defaultImageForUserUrl, int postType) {
+        this.postType = postType;
         comments = new ArrayList<>();
         this.defaultImageForUserUrl = defaultImageForUserUrl;
         translatedComments = new ArrayList<>();
@@ -164,7 +166,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        WallModel.getInstance().deletePostComment(comment);
+                        WallModel.getInstance().deletePostComment(comment, postType);
                     }
                 });
             }
