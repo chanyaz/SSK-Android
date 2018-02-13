@@ -199,8 +199,6 @@ public class NewsModel {
                                 item.setBodyText(bodyText);
                                 item.setMessage(bodyText);
                                 item.setContent(bodyText);
-
-                                Log.d("SocialX", item.getTitle() + "***" + item.getBodyText());
                             }
                         }
                         saveNewsToCache(receivedItems, type);

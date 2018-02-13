@@ -34,6 +34,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.Id;
 import base.app.data.Model;
@@ -245,6 +246,11 @@ public class NewsItemFragment extends BaseFragment {
             setSharedMessageBarVisible(false);
         }
         autoTranslateIfNeeded();
+
+        if (BuildConfig.DEBUG) {
+            EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
+            sharedMessageField.setText("Check this out!");
+        }
 
         return view;
     }

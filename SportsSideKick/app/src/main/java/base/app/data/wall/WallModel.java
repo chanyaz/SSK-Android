@@ -111,7 +111,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * Posting a new blog on this user wall
      */
     public void createPost(final WallBase post) {
-        boolean isSocial = post.getMessage() != null;
+        final boolean isSocial = post.getMessage() != null;
 
         post.setWallId(getCurrentUser().getUserId());
         post.setPostId(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10));
@@ -122,6 +122,27 @@ public class WallModel extends GSMessageHandlerAbstract {
                 if (!response.hasErrors()) {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase postFromServer = WallBase.postFactory(object, mapper, true);
+
+                    if (isSocial) {
+                        WallBase referencedItem = postFromServer.getReferencedItem();
+
+                        String input = postFromServer.getMessage().replaceFirst("\\n", "SPLIT");
+                        String[] parts = input.split("SPLIT");
+
+                        String title = parts[0];
+                        String bodyText = parts.length == 2 ? parts[1] : null;
+                        if (bodyText != null && bodyText.startsWith("\n")) {
+                            bodyText = bodyText.replaceFirst("\n", "");
+                        }
+                        referencedItem.setTitle(title);
+                        referencedItem.setStrap(title);
+                        referencedItem.setBodyText(bodyText);
+                        referencedItem.setMessage(bodyText);
+                        referencedItem.setContent(bodyText);
+
+                        postFromServer.setReferencedItem((WallNews) referencedItem);
+                    }
+
                     EventBus.getDefault().post(new ItemUpdateEvent(postFromServer));
                 }
             }

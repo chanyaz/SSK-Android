@@ -318,13 +318,14 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 case rumourShare:
                 case socialShare:
                     WallNews referencedItem = (WallNews) item.getReferencedItem();
-                    if (referencedItem == null || referencedItem.getTitle() == null) return; // todo remove this line
+                    if (referencedItem == null) return; // todo remove this line
                     displayUserInfo(item, holder);
-                    displayCaption(referencedItem.getTitle(), holder);
+                    displayCaption(referencedItem.getTitle() != null
+                            ? referencedItem.getTitle() : referencedItem.getMessage(), holder);
                     displayPostImage(referencedItem, holder);
                     displayCommentsAndLikes(referencedItem, holder);
-                    if (referencedItem.hasSharedComment()) {
-                        holder.textComment.setText(referencedItem.getSharedComment());
+                    if (item.hasSharedComment()) {
+                        holder.textComment.setText(item.getSharedComment());
                         holder.commentContainer.setVisibility(View.VISIBLE);
                         holder.userImage.setVisibility(View.GONE);
                     } else {
