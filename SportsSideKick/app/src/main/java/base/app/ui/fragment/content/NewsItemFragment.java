@@ -198,8 +198,6 @@ public class NewsItemFragment extends BaseFragment {
                 false);
         ButterKnife.bind(this, view);
 
-        setClickListeners();
-
         String id = getPrimaryArgument();
         if (getSecondaryArgument() != null && getSecondaryArgument().contains("UNOFFICIAL$$$")) {
             id = "UNOFFICIAL$$$" + id;
@@ -208,6 +206,13 @@ public class NewsItemFragment extends BaseFragment {
 
         item = loadFromCacheBy(id);
         if (item == null) return view;
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setClickListeners();
 
         showHeaderImage();
         showTextContent(item);
@@ -252,8 +257,6 @@ public class NewsItemFragment extends BaseFragment {
             sharedMessageField.setText("Check this out!");
             inputFieldComment.setText("Test");
         }
-
-        return view;
     }
 
     private void autoTranslateIfNeeded() {
@@ -466,8 +469,10 @@ public class NewsItemFragment extends BaseFragment {
 
     private void showTextContent(WallNews item) {
         title.setText(item.getTitle());
-        content.setText(item.getContent());
         textContent.setText(item.getTitle());
+        content.setText(item.getContent());
+
+        hideReadMoreIfShort();
     }
 
     private void showSharingAvatar() {
@@ -805,6 +810,20 @@ public class NewsItemFragment extends BaseFragment {
 
     private void updateWithTranslatedPost(WallNews translatedNews) {
         showTextContent(translatedNews);
+    }
+
+    protected void hideReadMoreIfShort() {
+        content.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                boolean isNotEllipsized = ((content.getLayout().getText().toString()).equalsIgnoreCase(item.getContent()));
+                if (isNotEllipsized && content.getMaxLines() == 3) {
+                    getView().findViewById(R.id.read_more_text).setVisibility(View.GONE);
+                } else {
+                    getView().findViewById(R.id.read_more_text).setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
