@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "1002169908067",
+    "firebase_url": "https://sportssidekick-c8151.firebaseio.com",
+    "project_id": "sportssidekick-c8151",
+    "storage_bucket": "sportssidekick-c8151.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002169908067:android:76d3bb92b975649f",
+        "android_client_info": {
+          "package_name": "tv.sportssidekick.brugge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002169908067-s77krnqeqhs41ci8rlp1ght3shv32mj7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tv.sportssidekick.brugge",
+            "certificate_hash": "ee9d43891c4555de3dfb6bd82ec49f2d9bd19186"
+          }
+        },
+        {
+          "client_id": "1002169908067-4qljaluta8v78m1l6laf8kghos6efqag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCi45zvQmxGjxXbrkNOG750FuTHZmUIi4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002169908067-4qljaluta8v78m1l6laf8kghos6efqag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002169908067:android:289387bea0b5d744",
+        "android_client_info": {
+          "package_name": "tv.sportssidekick.sportssidekick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002169908067-1daf8np63mefb5hgl3mq19s7gpn0ljq9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tv.sportssidekick.sportssidekick",
+            "certificate_hash": "ee9d43891c4555de3dfb6bd82ec49f2d9bd19186"
+          }
+        },
+        {
+          "client_id": "1002169908067-4qljaluta8v78m1l6laf8kghos6efqag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCi45zvQmxGjxXbrkNOG750FuTHZmUIi4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002169908067-4qljaluta8v78m1l6laf8kghos6efqag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
