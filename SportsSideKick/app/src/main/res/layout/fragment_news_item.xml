@@ -276,6 +276,7 @@
                     android:layout_marginTop="@dimen/margin_5"
                     android:animateLayoutChanges="true"
                     android:autoLink="all"
+                    android:ellipsize="end"
                     android:lineSpacingMultiplier="0.9"
                     android:maxLines="3"
                     android:textColor="@color/black"
@@ -574,7 +575,7 @@
         android:focusable="false"
         android:layout_alignParentBottom="true"
         android:visibility="gone"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <View
             android:id="@+id/blurredContainer"
