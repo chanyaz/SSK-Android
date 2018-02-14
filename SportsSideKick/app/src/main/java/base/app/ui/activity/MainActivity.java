@@ -166,7 +166,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initCrashlytics();
 
         setContentView(R.layout.activity_main);
 
@@ -180,9 +179,6 @@ public class MainActivity extends BaseActivity
 
         Glide.with(this).load(R.drawable.sportingportugal).into(logoImageView);
         Glide.with(this).load(R.drawable.video_chat_background).into(splashBackgroundImage);
-    }
-
-    private void initCrashlytics() {
     }
 
     public void updateTopBar() {

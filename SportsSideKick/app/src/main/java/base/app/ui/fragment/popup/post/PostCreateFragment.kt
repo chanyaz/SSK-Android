@@ -9,6 +9,8 @@ import android.text.Html.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import base.app.BuildConfig
+import base.app.BuildConfig.*
 import base.app.R
 import base.app.data.Model
 import base.app.data.news.PostsRepository
@@ -48,6 +50,12 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         contentImage.show(R.drawable.background_post_create)
         tutorialBody.text = fromHtml(getString(R.string.post_create_tip_body), FROM_HTML_MODE_LEGACY)
         setClickListeners()
+        if (DEBUG) showDummyInfo()
+    }
+
+    private fun showDummyInfo() {
+        titleField.setText("Test title")
+        bodyTextField.setText("Test body")
     }
 
     private fun setClickListeners() {
