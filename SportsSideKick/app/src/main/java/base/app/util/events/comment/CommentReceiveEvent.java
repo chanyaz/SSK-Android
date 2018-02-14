@@ -10,11 +10,11 @@ import base.app.data.wall.WallBase;
  * www.hypercubesoft.com
  */
 
-public class CommentUpdatedEvent extends BusEvent {
+public class CommentReceiveEvent extends BusEvent {
 
     private PostComment comment;
 
-    public CommentUpdatedEvent(WallBase wallItem) {
+    public CommentReceiveEvent(WallBase wallItem) {
         super("");
         this.wallItem = wallItem;
     }

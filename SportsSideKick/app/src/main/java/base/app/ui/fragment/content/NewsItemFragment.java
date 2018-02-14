@@ -574,7 +574,7 @@ public class NewsItemFragment extends BaseFragment {
 
     private void updateComment() {
         commentForEdit.setComment(inputFieldComment.getText().toString());
-        WallModel.getInstance().postComment(commentForEdit, item);
+        WallModel.getInstance().updateComment(commentForEdit);
         inputFieldComment.getText().clear();
         postCommentProgressBar.setVisibility(View.VISIBLE);
     }
@@ -844,5 +844,8 @@ public class NewsItemFragment extends BaseFragment {
     public void setCommentForEdit(CommentSelectedEvent event) {
         this.commentForEdit = event.getSelectedComment();
         inputFieldComment.setText(commentForEdit.getComment());
+        inputFieldComment.requestFocus();
+        inputFieldComment.setSelection(inputFieldComment.getText().length());
+        Utility.showKeyboard(getContext());
     }
 }

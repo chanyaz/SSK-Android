@@ -54,7 +54,7 @@ import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
-import base.app.util.events.comment.CommentUpdateEvent;
+import base.app.util.events.comment.CommentReceiveEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
@@ -248,7 +248,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
     }
 
     @Subscribe
-    public void onUpdateComment(CommentUpdateEvent event) {
+    public void onUpdateComment(CommentReceiveEvent event) {
         if (event.getWallItem() != null) {
             for (WallBase item : wallItems) {
                 if (event.getWallItem().getWallId().equals(item.getWallId())

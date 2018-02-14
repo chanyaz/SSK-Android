@@ -53,8 +53,8 @@ import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentDeleteEvent;
+import base.app.util.events.comment.CommentReceiveEvent;
 import base.app.util.events.comment.CommentSelectedEvent;
-import base.app.util.events.comment.CommentUpdateEvent;
 import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
@@ -246,7 +246,9 @@ public class WallItemFragment extends BaseFragment {
         } else {
             imageHeader.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
-        if (BuildConfig.DEBUG) { showDummyInfo(); }
+        if (BuildConfig.DEBUG) {
+            showDummyInfo();
+        }
 
         return view;
     }
@@ -402,7 +404,7 @@ public class WallItemFragment extends BaseFragment {
 
     private void updateComment() {
         commentForEdit.setComment(post.getText().toString());
-        WallModel.getInstance().postComment(commentForEdit, mPost);
+        WallModel.getInstance().updateComment(commentForEdit);
         post.getText().clear();
         postCommentProgressBar.setVisibility(View.VISIBLE);
     }
@@ -413,6 +415,9 @@ public class WallItemFragment extends BaseFragment {
     public void setCommentForEdit(CommentSelectedEvent event) {
         this.commentForEdit = event.getSelectedComment();
         post.setText(commentForEdit.getComment());
+        post.requestFocus();
+        post.setSelection(post.getText().length());
+        Utility.showKeyboard(getContext());
     }
 
     @Subscribe
@@ -435,27 +440,24 @@ public class WallItemFragment extends BaseFragment {
 
     @Subscribe
     public void onCommentUpdated(final CommentUpdatedEvent event) {
-        WallBase wallItem = event.getWallItem();
-        if (wallItem != null && wallItem.getWallId().equals(mPost.getWallId()) && wallItem.getPostId().equals(mPost.getPostId())) {
-            PostComment receivedComment = event.getComment();
-            PostComment commentToUpdate = null;
-            List<PostComment> commentsInAdapter = commentsAdapter.getComments();
-            for (PostComment comment : commentsInAdapter) {
-                if (comment.getId().equals(receivedComment.getId())) {
-                    commentToUpdate = comment;
-                }
+        PostComment receivedComment = event.getComment();
+        PostComment commentToUpdate = null;
+        List<PostComment> commentsInAdapter = commentsAdapter.getComments();
+        for (PostComment comment : commentsInAdapter) {
+            if (comment.getId().getOid().equals(receivedComment.getId().getOid())) {
+                commentToUpdate = comment;
             }
-            if (commentToUpdate != null) {
-                int position = commentsInAdapter.indexOf(commentToUpdate);
-                commentsInAdapter.remove(commentToUpdate);
-                commentsInAdapter.add(position, receivedComment);
-                commentsAdapter.notifyDataSetChanged();
-            }
+        }
+        if (commentToUpdate != null) {
+            int position = commentsInAdapter.indexOf(commentToUpdate);
+            commentsInAdapter.remove(commentToUpdate);
+            commentsInAdapter.add(position, receivedComment);
+            commentsAdapter.notifyDataSetChanged();
         }
     }
 
     @Subscribe
-    public void onCommentReceived(final CommentUpdateEvent event) {
+    public void onCommentReceived(final CommentReceiveEvent event) {
         WallBase wallItem = event.getWallItem();
         if (wallItem != null) {
             if (wallItem.getWallId().equals(mPost.getWallId())

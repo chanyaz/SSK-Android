@@ -31,7 +31,7 @@ import base.app.data.sharing.SharingManager;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 import base.app.util.events.comment.CommentDeleteEvent;
-import base.app.util.events.comment.CommentUpdateEvent;
+import base.app.util.events.comment.CommentReceiveEvent;
 import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.GetPostByIdEvent;
@@ -386,17 +386,22 @@ public class WallModel extends GSMessageHandlerAbstract {
         source.getTask();
     }
 
-    public Task<Void> updatePostComment(PostComment comment) {
+    public Task<Void> updateComment(final PostComment comment) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         comment.setId(new Id(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10)));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                source.setResult(null);
+                if (response.hasErrors()) {
+                    Object objectComment = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
+                    PostComment commentFromServer = mapper.convertValue(objectComment, new TypeReference<PostComment>(){});
+                    EventBus.getDefault().post(new CommentUpdatedEvent(commentFromServer));
+                }
             }
         };
         Map<String, Object> map = mapper.convertValue(comment, new TypeReference<Map<String, Object>>() {
         });
+        map.put("_id", comment.getId().getOid());
         GSData data = new GSData(map);
         createRequest("wallUpdatePostComment")
                 .setEventAttribute(GSConstants.COMMENT, data)
@@ -553,7 +558,7 @@ public class WallModel extends GSMessageHandlerAbstract {
 //                                return; // Its our own comment, ignore it
 //                            }
 //                        }
-                        CommentUpdateEvent event = new CommentUpdateEvent(post);
+                        CommentReceiveEvent event = new CommentReceiveEvent(post);
                         event.setComment(comment);
                         EventBus.getDefault().post(event);
                         break;
@@ -570,9 +575,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                         Object updatedCommentObject = data.get(GSConstants.COMMENT);
                         PostComment updatedComment = mapper.convertValue(updatedCommentObject, new TypeReference<PostComment>() {
                         });
-                        CommentUpdatedEvent updatedCommentEvent = new CommentUpdatedEvent(post);
-                        updatedCommentEvent.setComment(updatedComment);
-                        EventBus.getDefault().post(updatedCommentEvent);
+                        EventBus.getDefault().post(new CommentUpdatedEvent(updatedComment));
                         break;
                     case GSConstants.OPERATION_DELTE_POST:
                         EventBus.getDefault().post(new PostDeletedEvent(post));
