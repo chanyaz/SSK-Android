@@ -42,7 +42,7 @@
                         android:id="@+id/wall_top_image"
                         android:layout_width="match_parent"
                         android:layout_height="240dp"
-                        android:background="@color/colorPrimaryVeryLight"
+                        android:background="@color/colorPrimaryDark"
                         android:scaleType="centerCrop"
                         tools:src="@drawable/image_wall_background" />
 

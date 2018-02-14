@@ -373,6 +373,7 @@ public class WallItemFragment extends BaseFragment {
         WallModel.getInstance().postComment(comment, mPost);
         post.getText().clear();
         postCommentProgressBar.setVisibility(View.VISIBLE);
+        Utility.hideKeyboard(getActivity());
     }
 
     private void updateComment() {
@@ -468,6 +469,7 @@ public class WallItemFragment extends BaseFragment {
                     commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
 
+                    mPost.setCommentsCount(mPost.getCommentsCount() - 1);
                     commentsCount.setText(String.valueOf(mPost.getCommentsCount()));
                 }
             }

@@ -62,5 +62,7 @@ public class Application extends MultiDexApplication{
         Translator.getInstance().initialize(this);
 
         RxPaparazzo.register(this);
+
+        // TODO Implement analytics
     }
 }

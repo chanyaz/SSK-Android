@@ -250,6 +250,7 @@ public class NewsItemFragment extends BaseFragment {
         if (BuildConfig.DEBUG) {
             EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
             sharedMessageField.setText("Check this out!");
+            inputFieldComment.setText("Test");
         }
 
         return view;
@@ -554,6 +555,7 @@ public class NewsItemFragment extends BaseFragment {
                 WallModel.getInstance().postComment(comment, item);
                 inputFieldComment.getText().clear();
                 postCommentProgressBar.setVisibility(View.VISIBLE);
+                Utility.hideKeyboard(getActivity());
             } else {
                 updateComment();
             }
@@ -590,6 +592,10 @@ public class NewsItemFragment extends BaseFragment {
                 if (comment.getId().getOid().equals(deletedComment.getId().getOid())) {
                     commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
+
+                    item.setCommentsCount(item.getCommentsCount() - 1);
+                    commentsCount.setText(String.valueOf(item.getCommentsCount()));
+                    commentsCountHeader.setText(String.valueOf(item.getCommentsCount()));
                 }
             }
         }
