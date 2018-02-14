@@ -22,15 +22,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.tutorial.TutorialModel;
@@ -92,7 +89,6 @@ import base.app.util.ui.NoScrollRecycler;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends BaseActivity
         implements LoginStateReceiver.LoginStateListener,
@@ -187,13 +183,6 @@ public class MainActivity extends BaseActivity
     }
 
     private void initCrashlytics() {
-        // Set up Crashlytics, disabled for debug builds
-        Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-                .build();
-
-        // Initialize Fabric with the debug-disabled crashlytics.
-        Fabric.with(this, crashlyticsKit);
     }
 
     public void updateTopBar() {
