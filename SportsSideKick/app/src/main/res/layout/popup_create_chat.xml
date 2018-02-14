@@ -178,6 +178,7 @@
             android:gravity="start|center_vertical"
             android:hint="@string/chat_give_name"
             android:imeOptions="flagNoExtractUi"
+            android:inputType="textCapSentences"
             android:maxLines="1"
             android:padding="@dimen/margin_15"
             android:textColor="@color/white"
