@@ -283,7 +283,8 @@
                     android:textSize="16sp"
                     tools:text="@string/lorem_ipsum" />
 
-                <RelativeLayout
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:id="@+id/read_more_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -297,8 +298,6 @@
                         android:id="@+id/translate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
                         android:padding="@dimen/padding_5"
                         android:paddingStart="@dimen/padding_16"
                         android:text="@string/translate"
@@ -309,8 +308,6 @@
                         android:id="@+id/read_more_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/translate"
                         android:padding="@dimen/padding_5"
                         android:paddingStart="@dimen/padding_10"
                         android:text="@string/read_more"
@@ -321,14 +318,12 @@
                         android:id="@+id/delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/read_more_text"
                         android:paddingStart="@dimen/padding_16"
                         android:text="@string/delete"
                         android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="12sp"
                         android:visibility="gone" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:id="@+id/bottom_horizontal_split_line"

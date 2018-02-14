@@ -816,7 +816,8 @@ public class NewsItemFragment extends BaseFragment {
         content.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                boolean isNotEllipsized = ((content.getLayout().getText().toString()).equalsIgnoreCase(item.getContent()));
+                boolean isNotEllipsized = ((content.getLayout().getText().toString())
+                        .equalsIgnoreCase(item.getContent()));
                 if (isNotEllipsized && content.getMaxLines() == 3) {
                     getView().findViewById(R.id.read_more_text).setVisibility(View.GONE);
                 } else {

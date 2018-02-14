@@ -183,6 +183,7 @@ public class WallItemFragment extends BaseFragment {
             return view;
         } else {
             initializeWithData(true, mPost);
+            hideReadMoreIfShort();
         }
         commentsAdapter = new CommentsAdapter(imgUri, mPost.getTypeAsInt());
         commentsAdapter.setTranslationView(translationView);
@@ -324,6 +325,21 @@ public class WallItemFragment extends BaseFragment {
             case stats:
                 break;
         }
+    }
+
+    protected void hideReadMoreIfShort() {
+        content.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                boolean isNotEllipsized = ((content.getLayout().getText().toString())
+                        .equalsIgnoreCase(mPost.getBodyText()));
+                if (isNotEllipsized && content.getMaxLines() == 3) {
+                    getView().findViewById(R.id.read_more_text).setVisibility(View.GONE);
+                } else {
+                    getView().findViewById(R.id.read_more_text).setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Subscribe
