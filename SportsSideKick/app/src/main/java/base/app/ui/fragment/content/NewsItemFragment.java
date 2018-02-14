@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -600,9 +601,11 @@ public class NewsItemFragment extends BaseFragment {
                     commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
 
-                    item.setCommentsCount(item.getCommentsCount() - 1);
+                    item.setCommentsCount(event.getNewCommentCount());
                     commentsCount.setText(String.valueOf(item.getCommentsCount()));
                     commentsCountHeader.setText(String.valueOf(item.getCommentsCount()));
+
+                    EventBus.getDefault().post(new ItemUpdateEvent(item));
                 }
             }
         }

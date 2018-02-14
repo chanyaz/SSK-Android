@@ -493,7 +493,7 @@ public class WallItemFragment extends BaseFragment {
                     commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
 
-                    commentsCount.setText(String.valueOf(mPost.getCommentsCount()));
+                    commentsCount.setText(String.valueOf(event.getNewCommentCount()));
                     EventBus.getDefault().post(new ItemUpdateEvent(mPost));
                 }
             }
