@@ -562,11 +562,11 @@ public class NewsItemFragment extends BaseFragment {
                 comment.setTimestamp((double) (getCurrentTime() / 1000));
                 WallModel.getInstance().postComment(comment, item);
                 inputFieldComment.getText().clear();
-                postCommentProgressBar.setVisibility(View.VISIBLE);
-                Utility.hideKeyboard(getActivity());
             } else {
                 updateComment();
             }
+            Utility.hideKeyboard(getActivity());
+            postCommentProgressBar.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
         }

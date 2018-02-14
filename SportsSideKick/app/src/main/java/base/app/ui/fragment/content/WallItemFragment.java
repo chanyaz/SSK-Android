@@ -384,6 +384,8 @@ public class WallItemFragment extends BaseFragment {
             } else {
                 updateComment();
             }
+            Utility.hideKeyboard(getActivity());
+            postCommentProgressBar.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
         }
@@ -398,8 +400,6 @@ public class WallItemFragment extends BaseFragment {
         comment.setTimestamp((double) (Utility.getCurrentTime() / 1000));
         WallModel.getInstance().postComment(comment, mPost);
         post.getText().clear();
-        postCommentProgressBar.setVisibility(View.VISIBLE);
-        Utility.hideKeyboard(getActivity());
     }
 
     private void updateComment() {
