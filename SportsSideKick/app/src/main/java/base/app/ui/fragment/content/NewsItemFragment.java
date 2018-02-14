@@ -252,11 +252,13 @@ public class NewsItemFragment extends BaseFragment {
         }
         autoTranslateIfNeeded();
 
-        if (BuildConfig.DEBUG) {
-            EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
-            sharedMessageField.setText("Check this out!");
-            inputFieldComment.setText("Test");
-        }
+        if (BuildConfig.DEBUG) { showDummyInfo(); }
+    }
+
+    protected void showDummyInfo() {
+        EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
+        sharedMessageField.setText("Check this out!");
+        inputFieldComment.setText("Test");
     }
 
     private void autoTranslateIfNeeded() {

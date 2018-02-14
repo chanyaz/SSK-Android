@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
@@ -34,6 +35,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.Id;
 import base.app.data.Model;
@@ -244,7 +246,13 @@ public class WallItemFragment extends BaseFragment {
         } else {
             imageHeader.setScaleType(ImageView.ScaleType.CENTER_CROP);
         }
+        if (BuildConfig.DEBUG) { showDummyInfo(); }
+
         return view;
+    }
+
+    protected void showDummyInfo() {
+        post.setText("Test comment");
     }
 
     private void setClickListeners() {
@@ -485,8 +493,8 @@ public class WallItemFragment extends BaseFragment {
                     commentsAdapter.remove(comment);
                     commentsAdapter.notifyDataSetChanged();
 
-                    mPost.setCommentsCount(mPost.getCommentsCount() - 1);
                     commentsCount.setText(String.valueOf(mPost.getCommentsCount()));
+                    EventBus.getDefault().post(new ItemUpdateEvent(mPost));
                 }
             }
         }
