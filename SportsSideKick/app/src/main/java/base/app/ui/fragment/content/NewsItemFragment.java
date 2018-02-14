@@ -53,6 +53,7 @@ import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentDeleteEvent;
 import base.app.util.events.comment.CommentSelectedEvent;
+import base.app.util.events.comment.CommentUpdatedEvent;
 import base.app.util.events.comment.GetCommentsCompleteEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostCommentCompleteEvent;
@@ -561,12 +562,13 @@ public class NewsItemFragment extends BaseFragment {
                 comment.setPostId(item.getPostId());
                 comment.setTimestamp((double) (getCurrentTime() / 1000));
                 WallModel.getInstance().postComment(comment, item);
-                inputFieldComment.getText().clear();
             } else {
+                commentForEdit.setWallId(item.getPostId());
                 updateComment();
             }
             Utility.hideKeyboard(getActivity());
             postCommentProgressBar.setVisibility(View.VISIBLE);
+            inputFieldComment.getText().clear();
         } else {
             Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
         }
@@ -847,5 +849,23 @@ public class NewsItemFragment extends BaseFragment {
         inputFieldComment.requestFocus();
         inputFieldComment.setSelection(inputFieldComment.getText().length());
         Utility.showKeyboard(getContext());
+    }
+
+    @Subscribe
+    public void onCommentUpdated(final CommentUpdatedEvent event) {
+        PostComment receivedComment = event.getComment();
+        PostComment commentToUpdate = null;
+        List<PostComment> commentsInAdapter = commentsAdapter.getComments();
+        for (PostComment comment : commentsInAdapter) {
+            if (comment.getId().getOid().equals(receivedComment.getId().getOid())) {
+                commentToUpdate = comment;
+            }
+        }
+        if (commentToUpdate != null) {
+            int position = commentsInAdapter.indexOf(commentToUpdate);
+            commentsInAdapter.remove(commentToUpdate);
+            commentsInAdapter.add(position, receivedComment);
+            commentsAdapter.notifyDataSetChanged();
+        }
     }
 }

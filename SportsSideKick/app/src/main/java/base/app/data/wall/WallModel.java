@@ -392,7 +392,7 @@ public class WallModel extends GSMessageHandlerAbstract {
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (response.hasErrors()) {
+                if (!response.hasErrors()) {
                     Object objectComment = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
                     PostComment commentFromServer = mapper.convertValue(objectComment, new TypeReference<PostComment>(){});
                     EventBus.getDefault().post(new CommentUpdatedEvent(commentFromServer));
