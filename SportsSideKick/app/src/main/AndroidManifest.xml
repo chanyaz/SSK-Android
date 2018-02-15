@@ -51,7 +51,7 @@
         <activity
             android:name=".ui.activity.MainActivityTablet"
             android:screenOrientation="sensorLandscape"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <activity
             android:name="com.facebook.FacebookActivity"

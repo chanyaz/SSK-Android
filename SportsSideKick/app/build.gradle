@@ -67,6 +67,8 @@ dependencies {
     // Push notifications
     implementation 'com.google.firebase:firebase-messaging:11.8.0'
     implementation project(':e-goi-push-notifications')
+    implementation 'com.google.android.gms:play-services-base:11.8.0'
+    implementation 'com.google.android.gms:play-services-gcm:11.8.0'
 
     // Youtube
     implementation fileTree(include: ['YouTubeAndroidPlayerApi.jar'], dir: 'libs')
