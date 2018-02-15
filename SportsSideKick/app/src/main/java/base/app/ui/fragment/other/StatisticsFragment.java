@@ -81,6 +81,7 @@ public class StatisticsFragment extends BaseFragment {
                 webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
                 webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav')[0].remove(); })()");
                 webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
+                webView.loadUrl("javascript:(function() { document.getElementsByClassName('shs_sportNav')[0].remove(); })()");
                 webView.loadUrl("javascript:(function() { document.getElementsByClassName('footer')[0].remove(); })()");
             }
         });

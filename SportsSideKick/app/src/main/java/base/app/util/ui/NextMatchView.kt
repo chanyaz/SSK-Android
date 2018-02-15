@@ -41,11 +41,16 @@ class NextMatchView(context: Context, attrs: AttributeSet)
             nameOfSecondTeam.text = info.secondClubName
 
             val timestamp = parseLong(info.matchDate)
-            date.text = NextMatchCountdown.getTextValue(context, timestamp, true)
+            val textValue = NextMatchCountdown.getTextValue(context, timestamp, true)
+            date.text = textValue
 
             Handler().postDelayed(object : Runnable {
                 override fun run() {
-                    updateCountdownTimer(timestamp)
+                    if (textValue == context.getString(R.string.live)) {
+                        countdown.text = date.text
+                    } else {
+                        updateCountdownTimer(timestamp)
+                    }
                     postDelayed(this, 500L)
                 }
             }, 500L)
