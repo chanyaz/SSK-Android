@@ -73,15 +73,15 @@ public class StatisticsFragment extends BaseFragment {
             public void onPageFinished(WebView view, String url) {
                 if (firstLoad) {
                     webView.loadUrl(javascriptString);
-                    webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
-                    webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav')[0].remove(); })()");
-                    webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
-                    webView.loadUrl("javascript:(function() { document.getElementsByClassName('footer')[0].remove(); })()");
                     webView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
                     pinButton.setVisibility(View.VISIBLE);
                     firstLoad = false;
                 }
+                webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
+                webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav')[0].remove(); })()");
+                webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
+                webView.loadUrl("javascript:(function() { document.getElementsByClassName('footer')[0].remove(); })()");
             }
         });
         webView.loadUrl(url);
