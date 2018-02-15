@@ -26,6 +26,7 @@ public class Constant {
     public static final int REQUEST_CODE_CHAT_IMAGE_CAPTURE = 101;
     public static final int REQUEST_CODE_CHAT_IMAGE_PICK = 102;
     public static final int REQUEST_CODE_CHAT_VIDEO_CAPTURE = 103;
+    public static final int REQUEST_CODE_CHAT_AUDIO_CAPTURE = 104;
 
     public static final int REQUEST_CODE_EDIT_PROFILE_IMAGE_CAPTURE = 104;
     public static final int REQUEST_CODE_EDIT_PROFILE_IMAGE_PICK = 105;

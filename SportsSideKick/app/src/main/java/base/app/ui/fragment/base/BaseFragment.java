@@ -1,5 +1,6 @@
 package base.app.ui.fragment.base;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,6 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 import base.app.data.wall.WallBase;
+import base.app.ui.fragment.other.ChatFragment;
 import base.app.util.commons.Utility;
 import base.app.util.events.BusEvent;
 
@@ -84,18 +86,36 @@ public abstract class BaseFragment extends Fragment {
         return null;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (this instanceof ChatFragment) {
+            EventBus.getDefault().register(this);
+        }
+    }
 
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        if (!(this instanceof ChatFragment)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
     public void onStop() {
-        EventBus.getDefault().unregister(this);
+        if (!(this instanceof ChatFragment)) {
+            EventBus.getDefault().unregister(this);
+        }
         super.onStop();
         Utility.hideKeyboard(getActivity());
     }
 
+    @Override
+    public void onDestroy() {
+        if (this instanceof ChatFragment) {
+            EventBus.getDefault().unregister(this);
+        }
+        super.onDestroy();
+    }
 }

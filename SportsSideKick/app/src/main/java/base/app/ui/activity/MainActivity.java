@@ -81,6 +81,7 @@ import base.app.ui.fragment.stream.YoutubePlayerFragment;
 import base.app.util.commons.Constant;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
+import base.app.util.events.chat.AudioRecordedEvent;
 import base.app.util.ui.BlurBuilder;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemDecoration;
@@ -89,6 +90,8 @@ import base.app.util.ui.NoScrollRecycler;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_AUDIO_CAPTURE;
 
 public class MainActivity extends BaseActivityWithPush
         implements LoginStateReceiver.LoginStateListener,
@@ -640,5 +643,13 @@ public class MainActivity extends BaseActivityWithPush
         userLevelProgress.setVisibility(View.INVISIBLE);
         String imgUri = "drawable://" + getResources().getIdentifier("blank_profile_rounded", "drawable", this.getPackageName());
         ImageLoader.displayImage(imgUri, profileImage, R.drawable.blank_profile_rounded);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CHAT_AUDIO_CAPTURE) {
+            EventBus.getDefault().post(new AudioRecordedEvent());
+        }
     }
 }

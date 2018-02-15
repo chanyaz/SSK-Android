@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import base.app.R;
+
 @SuppressLint({ "SetJavaScriptEnabled", "ClickableViewAccessibility" })
 public class EGoiWebView extends Activity {
 

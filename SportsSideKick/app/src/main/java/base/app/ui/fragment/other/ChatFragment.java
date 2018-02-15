@@ -8,12 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -58,8 +59,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TimerTask;
+import java.util.Map;
 
 import base.app.R;
 import base.app.data.AlertDialogManager;
@@ -85,6 +87,7 @@ import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.util.commons.FilenameUtils;
 import base.app.util.commons.Utility;
+import base.app.util.events.chat.AudioRecordedEvent;
 import base.app.util.events.chat.FullScreenImageEvent;
 import base.app.util.events.chat.MessageSelectedEvent;
 import base.app.util.events.chat.OpenChatEvent;
@@ -95,6 +98,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import cafe.adriel.androidaudiorecorder.AndroidAudioRecorder;
+import cafe.adriel.androidaudiorecorder.model.AudioSampleRate;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
@@ -106,6 +111,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
+import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_AUDIO_CAPTURE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
@@ -212,7 +218,6 @@ public class ChatFragment extends BaseFragment {
 
     private MediaRecorder recorder = null;
 
-    private String audioFilepath = null;
     String currentPath;
 
     @BindView(R.id.translation_view)
@@ -317,12 +322,9 @@ public class ChatFragment extends BaseFragment {
                 if (currentlyActiveChat != null) {
                     switch (motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-                            ChatFragmentPermissionsDispatcher.startRecordingWithPermissionCheck(ChatFragment.this);
-                            micButton.setSelected(true);
-                            break;
-                        case MotionEvent.ACTION_UP:
-                            stopRecording();
-                            micButton.setSelected(false);
+                            if (currentlyActiveChat != null) {
+                                ChatFragmentPermissionsDispatcher.startRecordingWithPermissionCheck(ChatFragment.this);
+                            }
                             break;
                     }
                 }
@@ -846,44 +848,44 @@ public class ChatFragment extends BaseFragment {
 
         currentlyActiveChat.sendMessage(preppingImsObject)
                 .addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
-            @Override
-            public void onComplete(@NonNull Task<ChatInfo> task) {
-                if (task.isSuccessful()) {
-                    final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                    source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
-                        @Override
-                        public void onComplete(@NonNull Task<String> task) {
-                            if (task.isSuccessful()) {
-                                preppingImsObject.setImageUrl(task.getResult());
-                                final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                                source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<String> task) {
-                                        if (task.isSuccessful()) {
-                                            preppingImsObject.setVidUrl(task.getResult());
-                                            preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
-                                            preppingImsObject.setLocalPath(null);
-                                            currentlyActiveChat.updateMessage(preppingImsObject, null);
-                                        } else {
-                                            preppingImsObject.setVidUrl(null);
-                                            preppingImsObject.setUploadStatus(GSConstants.FAILED);
-                                            currentlyActiveChat.updateMessage(preppingImsObject, null);
-                                        }
+                    @Override
+                    public void onComplete(@NonNull Task<ChatInfo> task) {
+                        if (task.isSuccessful()) {
+                            final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                            source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                                @Override
+                                public void onComplete(@NonNull Task<String> task) {
+                                    if (task.isSuccessful()) {
+                                        preppingImsObject.setImageUrl(task.getResult());
+                                        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+                                        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<String> task) {
+                                                if (task.isSuccessful()) {
+                                                    preppingImsObject.setVidUrl(task.getResult());
+                                                    preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
+                                                    preppingImsObject.setLocalPath(null);
+                                                    currentlyActiveChat.updateMessage(preppingImsObject, null);
+                                                } else {
+                                                    preppingImsObject.setVidUrl(null);
+                                                    preppingImsObject.setUploadStatus(GSConstants.FAILED);
+                                                    currentlyActiveChat.updateMessage(preppingImsObject, null);
+                                                }
+                                            }
+                                        });
+                                        Model.getInstance().uploadChatVideoRecording(currentPath, getActivity().getFilesDir(), source);
+                                    } else {
+                                        preppingImsObject.setImageUrl(null);
+                                        preppingImsObject.setVidUrl(null);
+                                        preppingImsObject.setUploadStatus(GSConstants.FAILED);
+                                        currentlyActiveChat.updateMessage(preppingImsObject, null);
                                     }
-                                });
-                                Model.getInstance().uploadChatVideoRecording(currentPath, getActivity().getFilesDir(), source);
-                            } else {
-                                preppingImsObject.setImageUrl(null);
-                                preppingImsObject.setVidUrl(null);
-                                preppingImsObject.setUploadStatus(GSConstants.FAILED);
-                                currentlyActiveChat.updateMessage(preppingImsObject, null);
-                            }
+                                }
+                            });
+                            Model.getInstance().uploadChatVideoRecordingThumbnail(path, getActivity().getFilesDir(), source);
                         }
-                    });
-                    Model.getInstance().uploadChatVideoRecordingThumbnail(path, getActivity().getFilesDir(), source);
-                }
-            }
-        });
+                    }
+                });
     }
 
     /**
@@ -1092,7 +1094,7 @@ public class ChatFragment extends BaseFragment {
             public void onClick(DialogInterface dialog, int which) {
                 RxPaparazzo.single(ChatFragment.this)
                         .usingCamera()
-                        .map(new Function<Response<ChatFragment,FileData>, Object>() {
+                        .map(new Function<Response<ChatFragment, FileData>, Object>() {
                             @Override
                             public Object apply(Response<ChatFragment, FileData> fileData) throws Exception {
                                 return fileData.data().getFile();
@@ -1125,49 +1127,54 @@ public class ChatFragment extends BaseFragment {
         chooseDialog.show();
     }
 
-    Handler audioRecordHandler;
-
     @NeedsPermission({Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void startRecording() {
-        Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_hold), Toast.LENGTH_SHORT).show();
-        audioRecordHandler = new Handler();
-        audioRecordHandler.postDelayed(audioRecordHandlerTask, 250);
+        Map<Integer, AudioSampleRate> ratesMap = new HashMap<>();
+        ratesMap.put(48000, AudioSampleRate.HZ_48000);
+        ratesMap.put(44100, AudioSampleRate.HZ_44100);
+        ratesMap.put(32000, AudioSampleRate.HZ_32000);
+        ratesMap.put(22050, AudioSampleRate.HZ_22050);
+        ratesMap.put(16000, AudioSampleRate.HZ_16000);
+        ratesMap.put(11025, AudioSampleRate.HZ_11025);
+        ratesMap.put(8000, AudioSampleRate.HZ_8000);
+
+        int supportedRate = -1;
+        for (int rate : new int[] {44100, 22050, 11025, 16000, 8000}) {  // add the rates you wish to check against
+            int bufferSize = AudioRecord.getMinBufferSize(rate,
+                    AudioFormat.CHANNEL_CONFIGURATION_DEFAULT,
+                    AudioFormat.ENCODING_PCM_16BIT);
+            if (bufferSize > 0) {
+                // buffer size is valid, Sample rate supported
+                supportedRate = rate;
+            }
+        }
+
+        AndroidAudioRecorder.with(getActivity())
+                .setFilePath(Model.getAudioFilePath(getContext()))
+                .setColor(getResources().getColor(R.color.colorPrimarySemiLight))
+                .setRequestCode(REQUEST_CODE_CHAT_AUDIO_CAPTURE)
+                .setAutoStart(true)
+                .setSampleRate(ratesMap.get(supportedRate))
+                .record();
     }
 
-    TimerTask audioRecordHandlerTask = new TimerTask() {
-        @Override
-        public void run() {
-            if (!micButton.isPressed()) {
-                return;
-            }
-            recorder = new MediaRecorder();
-            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            audioFilepath = Model.getAudioFileName();
-            recorder.setOutputFile(audioFilepath);
-            try {
-                recorder.prepare();
-                recorder.start();
-            } catch (Exception e) {
-                Log.e(TAG, "Start of recording failed!");
+    public void onActivityResult(final int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        resultFromPicker = -1;
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
+                    Uri uri = data.getData();
+                    currentPath = Model.getRealPathFromURI(getContext(), uri);
+                    sendVideoMessage(currentPath);
+                    break;
             }
         }
-    };
+    }
 
-    private void stopRecording() {
-        if (recorder != null) {
-            try {
-                audioRecordHandler.removeCallbacks(audioRecordHandlerTask);
-                recorder.stop();
-                recorder.release();
-                Toast.makeText(getContext(), getContext().getResources().getString(R.string.chat_recording_stop), Toast.LENGTH_SHORT).show();
-                sendAudioMessage(audioFilepath);
-                recorder = null;
-            } catch (Exception e) {
-                Log.e(TAG, "Stop recording failed!");
-            }
-        }
+    @Subscribe
+    public void onAudioRecorded(AudioRecordedEvent event) {
+        sendAudioMessage(Model.getAudioFilePath(getContext()));
     }
 
     @OnShowRationale({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -1241,19 +1248,6 @@ public class ChatFragment extends BaseFragment {
     }
 
     private int resultFromPicker;
-
-    public void onActivityResult(final int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        resultFromPicker = -1;
-        if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-                case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
-                    Uri uri = data.getData();
-                    currentPath = Model.getRealPathFromURI(getContext(), uri);
-                    sendVideoMessage(currentPath);
-            }
-        }
-    }
 
     @Subscribe
     public void handleUserIsTypingEvent(UserIsTypingEvent event) {

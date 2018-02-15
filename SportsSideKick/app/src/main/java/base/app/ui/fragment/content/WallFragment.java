@@ -392,6 +392,7 @@ public class WallFragment extends BaseFragment implements LoginStateReceiver.Log
         }
         reset();
         reloadWallFromModel(false);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
