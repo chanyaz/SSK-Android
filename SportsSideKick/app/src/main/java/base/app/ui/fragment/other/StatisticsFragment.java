@@ -73,7 +73,9 @@ public class StatisticsFragment extends BaseFragment {
                 if (firstLoad) {
                     webView.loadUrl(javascriptString);
                     webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
-                    webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav').remove(); })()");
+                    webView.loadUrl("javascript:(function() { document.getElementById('shs_siteNav')[0].remove(); })()");
+                    webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
+                    webView.loadUrl("javascript:(function() { document.getElementsByClassName('footer')[0].remove(); })()");
                     webView.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
                     pinButton.setVisibility(View.VISIBLE);

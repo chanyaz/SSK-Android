@@ -126,9 +126,6 @@ public class StoreFragment extends BaseFragment {
                     price = priceElement.text();
                 }
             }
-            if (absoluteUrl.isEmpty()) {
-                absoluteUrl = "https://cdnlojaverde.scdn3.secure.raxcdn.com/sites/default/files/uma_loja_para_si/201611/exclusivo.png";
-            }
             item = new WallStoreItem();
             item.setType(WallBase.PostType.wallStoreItem);
             item.setPoster(Model.getInstance().getUserInfo());
