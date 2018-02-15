@@ -187,6 +187,7 @@
                 android:hint="@string/message_hint"
                 android:imeOptions="actionSend"
                 android:inputType="textCapSentences"
+                android:background="@null"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/padding_13"
                 android:paddingEnd="@dimen/padding_8"

@@ -178,7 +178,7 @@
     <string name="no_message_text">No one has started chatting yet! Why not be the first?</string>
     <string name="chat_public">This chat is public</string>
     <string name="chat_private">This chat is private</string>
-    <string name="chat_create">Create Chat</string>
+    <string name="chat_create">Create chat</string>
     <string name="join_chat">Join Chat</string>
     <string name="single_user_is_typing">%1$s! is typing…</string>
     <string name="multiple_users_are_typing">Multiple users are typing…</string>
@@ -189,7 +189,7 @@
     <string name="chat_friend_in_chat">1 Friend in Chat</string>
     <string name="chats">Chats</string>
     <string name="chats_public">Public chats</string>
-    <string name="chats_public_search">Search Public Chats</string>
+    <string name="chats_public_search">Search</string>
     <string name="message_hint">Enter your message here…</string>
     <string name="chat_friends_add">Add friends to this chat</string>
     <string name="chat_name">Chat name</string>
