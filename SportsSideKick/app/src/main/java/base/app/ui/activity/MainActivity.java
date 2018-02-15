@@ -90,7 +90,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivityWithPush
         implements LoginStateReceiver.LoginStateListener,
         SideMenuAdapter.IDrawerCloseSideMenu,
         MenuAdapter.IDrawerClose {

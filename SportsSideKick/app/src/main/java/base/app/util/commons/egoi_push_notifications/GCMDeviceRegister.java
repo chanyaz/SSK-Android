@@ -17,7 +17,7 @@ public class GCMDeviceRegister extends Activity {
     /**
      * Interface to retrieve the success of the operation
      */
-    interface didGetDeviceTokenDelegate {
+    public interface didGetDeviceTokenDelegate {
         void didGetDeviceToken(boolean success, String deviceToken);
     }
 
