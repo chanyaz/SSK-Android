@@ -63,6 +63,7 @@ public class StatisticsFragment extends BaseFragment {
         webView = view.findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(false);
+        webView.getSettings().setTextZoom(120);
         webView.setVisibility(View.GONE);
         pinButton.setVisibility(View.GONE);
         String url = getResources().getString(R.string.stats_url);
