@@ -24,14 +24,14 @@
         android:layout_margin="@dimen/margin_5"
         android:background="@drawable/ic_pin_dark"
         android:layout_alignParentEnd="true"
-
         android:layout_alignParentTop="true"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyle"
         android:id="@+id/progressBar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.BlackAccent"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
         android:visibility="visible" />
