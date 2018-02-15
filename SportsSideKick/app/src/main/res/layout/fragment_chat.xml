@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="?white_semitransparent"
     android:paddingTop="72dp"
-    tools:paddingTop="0dp"
-    tools:context=".ui.fragment.other.ChatFragment">
+    tools:context=".ui.fragment.other.ChatFragment"
+    tools:paddingTop="0dp">
 
     <!-- Background image -->
     <ImageView
@@ -40,27 +40,27 @@
             android:id="@+id/chat_heads_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_height="60dp"
-            tools:padding="16dp"
             android:layout_alignParentTop="true"
             android:background="?chatHeadBackgroundColor"
             android:focusableInTouchMode="true"
-            android:scrollbars="none" />
+            android:scrollbars="none"
+            tools:layout_height="60dp"
+            tools:padding="16dp" />
 
         <TextView
             android:id="@+id/chat_info_line_text"
-            android:layout_below="@id/chat_heads_view"
-            tools:text="SCP: You and your friends"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_20"
-            android:paddingStart="@dimen/margin_60"
-            android:paddingEnd="@dimen/margin_60"
+            android:layout_below="@id/chat_heads_view"
+            android:background="?chatInfoBackgroundColor"
             android:ellipsize="marquee"
             android:gravity="center"
             android:lines="1"
-            android:background="?chatInfoBackgroundColor"
+            android:paddingEnd="@dimen/margin_60"
+            android:paddingStart="@dimen/margin_60"
             android:textColor="?white_semitransparent"
-            android:textSize="@dimen/font_size_10" />
+            android:textSize="@dimen/font_size_10"
+            tools:text="SCP: You and your friends" />
     </RelativeLayout>
 
     <!-- Messages container -->
@@ -74,16 +74,16 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_container"
-            android:paddingBottom="32dp"
-            tools:padding="16dp"
-            android:clipToPadding="false"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="32dp"
+            tools:padding="16dp" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
-        style="?android:attr/progressBarStyle"
         android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="@dimen/prodgres_bar"
         android:layout_height="@dimen/prodgres_bar"
         android:layout_centerInParent="true"
@@ -158,28 +158,31 @@
         <ImageButton
             android:id="@+id/menu_button"
             android:layout_width="@dimen/standard_button_height"
-            android:layout_marginEnd="@dimen/height_1"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/height_1"
             android:layout_toEndOf="@+id/chat_buttons_container"
             android:background="@null"
             android:src="?chatAddButtonIcon" />
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/menu_button"
+            android:background="@color/colorGrayLight"
+            android:gravity="center_vertical"
             android:layout_toStartOf="@+id/chat_menu_dots"
-            android:animateLayoutChanges="true">
+            android:animateLayoutChanges="true"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/input_edit_text"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:animateLayoutChanges="true"
-                android:background="@color/colorGrayLight"
                 android:gravity="start|center_vertical"
                 android:hint="@string/message_hint"
                 android:imeOptions="actionSend"
@@ -196,23 +199,23 @@
 
             <ImageView
                 android:id="@+id/lockIcon"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true"
-                android:alpha="0.5"
                 android:layout_width="24dp"
-                android:layout_marginEnd="8dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_lock_outline_black_24dp"/>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.5"
+                android:src="@drawable/ic_lock_outline_black_24dp" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/chat_menu_dots"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/height_1"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/height_1"
             android:background="@null"
             android:src="?chatMenuButtonIcon" />
 
@@ -226,6 +229,7 @@
             android:gravity="center"
             android:padding="@dimen/half_margin"
             android:visibility="gone">
+
             <TextView
                 android:id="@+id/chat_menu_create"
                 android:layout_width="match_parent"
@@ -234,12 +238,12 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/chat_create"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10" />
 
             <TextView
                 android:id="@+id/chat_menu_edit"
@@ -249,12 +253,13 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/edit"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10" />
+
             <TextView
                 android:id="@+id/chat_menu_delete"
                 android:layout_width="match_parent"
@@ -263,26 +268,28 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/delete"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10" />
+
             <TextView
                 android:id="@+id/chat_menu_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_5"
-                android:textSize="@dimen/font_size_10"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/chats_public_search"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10" />
+
             <TextView
                 android:id="@+id/chat_menu_alerts"
                 android:layout_width="match_parent"
@@ -291,12 +298,12 @@
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_weight="0.25"
-                android:textSize="@dimen/font_size_10"
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/alerts_on"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -328,8 +335,7 @@
                 android:id="@+id/mediaController"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                app:uvv_scalable="false"
-                />
+                app:uvv_scalable="false" />
         </FrameLayout>
 
         <ImageView
@@ -341,7 +347,7 @@
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
             android:src="?videoCloseButtonIcon"
-            android:tint="?videoCloseButtonChatColorRef"/>
+            android:tint="?videoCloseButtonChatColorRef" />
 
         <ImageView
             android:id="@+id/vide_download_image_button"
@@ -354,6 +360,7 @@
             android:src="?downloadButtonIcon" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/full_screen_container"
         android:layout_width="match_parent"
@@ -380,8 +387,8 @@
             android:layout_alignParentTop="true"
             android:layout_margin="@dimen/margin_8"
             android:scaleType="fitCenter"
-            android:tint="?videoCloseButtonChatColorRef"
-            android:src="?videoCloseButtonIcon" />
+            android:src="?videoCloseButtonIcon"
+            android:tint="?videoCloseButtonChatColorRef" />
 
         <ImageView
             android:id="@+id/download_image_button"
@@ -399,10 +406,10 @@
     <RelativeLayout
         android:id="@+id/inactive_container"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clickable="true"
-        tools:layout_height="0dp"
         android:focusable="false"
-        android:layout_height="match_parent">
+        tools:layout_height="0dp">
 
         <ImageView
             android:id="@+id/loginBackgroundImage"
@@ -416,15 +423,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.6"
-            android:background="@drawable/phone_background"
-            />
+            android:background="@drawable/phone_background" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:layout_marginStart="@dimen/margin_40"
-            android:layout_marginEnd="@dimen/margin_40">
+            android:layout_marginEnd="@dimen/margin_40"
+            android:layout_marginStart="@dimen/margin_40">
 
             <ImageView
                 android:id="@+id/logo"
@@ -528,11 +534,10 @@
     <!--** ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  -->
 
 
-
     <base.app.util.ui.TranslationView
         android:id="@+id/translation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_height="0dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:layout_height="0dp" />
 </RelativeLayout>

@@ -897,20 +897,10 @@ public class Model {
         FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public static String getAudioFilePath(Context context)  {
-        String imageFileName = "recorded_audio";
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        try {
-            File audioFile = File.createTempFile(
-                    imageFileName,  /* prefix */
-                    ".wav",         /* suffix */
-                    storageDir      /* directory */
-            );
-            return audioFile.getAbsolutePath();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
+    public static String getAudioFilePath()  {
+        String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        filepath += "/audiorecord.3gp";
+        return filepath;
     }
 
     public static File createImageFile(Context context) throws IOException {
