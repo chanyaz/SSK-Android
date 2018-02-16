@@ -153,9 +153,6 @@ dependencies {
     // Event bus
     implementation 'org.greenrobot:eventbus:3.0.0'
 
-    // Prohibits certain actions when offline
-    implementation 'com.keiferstone:nonet:2.0.0'
-
     // Picker used for translation popup to select language
     implementation 'com.shawnlin:number-picker:2.4.4'
 }

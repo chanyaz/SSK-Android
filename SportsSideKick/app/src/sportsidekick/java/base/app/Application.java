@@ -1,6 +1,7 @@
 package base.app;
 
 import android.content.ContextWrapper;
+import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
 import com.facebook.appevents.AppEventsLogger;
@@ -12,7 +13,6 @@ import base.app.data.FileUploader;
 import base.app.data.Translator;
 import base.app.data.purchases.PurchaseModel;
 import base.app.data.ticker.NextMatchModel;
-import base.app.util.commons.Connection;
 import base.app.util.commons.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -30,13 +30,14 @@ public class Application extends MultiDexApplication{
     @Override
     public void onCreate() {
         super.onCreate();
+        if (BuildConfig.DEBUG) enableStrictMode();
+
         NoNet.configure()
                 .endpoint("http://google.com")
                 .timeout(5)
                 .connectedPollFrequency(60)
                 .disconnectedPollFrequency(1);
         instance = this;
-        Connection.getInstance().initialize(this);
 
         AppEventsLogger.activateApp(this);
 
@@ -64,5 +65,16 @@ public class Application extends MultiDexApplication{
         RxPaparazzo.register(this);
 
         // TODO Implement analytics
+    }
+
+    protected void enableStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .penaltyDialog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
     }
 }

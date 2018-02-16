@@ -285,7 +285,7 @@ public class LoginFragment extends BaseFragment
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.required_credentials), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!Connection.getInstance().alertIfNotReachable
+        if (!Connection.alertIfNotReachable
                 (getActivity(),
                         new View.OnClickListener() {
                             @Override

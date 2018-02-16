@@ -37,7 +37,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -326,7 +325,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
        if(validateInputs()) {
 
-            if (!Connection.getInstance().alertIfNotReachable(getActivity(),
+            if (!Connection.alertIfNotReachable(getActivity(),
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -400,20 +399,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Subscribe
-    public void onConnectionEvent(Connection.OnChangeEvent event) {
-        if (event.getStatus() == Connection.Status.notReachable) {
-            Connection.getInstance().alertIfNotReachable(getActivity(), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getActivity().onBackPressed();
-                }
-            });
-            progressBar.setVisibility(View.GONE);
-            signUpText.setVisibility(View.VISIBLE);
-        }
     }
 
     @Optional
