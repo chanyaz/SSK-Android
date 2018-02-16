@@ -283,6 +283,10 @@ public class WallItemFragment extends BaseFragment {
                 ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
                         R.drawable.wall_detail_header_placeholder);
                 title.setText(post.getTitle());
+
+                if (post instanceof WallStoreItem) {
+                    post.setBodyText(((WallStoreItem) post).getUrl());
+                }
                 if (post.getBodyText() != null && !post.getBodyText().trim().isEmpty()) {
                     content.setText(post.getBodyText());
                 } else {

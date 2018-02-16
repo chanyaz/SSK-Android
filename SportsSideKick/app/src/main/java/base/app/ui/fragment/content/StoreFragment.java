@@ -95,12 +95,7 @@ public class StoreFragment extends BaseFragment {
         Elements imageDiv;
         Elements priceDiv;
         try {
-            doc = Jsoup.connect(mUrl)
-                    .header("Accept-Encoding", "gzip, deflate")
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0")
-                    .maxBodySize(0)
-                    .timeout(600000)
-                    .get();
+            doc = Jsoup.connect(mUrl).get();
         } catch (IOException e) {
             e.printStackTrace();
         }
