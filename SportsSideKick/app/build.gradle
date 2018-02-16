@@ -96,9 +96,6 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-core:2.4.2'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.4.2'
 
-    // Voice message recording
-    compile 'com.github.adrielcafe:AndroidAudioRecorder:0.3.0'
-
     // Circle Progress UI element used for Profile icon
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
 
