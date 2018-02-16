@@ -262,8 +262,12 @@ public class WallItemFragment extends BaseFragment {
         commentsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                post.requestFocus();
-                Utility.showKeyboard(getContext());
+                if (Model.getInstance().isRealUser()) {
+                    post.requestFocus();
+                    Utility.showKeyboard(getContext());
+                } else {
+                    Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

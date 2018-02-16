@@ -403,8 +403,12 @@ public class NewsItemFragment extends BaseFragment {
         commentsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputFieldComment.requestFocus();
-                Utility.showKeyboard(getContext());
+                if (Model.getInstance().isRealUser()) {
+                    inputFieldComment.requestFocus();
+                    Utility.showKeyboard(getContext());
+                } else {
+                    Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
+                }
             }
         });
         commentInputOverlay.setOnClickListener(new View.OnClickListener() {
