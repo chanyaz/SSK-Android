@@ -1,67 +1,63 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/login_background"
+    android:enabled="false"
     tools:context=".ui.fragment.content.WallFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:enabled="false">
+        android:layout_height="match_parent">
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/scroll"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/topImage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="240dp"
+                android:background="@color/colorPrimaryDark"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/image_wall_background" />
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/topImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:background="@color/colorPrimaryDark"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/image_wall_background" />
+            <TextView
+                android:id="@+id/topCaption"
+                style="@style/semiBoldText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/topImage"
+                android:layout_alignTop="@id/topImage"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/header_image_title_margin_top"
+                android:gravity="center"
+                android:shadowColor="@color/black_transparent_154"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text="@string/news"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_36" />
 
-                <TextView
-                    android:id="@+id/topCaption"
-                    style="@style/semiBoldText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/topImage"
-                    android:layout_alignTop="@id/topImage"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/header_image_title_margin_top"
-                    android:gravity="center"
-                    android:shadowColor="@color/black_transparent_154"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2"
-                    android:text="@string/news"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_36" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/topImage"
+                android:layout_marginTop="-8dp"
+                android:clipToPadding="false"
+                android:paddingTop="4dp" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="-8dp"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/topImage"
-                    android:clipToPadding="false"
-                    android:paddingTop="4dp" />
+        </RelativeLayout>
 
-            </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-</RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
