@@ -26,13 +26,15 @@
         android:visibility="visible">
 
         <TextView
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorGrayMediumLight"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/post_create"
             android:textColor="@color/colorPrimaryVeryLight"
-            android:textSize="@dimen/font_size_18" />
+            android:textSize="@dimen/font_size_18"
+            tools:ignore="MissingPrefix" />
 
         <ImageButton
             android:id="@+id/backButton"
@@ -182,7 +184,6 @@
 
             <EditText
                 android:id="@+id/bodyTextField"
-                android:nestedScrollingEnabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/titleField"
@@ -194,6 +195,7 @@
                 android:background="@null"
                 android:hint="@string/post_body_hint"
                 android:inputType="textCapSentences|textMultiLine"
+                android:nestedScrollingEnabled="false"
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="@dimen/font_size_16" />
@@ -203,6 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/bodyTextField"
                 android:layout_margin="13dp"
+                android:visibility="gone"
                 app:cardCornerRadius="2dp">
 
                 <LinearLayout
