@@ -60,15 +60,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/post_container"
-        android:enabled="false"
         android:layout_below="@id/top_buttons_container"
+        android:enabled="false"
         android:overScrollMode="always">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/newsItemScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false">
+            android:clipToPadding="false"
+            android:overScrollMode="always">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -112,133 +113,133 @@
                     app:contentPadding="@dimen/card_negative_padding"
                     app:elevation="2dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryVeryLight"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
                         <LinearLayout
+                            android:id="@+id/likes_container"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:baselineAligned="false"
-                            android:orientation="horizontal"
-                            android:background="@color/colorPrimaryVeryLight">
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
+                            android:gravity="center">
 
-                            <LinearLayout
-                                android:id="@+id/likes_container"
-                                android:layout_width="match_parent"
-                                android:layout_height="42dp"
-                                android:layout_marginEnd="@dimen/padding_8"
-                                android:layout_weight="1"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:foreground="?selectableItemBackgroundBorderless"
-                                android:gravity="center">
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/likes_icon"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_like_count"
+                                app:backgroundTint="@color/white" />
 
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:id="@+id/likes_icon"
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:layout_marginEnd="@dimen/margin_5"
-                                    android:background="@drawable/ic_like_count"
-                                    app:backgroundTint="@color/white" />
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/likes_icon_liked"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_like_count_liked"
+                                android:visibility="gone"
+                                app:backgroundTint="@color/colorAccent" />
 
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:id="@+id/likes_icon_liked"
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:layout_marginEnd="@dimen/margin_5"
-                                    android:background="@drawable/ic_like_count_liked"
-                                    android:visibility="gone"
-                                    app:backgroundTint="@color/colorAccent" />
-
-                                <TextView
-                                    android:id="@+id/likes_count_header"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/white"
-                                    tools:text="0" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/share_container"
-                                android:layout_width="match_parent"
-                                android:layout_height="42dp"
-                                android:layout_marginEnd="@dimen/padding_8"
-                                android:layout_weight="1"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:foreground="?selectableItemBackgroundBorderless"
-                                android:gravity="center">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:id="@+id/share_icon"
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:layout_marginEnd="@dimen/margin_5"
-                                    android:background="@drawable/ic_share"
-                                    app:backgroundTint="@color/white" />
-
-                                <TextView
-                                    android:id="@+id/share_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/white"
-                                    tools:text="0" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/comments_container"
-                                android:layout_width="match_parent"
-                                android:layout_height="42dp"
-                                android:layout_marginEnd="@dimen/padding_8"
-                                android:layout_weight="1"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:foreground="?selectableItemBackgroundBorderless"
-                                android:gravity="center">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:id="@+id/comments_icon"
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:layout_marginEnd="@dimen/margin_5"
-                                    android:background="@drawable/ic_comment"
-                                    app:backgroundTint="@color/white" />
-
-                                <TextView
-                                    android:id="@+id/comments_count_header"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/white"
-                                    tools:text="0" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/pin_container"
-                                android:layout_width="match_parent"
-                                android:layout_height="42dp"
-                                android:layout_marginEnd="@dimen/padding_8"
-                                android:layout_weight="1"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:foreground="?selectableItemBackgroundBorderless"
-                                android:gravity="center">
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:id="@+id/pin_icon"
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:layout_marginEnd="@dimen/margin_5"
-                                    android:background="@drawable/ic_pin"
-                                    app:backgroundTint="@color/white" />
-
-                                <TextView
-                                    android:id="@+id/pin_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/white"
-                                    android:visibility="gone"
-                                    tools:text="0" />
-                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/likes_count_header"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                tools:text="0" />
 
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/share_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/share_icon"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_share"
+                                app:backgroundTint="@color/white" />
+
+                            <TextView
+                                android:id="@+id/share_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                tools:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/comments_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/comments_icon"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_comment"
+                                app:backgroundTint="@color/white" />
+
+                            <TextView
+                                android:id="@+id/comments_count_header"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                tools:text="0" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/pin_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginEnd="@dimen/padding_8"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackgroundBorderless"
+                            android:gravity="center">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/pin_icon"
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_marginEnd="@dimen/margin_5"
+                                android:background="@drawable/ic_pin"
+                                app:backgroundTint="@color/white" />
+
+                            <TextView
+                                android:id="@+id/pin_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:visibility="gone"
+                                tools:text="0" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                 </android.support.v7.widget.CardView>
 
@@ -284,7 +285,6 @@
                     tools:text="@string/lorem_ipsum" />
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:id="@+id/read_more_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -292,7 +292,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/margin_10"
                     android:animateLayoutChanges="true"
-                    android:animationCache="true">
+                    android:animationCache="true"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/translate"
@@ -373,12 +374,12 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/comments_wall"
-                    android:nestedScrollingEnabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tutorial_container"
                     android:layout_marginTop="@dimen/margin_20"
                     android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
                     android:paddingBottom="16dp"
                     tools:paddingStart="16dp" />
 
@@ -566,9 +567,9 @@
         android:id="@+id/commentInputOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
         android:clickable="true"
         android:focusable="false"
-        android:layout_alignParentBottom="true"
         android:visibility="gone"
         tools:visibility="gone">
 
@@ -600,8 +601,8 @@
             android:textSize="20sp" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
             android:id="@+id/previewInputContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
@@ -627,6 +628,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:background="@drawable/background_status_bar"/>
+        android:background="@drawable/background_status_bar" />
 
 </RelativeLayout>

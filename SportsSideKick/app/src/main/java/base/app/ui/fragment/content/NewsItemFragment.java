@@ -101,7 +101,7 @@ public class NewsItemFragment extends BaseFragment {
     @BindView(R.id.post_text)
     EditText inputFieldComment;
     @BindView(R.id.post_comment_button)
-    ImageView postButton;
+    ImageButton postButton;
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
     @Nullable

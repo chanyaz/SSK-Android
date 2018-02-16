@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -95,7 +96,7 @@ public class WallItemFragment extends BaseFragment {
     @BindView(R.id.post_text)
     EditText post;
     @BindView(R.id.post_comment_button)
-    ImageView postButton;
+    ImageButton postButton;
     @BindView(R.id.post_comment_progress_bar)
     View postCommentProgressBar;
     @BindView(R.id.comments_count_header)
