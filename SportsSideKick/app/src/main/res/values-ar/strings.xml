@@ -50,7 +50,7 @@
     <string name="password_reset">إعادة ضبط كلمة السر</string>
     <string name="reset_check_email">الرجاء تفقد بريدك الالكتروني لخيارات إعادة ضبط كلمة السر.</string>
     <string name="email_enter_valid">الرجاء إدخال بريد الكتروني صالح.</string>
-    <string name="sign_up_text">بقيامك بالتسجيل، توافق على ما تطرحه SportsSidekick\n<font color="#FFFFFF">من شروط للاستخدام</font> و <font color="#FFFFFF">سياسة الخصوصية.</font></string>
+    <string name="sign_up_text">بقيامك بالتسجيل، توافق على ما تطرحه Fanchat\n<font color="#FFFFFF">من شروط للاستخدام</font> و <font color="#FFFFFF">سياسة الخصوصية.</font></string>
     <string name="required_email">عليك إدخال البريد الالكتروني!</string>
     <string name="required_password">عليك إدخال كلمة سر</string>
     <string name="required_first_name">عليك إدخال اسمك الأول!</string>

@@ -50,7 +50,7 @@
     <string name="password_reset">পাসওয়ার্ড রিসেট করুন</string>
     <string name="reset_check_email">পাসওয়ার্ড রিসেট বিকল্পগুলির জন্য আপনার ইমেলটি পরীক্ষা করুন।</string>
     <string name="email_enter_valid">অনুগ্রহ করে একটি বৈধ ইমেল ঠিকানা লিখুন!</string>
-    <string name="sign_up_text">সাইন-আপ করে, আপনি সম্মত হচ্ছেন SportsSidekick-এর\n<font color="#FFFFFF">ব্যবহারের শর্তাবলী</font> এবং <font color="#FFFFFF">গোপনীয়তা নীতি -তে।</font></string>
+    <string name="sign_up_text">সাইন-আপ করে, আপনি সম্মত হচ্ছেন Fanchat-এর\n<font color="#FFFFFF">ব্যবহারের শর্তাবলী</font> এবং <font color="#FFFFFF">গোপনীয়তা নীতি -তে।</font></string>
     <string name="required_email">আপনাকে ইমেল ঠিকানা লিখতে হবে!</string>
     <string name="required_password">আপনাকে একটি পাসওয়ার্ড প্রবেশ করাতে হবে</string>
     <string name="required_first_name">আপনাকে নাম লিখতে হবে!</string>

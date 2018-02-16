@@ -50,7 +50,7 @@
     <string name="password_reset">Restablecer contraseña</string>
     <string name="reset_check_email">Encontrarás las opciones para restablecer tu contraseña en el correo electrónico.</string>
     <string name="email_enter_valid">Introduce una dirección de correo electrónico válida.</string>
-    <string name="sign_up_text">Al registrarte, aceptas los\n<font color="#FFFFFF">Términos y condiciones de uso</font> y la <font color="#FFFFFF">Política de privacidad de SportsSidekick.</font></string>
+    <string name="sign_up_text">Al registrarte, aceptas los\n<font color="#FFFFFF">Términos y condiciones de uso</font> y la <font color="#FFFFFF">Política de privacidad de Fanchat.</font></string>
     <string name="required_email">¡Tienes que escribir tu correo electrónico!</string>
     <string name="required_password">Debes introducir una contraseña</string>
     <string name="required_first_name">¡Tienes que escribir tu nombre!</string>

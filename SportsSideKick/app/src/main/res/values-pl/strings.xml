@@ -50,7 +50,7 @@
     <string name="password_reset">Reset hasła</string>
     <string name="reset_check_email">Sprawdź swoją skrzynkę e-mail: otrzymasz wiadomość z opcjami resetowania hasła.</string>
     <string name="email_enter_valid">Wpisz prawidłowy adres e-mail.</string>
-    <string name="sign_up_text">Zakładając konto, zgadzasz się\n<font color="#FFFFFF">z Warunkami użytkowania</font> i <font color="#FFFFFF">Polityką prywatności SportsSidekick.</font></string>
+    <string name="sign_up_text">Zakładając konto, zgadzasz się\n<font color="#FFFFFF">z Warunkami użytkowania</font> i <font color="#FFFFFF">Polityką prywatności Fanchat.</font></string>
     <string name="required_email">Wpisz swój adres e-mail!</string>
     <string name="required_password">Musisz wpisać hasło.</string>
     <string name="required_first_name">Wpisz swoje imię!</string>

@@ -50,7 +50,7 @@
     <string name="password_reset">重置密码</string>
     <string name="reset_check_email">请查看您的电子邮件，以了解密码重置选项。</string>
     <string name="email_enter_valid">请输入有效的电子邮件地址。</string>
-    <string name="sign_up_text">通过注册，您即同意 SportsSidekick 的\n<font color="#FFFFFF">使用条款</font> 和 <font color="#FFFFFF">隐私政策。</font></string>
+    <string name="sign_up_text">通过注册，您即同意 Fanchat 的\n<font color="#FFFFFF">使用条款</font> 和 <font color="#FFFFFF">隐私政策。</font></string>
     <string name="required_email">您必须输入电子邮件！</string>
     <string name="required_password">您必须输入密码</string>
     <string name="required_first_name">您必须输入自己的名字！</string>

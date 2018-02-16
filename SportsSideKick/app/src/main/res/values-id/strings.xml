@@ -50,7 +50,7 @@
     <string name="password_reset">Setel Ulang Kata Sandi</string>
     <string name="reset_check_email">Silakan periksa surel Anda untuk opsi setel ulang kata sandi.</string>
     <string name="email_enter_valid">Silakan masukkan alamat surel yang valid</string>
-    <string name="sign_up_text">Dengan mendaftar Anda menyetujui\n<font color="#FFFFFF">Syarat dan Ketentuan Penggunaan SportsSidekick</font> dan <font color="#FFFFFF">Kebijakan Privasi.</font></string>
+    <string name="sign_up_text">Dengan mendaftar Anda menyetujui\n<font color="#FFFFFF">Syarat dan Ketentuan Penggunaan Fanchat</font> dan <font color="#FFFFFF">Kebijakan Privasi.</font></string>
     <string name="required_email">Anda harus memasukkan surel!</string>
     <string name="required_password">Anda harus memasukkan kata sandi</string>
     <string name="required_first_name">Anda harus memasukkan nama depan!</string>

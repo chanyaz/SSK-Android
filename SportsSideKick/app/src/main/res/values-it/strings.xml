@@ -50,7 +50,7 @@
     <string name="password_reset">Ripristina password</string>
     <string name="reset_check_email">Controlla l’email per le opzioni di ripristino della password.</string>
     <string name="email_enter_valid">Inserisci un indirizzo email valido.</string>
-    <string name="sign_up_text">Registrandoti, dichiari di aver letto e accettato i\n<font color="#FFFFFF">Termini e Condizioni</font> e la <font color="#FFFFFF">Politica in materia di trattamento dei dati personali</font> di Sports Sidekick.</string>
+    <string name="sign_up_text">Registrandoti, dichiari di aver letto e accettato i\n<font color="#FFFFFF">Termini e Condizioni</font> e la <font color="#FFFFFF">Politica in materia di trattamento dei dati personali</font> di Fanchat.</string>
     <string name="required_email">Devi inserire l’email!</string>
     <string name="required_password">Devi inserire una password</string>
     <string name="required_first_name">Devi inserire il nome!</string>

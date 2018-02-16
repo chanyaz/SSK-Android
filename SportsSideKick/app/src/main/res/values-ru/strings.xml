@@ -50,7 +50,7 @@
     <string name="password_reset">Сбросить пароль</string>
     <string name="reset_check_email">Проверьте почту, там должно быть письмо с вариантами сброса пароля.</string>
     <string name="email_enter_valid">Введите верный адрес эл. почты.</string>
-    <string name="sign_up_text">Регистрируясь, вы принимаете\n<font color="#FFFFFF">Условия использования</font> и <font color="#FFFFFF">Политику конфиденциальности SportsSidekick.</font></string>
+    <string name="sign_up_text">Регистрируясь, вы принимаете\n<font color="#FFFFFF">Условия использования</font> и <font color="#FFFFFF">Политику конфиденциальности Fanchat.</font></string>
     <string name="required_email">Укажите адрес эл. почты!</string>
     <string name="required_password">Нужно ввести пароль</string>
     <string name="required_first_name">Укажите свое имя!</string>

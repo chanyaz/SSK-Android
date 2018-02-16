@@ -50,7 +50,7 @@
     <string name="password_reset">Kennwort zurücksetzen</string>
     <string name="reset_check_email">Bitte überprüfe deine E-Mails, um dein Kennwort zurückzusetzen.</string>
     <string name="email_enter_valid">Bitte eine gültige E-Mail-Adresse eingeben.</string>
-    <string name="sign_up_text">Mit deiner Anmeldung bei SportsSidekick akzeptiertst du die\n<font color="#FFFFFF">Nutzungsbedingungen</font> und  <font color="#FFFFFF">Datenschutzrichtlinien.</font></string>
+    <string name="sign_up_text">Mit deiner Anmeldung bei Fanchat akzeptiertst du die\n<font color="#FFFFFF">Nutzungsbedingungen</font> und  <font color="#FFFFFF">Datenschutzrichtlinien.</font></string>
     <string name="required_email">Du musst deine E-Mail-Adresse eingeben!</string>
     <string name="required_password">Du musst ein Kennwort eingeben</string>
     <string name="required_first_name">Du musst deinen Vornamen eingeben!</string>
