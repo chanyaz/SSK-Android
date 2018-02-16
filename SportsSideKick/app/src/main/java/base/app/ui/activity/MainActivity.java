@@ -384,6 +384,10 @@ public class MainActivity extends BaseActivityWithPush
 
     @Override
     public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END);
+            return;
+        }
         if (fragmentOrganizer.getPreviousFragment() == null) return;
 
         Class<? extends Fragment> previousFragment = fragmentOrganizer.getPreviousFragment().getClass();
