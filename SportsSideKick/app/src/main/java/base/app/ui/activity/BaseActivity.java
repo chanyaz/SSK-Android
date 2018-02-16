@@ -17,10 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 
-import com.facebook.CallbackManager;
 import com.facebook.internal.CallbackManagerImpl;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaeger.library.StatusBarUtil;
@@ -77,8 +74,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static final String TAG = "Base Activity";
     public FragmentOrganizer fragmentOrganizer;
     protected LoginStateReceiver loginStateReceiver;
-    protected CallbackManager callbackManager;
-    protected ShareDialog facebookShareDialog;
     ViewGroup notificationContainer;
 
     @Override
@@ -107,13 +102,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        callbackManager = CallbackManager.Factory.create();
         Model.getInstance().initialize(this);
-        facebookShareDialog = new ShareDialog(this);
-        // internal notifications initialization
         InternalNotificationManager.getInstance();
-        // this part is optional
-        facebookShareDialog.registerCallback(callbackManager, SharingManager.getInstance());
         notificationContainer = (ViewGroup) findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
 
@@ -238,7 +228,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         startNewsTimer(newsTickerInfo, newsLabel);
     }
 
-
     protected void startNewsTimer(final NewsTickerInfo newsTickerInfo, final TextView newsLabel) {
         count = 0;
         if (newsTimer != null) {
@@ -280,9 +269,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CallbackManagerImpl.RequestCodeOffset.Share.toRequestCode()) {// share to facebook
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-        }
         if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) { // sign up Fragment - Continue with facebook
             fragmentOrganizer.onActivityResult(requestCode, resultCode, data);
         }
@@ -394,13 +380,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
         }
         showNotification(v, event.getCloseTime());
-    }
-
-    @Subscribe
-    public void onShareOnFacebookEvent(ShareLinkContent linkContent) {
-        if (ShareDialog.canShow(ShareLinkContent.class)) {
-            facebookShareDialog.show(linkContent);
-        }
     }
 
     @Subscribe

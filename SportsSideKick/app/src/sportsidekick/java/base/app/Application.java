@@ -38,7 +38,6 @@ public class Application extends MultiDexApplication {
         // Custom fonts
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/TitilliumWeb-Regular.ttf")
-                .setFontAttrId(R.attr.fontPath)
                 .build()
         );
 
