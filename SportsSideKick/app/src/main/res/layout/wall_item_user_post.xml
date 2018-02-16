@@ -49,7 +49,6 @@
         android:layout_marginTop="@dimen/margin_5"
         android:layout_toEndOf="@+id/authorImage"
         android:layout_toStartOf="@+id/image"
-        android:background="?white"
         android:gravity="center_vertical|start"
         android:textColor="@color/colorPrimaryVeryLight" />
 
@@ -80,7 +79,6 @@
         android:layout_below="@id/text_content"
         android:layout_toEndOf="@+id/strip"
         android:layout_toStartOf="@+id/image"
-        android:background="@color/white"
         android:gravity="bottom|end"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_5">

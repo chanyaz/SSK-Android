@@ -38,7 +38,6 @@
         android:layout_marginTop="@dimen/margin_5"
         android:layout_toEndOf="@+id/authorImage"
         android:layout_toStartOf="@+id/image"
-        android:background="?white"
         android:gravity="center_vertical|start"
         tools:text="Karen Smith"
         android:textColor="@color/colorPrimaryVeryLight" />
@@ -60,7 +59,6 @@
         android:layout_below="@id/authorImage"
         android:layout_toEndOf="@+id/strip"
         android:layout_toStartOf="@+id/image"
-        android:background="?white"
         android:ellipsize="end"
         android:lineSpacingMultiplier="0.8"
         android:maxLines="3"
@@ -80,9 +78,7 @@
         android:layout_below="@id/text_content"
         android:layout_toEndOf="@+id/strip"
         android:layout_toStartOf="@+id/image"
-        android:background="@color/white"
         android:paddingBottom="@dimen/margin_5">
-
 
         <LinearLayout
             android:id="@+id/comments_container"

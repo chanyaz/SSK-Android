@@ -35,7 +35,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/image"
-        android:background="?white"
         android:ellipsize="end"
         android:lineSpacingMultiplier="0.8"
         android:maxLines="3"
@@ -45,7 +44,6 @@
         tools:text="@string/lorem_ipsum"
         android:textColor="?black"
         android:textSize="@dimen/list_item_text_size" />
-
 
     <ImageView
         android:id="@+id/user_image"
@@ -63,9 +61,7 @@
         android:layout_height="@dimen/height_25"
         android:layout_alignBottom="@+id/image"
         android:layout_toEndOf="@+id/user_image"
-        android:background="@color/white"
         android:paddingBottom="@dimen/margin_5">
-
 
         <LinearLayout
             android:id="@+id/comments_container"

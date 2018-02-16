@@ -178,7 +178,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     viewResourceId = R.layout.wall_item_rumour;
                     break;
                 case wallStoreItem:
-                    viewResourceId = R.layout.wall_item_shop;
+                    viewResourceId = R.layout.wall_item_store;
                     break;
                 case stats:
                     viewResourceId = R.layout.wall_item_stats;
