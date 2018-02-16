@@ -158,7 +158,8 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_toRightOf="@id/strip_bottom"
-            android:src="?profileImageIcon" />
+            android:src="?profileImageIcon"
+            android:layout_toEndOf="@id/strip_bottom" />
 
         <TextView
             android:id="@+id/text_comment"

@@ -59,7 +59,8 @@
             android:padding="@dimen/padding_8"
             android:textColor="?colorGray"
             android:textSize="@dimen/font_size_12"
-            tools:text="00:00 / 00:00" />
+            tools:text="00:00 / 00:00"
+            android:layout_toEndOf="@id/play_button" />
 
         <ImageView
             android:id="@+id/mute_button"
@@ -70,7 +71,8 @@
             android:gravity="center"
             android:padding="@dimen/padding_10"
             android:src="?soundSelector"
-            android:thumb="@null" />
+            android:thumb="@null"
+            android:layout_toStartOf="@id/fullscreen_button" />
 
         <ImageView
             android:id="@+id/fullscreen_button"
@@ -79,7 +81,8 @@
             android:layout_alignParentRight="true"
             android:padding="@dimen/padding_10"
             android:src="@drawable/full_screen_icon"
-            android:tint="@color/white" />
+            android:tint="@color/white"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

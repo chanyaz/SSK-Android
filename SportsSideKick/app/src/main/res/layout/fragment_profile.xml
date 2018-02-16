@@ -290,7 +290,8 @@
                         android:paddingEnd="16dp"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
-                        tools:text="test@test.com" />
+                        tools:text="test@test.com"
+                        android:layout_toStartOf="@id/location_value" />
 
                     <TextView
                         android:id="@+id/contact_info_phone"
@@ -344,7 +345,8 @@
                         android:layout_toLeftOf="@id/subscribed_since_value"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
-                        tools:text="SportsSideKick" />
+                        tools:text="SportsSideKick"
+                        android:layout_toStartOf="@id/subscribed_since_value" />
 
                     <TextView
                         android:id="@+id/password_caption"
