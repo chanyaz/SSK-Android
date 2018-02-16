@@ -4,8 +4,6 @@ import android.content.ContextWrapper;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
-import com.facebook.appevents.AppEventsLogger;
-import com.keiferstone.nonet.NoNet;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -21,25 +19,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class Application extends MultiDexApplication{
-
-    private static Application instance;
-
-    public static Application getAppInstance() { return instance; }
+public class Application extends MultiDexApplication {
 
     @Override
     public void onCreate() {
         super.onCreate();
         if (BuildConfig.DEBUG) enableStrictMode();
-
-        NoNet.configure()
-                .endpoint("http://google.com")
-                .timeout(5)
-                .connectedPollFrequency(60)
-                .disconnectedPollFrequency(1);
-        instance = this;
-
-        AppEventsLogger.activateApp(this);
 
         // Shared prefs initialization
         new Prefs.Builder()
@@ -63,14 +48,13 @@ public class Application extends MultiDexApplication{
         Translator.getInstance().initialize(this);
 
         RxPaparazzo.register(this);
-
-        // TODO Implement analytics
     }
 
     protected void enableStrictMode() {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectAll()
-                .penaltyDialog()
+                .permitDiskReads()
+                .penaltyLog()
                 .build());
         StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
                 .detectAll()

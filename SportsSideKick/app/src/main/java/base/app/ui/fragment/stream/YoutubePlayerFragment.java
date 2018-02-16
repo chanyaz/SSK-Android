@@ -92,7 +92,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
         transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
         youTubePlayerFragment.initialize(Keys.YOUTUBE_API_KEY, this);
         ButterKnife.bind(this, view);
-        isTablet = Utility.isTablet(Application.getAppInstance());
+        isTablet = Utility.isTablet(getContext());
         if (getPrimaryArgument() != null) {
             video = ClubModel.getInstance().getVideoById(getPrimaryArgument());
         } else {

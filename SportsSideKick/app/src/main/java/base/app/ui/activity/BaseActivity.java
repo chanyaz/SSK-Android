@@ -109,7 +109,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
         Model.getInstance().initialize(this);
-        VideoChatModel.getInstance();
         facebookShareDialog = new ShareDialog(this);
         // internal notifications initialization
         InternalNotificationManager.getInstance();
@@ -118,10 +117,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         notificationContainer = (ViewGroup) findViewById(R.id.left_notification_container);
         PurchaseModel.getInstance().onCreate(this);
 
-        makeStatusBarTransparent();
-    }
-
-    private void makeStatusBarTransparent() {
         StatusBarUtil.setTransparent(this);
     }
 

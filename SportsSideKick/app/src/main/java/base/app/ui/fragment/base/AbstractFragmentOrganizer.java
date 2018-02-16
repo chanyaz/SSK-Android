@@ -14,7 +14,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import base.app.Application;
 import base.app.util.commons.Utility;
 
 /**
@@ -145,7 +144,7 @@ abstract class AbstractFragmentOrganizer {
             // check if current fragment is in this type of containers
             if (currentFragment != null && containerId == getFragmentContainer(currentFragment.getClass())) {
                 // if currentFragment is member of the same container, remove it
-                if (Utility.isTablet(Application.getAppInstance())) {
+                if (Utility.isTablet(fragment.getContext())) {
                     // On tablet, fragment is removed in transaction
                     transaction.remove(currentFragment);
                 } else {
