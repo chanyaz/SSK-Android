@@ -205,12 +205,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             String coverImageUrl = post.getCoverImageUrl();
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
                 holder.imageView.setVisibility(View.VISIBLE);
+
                 if (post instanceof WallStoreItem) {
                     holder.imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 } else {
                     holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
-
                 ImageLoader.displayImage(post.getCoverImageUrl(), holder.imageView, R.drawable.wall_detail_header_placeholder);
                 return true;
             } else {
