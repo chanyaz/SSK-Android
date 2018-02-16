@@ -71,7 +71,8 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
  * www.hypercubesoft.com
  */
 @IgnoreBackHandling
-public class WallFragment extends BaseFragment implements LoginStateReceiver.LoginStateListener {
+public class WallFragment extends BaseFragment
+        implements LoginStateReceiver.LoginStateListener {
 
     WallAdapter adapter;
 
