@@ -206,7 +206,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (coverImageUrl != null && !TextUtils.isEmpty(post.getCoverImageUrl())) {
                 holder.imageView.setVisibility(View.VISIBLE);
 
-                ImageLoader.displayImage(post.getCoverImageUrl(), holder.imageView);
+                ImageLoader.displayImage(post.getCoverImageUrl(), holder.imageView, R.drawable.wall_detail_header_placeholder);
                 return true;
             } else {
                 holder.imageView.setVisibility(View.GONE);

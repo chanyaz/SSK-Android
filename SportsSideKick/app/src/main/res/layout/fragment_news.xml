@@ -1,5 +1,4 @@
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRefreshLayout"
@@ -11,14 +10,14 @@
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll"
-        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            tools:layout_marginTop="-48dp"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_marginTop="-48dp">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/topImage"
@@ -53,14 +52,16 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="0dp"
-                tools:layout_height="500dp"
-                tools:paddingLeft="8dp"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
                 android:paddingTop="4dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/topImage"
+                tools:layout_height="500dp"
+                tools:paddingLeft="8dp"
                 tools:paddingStart="8dp" />
 
         </android.support.constraint.ConstraintLayout>

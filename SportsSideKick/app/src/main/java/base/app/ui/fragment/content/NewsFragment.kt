@@ -1,7 +1,6 @@
 package base.app.ui.fragment.content
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,8 +37,6 @@ open class NewsFragment : BaseFragment() {
         topImage.show(R.drawable.image_wall_background)
 
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.isNestedScrollingEnabled = false
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
 
         loadNews()
