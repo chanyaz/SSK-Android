@@ -5,235 +5,248 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/navigation_bar_margin_bottom"
-    tools:context=".ui.activity.MainActivity"
-    tools:layout_marginBottom="0dp">
+    tools:context=".ui.activity.MainActivity">
 
     <RelativeLayout
-        android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/fragment_holder"
+            android:id="@+id/activity_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bottom_menu_recycler_view" />
+            android:layout_above="@id/systemNavBarSpacer">
 
-        <RelativeLayout
-            android:id="@+id/left_top_bar_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_72"
-            tools:layout_height="@dimen/height_48">
-
-            <ImageView
+            <RelativeLayout
+                android:id="@+id/fragment_holder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0.7"
-                android:background="@drawable/phone_background"
-                android:paddingTop="24dp"
-                android:tileMode="repeat"
-                tools:paddingTop="0dp" />
+                android:layout_above="@id/bottom_menu_recycler_view" />
 
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="@dimen/top_bar_logo_tema_size"
-                android:layout_height="match_parent"
-                android:layout_marginTop="24dp"
-                android:padding="@dimen/padding_4"
-                android:scaleType="fitCenter"
-                tools:layout_marginTop="0dp"
-                tools:src="?logoIcon" />
-
-            <TextView
-                android:id="@+id/caption"
+            <RelativeLayout
+                android:id="@+id/left_top_bar_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/scrollingNewsSwitcher"
-                android:layout_marginBottom="-2dp"
-                android:layout_marginTop="2dp"
-                android:layout_toEndOf="@+id/logo"
-                android:layout_toStartOf="@+id/notification_open"
-                android:textAllCaps="true"
-                android:textColor="?phoneLoungeTeamCaptionColor"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_height="@dimen/height_72"
+                tools:layout_height="@dimen/height_48">
 
-            <TextSwitcher
-                android:id="@+id/scrollingNewsSwitcher"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/half_margin"
-                android:layout_toEndOf="@+id/logo"
-                android:animateLayoutChanges="true"
-                android:measureAllChildren="false"
-                android:layout_toStartOf="@+id/notification_open"
-                android:paddingBottom="@dimen/half_margin"
-                android:paddingEnd="8dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="@drawable/phone_background"
+                    android:paddingTop="24dp"
+                    android:tileMode="repeat"
+                    tools:paddingTop="0dp" />
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="@dimen/top_bar_logo_tema_size"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="24dp"
+                    android:padding="@dimen/padding_4"
+                    android:scaleType="fitCenter"
+                    tools:layout_marginTop="0dp"
+                    tools:src="?logoIcon" />
 
                 <TextView
-                    android:id="@+id/scrolling_news_title"
+                    android:id="@+id/caption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="?phoneLoungeTickerColor"
-                    android:textSize="@dimen/font_size_10" />
+                    android:layout_above="@id/scrollingNewsSwitcher"
+                    android:layout_marginBottom="-2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toEndOf="@+id/logo"
+                    android:layout_toStartOf="@+id/notification_open"
+                    android:textAllCaps="true"
+                    android:textColor="?phoneLoungeTeamCaptionColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            </TextSwitcher>
+                <TextSwitcher
+                    android:id="@+id/scrollingNewsSwitcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/half_margin"
+                    android:layout_toEndOf="@+id/logo"
+                    android:layout_toStartOf="@+id/notification_open"
+                    android:animateLayoutChanges="true"
+                    android:measureAllChildren="false"
+                    android:paddingBottom="@dimen/half_margin"
+                    android:paddingEnd="8dp">
 
-            <ImageView
-                android:id="@+id/notification_open"
-                android:layout_width="@dimen/top_bar_logo_tema_size"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="24dp"
-                android:layout_toStartOf="@+id/friends_open"
-                android:padding="@dimen/half_margin"
-                android:scaleType="fitCenter"
-                android:src="@drawable/notif_icon"
-                android:tint="?phoneLoungeIconsColor"
-                tools:layout_marginTop="0dp" />
+                    <TextView
+                        android:id="@+id/scrolling_news_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="?phoneLoungeTickerColor"
+                        android:textSize="@dimen/font_size_10" />
 
-            <ImageView
-                android:id="@+id/friends_open"
-                android:layout_width="@dimen/top_bar_logo_tema_size"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="24dp"
-                android:padding="@dimen/half_margin"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_friends"
-                android:tint="?phoneLoungeIconsColor"
-                tools:layout_marginTop="0dp" />
+                </TextSwitcher>
 
-            <TextView
-                android:id="@+id/notification_number"
+                <ImageView
+                    android:id="@+id/notification_open"
+                    android:layout_width="@dimen/top_bar_logo_tema_size"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="24dp"
+                    android:layout_toStartOf="@+id/friends_open"
+                    android:padding="@dimen/half_margin"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/notif_icon"
+                    android:tint="?phoneLoungeIconsColor"
+                    tools:layout_marginTop="0dp" />
+
+                <ImageView
+                    android:id="@+id/friends_open"
+                    android:layout_width="@dimen/top_bar_logo_tema_size"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="24dp"
+                    android:padding="@dimen/half_margin"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_friends"
+                    android:tint="?phoneLoungeIconsColor"
+                    tools:layout_marginTop="0dp" />
+
+                <TextView
+                    android:id="@+id/notification_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_12"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/left_notification_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_12"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp" />
+
+            <View
+                android:id="@+id/shadow"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/height_2"
+                android:layout_above="@id/bottom_menu_recycler_view"
+                android:alpha="0.6"
+                android:background="@drawable/top_gradient_drawable" />
+
+            <base.app.util.ui.NoScrollRecycler
+                android:id="@+id/bottom_menu_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/standard_button_height"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/fragment_popup_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout_height="0dp" />
+
+            <RelativeLayout
+                android:id="@+id/fragment_left_popup_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/bottom_menu_recycler_view"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true" />
+
+            <RelativeLayout
+                android:id="@+id/blurred_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/transparent"
+                tools:layout_height="0dp" />
+
+            <RelativeLayout
+                android:id="@+id/fragment_dialog"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/transparent"
+                tools:layout_height="0dp" />
+
+            <FrameLayout
+                android:id="@+id/splash"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimarySlightlyLight">
+
+                <ImageView
+                    android:id="@+id/splashBackgroundImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.4"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/video_chat_background" />
+
+                <base.app.util.ui.NextMatchView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_radio_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/bottom_menu_recycler_view"
+                android:layout_below="@id/left_top_bar_container"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:id="@+id/radio_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:id="@+id/radio_list_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_tv_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/bottom_menu_recycler_view"
+                android:layout_below="@id/left_top_bar_container"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/youtube_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <RelativeLayout
+                    android:id="@+id/play_list_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false" />
+            </LinearLayout>
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/left_notification_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="24dp" />
-
         <View
-            android:id="@+id/shadow"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/height_2"
-            android:layout_above="@id/bottom_menu_recycler_view"
-            android:alpha="0.6"
-            android:background="@drawable/top_gradient_drawable" />
-
-        <base.app.util.ui.NoScrollRecycler
-            android:id="@+id/bottom_menu_recycler_view"
+            android:id="@+id/systemNavBarSpacer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/standard_button_height"
+            android:layout_height="@dimen/navigation_bar_margin_bottom"
             android:layout_alignParentBottom="true"
-            android:background="@color/white" />
-
-        <RelativeLayout
-            android:id="@+id/fragment_popup_holder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:background="@color/colorPrimarySemiDark"
             tools:layout_height="0dp" />
-
-        <RelativeLayout
-            android:id="@+id/fragment_left_popup_holder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottom_menu_recycler_view"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true" />
-
-        <RelativeLayout
-            android:id="@+id/blurred_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/transparent"
-            tools:layout_height="0dp" />
-
-        <RelativeLayout
-            android:id="@+id/fragment_dialog"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@color/transparent"
-            tools:layout_height="0dp" />
-
-        <FrameLayout
-            android:id="@+id/splash"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimarySlightlyLight">
-
-            <ImageView
-                android:id="@+id/splashBackgroundImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:alpha="0.4"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/video_chat_background" />
-
-            <base.app.util.ui.NextMatchView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:id="@+id/fragment_radio_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottom_menu_recycler_view"
-            android:layout_below="@id/left_top_bar_container"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <RelativeLayout
-                android:id="@+id/radio_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <RelativeLayout
-                android:id="@+id/radio_list_holder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/fragment_tv_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottom_menu_recycler_view"
-            android:layout_below="@id/left_top_bar_container"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/youtube_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <RelativeLayout
-                android:id="@+id/play_list_holder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:baselineAligned="false" />
-        </LinearLayout>
 
     </RelativeLayout>
 
@@ -241,8 +254,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
+        android:layout_marginBottom="@dimen/navigation_bar_margin_bottom"
         android:background="@color/colorGraySemiLight"
-        app:layout_widthPercent="50%">
+        app:layout_widthPercent="50%"
+        tools:layout_marginBottom="0dp">
+
         <!--android:layout_gravity="end"-->
         <android.support.percent.PercentRelativeLayout
             android:id="@+id/drawer_container"
@@ -257,13 +273,13 @@
             <android.support.percent.PercentRelativeLayout
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
-                android:foreground="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
                 android:onClick="onProfileClicked"
                 app:layout_heightPercent="17.5%">
 
