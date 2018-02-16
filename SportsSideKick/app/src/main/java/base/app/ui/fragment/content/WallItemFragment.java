@@ -283,7 +283,11 @@ public class WallItemFragment extends BaseFragment {
                 ImageLoader.displayImage(post.getCoverImageUrl(), imageHeader,
                         R.drawable.wall_detail_header_placeholder);
                 title.setText(post.getTitle());
-                content.setText(post.getBodyText());
+                if (post.getBodyText() != null && !post.getBodyText().trim().isEmpty()) {
+                    content.setText(post.getBodyText());
+                } else {
+                    content.setVisibility(View.GONE);
+                }
                 if (post instanceof WallPost && ((WallPost) post).getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
                     imageHeader.setVisibility(View.GONE);
