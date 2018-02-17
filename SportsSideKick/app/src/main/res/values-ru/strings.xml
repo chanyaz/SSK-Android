@@ -60,7 +60,7 @@
     <string name="required_credentials">Не хватает информации</string>
     <string name="password_try_again">Введите пароль заново и попробуйте еще раз.</string>
     <string name="login_slider_chat">Вы можете общаться с друзьями, создавать группы и даже общаться с любимыми игроками!</string>
-    <string name="logout_from_app">Так вы выйдете из приложения?</string>
+    <string name="logout_from_app">Действительно выйти из приложения?</string>
     <string name="reset_app">Это действие перезагрузит приложение.</string>
     <string name="error_username_taken">Ошибка регистрации - имя пользователя уже занято, выберите другое имя пользователя.</string>
     <string name="facebook_error">Не удалось получить ваш общий профиль. Попробуйте еще раз!</string>
