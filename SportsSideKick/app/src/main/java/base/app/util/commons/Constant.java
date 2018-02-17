@@ -20,7 +20,7 @@ import base.app.ui.fragment.stream.ClubTVFragment;
  */
 public class Constant {
 
-    public static final int LOGIN_TEXT_TIME= 3000;
+    public static final int SPLASH_DURATION = 3000;
     public static final String RADIO_VOLUME = "RADIO_VOLUME";
 
     public static final int REQUEST_CODE_CHAT_IMAGE_CAPTURE = 101;

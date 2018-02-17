@@ -484,12 +484,14 @@ public class NewsItemFragment extends BaseFragment {
         textContent.setText(item.getTitle());
         content.setText(item.getContent());
 
-        String time = "" + DateUtils.getRelativeTimeSpanString(
-                (long) (item.getTimestamp() * 1000),
-                Utility.getCurrentTime(),
-                DateUtils.MINUTE_IN_MILLIS
-        );
-        dateLabel.setText(time);
+        if (item.getTimestamp() != null) {
+            String time = "" + DateUtils.getRelativeTimeSpanString(
+                    (long) (item.getTimestamp() * 1000),
+                    Utility.getCurrentTime(),
+                    DateUtils.MINUTE_IN_MILLIS
+            );
+            dateLabel.setText(time);
+        }
 
         hideReadMoreIfShort();
     }

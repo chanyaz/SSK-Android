@@ -221,6 +221,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void startNewsTimer(final NewsTickerInfo newsTickerInfo, final TextView newsLabel) {
+        // update next match info
+        EventBus.getDefault().post(new NextMatchUpdateEvent());
+
         count = 0;
         if (newsTimer != null) {
             newsTimer.cancel();
@@ -232,8 +235,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // update next match info
-                        EventBus.getDefault().post(new NextMatchUpdateEvent());
                         // update news label
                         newsLabel.setText(newsTickerInfo.getNews().get(count));
                         if (++count == newsTickerInfo.getNews().size()) {
@@ -242,8 +243,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, Constant.LOGIN_TEXT_TIME);
-
+        }, Constant.SPLASH_DURATION, Constant.SPLASH_DURATION);
     }
 
     @Override
