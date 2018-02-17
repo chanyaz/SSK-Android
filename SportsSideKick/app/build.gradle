@@ -76,7 +76,7 @@ dependencies {
     implementation files('libs/YoutubeAndroidPlayerApi.jar')
 
     // Gamesparks backend
-    implementation 'com.gamesparks.sdk:gamesparks-java-sdk:0.4.4-SNAPSHOT'
+    implementation 'com.gamesparks.sdk:gamesparks-android-client-sdk:0.4.5'
 
     // Json parsing
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.0'

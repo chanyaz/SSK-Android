@@ -25,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup"
-        tools:replace="android:theme">
+        tools:replace="android:theme,android:icon">
         <activity
             android:name=".ui.activity.SplashActivity"
             android:theme="@style/SplashTheme">
