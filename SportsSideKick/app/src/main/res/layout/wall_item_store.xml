@@ -124,6 +124,18 @@
                 android:textSize="@dimen/font_size_10"
                 tools:text="6901" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/dateLabel"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/likes_container"
+            android:layout_alignTop="@id/likes_container"
+            android:textColor="#40000000"
+            android:textSize="12sp"
+            tools:text="Yesterday" />
+
     </RelativeLayout>
 
     <View
