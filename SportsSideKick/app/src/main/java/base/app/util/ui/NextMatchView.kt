@@ -13,8 +13,12 @@ import base.app.R
 import base.app.R.string
 import base.app.data.ticker.NextMatchModel
 import base.app.util.commons.NextMatchCountdown
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.next_match_view.view.*
 import java.lang.Long.parseLong
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Filip on 10/23/2017.
@@ -24,8 +28,16 @@ import java.lang.Long.parseLong
 class NextMatchView(context: Context, attrs: AttributeSet)
     : RelativeLayout(context, attrs) {
 
-    init {
+    private val disposables = CompositeDisposable()
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         showMatchInfo()
+    }
+
+    override fun onDetachedFromWindow() {
+        disposables.clear()
+        super.onDetachedFromWindow()
     }
 
     private fun showMatchInfo() {
@@ -43,11 +55,18 @@ class NextMatchView(context: Context, attrs: AttributeSet)
             val textValue = NextMatchCountdown.getTextValue(context, timestamp, true)
             date.text = textValue
 
-            if (textValue == context.getString(R.string.live)) {
-                countdown.text = date.text
-            } else {
-                updateCountdownTimer(timestamp)
-            }
+            disposables.add(Observable.interval(
+                    1000,
+                    500,
+                    TimeUnit.MILLISECONDS)
+                    .observeOn(mainThread())
+                    .subscribe {
+                        if (textValue == context.getString(R.string.live)) {
+                            countdown.text = date.text
+                        } else {
+                            updateCountdownTimer(timestamp)
+                        }
+                    })
 
             nextMatchContainer.visible()
         } else {
