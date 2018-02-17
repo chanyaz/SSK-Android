@@ -69,7 +69,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:overScrollMode="always">
+            android:fadeScrollbars="false"
+            android:overScrollMode="always"
+            android:scrollbarThumbVertical="@drawable/scrollbar"
+            android:scrollbars="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -252,12 +255,12 @@
 
                 <TextView
                     android:id="@+id/dateLabel"
-                    android:layout_marginLeft="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/social_buttons_container"
                     android:layout_marginBottom="-12dp"
                     android:layout_marginEnd="@dimen/margin_5"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="12dp"
                     android:textColor="#40000000"
@@ -449,7 +452,8 @@
         android:paddingTop="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/btn_back_with_background"
-        tools:layout_marginTop="-8dp" />
+        tools:layout_marginTop="-8dp"
+        tools:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/sharedMessageBar"
