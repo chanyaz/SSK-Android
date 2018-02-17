@@ -3,7 +3,6 @@ package base.app.util.ui
 import android.content.Context
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.os.Handler
 import android.text.Html
 import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.util.AttributeSet
@@ -44,16 +43,11 @@ class NextMatchView(context: Context, attrs: AttributeSet)
             val textValue = NextMatchCountdown.getTextValue(context, timestamp, true)
             date.text = textValue
 
-            Handler().postDelayed(object : Runnable {
-                override fun run() {
-                    if (textValue == context.getString(R.string.live)) {
-                        countdown.text = date.text
-                    } else {
-                        updateCountdownTimer(timestamp)
-                    }
-                    postDelayed(this, 500L)
-                }
-            }, 500L)
+            if (textValue == context.getString(R.string.live)) {
+                countdown.text = date.text
+            } else {
+                updateCountdownTimer(timestamp)
+            }
 
             nextMatchContainer.visible()
         } else {
