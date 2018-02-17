@@ -34,6 +34,7 @@
             android:id="@+id/post_text"
             android:layout_width="0dp"
             android:layout_height="56dp"
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
             android:layout_weight="1"
             android:background="@null"
             android:hint="@string/comment_hint"
@@ -41,7 +42,7 @@
             android:paddingEnd="@dimen/margin_15"
             android:paddingStart="@dimen/margin_15"
             android:textColor="@color/black"
-            android:textColorHint="@color/colorGrayDark"
+            android:textColorHint="#7e000000"
             android:textSize="16sp" />
 
     </LinearLayout>
