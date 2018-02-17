@@ -215,6 +215,7 @@ public class NewsItemFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         setClickListeners();
+        if (item == null) return;
 
         showHeaderImage();
         showTextContent(item);
