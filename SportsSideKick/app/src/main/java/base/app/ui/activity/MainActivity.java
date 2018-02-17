@@ -1,8 +1,6 @@
 package base.app.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.percent.PercentRelativeLayout;
@@ -14,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -82,7 +79,6 @@ import base.app.util.commons.Constant;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.chat.AudioRecordedEvent;
-import base.app.util.ui.BlurBuilder;
 import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemDecoration;
 import base.app.util.ui.NavigationDrawerItems;
@@ -363,20 +359,6 @@ public class MainActivity extends BaseActivityWithPush
     public void toggleBlur(boolean visible, final View fragmentView) {
         if (visible) {
             blurredBackground.setVisibility(View.VISIBLE);
-            if (rootView.getWidth() > 0) {
-                Bitmap image = BlurBuilder.blur(fragmentView);
-                blurredBackground.setBackground(new BitmapDrawable(this.getResources(), image));
-                blurredBackground.getBackground().setAlpha(230);
-            } else {
-                rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        Bitmap image = BlurBuilder.blur(fragmentView);
-                        blurredBackground.setBackground(new BitmapDrawable(MainActivity.this.getResources(), image));
-                        blurredBackground.getBackground().setAlpha(230);
-                    }
-                });
-            }
         } else {
             blurredBackground.setVisibility(View.GONE);
         }

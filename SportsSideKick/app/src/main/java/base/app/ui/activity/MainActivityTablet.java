@@ -1,12 +1,9 @@
 package base.app.ui.activity;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -75,7 +72,6 @@ import base.app.data.user.UserInfo;
 import base.app.data.videoChat.VideoChatEvent;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.SoundEffects;
-import base.app.util.ui.BlurBuilder;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -165,20 +161,6 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     private void toggleBlur(boolean visible) {
         if (visible) {
             popupHolder.setVisibility(View.VISIBLE);
-            if (rootView.getWidth() > 0) {
-                Bitmap image = BlurBuilder.blur(rootView);
-                popupHolder.setBackground(new BitmapDrawable(this.getResources(), image));
-                popupHolder.getBackground().setAlpha(230);
-            } else {
-                rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        Bitmap image = BlurBuilder.blur(rootView);
-                        popupHolder.setBackground(new BitmapDrawable(MainActivityTablet.this.getResources(), image));
-                        popupHolder.getBackground().setAlpha(230);
-                    }
-                });
-            }
         } else {
             popupHolder.setVisibility(View.GONE);
         }

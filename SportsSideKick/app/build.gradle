@@ -8,8 +8,6 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 27
-        renderscriptTargetApi 17
-        renderscriptSupportModeEnabled true
         multiDexEnabled true
     }
     flavorDimensions "main"
