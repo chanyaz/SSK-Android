@@ -112,10 +112,12 @@ public class Model {
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogout));
                 break;
             case ANONYMOUS:
+                Log.d("SplashDebug", "onLoginAnonymously event was sent");
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLoginAnonymously));
                 registerForPushNotifications();
                 break;
             case REAL:
+                Log.d("SplashDebug", "onLogin event was sent");
                 EventBus.getDefault().post(new UserEvent(UserEvent.Type.onLogin, currentUserInfo));
                 registerForPushNotifications();
                 break;

@@ -2,7 +2,6 @@ package base.app.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -591,14 +590,7 @@ public class MainActivity extends BaseActivityWithPush
     public void onLoginAnonymously() {
         resetUserDetails();
         updateTopBar();
-        Handler handler = new Handler();
-        // delaying splash hiding to give enough time for login to be triggered
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                splash.setVisibility(View.GONE);
-            }
-        }, 3000);
+        splash.setVisibility(View.GONE);
     }
 
     @Override
