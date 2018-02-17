@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.WallItemFragment;
+import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,6 +115,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.socialSource)
         ImageView socialSource;
+        @Nullable
+        @BindView(R.id.dateLabel)
+        TextView dateLabel;
 
         ViewHolder(View v) {
             super(v);
@@ -243,6 +248,14 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
+        if (post.getTimestamp() != null && holder.dateLabel != null) {
+            String time = "" + DateUtils.getRelativeTimeSpanString(
+                    (long) (post.getTimestamp() * 1000),
+                    Utility.getCurrentTime(),
+                    DateUtils.MINUTE_IN_MILLIS
+            );
+            holder.dateLabel.setText(time);
+        }
         holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
         holder.likesCount.setText(String.valueOf(post.getLikeCount()));
         if (post.isLikedByUser()) {

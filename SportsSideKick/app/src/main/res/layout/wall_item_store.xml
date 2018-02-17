@@ -21,11 +21,9 @@
         android:layout_width="@dimen/height_145"
         android:layout_height="@dimen/height_145"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="@dimen/margin_25"
-        android:layout_marginStart="@dimen/margin_25"
         android:layout_toEndOf="@+id/strip"
         android:scaleType="centerCrop"
-        android:src="@color/white"
+        tools:src="@drawable/wall_detail_header_placeholder"
         android:visibility="visible" />
 
     <TextView
