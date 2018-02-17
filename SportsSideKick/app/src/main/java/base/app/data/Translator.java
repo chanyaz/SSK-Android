@@ -19,6 +19,7 @@ import base.app.data.im.ImsMessage;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallNews;
+import base.app.data.wall.WallSocial;
 import base.app.util.commons.XmlLanguageMapParser;
 
 import static base.app.ClubConfig.CLUB_ID;
@@ -115,11 +116,12 @@ public class Translator {
                             GSData data = response.getScriptData().getObject("item");
                             WallNews item = null;
                             if (data != null) {
-                                item = mapper.convertValue(data.getBaseData(), new TypeReference<WallNews>() {
+                                item = mapper.convertValue(data.getBaseData(), new TypeReference<WallSocial>() {
                                 });
                             }
                             if (completion != null) {
                                 if (item != null) {
+                                    item.setTitle(item.getMessage());
                                     completion.setResult(item);
                                 } else {
                                     completion.setException(new Exception("Something went wrong with translation of News."));
