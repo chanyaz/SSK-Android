@@ -267,7 +267,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         }
         if (post instanceof WallNews && ((WallNews) post).getSource() != null) {
             int sourceImageResource = 0;
-            switch (((WallNews) post).getSource()) {
+            switch (((WallNews) post).getSource().toLowerCase()) {
                 case "facebook":
                     sourceImageResource = R.drawable.ic_social_source_facebook;
                     break;

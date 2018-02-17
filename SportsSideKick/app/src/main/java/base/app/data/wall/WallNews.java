@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import base.app.data.Id;
 import base.app.data.sharing.SharingManager;
+import base.app.util.commons.Utility;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -56,7 +57,7 @@ public class WallNews extends WallBase {
 
     @JsonProperty("source")
     public String getSource() {
-        return source;
+        return Utility.capitalizeFirst(source);
     }
 
     @JsonProperty("source")

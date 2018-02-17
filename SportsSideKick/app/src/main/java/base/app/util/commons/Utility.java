@@ -190,4 +190,9 @@ public class Utility {
         DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
         return (int) (dp * metrics.density);
     }
+
+    public static String capitalizeFirst(String input) {
+        if (input == null) return null;
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
+    }
 }

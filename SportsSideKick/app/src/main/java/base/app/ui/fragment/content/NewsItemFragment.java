@@ -495,7 +495,12 @@ public class NewsItemFragment extends BaseFragment {
             dateLabel.setText(time);
         }
         if (item.getSource() != null) {
-            dateLabel.setText(item.getSource() + " - " + dateLabel.getText());
+            if (!dateLabel.getText().toString().isEmpty()
+                    && !dateLabel.getText().toString().equals(item.getSource())) {
+                dateLabel.setText(item.getSource() + " - " + dateLabel.getText());
+            } else {
+                dateLabel.setText(item.getSource());
+            }
         }
 
         hideReadMoreIfShort();

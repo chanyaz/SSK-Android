@@ -253,7 +253,6 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                 new View.OnClickListener() { // Cancel
                     @Override
                     public void onClick(View v) {
-                        getActivity().onBackPressed();
                     }
                 }, new View.OnClickListener() { // Confirm
                     @Override
