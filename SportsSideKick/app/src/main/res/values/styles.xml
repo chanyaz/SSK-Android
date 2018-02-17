@@ -11,6 +11,7 @@
         <item name="colorControlActivated">@color/colorAccentSemiDark</item>
         <item name="colorControlHighlight">@color/colorAccentSemiDark</item>
         <item name="colorPrimarySemiLight">@color/colorPrimarySemiLight</item>
+        <item name="android:textColorLink">@color/textColorLink</item>
         <item name="android:windowBackground">@color/login_background</item>
 
         <item name="black">@color/black</item>

@@ -326,6 +326,8 @@ public class WallItemFragment extends BaseFragment {
                     if (likesIconLiked != null) {
                         likesIconLiked.setVisibility(View.VISIBLE);
                     }
+                    likesCount.setTextColor(getContext().getResources()
+                            .getColor(R.color.colorAccent));
                 }
                 break;
             case rumor:
@@ -556,6 +558,13 @@ public class WallItemFragment extends BaseFragment {
                 }
                 if (likesIconLiked != null) {
                     likesIconLiked.setVisibility(mPost.isLikedByUser() ? View.VISIBLE : View.GONE);
+                }
+                if (mPost.isLikedByUser()) {
+                    likesCount.setTextColor(getContext().getResources()
+                            .getColor(R.color.colorAccent));
+                } else {
+                    likesCount.setTextColor(getContext().getResources()
+                            .getColor(R.color.white));
                 }
                 SoundEffects.getDefault().playSound(mPost.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }

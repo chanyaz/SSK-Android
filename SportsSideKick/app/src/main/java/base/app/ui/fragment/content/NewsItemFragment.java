@@ -444,6 +444,8 @@ public class NewsItemFragment extends BaseFragment {
             if (likesIconLiked != null) {
                 likesIconLiked.setVisibility(View.VISIBLE);
             }
+            likesCountHeader.setTextColor(getContext().getResources()
+                    .getColor(R.color.colorAccent));
         }
         if (item.getReferencedItemId() != null && !item.getReferencedItemId().isEmpty()) {
             pinIcon.setColorFilter(
@@ -667,6 +669,13 @@ public class NewsItemFragment extends BaseFragment {
             }
             if (likesIconLiked != null) {
                 likesIconLiked.setVisibility(item.isLikedByUser() ? View.VISIBLE : View.GONE);
+            }
+            if (item.isLikedByUser()) {
+                likesCountHeader.setTextColor(getContext().getResources()
+                        .getColor(R.color.colorAccent));
+            } else {
+                likesCountHeader.setTextColor(getContext().getResources()
+                        .getColor(R.color.white));
             }
             SoundEffects.getDefault().playSound(item.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
         }
