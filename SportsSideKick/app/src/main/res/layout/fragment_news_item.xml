@@ -251,10 +251,25 @@
                     android:background="#86dea0" />
 
                 <TextView
+                    android:id="@+id/dateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/social_buttons_container"
+                    android:layout_marginBottom="-12dp"
+                    android:layout_marginEnd="@dimen/margin_5"
+                    android:layout_marginStart="@dimen/margin_15"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/colorGray"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:text="Yesterday"
+                    tools:visibility="visible" />
+
+                <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/social_buttons_container"
+                    android:layout_below="@id/dateLabel"
                     android:layout_marginBottom="4dp"
                     android:layout_marginEnd="@dimen/margin_5"
                     android:layout_marginStart="@dimen/margin_15"
@@ -274,7 +289,6 @@
                     android:layout_marginBottom="@dimen/margin_5"
                     android:layout_marginEnd="@dimen/margin_15"
                     android:layout_marginStart="@dimen/margin_15"
-                    android:layout_marginTop="@dimen/margin_5"
                     android:animateLayoutChanges="true"
                     android:autoLink="all"
                     android:ellipsize="end"

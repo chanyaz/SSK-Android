@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,8 @@ public class WallItemFragment extends BaseFragment {
     TextView title;
     @BindView(R.id.content_text)
     TextView content;
+    @BindView(R.id.dateLabel)
+    TextView dateLabel;
     @BindView(R.id.share_news_to_wall_button)
     Button share;
     @BindView(R.id.content_video)
@@ -292,6 +295,14 @@ public class WallItemFragment extends BaseFragment {
                 } else {
                     content.setVisibility(View.GONE);
                 }
+                String time = "" + DateUtils.getRelativeTimeSpanString(
+                    (long) (post.getTimestamp() * 1000),
+                    Utility.getCurrentTime(),
+                    DateUtils.MINUTE_IN_MILLIS
+                );
+                dateLabel.setVisibility(View.VISIBLE);
+                dateLabel.setText(time);
+
                 if (post instanceof WallPost && ((WallPost) post).getVidUrl() != null) {
                     videoView.setVisibility(View.VISIBLE);
                     imageHeader.setVisibility(View.GONE);
