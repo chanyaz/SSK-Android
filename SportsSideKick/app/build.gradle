@@ -135,6 +135,10 @@ dependencies {
     // List animations
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
 
+    // Dev tools
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
     // *** Replaceable with Kotlin or RxJava, deprecated libraries
 
     // Binds Android views and callbacks to fields and methods

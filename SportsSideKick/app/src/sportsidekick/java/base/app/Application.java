@@ -6,6 +6,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.squareup.leakcanary.LeakCanary;
 
 import base.app.data.FileUploader;
 import base.app.data.Translator;
@@ -22,6 +23,13 @@ public class Application extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         if (BuildConfig.DEBUG) enableStrictMode();
 
         // Shared prefs initialization
