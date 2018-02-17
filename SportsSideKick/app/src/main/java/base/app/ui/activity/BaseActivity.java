@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -28,11 +29,10 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import base.app.R;
 import base.app.data.GSAndroidPlatform;
@@ -93,7 +93,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
 
-    Timer newsTimer;
     int count;
 
     @Override
@@ -225,25 +224,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         EventBus.getDefault().post(new NextMatchUpdateEvent());
 
         count = 0;
-        if (newsTimer != null) {
-            newsTimer.cancel();
-        }
-        newsTimer = new Timer();
-        newsTimer.scheduleAtFixedRate(new TimerTask() {
+
+        final Handler handler = new Handler(Looper.getMainLooper());
+        final WeakReference<TextView> newsLabelRef = new WeakReference<>(newsLabel);
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // update news label
-                        newsLabel.setText(newsTickerInfo.getNews().get(count));
-                        if (++count == newsTickerInfo.getNews().size()) {
-                            count = 0;
-                        }
+                TextView newsLabel = newsLabelRef.get();
+                if (newsLabel != null) {
+                    // update news label
+                    newsLabel.setText(newsTickerInfo.getNews().get(count));
+                    if (++count == newsTickerInfo.getNews().size()) {
+                        count = 0;
                     }
-                });
+                    handler.postDelayed(this, Constant.SPLASH_DURATION);
+                }
             }
-        }, Constant.SPLASH_DURATION, Constant.SPLASH_DURATION);
+        }, Constant.SPLASH_DURATION);
     }
 
     @Override
