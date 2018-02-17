@@ -107,7 +107,6 @@
                     android:id="@+id/liked_icon"
                     android:layout_width="@dimen/width_15"
                     android:layout_height="@dimen/height_15"
-                    android:layout_marginEnd="@dimen/margin_2"
                     android:background="@drawable/ic_like"
                     android:visibility="gone"
                     app:backgroundTint="@color/colorPrimaryVeryLight" />
@@ -125,7 +124,7 @@
             <TextView
                 android:id="@+id/likes_count"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="4dp"
                 android:layout_height="wrap_content"
                 tools:text="6901"
                 android:textSize="@dimen/font_size_10" />
