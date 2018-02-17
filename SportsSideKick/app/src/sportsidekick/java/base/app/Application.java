@@ -9,7 +9,6 @@ import com.pixplicity.easyprefs.library.Prefs;
 
 import base.app.data.FileUploader;
 import base.app.data.Translator;
-import base.app.data.purchases.PurchaseModel;
 import base.app.util.commons.SoundEffects;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -41,7 +40,7 @@ public class Application extends MultiDexApplication {
 
         FileUploader.getInstance().initialize(getApplicationContext());
         SoundEffects.getDefault().initialize(this);
-        PurchaseModel.getInstance().initialize(this);
+        // PurchaseModel.getInstance().initialize(this);
         Translator.getInstance().initialize(this);
 
         RxPaparazzo.register(this);

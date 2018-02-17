@@ -371,8 +371,8 @@ public class WallFragment extends BaseFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         if (loginHolder != null) {
             loginHolder.setVisibility(Model.getInstance().isRealUser() ? View.GONE : View.VISIBLE);
         }

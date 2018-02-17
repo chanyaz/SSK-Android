@@ -300,7 +300,6 @@ public class WallItemFragment extends BaseFragment {
                     Utility.getCurrentTime(),
                     DateUtils.MINUTE_IN_MILLIS
                 );
-                dateLabel.setVisibility(View.VISIBLE);
                 dateLabel.setText(time);
 
                 if (post instanceof WallPost && ((WallPost) post).getVidUrl() != null) {

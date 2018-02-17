@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,8 @@ public class NewsItemFragment extends BaseFragment {
     TextView title;
     @BindView(R.id.content_text)
     TextView content;
+    @BindView(R.id.dateLabel)
+    TextView dateLabel;
     @Nullable
     @BindView(R.id.share_news_to_wall_button)
     Button share;
@@ -480,6 +483,13 @@ public class NewsItemFragment extends BaseFragment {
         title.setText(item.getTitle());
         textContent.setText(item.getTitle());
         content.setText(item.getContent());
+
+        String time = "" + DateUtils.getRelativeTimeSpanString(
+                (long) (item.getTimestamp() * 1000),
+                Utility.getCurrentTime(),
+                DateUtils.MINUTE_IN_MILLIS
+        );
+        dateLabel.setText(time);
 
         hideReadMoreIfShort();
     }
