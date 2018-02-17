@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -29,10 +28,10 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.TimeUnit;
 
 import base.app.R;
 import base.app.data.GSAndroidPlatform;
@@ -62,10 +61,14 @@ import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
 import base.app.util.events.notify.NotificationEvent;
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.checkIfBundlesAreEqual;
+import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -73,6 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public FragmentOrganizer fragmentOrganizer;
     protected LoginStateReceiver loginStateReceiver;
     ViewGroup notificationContainer;
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -225,22 +229,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         count = 0;
 
-        final Handler handler = new Handler(Looper.getMainLooper());
-        final WeakReference<TextView> newsLabelRef = new WeakReference<>(newsLabel);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                TextView newsLabel = newsLabelRef.get();
-                if (newsLabel != null) {
-                    // update news label
-                    newsLabel.setText(newsTickerInfo.getNews().get(count));
-                    if (++count == newsTickerInfo.getNews().size()) {
-                        count = 0;
+        disposables.add(Observable.interval(
+                Constant.SPLASH_DURATION,
+                Constant.SPLASH_DURATION,
+                TimeUnit.MILLISECONDS)
+                .observeOn(mainThread())
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        // update news label
+                        newsLabel.setText(newsTickerInfo.getNews().get(count));
+                        if (++count == newsTickerInfo.getNews().size()) {
+                            count = 0;
+                        }
                     }
-                    handler.postDelayed(this, Constant.SPLASH_DURATION);
-                }
-            }
-        }, Constant.SPLASH_DURATION);
+                }));
     }
 
     @Override
@@ -273,8 +276,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
-        fragmentOrganizer.freeUpResources();
         // PurchaseModel.getInstance().onDestroy();
+        fragmentOrganizer.freeUpResources();
+        disposables.clear();
         super.onDestroy();
     }
 
