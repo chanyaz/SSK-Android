@@ -42,7 +42,6 @@ import java.util.Map;
 
 import base.app.Keys;
 import base.app.data.facebook.FacebookModel;
-import base.app.data.purchases.PurchaseModel;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.MessageHandler;
 import base.app.data.user.UserEvent;
@@ -215,7 +214,7 @@ public class Model {
                         Log.d(TAG, "isAuthenticated(): connected but not authenticated, logging in anonymously");
                         login();
                     } else {
-                        PurchaseModel.getInstance().updateProductList();
+                        // PurchaseModel.getInstance().updateProductList();
                         // Same entry point as onAuthenticationCheck - escaping from dead loop!
                         Log.d(TAG, "isAuthenticated(): authenticated, do nothing.");
                         getAccountDetails(completeLogin);

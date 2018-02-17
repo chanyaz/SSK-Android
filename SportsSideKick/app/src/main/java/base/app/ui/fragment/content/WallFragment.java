@@ -150,6 +150,8 @@ public class WallFragment extends BaseFragment
         }
         Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
 
+        NextMatchModel.getInstance().getNextMatchInfo();
+
         return view;
     }
 

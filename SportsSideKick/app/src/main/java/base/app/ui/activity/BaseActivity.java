@@ -38,12 +38,10 @@ import base.app.R;
 import base.app.data.GSAndroidPlatform;
 import base.app.data.Model;
 import base.app.data.notifications.ExternalNotificationEvent;
-import base.app.data.notifications.InternalNotificationManager;
 import base.app.data.purchases.PurchaseModel;
 import base.app.data.sharing.NativeShareEvent;
 import base.app.data.sharing.SharingManager;
 import base.app.data.ticker.NewsTickerInfo;
-import base.app.data.ticker.NextMatchModel;
 import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.videoChat.VideoChatEvent;
@@ -103,11 +101,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Model.getInstance().initialize(this);
-        InternalNotificationManager.getInstance();
         notificationContainer = (ViewGroup) findViewById(R.id.left_notification_container);
-        PurchaseModel.getInstance().onCreate(this);
+        // PurchaseModel.getInstance().onCreate(this);
 
         StatusBarUtil.setTransparent(this);
+
+        handleStartingIntent(getIntent());
     }
 
     protected Bundle savedIntentData = null;
@@ -166,13 +165,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        NextMatchModel.getInstance().getNextMatchInfo();
-        handleStartingIntent(getIntent());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -276,11 +268,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        fragmentOrganizer.freeUpResources();
+    protected void onStop() {
         EventBus.getDefault().unregister(this);
         EventBus.getDefault().unregister(loginStateReceiver);
-        PurchaseModel.getInstance().onDestroy();
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        fragmentOrganizer.freeUpResources();
+        // PurchaseModel.getInstance().onDestroy();
         super.onDestroy();
     }
 
