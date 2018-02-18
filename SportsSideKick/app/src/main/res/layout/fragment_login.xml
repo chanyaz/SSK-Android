@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryMediumLight"
+    android:background="@drawable/gradient_dark_green"
     tools:ignore="MissingPrefix">
 
     <View
@@ -81,9 +81,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginEnd="@dimen/margin_30"
-                android:layout_marginStart="@dimen/margin_30"
                 android:orientation="vertical">
 
                 <ImageView
@@ -97,21 +96,26 @@
                     android:id="@+id/title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxWidth="100dp"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="0.8"
                     android:layout_gravity="center"
                     android:layout_marginBottom="24dp"
-                    android:layout_marginTop="-8dp"
+                    android:layout_marginTop="-4dp"
                     android:text="@string/slogan"
-                    android:textColor="?popupsCaptionColor"
-                    android:textSize="18sp" />
+                    android:textColor="@color/white_alpha_40"
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/facebook_button"
                     style="@style/facebook_login_button_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_30"
+                    android:layout_marginStart="@dimen/margin_30"
                     android:text="@string/login_facebook"
                     android:textAllCaps="false"
-                    android:textColor="#e0e1e6"
+                    android:textColor="@color/white_alpha_90"
                     android:textSize="@dimen/font_size_16" />
 
                 <com.facebook.login.widget.LoginButton
@@ -175,6 +179,8 @@
                     fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/standard_button_height"
+                    android:layout_marginEnd="@dimen/margin_30"
+                    android:layout_marginStart="@dimen/margin_30"
                     android:background="@drawable/text_login_selector"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
@@ -188,6 +194,8 @@
                     android:id="@+id/passwordInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_30"
+                    android:layout_marginStart="@dimen/margin_30"
                     android:layout_marginTop="@dimen/margin_10"
                     app:hintEnabled="false"
                     tools:hint="@string/password">
@@ -315,7 +323,7 @@
             android:gravity="center_vertical"
             android:text="@string/sign_in"
             android:textAllCaps="true"
-            android:textColor="#9ebbbf"
+            android:textColor="@color/white_alpha_50"
             android:textSize="@dimen/font_size_16" />
 
 
@@ -332,7 +340,7 @@
         android:layout_marginStart="@dimen/margin_60"
         android:layout_marginTop="16dp"
         android:text="@string/forgot_your_password"
-        android:textColor="#5effffff" />
+        android:textColor="@color/white_alpha_40" />
 
     <FrameLayout
         android:id="@+id/loadingOverlay"
