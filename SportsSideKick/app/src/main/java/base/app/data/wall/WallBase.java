@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -18,6 +19,8 @@ import base.app.data.news.NewsModel;
 import base.app.data.sharing.Shareable;
 import base.app.data.sharing.SharingManager;
 import base.app.data.user.UserInfo;
+
+import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -95,6 +98,8 @@ public abstract class WallBase implements Shareable, Serializable {
     private String strap;
     @JsonProperty("referencedItem")
     private WallNews referencedItem;
+    @JsonProperty("sourceLanguage")
+    private String sourceLanguage;
 
     private UserInfo poster;
 
@@ -370,7 +375,8 @@ public abstract class WallBase implements Shareable, Serializable {
     }
 
     public boolean isNotTranslated() {
-        return translatedTo == null;
+        return translatedTo == null &&
+                !Prefs.getString(CHOSEN_LANGUAGE, "en").equals("en");
     }
 
     public void setTranslatedTo(String translatedTo) {

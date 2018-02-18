@@ -188,11 +188,13 @@
                 android:gravity="center"
                 android:maxLines="1"
                 tools:text="02:04:36:19"
+                android:text="00:00:00:00"
                 android:textColor="@color/colorAccent"
                 app:autoSizeMaxTextSize="160sp"
                 app:autoSizeMinTextSize="12sp"
                 app:autoSizeStepGranularity="1sp"
-                app:autoSizeTextType="uniform" />
+                app:autoSizeTextType="uniform"
+                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
 
