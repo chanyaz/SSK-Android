@@ -327,12 +327,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/margin_20"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="@dimen/margin_60"
         android:layout_marginStart="@dimen/margin_60"
-        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginTop="16dp"
         android:text="@string/forgot_your_password"
-        android:textColor="?popupsCaptionColor" />
+        android:textColor="#5effffff" />
 
     <FrameLayout
         android:id="@+id/loadingOverlay"

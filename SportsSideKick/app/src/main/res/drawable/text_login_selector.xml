@@ -1,23 +1,26 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:state_focused="false">
-    <shape  xmlns:android="http://schemas.android.com/apk/res/android">
-        <solid android:color="@color/colorPrimaryMediumDarkSemiTransparent"
-            />
-        <corners
-            android:radius="100dp" />
-    </shape>
-</item>
+    <item android:state_focused="false">
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="#1b504d" />
+                    <corners android:radius="100dp" />
+                </shape>
+            </item>
+            <item android:bottom="2dp">
+                <shape>
+                    <solid android:color="#002522" />
+                    <corners android:radius="100dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
 
-<item android:state_focused="true">
-    <shape  xmlns:android="http://schemas.android.com/apk/res/android">
-        <solid android:color="@color/colorPrimaryMediumDarkSemiTransparent"
-           />
-        <stroke
-            android:width="1dp"
-            android:color="@color/colorAccentSemiDark"
-          />
-        <corners
-            android:radius="100dp" />
-    </shape>
-</item>
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="@color/colorPrimaryMediumDarkSemiTransparent" />
+            <stroke android:width="1dp" android:color="@color/colorAccentSemiDark" />
+            <corners android:radius="100dp" />
+        </shape>
+    </item>
 </selector>
