@@ -109,12 +109,12 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     TextView yourCoinsValue;
     @BindView(R.id.user_level)
     TextView yourLevel;
-    @BindView(R.id.user_level_background)
+    @BindView(R.id.userLevelBackground)
     ImageView userLevelBackground;
     @BindView(R.id.user_level_progress)
     ProgressBar userLevelProgress;
 
-    @BindView(R.id.profile_image)
+    @BindView(R.id.profileImage)
     ImageView profileImage;
     @BindView(R.id.profile_name)
     TextView profileName;

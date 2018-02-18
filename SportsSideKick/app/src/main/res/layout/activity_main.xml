@@ -2,7 +2,7 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
@@ -18,7 +18,7 @@
             android:layout_above="@id/systemNavBarSpacer">
 
             <RelativeLayout
-                android:id="@+id/fragment_holder"
+                android:id="@+id/fragmentHolder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/bottom_menu_recycler_view" />
@@ -153,7 +153,7 @@
                 tools:layout_height="0dp" />
 
             <RelativeLayout
-                android:id="@+id/fragment_left_popup_holder"
+                android:id="@+id/fragmentLeftPopupHolder"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/bottom_menu_recycler_view"
@@ -161,7 +161,7 @@
                 android:layout_alignParentTop="true" />
 
             <RelativeLayout
-                android:id="@+id/blurred_background"
+                android:id="@+id/blurredBackground"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
@@ -261,7 +261,7 @@
 
         <!--android:layout_gravity="end"-->
         <android.support.percent.PercentRelativeLayout
-            android:id="@+id/drawer_container"
+            android:id="@+id/drawerContainer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -311,7 +311,7 @@
                         android:layout_centerInParent="true">
 
                         <ImageView
-                            android:id="@+id/profile_image"
+                            android:id="@+id/profileImage"
                             android:layout_width="@dimen/activity_lounge_user_profile_size"
                             android:layout_height="@dimen/activity_lounge_user_profile_size"
                             android:layout_centerInParent="true"
@@ -326,10 +326,10 @@
                             android:id="@+id/holder_progress_bar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/profile_image"
-                            android:layout_alignEnd="@id/profile_image"
-                            android:layout_alignStart="@id/profile_image"
-                            android:layout_alignTop="@id/profile_image"
+                            android:layout_alignBottom="@id/profileImage"
+                            android:layout_alignEnd="@id/profileImage"
+                            android:layout_alignStart="@id/profileImage"
+                            android:layout_alignTop="@id/profileImage"
                             android:layout_centerInParent="true">
 
                             <ProgressBar
@@ -353,7 +353,7 @@
                             android:layout_marginTop="@dimen/margin_negative_8">
 
                             <ImageView
-                                android:id="@+id/user_level_background"
+                                android:id="@+id/userLevelBackground"
                                 android:layout_width="@dimen/profile_level_marker_size"
                                 android:layout_height="@dimen/profile_level_marker_size"
                                 android:layout_centerHorizontal="true"
@@ -429,7 +429,7 @@
             </android.support.percent.PercentRelativeLayout>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/menu_recycler_view"
+                android:id="@+id/menuRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

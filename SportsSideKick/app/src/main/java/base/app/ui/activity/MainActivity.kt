@@ -2,12 +2,10 @@ package base.app.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.percent.PercentRelativeLayout
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.*
@@ -42,6 +40,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
@@ -53,32 +52,18 @@ class MainActivity : BaseActivityWithPush(),
 
     @BindView(R.id.activity_main)
     internal var rootView: View? = null
-    @BindView(R.id.menu_recycler_view)
-    internal var menuRecyclerView: RecyclerView? = null
-    @BindView(R.id.drawer_container)
-    internal var drawerContainer: PercentRelativeLayout? = null
-    @BindView(R.id.fragment_left_popup_holder)
-    internal var fragmentLeftPopupHolder: View? = null
-    @BindView(R.id.fragment_holder)
-    internal var fragmentHolder: View? = null
     @BindView(R.id.bottom_menu_recycler_view)
     internal var sideMenuRecycler: NoScrollRecycler? = null
     @BindView(R.id.logo)
     internal var logoImageView: ImageView? = null
     @BindView(R.id.fragment_popup_holder)
     internal var popupHolder: View? = null
-    @BindView(R.id.drawer_layout)
-    internal var drawerLayout: DrawerLayout? = null
     @BindView(R.id.user_level_progress)
     internal var userLevelProgress: ProgressBar? = null
     @BindView(R.id.your_coins_value)
     internal var yourCoinsValue: TextView? = null
     @BindView(R.id.user_level)
     internal var yourLevel: TextView? = null
-    @BindView(R.id.profile_image)
-    internal var profileImage: ImageView? = null
-    @BindView(R.id.user_level_background)
-    internal var userLevelBackground: ImageView? = null
     @BindView(R.id.left_top_bar_container)
     internal var barContainer: RelativeLayout? = null
     @BindView(R.id.fragment_tv_container)
@@ -89,24 +74,18 @@ class MainActivity : BaseActivityWithPush(),
     internal var notificationIcon: ImageView? = null
     @BindView(R.id.friends_open)
     internal var friendsIcon: ImageView? = null
-    @BindView(R.id.blurred_background)
-    internal var blurredBackground: RelativeLayout? = null
-    @BindView(R.id.splash)
-    internal var splash: View? = null
-    @BindView(R.id.splashBackgroundImage)
-    internal var splashBackgroundImage: ImageView? = null
 
-    internal lateinit var sideMenuAdapter: SideMenuAdapter
-    internal lateinit var menuAdapter: MenuAdapter
-    internal var screenWidth: Int = 0
+    private lateinit var sideMenuAdapter: SideMenuAdapter
+    private lateinit var menuAdapter: MenuAdapter
+    private var screenWidth: Int = 0
 
-    internal lateinit var popupContainerFragments: ArrayList<Class<*>>
-    internal lateinit var popupLeftFragments: ArrayList<Class<*>>
-    internal lateinit var popupDialogFragments: ArrayList<Class<*>>
-    internal lateinit var youtubePlayer: ArrayList<Class<*>>
-    internal lateinit var youtubeList: ArrayList<Class<*>>
-    internal lateinit var radioList: ArrayList<Class<*>>
-    internal lateinit var radioPlayerList: ArrayList<Class<*>>
+    private lateinit var popupContainerFragments: ArrayList<Class<*>>
+    private lateinit var popupLeftFragments: ArrayList<Class<*>>
+    private lateinit var popupDialogFragments: ArrayList<Class<*>>
+    private lateinit var youtubePlayer: ArrayList<Class<*>>
+    private lateinit var youtubeList: ArrayList<Class<*>>
+    private lateinit var radioList: ArrayList<Class<*>>
+    private lateinit var radioPlayerList: ArrayList<Class<*>>
 
     @OnClick(R.id.notification_open)
     fun notificationOpen() {
@@ -119,7 +98,6 @@ class MainActivity : BaseActivityWithPush(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
 
         ButterKnife.bind(this)
@@ -143,7 +121,7 @@ class MainActivity : BaseActivityWithPush(),
     private fun setToolbar() {
         NavigationDrawerItems.getInstance().generateList(1)
         menuAdapter = MenuAdapter(this, this)
-        drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         val displaymetrics = DisplayMetrics()
         this.windowManager.defaultDisplay.getMetrics(displaymetrics)
         screenWidth = (displaymetrics.widthPixels * 0.5).toInt()
@@ -159,13 +137,13 @@ class MainActivity : BaseActivityWithPush(),
         menuRecyclerView!!.layoutManager = gridLayoutManager
         menuRecyclerView!!.adapter = menuAdapter
 
-        drawerLayout!!.addDrawerListener(object : DrawerLayout.DrawerListener {
+        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
 
             override fun onDrawerOpened(drawerView: View) {}
 
             override fun onDrawerClosed(drawerView: View) {
-                drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             }
 
             override fun onDrawerStateChanged(newState: Int) {}
@@ -185,7 +163,7 @@ class MainActivity : BaseActivityWithPush(),
         mainContainerFragments.add(StoreFragment::class.java)
         mainContainerFragments.add(VideoChatFragment::class.java)
         mainContainerFragments.add(TicketsFragment::class.java)
-        fragmentOrganizer.setUpContainer(R.id.fragment_holder, mainContainerFragments)
+        fragmentOrganizer.setUpContainer(R.id.fragmentHolder, mainContainerFragments)
 
         popupContainerFragments = ArrayList()
         popupContainerFragments.add(ProfileFragment::class.java)
@@ -218,7 +196,7 @@ class MainActivity : BaseActivityWithPush(),
         popupLeftFragments.add(WallItemFragment::class.java)
         popupLeftFragments.add(NewsItemFragment::class.java)
         popupLeftFragments.add(PostCreateFragment::class.java)
-        fragmentOrganizer.setUpContainer(R.id.fragment_left_popup_holder, popupLeftFragments, true)
+        fragmentOrganizer.setUpContainer(R.id.fragmentLeftPopupHolder, popupLeftFragments, true)
 
         youtubeList = ArrayList()
         youtubeList.add(ClubTVFragment::class.java)
@@ -312,8 +290,8 @@ class MainActivity : BaseActivityWithPush(),
     }
 
     override fun onBackPressed() {
-        if (drawerLayout!!.isDrawerOpen(GravityCompat.END)) {
-            drawerLayout!!.closeDrawer(GravityCompat.END)
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END)
             return
         }
         if (fragmentOrganizer.previousFragment == null) return
@@ -381,8 +359,8 @@ class MainActivity : BaseActivityWithPush(),
             fragmentOrganizer.currentFragment!!.fragmentManager!!.popBackStack()
             menuAdapter.notifyDataSetChanged()
             sideMenuAdapter.notifyDataSetChanged()
-            if (drawerLayout!!.isDrawerOpen(GravityCompat.END))
-                drawerLayout!!.closeDrawer(GravityCompat.END)
+            if (drawerLayout.isDrawerOpen(GravityCompat.END))
+                drawerLayout.closeDrawer(GravityCompat.END)
             tvContainer!!.visibility = View.VISIBLE
             return
         }
@@ -393,8 +371,8 @@ class MainActivity : BaseActivityWithPush(),
             NavigationDrawerItems.getInstance().setByPosition(7)
             menuAdapter.notifyDataSetChanged()
             sideMenuAdapter.notifyDataSetChanged()
-            if (drawerLayout!!.isDrawerOpen(GravityCompat.END)) {
-                drawerLayout!!.closeDrawer(GravityCompat.END)
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                drawerLayout.closeDrawer(GravityCompat.END)
             }
             tvContainer!!.visibility = View.VISIBLE
             return
@@ -415,8 +393,8 @@ class MainActivity : BaseActivityWithPush(),
                     NavigationDrawerItems.getInstance().setByPosition(5)
                     menuAdapter.notifyDataSetChanged()
                     sideMenuAdapter.notifyDataSetChanged()
-                    if (drawerLayout!!.isDrawerOpen(GravityCompat.END)) {
-                        drawerLayout!!.closeDrawer(GravityCompat.END)
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                        drawerLayout.closeDrawer(GravityCompat.END)
                     }
                     return
                 }
@@ -440,8 +418,8 @@ class MainActivity : BaseActivityWithPush(),
                     NavigationDrawerItems.getInstance().setByPosition(7)
                     menuAdapter.notifyDataSetChanged()
                     sideMenuAdapter.notifyDataSetChanged()
-                    if (drawerLayout!!.isDrawerOpen(GravityCompat.END)) {
-                        drawerLayout!!.closeDrawer(GravityCompat.END)
+                    if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                        drawerLayout.closeDrawer(GravityCompat.END)
                     }
                 }
                 for (i in Constant.PHONE_MENU_OPTIONS.indices) {
@@ -468,8 +446,8 @@ class MainActivity : BaseActivityWithPush(),
         if (fragmentOrganizer.handleNavigationFragment()) {
             menuAdapter.notifyDataSetChanged()
             sideMenuAdapter.notifyDataSetChanged()
-            if (drawerLayout!!.isDrawerOpen(GravityCompat.END)) {
-                drawerLayout!!.closeDrawer(GravityCompat.END)
+            if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                drawerLayout.closeDrawer(GravityCompat.END)
             }
         } else {
             finish()
@@ -481,7 +459,7 @@ class MainActivity : BaseActivityWithPush(),
     }
 
     fun onProfileClicked(view: View) {
-        drawerLayout!!.closeDrawer(GravityCompat.END)
+        drawerLayout.closeDrawer(GravityCompat.END)
         if (Model.getInstance().isRealUser) {
             EventBus.getDefault().post(FragmentEvent(ProfileFragment::class.java))
         } else {
@@ -502,20 +480,20 @@ class MainActivity : BaseActivityWithPush(),
     override fun closeDrawerMenu(position: Int, goodPosition: Boolean) {
         if (goodPosition) {
             NavigationDrawerItems.getInstance().setByPosition(position)
-            drawerLayout!!.closeDrawer(GravityCompat.END)
+            drawerLayout.closeDrawer(GravityCompat.END)
             sideMenuAdapter.notifyDataSetChanged()
             if (position > 3) {
                 menuAdapter.notifyItemRangeChanged(0, 3)
             }
         } else {
-            drawerLayout!!.closeDrawer(GravityCompat.END)
+            drawerLayout.closeDrawer(GravityCompat.END)
         }
     }
 
     override fun closeDrawerSideMenu(position: Int, openDrawer: Boolean) {
         if (openDrawer) {
-            drawerLayout!!.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-            drawerLayout!!.openDrawer(GravityCompat.END)
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            drawerLayout.openDrawer(GravityCompat.END)
         } else {
             NavigationDrawerItems.getInstance().setByPosition(position)
             menuAdapter.notifyDataSetChanged()

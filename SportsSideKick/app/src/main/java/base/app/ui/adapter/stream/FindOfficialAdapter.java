@@ -47,7 +47,7 @@ public class FindOfficialAdapter extends RecyclerView.Adapter<FindOfficialAdapte
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.profile_image)
+        @BindView(R.id.profileImage)
         ImageView profileImage;
 
         public ViewHolder(View view) {

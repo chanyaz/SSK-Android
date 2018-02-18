@@ -80,7 +80,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         @BindView(R.id.text) TextView textView;
         @BindView(R.id.timestamp) TextView timeTextView;
         @BindView(R.id.sender) TextView senderTextView;
-        @Nullable @BindView(R.id.profile_image) ImageView senderImageView;
+        @Nullable @BindView(R.id.profileImage) ImageView senderImageView;
         @BindView(R.id.contentImage) ImageView contentImage;
         @BindView(R.id.play_button) ImageView playButton;
         @BindView(R.id.content_container) View contentContainer;

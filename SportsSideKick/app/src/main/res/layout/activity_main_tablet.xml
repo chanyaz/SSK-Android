@@ -410,7 +410,7 @@
                android:layout_centerHorizontal="true">
 
                <ImageView
-                   android:id="@+id/profile_image"
+                   android:id="@+id/profileImage"
                    android:layout_width="@dimen/activity_lounge_user_profile_size"
                    android:layout_height="@dimen/activity_lounge_user_profile_size"
                    android:layout_centerHorizontal="true"
@@ -426,10 +426,10 @@
                    style="?android:attr/progressBarStyleHorizontal"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
-                   android:layout_alignBottom="@id/profile_image"
-                   android:layout_alignEnd="@id/profile_image"
-                   android:layout_alignStart="@id/profile_image"
-                   android:layout_alignTop="@id/profile_image"
+                   android:layout_alignBottom="@id/profileImage"
+                   android:layout_alignEnd="@id/profileImage"
+                   android:layout_alignStart="@id/profileImage"
+                   android:layout_alignTop="@id/profileImage"
                    android:background="?userLevelProgress"
                    android:indeterminate="false"
                    android:max="100"
@@ -439,23 +439,23 @@
                    android:layout_centerHorizontal="true"/>
 
                <ImageView
-                   android:id="@+id/user_level_background"
+                   android:id="@+id/userLevelBackground"
                    android:layout_width="@dimen/profile_level_marker_size"
                    android:layout_height="@dimen/profile_level_marker_size"
-                   android:layout_alignEnd="@id/profile_image"
-                   android:layout_alignStart="@id/profile_image"
+                   android:layout_alignEnd="@id/profileImage"
+                   android:layout_alignStart="@id/profileImage"
                    android:src="?nextLevelMarkerIcon"
                    android:visibility="invisible"
-                   android:layout_below="@id/profile_image"
+                   android:layout_below="@id/profileImage"
                    android:layout_marginTop="@dimen/margin_negative_20"/>
 
                <TextView
                    android:id="@+id/user_level"
                    android:layout_width="@dimen/profile_level_marker_size"
                    android:layout_height="@dimen/profile_level_marker_size"
-                   android:layout_alignEnd="@id/profile_image"
-                   android:layout_alignStart="@id/profile_image"
-                   android:layout_below="@id/profile_image"
+                   android:layout_alignEnd="@id/profileImage"
+                   android:layout_alignStart="@id/profileImage"
+                   android:layout_below="@id/profileImage"
                    android:layout_marginTop="@dimen/margin_negative_20"
                    android:gravity="center"
                    android:textColor="@color/white"

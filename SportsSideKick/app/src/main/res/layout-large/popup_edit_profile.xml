@@ -59,14 +59,14 @@
                 android:id="@+id/edit_photo_caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/profile_image"
-                android:layout_alignStart="@+id/profile_image"
+                android:layout_alignEnd="@+id/profileImage"
+                android:layout_alignStart="@+id/profileImage"
                 android:gravity="center_horizontal"
                 android:text="@string/edit_photo"
                 android:textColor="?white_semitransparent" />
 
             <ImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/profileImage"
                 android:layout_width="@dimen/width_80"
                 android:layout_height="@dimen/height_80"
                 android:layout_below="@id/edit_photo_caption"
@@ -80,7 +80,7 @@
                 android:id="@+id/camera_button"
                 android:layout_width="@dimen/standard_button_height"
                 android:layout_height="@dimen/standard_button_height"
-                android:layout_below="@id/profile_image"
+                android:layout_below="@id/profileImage"
                 android:layout_toStartOf="@+id/center_of_profile_image"
                 android:background="@drawable/button_camera" />
 
@@ -94,7 +94,7 @@
                 android:id="@+id/picture_button"
                 android:layout_width="@dimen/standard_button_height"
                 android:layout_height="@dimen/standard_button_height"
-                android:layout_below="@id/profile_image"
+                android:layout_below="@id/profileImage"
                 android:layout_toEndOf="@+id/center_of_profile_image"
                 android:background="@drawable/button_image" />
         </RelativeLayout>

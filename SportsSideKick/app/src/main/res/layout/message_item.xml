@@ -9,7 +9,7 @@
 
     <ImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
+        android:id="@+id/profileImage"
         android:layout_width="@dimen/message_item_circle_image_size"
         android:layout_height="@dimen/message_item_circle_image_size"
         android:layout_alignParentStart="true"
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_5"
-        android:layout_toEndOf="@+id/profile_image"
+        android:layout_toEndOf="@+id/profileImage"
         android:background="?chatBubbleLeftImage">
 
         <TextView
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/content_container"
         android:layout_marginStart="@dimen/margin_15"
-        android:layout_toEndOf="@+id/profile_image"
+        android:layout_toEndOf="@+id/profileImage"
         android:alpha="0.5"
         android:textColor="?chatDetailsColorRef"
         android:textSize="@dimen/font_size_10" />

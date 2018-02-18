@@ -78,7 +78,7 @@
                 android:progressDrawable="@drawable/circular_progress_bar" />
 
             <ImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/profileImage"
                 android:layout_width="@dimen/popup_friend_profil_profile_image_size"
                 android:layout_height="@dimen/popup_friend_profil_profile_image_size"
                 android:layout_centerHorizontal="true"

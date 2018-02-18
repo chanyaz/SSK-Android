@@ -50,7 +50,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public View view;
-        @BindView(R.id.profile_image)
+        @BindView(R.id.profileImage)
         ImageView profileImage;
         @BindView(R.id.name)
         TextView name;

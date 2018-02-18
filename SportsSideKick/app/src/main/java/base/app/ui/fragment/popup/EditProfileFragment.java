@@ -65,7 +65,7 @@ public class EditProfileFragment extends BaseFragment {
     UserInfo user;
     boolean isMuted;
 
-    @BindView(R.id.profile_image)
+    @BindView(R.id.profileImage)
     ImageView profileImage;
     @BindView(R.id.camera_button)
     Button camButton;

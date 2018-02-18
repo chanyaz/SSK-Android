@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/margin_15"
-                        android:layout_toStartOf="@+id/profile_image"
+                        android:layout_toStartOf="@+id/profileImage"
                         android:text="@string/edit_photo"
                         android:textColor="?editProfileTextColorRef" />
 
@@ -201,7 +201,7 @@
                     </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/profile_image"
+                        android:id="@+id/profileImage"
                         android:layout_width="@dimen/popup_friend_profil_profile_image_size"
                         android:layout_height="@dimen/popup_friend_profil_profile_image_size"
                         android:layout_alignParentTop="true"

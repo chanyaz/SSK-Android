@@ -57,7 +57,7 @@ public class FriendFragment extends BaseFragment {
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.18;
 
     @Nullable
-    @BindView(R.id.profile_image)
+    @BindView(R.id.profileImage)
     ImageView profileImage;
     @Nullable
     @BindView(R.id.profile_name)
