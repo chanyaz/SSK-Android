@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -77,8 +78,6 @@ public class LoginFragment extends BaseFragment
     EditText passwordEditText;
     @BindView(R.id.login_progress_bar)
     View progressBar;
-    @BindView(R.id.login_text)
-    TextView loginText;
     @BindView(R.id.reset_text)
     TextView resetText;
     @BindView(R.id.forgot_password_container)
@@ -104,13 +103,13 @@ public class LoginFragment extends BaseFragment
     @BindView(R.id.bottom_buttons_container_reset)
     RelativeLayout resetButtonContainer;
     @Nullable
-    @BindView(R.id.bottom_buttons_container_login)
-    RelativeLayout loginButtonContainer;
+    @BindView(R.id.loginButton)
+    Button loginButton;
     @BindView(R.id.login_forgot_pass_email)
     EditText emailForgotPassword;
     @Nullable
     @BindView(R.id.sign_up_facebook)
-    LoginButton loginButton;
+    LoginButton facebookLoginButton;
     @BindView(R.id.loadingOverlay)
     View loadingOverlay;
     @BindView(R.id.passwordInputLayout)
@@ -145,8 +144,8 @@ public class LoginFragment extends BaseFragment
             @Override
             public void onClick(View v) {
                 loginContainer.setVisibility(View.VISIBLE);
-                if (loginButtonContainer != null) {
-                    loginButtonContainer.setVisibility(View.VISIBLE);
+                if (loginButton != null) {
+                    loginButton.setVisibility(View.VISIBLE);
                 }
                 resetButtonContainer.setVisibility(View.INVISIBLE);
                 forgotPasswordContainer.setVisibility(View.GONE);
@@ -202,10 +201,10 @@ public class LoginFragment extends BaseFragment
     }
 
     public void initFacebook() {
-        if (loginButton != null) {
-            loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends", "user_birthday", "user_photos"));
+        if (facebookLoginButton != null) {
+            facebookLoginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_friends", "user_birthday", "user_photos"));
             callbackManager = CallbackManager.Factory.create();
-            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
                     loadingOverlay.setVisibility(View.VISIBLE);
@@ -267,7 +266,7 @@ public class LoginFragment extends BaseFragment
         super.onDestroyView();
     }
 
-    @OnClick(R.id.bottom_buttons_container_login)
+    @OnClick(R.id.loginButton)
     public void loginOnClick() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -288,7 +287,7 @@ public class LoginFragment extends BaseFragment
             return;
         }
         Model.getInstance().login(email, password);
-        loginText.setVisibility(View.INVISIBLE);
+        loginButton.setText(null);
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -307,14 +306,14 @@ public class LoginFragment extends BaseFragment
 
     protected void showForgotUI() {
         if (Utility.isTablet(getActivity())) {
-            if (loginButtonContainer != null) {
-                loginButtonContainer.setVisibility(View.GONE);
+            if (loginButton != null) {
+                loginButton.setVisibility(View.GONE);
             }
             loginContainer.setVisibility(View.GONE);
         } else {
             loginContainer.setVisibility(View.INVISIBLE);
-            if (loginButtonContainer != null) {
-                loginButtonContainer.setVisibility(View.INVISIBLE);
+            if (loginButton != null) {
+                loginButton.setVisibility(View.INVISIBLE);
             }
         }
         resetButtonContainer.setVisibility(View.VISIBLE);
@@ -325,8 +324,8 @@ public class LoginFragment extends BaseFragment
 
     protected void hideForgotUI() {
         loginContainer.setVisibility(View.VISIBLE);
-        if (loginButtonContainer != null) {
-            loginButtonContainer.setVisibility(View.VISIBLE);
+        if (loginButton != null) {
+            loginButton.setVisibility(View.VISIBLE);
         }
 
         resetButtonContainer.setVisibility(View.GONE);
@@ -344,7 +343,7 @@ public class LoginFragment extends BaseFragment
     @Override
     public void onLogin(UserInfo user) {
         progressBar.setVisibility(View.GONE);
-        loginText.setVisibility(View.VISIBLE);
+        loginButton.setText(R.string.sign_in);
         EventBus.getDefault().post(Model.getInstance().getUserInfo()); //catch in Lounge Activity
         Utility.hideKeyboard(getActivity());
         if (Utility.isTablet(getActivity())) {
@@ -361,7 +360,7 @@ public class LoginFragment extends BaseFragment
     @Override
     public void onLoginError(Error error) {
         progressBar.setVisibility(View.GONE);
-        loginText.setVisibility(View.VISIBLE);
+        loginButton.setText(R.string.sign_in);
         loadingOverlay.setVisibility(View.GONE);
         AlertDialogManager.getInstance().showAlertDialog(
                 getContext().getResources().getString(R.string.login_failed),
@@ -411,8 +410,8 @@ public class LoginFragment extends BaseFragment
     @Optional
     @OnClick(R.id.facebook_button)
     public void setLoginFacebook() {
-        if (loginButton != null) {
-            loginButton.performClick();
+        if (facebookLoginButton != null) {
+            facebookLoginButton.performClick();
         }
     }
 
