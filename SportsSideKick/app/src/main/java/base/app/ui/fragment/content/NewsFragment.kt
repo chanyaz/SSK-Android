@@ -12,6 +12,7 @@ import base.app.data.news.NewsPageEvent
 import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
+import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.events.post.ItemUpdateEvent
 import base.app.util.ui.inflate
 import base.app.util.ui.show
@@ -39,13 +40,14 @@ open class NewsFragment : BaseFragment() {
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
 
-        loadNews()
+        showItems()
     }
 
-    private fun loadNews() {
+    private fun showItems() {
         swipeRefreshLayout.isRefreshing = true
         val existingItems = NewsModel.getInstance().getAllCachedItems(type)
         if (existingItems != null && existingItems.size > 0) {
+            adapter.clear()
             adapter.addAll(existingItems)
             swipeRefreshLayout.isRefreshing = false
         } else {
@@ -59,6 +61,7 @@ open class NewsFragment : BaseFragment() {
 
     @Subscribe
     fun onNewsReceived(event: NewsPageEvent) {
+        adapter.clear()
         adapter.addAll(event.values)
         swipeRefreshLayout.isRefreshing = false
     }
@@ -72,6 +75,17 @@ open class NewsFragment : BaseFragment() {
                 adapter.add(index, news)
                 return
             }
+        }
+    }
+
+    @Subscribe
+    fun onAutoTranslateToggle(event: AutoTranslateEvent) {
+        if (event.isEnabled) {
+            // Translate
+            adapter.notifyDataSetChanged()
+        } else {
+            // Undo translation
+            showItems()
         }
     }
 }

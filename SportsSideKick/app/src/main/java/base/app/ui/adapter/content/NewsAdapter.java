@@ -146,6 +146,10 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     public void addAll(@NotNull List<? extends WallNews> items) {
         values.addAll(items);
-        notifyItemRangeInserted(0, items.size());
+        notifyItemRangeChanged(0, items.size());
+    }
+
+    public void clear() {
+        values.clear();
     }
 }
