@@ -1,6 +1,7 @@
 package base.app.ui.fragment.popup;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,7 +20,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -52,7 +53,6 @@ import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Connection;
-import base.app.util.commons.KeyboardChangeListener;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,7 +87,6 @@ public class LoginFragment extends BaseFragment
     RelativeLayout loginContainer;
     @BindView(R.id.forgot_password_back)
     ImageView forgotPasswordBack;
-    @Nullable
     @BindView(R.id.image_logo)
     ImageView imageLogo;
     @Nullable
@@ -116,6 +115,10 @@ public class LoginFragment extends BaseFragment
     View loadingOverlay;
     @BindView(R.id.passwordInputLayout)
     TextInputLayout passwordInputLayout;
+    @BindView(R.id.facebook_button)
+    View facebookButton;
+    @BindView(R.id.orContainer)
+    View orContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,7 +131,7 @@ public class LoginFragment extends BaseFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        final View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
         this.loginStateReceiver = new LoginStateReceiver(this);
         this.passwordResetReceiver = new PasswordResetReceiver(this);
@@ -150,53 +153,36 @@ public class LoginFragment extends BaseFragment
             }
         });
 
-        if (Utility.isTablet(getActivity())) {
-
-            if (Utility.isTablet(getContext())) {
-                View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
-                emailEditText.setOnFocusChangeListener(focusChangeListener);
-                passwordEditText.setOnFocusChangeListener(focusChangeListener);
-                emailForgotPassword.setOnFocusChangeListener(focusChangeListener);
-            }
-
-            new KeyboardChangeListener(getActivity()).setKeyBoardListener(new KeyboardChangeListener.KeyBoardListener() {
-                @Override
-                public void onKeyboardChange(boolean isShow, int keyboardHeight) {
-                    if (isShow) {
-                        titleText.setVisibility(View.GONE);
-                        if (imageLogo != null) {
-                            imageLogo.setVisibility(View.GONE);
-                        }
-                        if (logoFqImage != null) {
-                            logoFqImage.setVisibility(View.GONE);
-                        }
-                        if (forgotButton != null) {
-                            forgotButton.setVisibility(View.GONE);
-                        }
-                        if (imagePlayer != null) {
-                            imagePlayer.setImageResource(R.drawable.background_kayboard_open);
-                        }
-
-                    } else {
-                        titleText.setVisibility(View.VISIBLE);
-                        if (imageLogo != null) {
-                            imageLogo.setVisibility(View.VISIBLE);
-                        }
-                        if (logoFqImage != null) {
-                            logoFqImage.setVisibility(View.VISIBLE);
-                        }
-                        if (forgotButton != null) {
-                            forgotButton.setVisibility(View.VISIBLE);
-                        }
-                        if (imagePlayer != null) {
-                            Glide.with(getContext())
-                                    .load(R.drawable.video_chat_background)
-                                    .into(imagePlayer);
-                        }
-                    }
-                }
-            });
+        if (Utility.isTablet(getContext())) {
+            View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
+            emailEditText.setOnFocusChangeListener(focusChangeListener);
+            passwordEditText.setOnFocusChangeListener(focusChangeListener);
+            emailForgotPassword.setOnFocusChangeListener(focusChangeListener);
         }
+
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                //r will be populated with the coordinates of your view that area still visible.
+                view.getWindowVisibleDisplayFrame(r);
+
+                int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
+                if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
+                    titleText.setVisibility(View.GONE);
+                    imageLogo.setVisibility(View.GONE);
+                    facebookButton.setVisibility(View.GONE);
+                    forgotButton.setVisibility(View.GONE);
+                    orContainer.setVisibility(View.INVISIBLE);
+                } else {
+                    titleText.setVisibility(View.VISIBLE);
+                    imageLogo.setVisibility(View.VISIBLE);
+                    facebookButton.setVisibility(View.VISIBLE);
+                    forgotButton.setVisibility(View.VISIBLE);
+                    orContainer.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         return view;
     }
 
