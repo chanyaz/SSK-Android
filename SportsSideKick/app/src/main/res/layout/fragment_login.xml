@@ -78,9 +78,12 @@
             android:visibility="visible">
 
             <LinearLayout
+                android:id="@+id/clickOutsideContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:clickable="true"
+                android:focusable="false"
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical">
 

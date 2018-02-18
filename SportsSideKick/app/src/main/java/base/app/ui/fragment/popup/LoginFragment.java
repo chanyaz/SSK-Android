@@ -420,4 +420,9 @@ public class LoginFragment extends BaseFragment
     public void onBackPressed() {
         getActivity().onBackPressed();
     }
+
+    @OnClick(R.id.clickOutsideContainer)
+    public void onClickOutside() {
+        Utility.hideKeyboard(this);
+    }
 }

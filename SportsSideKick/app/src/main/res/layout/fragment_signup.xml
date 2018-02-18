@@ -6,12 +6,9 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_base_size_60"
     android:background="@drawable/gradient_dark_green"
-    android:clickable="true"
     tools:ignore="MissingPrefix">
 
-
     <!-- TOP BUTTONS CONTAINER -->
-
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
@@ -40,11 +37,11 @@
 
         <ImageButton
             android:id="@+id/backButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentBottom="true"
             android:alpha="0.25"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
     </RelativeLayout>
 
@@ -73,10 +70,13 @@
         android:clickable="true">
 
         <ImageView
+            android:id="@+id/clickOutsideContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.5"
             android:background="@drawable/phone_background"
+            android:clickable="true"
+            android:focusable="false"
             android:orientation="horizontal"
             android:tileMode="repeat" />
 
@@ -227,8 +227,8 @@
                             style="@style/edit_text_login_phone"
                             fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                             android:layout_width="match_parent"
-                            android:layout_marginTop="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="0dp"
                             android:drawablePadding="-48dp"
                             android:hint="@string/password"
                             android:inputType="textPassword"
@@ -249,8 +249,8 @@
             android:background="@drawable/button_login_login">
 
             <TextView
-                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:id="@+id/sign_up_text"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -273,16 +273,16 @@
             android:id="@+id/politic_and_privacy_android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lineSpacingMultiplier="0.8"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_60"
             android:layout_marginStart="@dimen/margin_60"
             android:layout_marginTop="@dimen/margin_10"
-            tools:text="@string/sign_up_text"
+            android:lineSpacingMultiplier="0.8"
             android:textAlignment="center"
             android:textColor="?white_semitransparent"
-            android:textSize="@dimen/font_size_10" />
+            android:textSize="@dimen/font_size_10"
+            tools:text="@string/sign_up_text" />
     </RelativeLayout>
 
 

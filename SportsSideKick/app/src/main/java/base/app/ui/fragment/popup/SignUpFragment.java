@@ -400,4 +400,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     public void onBackPressed() {
         getActivity().onBackPressed();
     }
+
+    @OnClick(R.id.clickOutsideContainer)
+    public void onClickOutside() {
+        Utility.hideKeyboard(this);
+    }
 }

@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -182,7 +183,15 @@ public class Utility {
         InputMethodManager imm = (InputMethodManager)
                 context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if(imm != null){
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            imm.toggleSoftInput(0, 0);
+        }
+    }
+
+    public static void hideKeyboard(Fragment fragment) {
+        InputMethodManager imm = (InputMethodManager)
+                fragment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm != null){
+            imm.hideSoftInputFromWindow(fragment.getView().getWindowToken(), 0);
         }
     }
 
