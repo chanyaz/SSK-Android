@@ -429,4 +429,9 @@ public class LoginFragment extends BaseFragment
             loginButton.performClick();
         }
     }
+
+    @OnClick(R.id.backButton)
+    public void onBackPressed() {
+        getActivity().onBackPressed();
+    }
 }

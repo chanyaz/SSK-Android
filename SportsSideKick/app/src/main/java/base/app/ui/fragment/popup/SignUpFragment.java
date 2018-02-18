@@ -396,4 +396,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         return termsHolder;
     }
 
+    @OnClick(R.id.backButton)
+    public void onBackPressed() {
+        getActivity().onBackPressed();
+    }
 }
