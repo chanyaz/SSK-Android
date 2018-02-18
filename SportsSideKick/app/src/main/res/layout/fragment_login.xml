@@ -313,7 +313,7 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
-            android:text="@string/join_sign_in"
+            android:text="@string/sign_in"
             android:textAllCaps="true"
             android:textColor="#9ebbbf"
             android:textSize="@dimen/font_size_16" />

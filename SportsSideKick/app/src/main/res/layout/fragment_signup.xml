@@ -33,7 +33,7 @@
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
             android:paddingBottom="16dp"
-            android:text="@string/join_sign_in"
+            android:text="@string/join"
             android:textAllCaps="true"
             android:textColor="#9ebbbf"
             android:textSize="@dimen/font_size_16"
