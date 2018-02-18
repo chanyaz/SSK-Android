@@ -260,7 +260,7 @@
                     android:layout_below="@id/social_buttons_container"
                     android:layout_marginBottom="-12dp"
                     android:layout_marginEnd="@dimen/margin_5"
-                    android:layout_marginStart="18dp"
+                    android:layout_marginStart="17dp"
                     android:layout_marginTop="12dp"
                     android:textColor="#40000000"
                     android:textSize="12sp"
@@ -275,6 +275,7 @@
                     android:layout_marginEnd="@dimen/margin_5"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="12dp"
+                    android:paddingEnd="8dp"
                     android:autoLink="all"
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="0.9"
@@ -287,7 +288,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title"
-                    android:layout_marginBottom="@dimen/margin_5"
+                    android:paddingEnd="8dp"
                     android:layout_marginEnd="@dimen/margin_15"
                     android:layout_marginStart="@dimen/margin_15"
                     android:animateLayoutChanges="true"
@@ -305,40 +306,52 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_text"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="-8dp"
                     android:animateLayoutChanges="true"
                     android:animationCache="true"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <Button
                         android:id="@+id/translate"
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_5"
-                        android:paddingStart="@dimen/padding_16"
+                        android:minWidth="0dp"
+                        android:layout_marginStart="-4dp"
+                        android:layout_marginEnd="-4dp"
                         android:text="@string/translate"
+                        android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/read_more_text"
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_5"
-                        android:paddingStart="@dimen/padding_10"
+                        android:layout_marginStart="-4dp"
+                        android:layout_marginEnd="-4dp"
+                        android:minWidth="0dp"
                         android:text="@string/read_more"
+                        android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/delete"
+                        style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/padding_16"
+                        android:minWidth="0dp"
+                        android:layout_marginStart="-4dp"
+                        android:layout_marginEnd="-4dp"
                         android:text="@string/delete"
+                        android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="12sp"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        tools:visibility="visible" />
                 </LinearLayout>
 
                 <View
@@ -437,7 +450,8 @@
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <include layout="@layout/include_input_field" />
+    <include layout="@layout/include_input_field"
+        android:id="@+id/include" />
 
     <ImageButton
         android:id="@+id/close_button"
@@ -458,7 +472,7 @@
         android:id="@+id/sharedMessageBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#deffffff"
+        android:background="#d0ffffff"
         android:elevation="6dp"
         android:orientation="vertical"
         android:visibility="gone"
@@ -483,7 +497,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:tint="#8501a352" />
+                android:tint="#95008643" />
 
             <ImageView
                 android:id="@+id/sharedMessageAvatar"
