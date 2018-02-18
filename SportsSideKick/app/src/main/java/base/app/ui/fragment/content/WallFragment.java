@@ -55,6 +55,7 @@ import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentReceiveEvent;
+import base.app.util.events.post.AutoTranslateEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
@@ -416,5 +417,16 @@ public class WallFragment extends BaseFragment
     public void handleFriendListChanged(FriendsListChangedEvent event) {
         reset();
         reloadWallFromModel();
+    }
+
+    @Subscribe
+    public void onAutoTranslateToggle(AutoTranslateEvent event) {
+        if (event.isEnabled()) {
+            // Translate
+            adapter.notifyDataSetChanged();
+        } else {
+            // Undo translation
+            refreshAdapter(false);
+        }
     }
 }
