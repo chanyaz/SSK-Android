@@ -174,7 +174,7 @@ public class WallFragment extends BaseFragment
                 nextMatchContainer.setVisibility(View.VISIBLE);
                 NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
                 ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage);
-                ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage);
+                ImageLoader.displayImage(R.drawable.club_logo, wallRightTeamImage);
                 wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
                 wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
                 long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());

@@ -46,7 +46,7 @@ class NextMatchView(context: Context, attrs: AttributeSet)
         val info = NextMatchModel.getInstance().loadTickerInfoFromCache()
         if (info != null && NextMatchModel.getInstance().isNextMatchUpcoming) {
             logoOfFirstTeam.show(info.firstClubUrl)
-            logoOfSecondTeam.show(info.secondClubUrl)
+            logoOfSecondTeam.show(R.drawable.club_logo)
 
             nameOfFirstTeam.text = info.firstClubName
             nameOfSecondTeam.text = info.secondClubName
