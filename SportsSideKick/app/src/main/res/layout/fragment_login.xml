@@ -82,9 +82,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:animateLayoutChanges="true"
                 android:clickable="true"
                 android:focusable="false"
-                android:layout_centerHorizontal="true"
                 android:orientation="vertical">
 
                 <ImageView
@@ -99,12 +100,12 @@
                     android:id="@+id/title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxWidth="100dp"
-                    android:gravity="center"
-                    android:lineSpacingMultiplier="0.8"
                     android:layout_gravity="center"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="-4dp"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="0.8"
+                    android:maxWidth="100dp"
                     android:text="@string/slogan"
                     android:textColor="@color/white_alpha_40"
                     android:textSize="12sp" />
@@ -118,7 +119,7 @@
                     android:layout_marginStart="@dimen/margin_30"
                     android:text="@string/login_facebook"
                     android:textAllCaps="false"
-                    android:textColor="@color/white_alpha_70"
+                    android:textColor="@color/white_alpha_90"
                     android:textSize="@dimen/font_size_16" />
 
                 <com.facebook.login.widget.LoginButton
@@ -197,12 +198,12 @@
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/passwordInputLayout"
                     android:layout_width="match_parent"
-                    android:layout_marginEnd="@dimen/margin_30"
-                    android:layout_marginStart="@dimen/margin_30"
-                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/margin_30"
+                    android:layout_marginStart="@dimen/margin_30"
+                    android:layout_marginTop="10dp"
                     app:hintEnabled="false"
                     tools:hint="@string/password">
 
@@ -227,10 +228,10 @@
                 <RelativeLayout
                     android:id="@+id/bottom_buttons_container_login"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="16dp"
                     android:layout_height="@dimen/standard_button_height"
                     android:layout_marginEnd="@dimen/margin_30"
                     android:layout_marginStart="@dimen/margin_30"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/button_login_login"
                     android:clickable="true"
                     android:visibility="visible">
@@ -260,10 +261,10 @@
                 <RelativeLayout
                     android:id="@+id/bottom_buttons_container_reset"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
                     android:layout_height="@dimen/standard_button_height"
                     android:layout_marginEnd="@dimen/margin_30"
                     android:layout_marginStart="@dimen/margin_30"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/button_login_login"
                     android:clickable="true"
                     android:visibility="invisible">
@@ -313,12 +314,12 @@
 
         <ImageButton
             android:id="@+id/backButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentBottom="true"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:alpha="0.25"/>
+            android:alpha="0.25"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
         <TextView
             style="@style/boldText"
