@@ -52,7 +52,7 @@
     <string name="password_reset">Reset Password</string>
     <string name="reset_check_email">Please check your email for password reset options.</string>
     <string name="email_enter_valid">Please enter a valid email address!</string>
-    <string name="sign_up_text">By singing up, you are agree to <font color="@android:color/white">Terms and Conditions of Use</font> and <font color="@android:color/white">Privacy Policy.</font></string>
+    <string name="sign_up_text"><![CDATA[By singing up, you are agree to <br/><font color="#FFF">Terms and Conditions of Use</font> and <font color="#FFF">Privacy Policy.</font>]]></string>
     <string name="required_email">Please fill in your email.</string>
     <string name="required_password">Please fill in your password.</string>
     <string name="required_first_name">Please fill in your first name.</string>

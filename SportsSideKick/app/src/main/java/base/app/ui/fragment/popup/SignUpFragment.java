@@ -7,11 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.text.SpannableString;
-import android.text.TextPaint;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -172,6 +170,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             phone.setText("123");
         }
         passwordInputLayout.setPasswordVisibilityToggleEnabled(true);
+
         return view;
     }
 
@@ -210,35 +209,9 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     };
 
     public void setupPolicyText() {
-        SpannableString spannableString = new SpannableString(policyText.getText());
-        ClickableSpan clickableSpanTerms = new ClickableSpan() {
-            @Override
-            public void onClick(View view) {
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-                ds.setColor(Color.WHITE);
-            }
-        };
-        ClickableSpan clickableSpanPolicy = new ClickableSpan() {
-            @Override
-            public void onClick(View view) {
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-                ds.setColor(Color.WHITE);
-            }
-        };
-
+        policyText.setText(Html.fromHtml(getString(R.string.sign_up_text)));
         policyText.setMovementMethod(LinkMovementMethod.getInstance());
-        policyText.setHighlightColor(Color.TRANSPARENT);
-        policyText.setText(spannableString);
+        policyText.setHighlightColor(Color.WHITE);
     }
 
     private void initFacebook() {

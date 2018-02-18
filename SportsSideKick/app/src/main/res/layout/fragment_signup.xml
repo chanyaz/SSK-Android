@@ -35,7 +35,7 @@
             android:paddingBottom="16dp"
             android:text="@string/join_sign_in"
             android:textAllCaps="true"
-            android:textColor="?popupsCaptionColor"
+            android:textColor="#9ebbbf"
             android:textSize="@dimen/font_size_16"
             android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/login_facebook"
                 android:textAllCaps="false"
-                android:textColor="?white"
+                android:textColor="#e0e1e6"
                 android:textSize="@dimen/font_size_16" />
 
             <com.facebook.login.widget.LoginButton
@@ -221,7 +221,7 @@
                         android:id="@+id/passwordInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginTop="5dp"
                         app:hintEnabled="false"
                         tools:hint="@string/password">
 
@@ -230,6 +230,7 @@
                             style="@style/edit_text_login_phone"
                             fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                             android:layout_width="match_parent"
+                            android:layout_marginTop="0dp"
                             android:layout_height="wrap_content"
                             android:drawablePadding="-48dp"
                             android:hint="@string/password"
@@ -256,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/join"
-                android:textColor="@android:color/black"
+                android:textColor="#293307"
                 android:textSize="@dimen/font_size_18" />
 
             <ProgressBar
@@ -274,12 +275,13 @@
             android:id="@+id/politic_and_privacy_android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="0.8"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/margin_20"
             android:layout_marginEnd="@dimen/margin_60"
             android:layout_marginStart="@dimen/margin_60"
             android:layout_marginTop="@dimen/margin_10"
-            android:text="@string/sign_up_text"
+            tools:text="@string/sign_up_text"
             android:textAlignment="center"
             android:textColor="?white_semitransparent"
             android:textSize="@dimen/font_size_10" />
