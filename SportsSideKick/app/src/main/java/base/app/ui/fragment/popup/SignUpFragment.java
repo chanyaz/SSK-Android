@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -44,6 +45,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.GSConstants;
 import base.app.data.Model;
@@ -112,6 +114,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     RelativeLayout joinNowContainer;
     @BindView(R.id.loadingOverlay)
     View loadingOverlay;
+    @BindView(R.id.passwordInputLayout)
+    TextInputLayout passwordInputLayout;
 
     private CallbackManager callbackManager;
 
@@ -159,7 +163,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             displayName.setOnFocusChangeListener(focusChangeListener);
             phone.setOnFocusChangeListener(focusChangeListener);
         }
-        if (false) {
+        if (BuildConfig.DEBUG) {
             firstName.setText("A");
             lastName.setText("B");
             displayName.setText("A B");
@@ -167,6 +171,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             password.setText("temppass");
             phone.setText("123");
         }
+        passwordInputLayout.setPasswordVisibilityToggleEnabled(true);
         return view;
     }
 
