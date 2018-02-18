@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:top="296dp"> <!-- Your Margin -->
         <shape>
-            <solid android:color="#812c6147" /> <!-- Your Color -->
+            <solid android:color="#ad2c6147" /> <!-- Your Color -->
             <corners android:radius="2dp" /> <!-- Your Radius -->
             <size android:width="4dp" /> <!-- Your Width -->
         </shape>

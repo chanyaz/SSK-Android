@@ -36,6 +36,7 @@ import base.app.ui.adapter.profile.UserStatsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
+import base.app.util.events.post.AutoTranslateEvent;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -156,6 +157,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             @Override
             public void onCheckedChanged(CompoundButton toggle, boolean isEnabled) {
                 saveGlobalAutoTranslate(isEnabled);
+                EventBus.getDefault().post(new AutoTranslateEvent(isEnabled));
             }
         });
         wallNotificationsToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

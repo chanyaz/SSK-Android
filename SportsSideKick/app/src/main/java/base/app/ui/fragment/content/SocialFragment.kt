@@ -11,6 +11,7 @@ import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
+import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.ui.show
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -62,9 +63,21 @@ class SocialFragment : BaseFragment() {
     @Subscribe
     fun onNewsReceived(event: NewsPageEvent) {
         if (event.values.isNotEmpty()) {
+            adapter.values.clear()
             adapter.values.addAll(event.values)
             adapter.notifyDataSetChanged()
         }
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    @Subscribe
+    fun onAutoTranslateToggle(event: AutoTranslateEvent) {
+        if (event.isEnabled) {
+            // Translate
+            adapter.notifyDataSetChanged()
+        } else {
+            // Undo translation
+            showItems()
+        }
     }
 }
