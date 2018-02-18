@@ -3,4 +3,7 @@
     <color name="white_alpha_40">#5effffff</color>
     <color name="white_alpha_90">#e2ffffff</color>
     <color name="white_alpha_50">#85ffffff</color>
+    <color name="white_alpha_70">#b1ffffff</color>
+    <color name="black_alpha_70">#b9000000</color>
+    <color name="black_alpha_50">#81000000</color>
 </resources>

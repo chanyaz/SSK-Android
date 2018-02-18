@@ -28,7 +28,6 @@
         android:id="@+id/container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_buttons_container_login"
         android:layout_below="@id/top_buttons_container">
 
         <RelativeLayout
@@ -115,7 +114,7 @@
                     android:layout_marginStart="@dimen/margin_30"
                     android:text="@string/login_facebook"
                     android:textAllCaps="false"
-                    android:textColor="@color/white_alpha_90"
+                    android:textColor="@color/white_alpha_70"
                     android:textSize="@dimen/font_size_16" />
 
                 <com.facebook.login.widget.LoginButton
@@ -223,7 +222,7 @@
                 <RelativeLayout
                     android:id="@+id/bottom_buttons_container_login"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="14dp"
+                    android:layout_marginTop="16dp"
                     android:layout_height="@dimen/standard_button_height"
                     android:layout_marginEnd="@dimen/margin_30"
                     android:layout_marginStart="@dimen/margin_30"
@@ -233,11 +232,12 @@
 
                     <TextView
                         android:id="@+id/login_text"
+                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/sign_in"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/black_alpha_70"
                         android:textSize="@dimen/font_size_18" />
 
                     <ProgressBar
@@ -265,11 +265,12 @@
 
                     <TextView
                         android:id="@+id/reset_text"
+                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/password_reset"
-                        android:textColor="#293307"
+                        android:textColor="@color/black_alpha_70"
                         android:textSize="@dimen/font_size_18"
                         android:visibility="visible" />
 
@@ -306,7 +307,7 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/close_dialog_button"
+            android:id="@+id/backButton"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentStart="true"

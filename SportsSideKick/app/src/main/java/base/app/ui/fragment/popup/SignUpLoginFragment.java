@@ -74,7 +74,7 @@ public class SignUpLoginFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.close_dialog_button)
+    @OnClick(R.id.backButton)
     public void closeDialogButton() {
        getActivity().onBackPressed();
     }
