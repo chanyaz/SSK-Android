@@ -275,12 +275,14 @@
                     android:layout_marginEnd="@dimen/margin_5"
                     android:layout_marginStart="@dimen/margin_15"
                     android:layout_marginTop="12dp"
-                    android:paddingEnd="8dp"
                     android:autoLink="all"
+                    android:breakStrategy="high_quality"
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="0.9"
+                    android:paddingEnd="8dp"
                     android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="20sp"
+                    tools:targetApi="m"
                     tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam." />
 
                 <TextView
@@ -288,16 +290,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title"
-                    android:paddingEnd="8dp"
                     android:layout_marginEnd="@dimen/margin_15"
                     android:layout_marginStart="@dimen/margin_15"
                     android:animateLayoutChanges="true"
                     android:autoLink="all"
+                    android:breakStrategy="high_quality"
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="0.9"
                     android:maxLines="3"
+                    android:paddingEnd="8dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    tools:targetApi="m"
                     tools:text="@string/lorem_ipsum" />
 
                 <LinearLayout
@@ -317,9 +321,9 @@
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="0dp"
-                        android:layout_marginStart="-4dp"
                         android:layout_marginEnd="-4dp"
+                        android:layout_marginStart="-4dp"
+                        android:minWidth="0dp"
                         android:text="@string/translate"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryVeryLight"
@@ -330,8 +334,8 @@
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="-4dp"
                         android:layout_marginEnd="-4dp"
+                        android:layout_marginStart="-4dp"
                         android:minWidth="0dp"
                         android:text="@string/read_more"
                         android:textAllCaps="false"
@@ -343,9 +347,9 @@
                         style="@style/Widget.AppCompat.Button.Borderless"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="0dp"
-                        android:layout_marginStart="-4dp"
                         android:layout_marginEnd="-4dp"
+                        android:layout_marginStart="-4dp"
+                        android:minWidth="0dp"
                         android:text="@string/delete"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimaryVeryLight"
@@ -450,8 +454,9 @@
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <include layout="@layout/include_input_field"
-        android:id="@+id/include" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/include_input_field" />
 
     <ImageButton
         android:id="@+id/close_button"

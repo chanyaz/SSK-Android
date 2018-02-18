@@ -358,6 +358,8 @@
         <item name="colorControlActivated">@color/black</item>
     </style>
 
+    <style name="AppTheme.BlackControls" parent="Theme.AppCompat"/>
+
     <style name="DialogActivity" parent="Theme.AppCompat.Light.Dialog">
         <item name="windowNoTitle">true</item>
         <item name="android:excludeFromRecents">true</item>

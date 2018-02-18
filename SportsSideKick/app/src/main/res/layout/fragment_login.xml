@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/colorPrimaryMediumLight">
 
     <View
@@ -97,8 +97,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="-8dp"
                     android:layout_marginBottom="24dp"
+                    android:layout_marginTop="-8dp"
                     android:text="@string/slogan"
                     android:textColor="?popupsCaptionColor"
                     android:textSize="18sp" />
@@ -178,18 +178,30 @@
                     android:textColor="?white"
                     android:textColorHint="?white" />
 
-                <EditText
-                    android:id="@+id/login_password"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/passwordInputLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/standard_button_height"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
-                    android:background="@drawable/text_login_selector"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:padding="@dimen/padding_8"
-                    android:textAlignment="center"
-                    android:textColor="?white"
-                    android:textColorHint="?white" />
+                    app:hintEnabled="false"
+                    tools:hint="@string/password">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/login_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_button_height"
+                        android:background="@drawable/text_login_selector"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:padding="@dimen/padding_8"
+                        android:drawablePadding="-48dp"
+                        android:theme="@style/AppTheme.BlackControls"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="?white"
+                        android:textColorHint="?white" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
             </LinearLayout>
@@ -219,13 +231,13 @@
 
         <ProgressBar
             android:id="@+id/login_progress_bar"
-            android:theme="@style/AppTheme.BlackAccent"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
+            android:theme="@style/AppTheme.BlackAccent"
             android:visibility="gone"
-            tools:visibility="gone"/>
+            tools:visibility="gone" />
 
     </RelativeLayout>
 
@@ -252,27 +264,27 @@
 
         <ProgressBar
             android:id="@+id/reset_progress_bar"
-            android:theme="@style/AppTheme.BlackAccent"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2"
+            android:theme="@style/AppTheme.BlackAccent"
             android:visibility="gone" />
 
     </RelativeLayout>
 
     <View
-        android:layout_height="24dp"
-        android:layout_width="match_parent"
         android:id="@+id/topSpacer"
-        tools:visibility="gone"
-        android:background="@drawable/phone_background"/>
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/phone_background"
+        tools:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/top_buttons_container"
-        android:layout_below="@id/topSpacer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
+        android:layout_below="@id/topSpacer"
         android:background="@drawable/phone_background"
         android:orientation="horizontal">
 
@@ -317,16 +329,16 @@
 
     <FrameLayout
         android:id="@+id/loadingOverlay"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#c2000000">
+        android:background="#c2000000"
+        android:visibility="gone">
 
         <ProgressBar
             style="?android:attr/progressBarStyle"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -113,6 +114,8 @@ public class LoginFragment extends BaseFragment
     LoginButton loginButton;
     @BindView(R.id.loadingOverlay)
     View loadingOverlay;
+    @BindView(R.id.passwordInputLayout)
+    TextInputLayout passwordInputLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -204,6 +207,7 @@ public class LoginFragment extends BaseFragment
             emailEditText.setText("alexsheikodev3@gmail.com");
             passwordEditText.setText("temppass");
         }
+        passwordInputLayout.setPasswordVisibilityToggleEnabled(true);
     }
 
     @Override
