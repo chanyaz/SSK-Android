@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryMediumLight">
+    android:background="@color/colorPrimaryMediumLight"
+    tools:ignore="MissingPrefix">
 
     <View
         android:id="@+id/top_split_line"
@@ -167,6 +168,7 @@
 
                 <EditText
                     android:id="@+id/login_email"
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/standard_button_height"
                     android:background="@drawable/text_login_selector"
@@ -176,7 +178,7 @@
                     android:padding="@dimen/padding_8"
                     android:textAlignment="center"
                     android:textColor="?white"
-                    android:textColorHint="?white" />
+                    android:textColorHint="#a1ffffff" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/passwordInputLayout"
@@ -188,18 +190,19 @@
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/login_password"
+                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/standard_button_height"
                         android:background="@drawable/text_login_selector"
+                        android:drawablePadding="-48dp"
+                        android:gravity="center"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:padding="@dimen/padding_8"
-                        android:drawablePadding="-48dp"
-                        android:theme="@style/AppTheme.BlackControls"
-                        android:gravity="center"
                         android:textAlignment="center"
                         android:textColor="?white"
-                        android:textColorHint="?white" />
+                        android:textColorHint="#a1ffffff"
+                        android:theme="@style/AppTheme.BlackControls" />
 
                 </android.support.design.widget.TextInputLayout>
 

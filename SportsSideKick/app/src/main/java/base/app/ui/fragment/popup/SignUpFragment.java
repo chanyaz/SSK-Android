@@ -44,7 +44,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 
-import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.GSConstants;
 import base.app.data.Model;
@@ -114,7 +113,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @BindView(R.id.loadingOverlay)
     View loadingOverlay;
 
-
     private CallbackManager callbackManager;
 
     private RegistrationStateReceiver registrationStateReceiver;
@@ -152,7 +150,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         termsHolder.setVisibility(View.INVISIBLE);
         setUpPolicyWebView();
 
-        if(Utility.isTablet(getContext())){
+        if (Utility.isTablet(getContext())) {
             View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
             firstName.setOnFocusChangeListener(focusChangeListener);
             lastName.setOnFocusChangeListener(focusChangeListener);
@@ -161,7 +159,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             displayName.setOnFocusChangeListener(focusChangeListener);
             phone.setOnFocusChangeListener(focusChangeListener);
         }
-            if (BuildConfig.DEBUG) {
+        if (false) {
             firstName.setText("A");
             lastName.setText("B");
             displayName.setText("A B");
@@ -210,7 +208,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         SpannableString spannableString = new SpannableString(policyText.getText());
         ClickableSpan clickableSpanTerms = new ClickableSpan() {
             @Override
-            public void onClick(View view) { }
+            public void onClick(View view) {
+            }
 
             @Override
             public void updateDrawState(TextPaint ds) {
@@ -221,7 +220,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         };
         ClickableSpan clickableSpanPolicy = new ClickableSpan() {
             @Override
-            public void onClick(View view) { }
+            public void onClick(View view) {
+            }
 
             @Override
             public void updateDrawState(TextPaint ds) {
@@ -295,7 +295,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         super.onDestroyView();
     }
 
-    private boolean validateInputs(){
+    private boolean validateInputs() {
         int idOfMessageResourceToDisplay = -1;
         if (TextUtils.isEmpty(firstName.getText())) {
             idOfMessageResourceToDisplay = R.string.required_first_name;
@@ -323,7 +323,7 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     @OnClick(R.id.bottom_buttons_container_sign_up)
     public void signUpOnClick() {
 
-       if(validateInputs()) {
+        if (validateInputs()) {
 
             if (!Connection.alertIfNotReachable(getActivity(),
                     new View.OnClickListener() {
@@ -361,7 +361,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         }
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -386,8 +385,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         progressBar.setVisibility(View.GONE);
         signUpText.setVisibility(View.VISIBLE);
         String errorMessage = getContext().getResources().getString(R.string.registration_failed);
-        if(error!=null && error.getMessage()!=null){
-            if(error.getMessage().contains("TAKEN")){
+        if (error != null && error.getMessage() != null) {
+            if (error.getMessage().contains("TAKEN")) {
                 errorMessage = getContext().getResources().getString(R.string.error_username_taken);
             } else {
                 errorMessage += "\n\n" + error.getMessage();
