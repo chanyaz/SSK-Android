@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_5"
         android:layout_toEndOf="@+id/profileImage"
-        android:background="?chatBubbleLeftImage">
+        android:background="@drawable/chat_message_left">
 
         <TextView
             android:id="@+id/text"
