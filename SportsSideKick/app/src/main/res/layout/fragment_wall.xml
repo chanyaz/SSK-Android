@@ -95,7 +95,7 @@
                                 android:maxLines="1"
                                 android:paddingEnd="@dimen/padding_2"
                                 android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:textSize="24sp"
                                 android:textStyle="bold"
                                 tools:text="SCP" />
 
@@ -114,6 +114,7 @@
                                 android:layout_gravity="center"
                                 android:padding="@dimen/padding_8"
                                 android:text="@string/vs"
+                                fontPath="fonts/TitilliumWeb-Light.ttf"
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 tools:visibility="visible" />
@@ -139,7 +140,7 @@
                                 android:padding="@dimen/padding_8"
                                 android:paddingStart="@dimen/padding_2"
                                 android:textColor="@color/white"
-                                android:textSize="20sp"
+                                android:textSize="24sp"
                                 android:textStyle="bold"
                                 tools:text="ASP" />
 

@@ -126,7 +126,7 @@
         <item name="phoneChatBackground">@drawable/phone_chat_background</item>
 
         <item name="videoChatButtonStyle">@style/button_call</item>
-        <item name="nextMatchTextPhoneColor">@color/colorPrimaryVeryLight</item>
+        <item name="nextMatchTextPhoneColor">@color/colorPrimary</item>
         <item name="createPostPhoneButtonColor">@color/colorPrimarySemiLight</item>
 
         <!--Wall Item User Post-->

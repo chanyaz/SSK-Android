@@ -19,10 +19,10 @@
 
             <RelativeLayout
                 android:id="@+id/fragmentHolder"
-                android:layout_below="@id/leftTopBarContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/bottomNavigationRecyclerView" />
+                android:layout_above="@id/bottomNavigationRecyclerView"
+                android:layout_below="@id/leftTopBarContainer" />
 
             <RelativeLayout
                 android:id="@+id/leftTopBarContainer"
@@ -183,7 +183,8 @@
                 android:id="@+id/splash"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimarySlightlyLight">
+                android:background="@color/colorPrimarySlightlyLight"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/splashBackgroundImage"
