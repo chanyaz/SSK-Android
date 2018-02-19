@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:drawable="@color/colorPrimarySemiDark"/>
+    <item android:drawable="@color/white" />
 
-    <item>
+    <item android:bottom="16dp">
         <bitmap
             android:gravity="center"
-            android:src="@drawable/club_logo"/>
+            android:src="@drawable/sportingportugal" />
     </item>
 
 </layer-list>
