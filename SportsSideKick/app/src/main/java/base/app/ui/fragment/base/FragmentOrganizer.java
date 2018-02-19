@@ -8,7 +8,6 @@ import android.util.SparseArray;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import base.app.util.commons.Constant;
@@ -129,11 +128,11 @@ public class FragmentOrganizer extends AbstractFragmentOrganizer {
         return -1;
     }
 
-    public void setUpContainer(int containerResourceId, ArrayList<Class> containerFragments) {
+    public void setUpContainer(int containerResourceId, List<Class> containerFragments) {
         setUpContainer(containerResourceId, containerFragments, false);
     }
 
-    public void setUpContainer(int containerResourceId, ArrayList<Class> containerFragments, boolean withoutBackStack) {
+    public void setUpContainer(int containerResourceId, List<Class> containerFragments, boolean withoutBackStack) {
         containersMap.put(containerResourceId, containerFragments);
         if (withoutBackStack) {
             containersWithoutBackStack.add(containerResourceId);

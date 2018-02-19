@@ -125,37 +125,37 @@ class MainActivity : BaseActivityWithPush(),
     private fun setupFragments() {
         fragmentOrganizer = FragmentOrganizer(supportFragmentManager, WallFragment::class.java)
 
-        val mainContainerFragments = ArrayList<Class<*>>()
-        mainContainerFragments.add(WallFragment::class.java)
-        mainContainerFragments.add(ChatFragment::class.java)
-        mainContainerFragments.add(NewsFragment::class.java)
-        mainContainerFragments.add(SocialFragment::class.java)
-        mainContainerFragments.add(StatisticsFragment::class.java)
-        mainContainerFragments.add(RumoursFragment::class.java)
-        mainContainerFragments.add(StoreFragment::class.java)
-        mainContainerFragments.add(VideoChatFragment::class.java)
-        mainContainerFragments.add(TicketsFragment::class.java)
+        val mainContainerFragments = listOf(
+                WallFragment::class.java,
+                ChatFragment::class.java,
+                NewsFragment::class.java,
+                SocialFragment::class.java,
+                StatisticsFragment::class.java,
+                RumoursFragment::class.java,
+                StoreFragment::class.java,
+                VideoChatFragment::class.java,
+                TicketsFragment::class.java)
         fragmentOrganizer.setUpContainer(R.id.fragmentHolder, mainContainerFragments)
 
-        popupContainerFragments = ArrayList()
-        popupContainerFragments.add(ProfileFragment::class.java)
-        popupContainerFragments.add(StashFragment::class.java)
-        popupContainerFragments.add(YourStatementFragment::class.java)
-        popupContainerFragments.add(WalletFragment::class.java)
-        popupContainerFragments.add(LanguageFragment::class.java)
-        popupContainerFragments.add(FriendsFragment::class.java)
-        popupContainerFragments.add(FriendRequestsFragment::class.java)
-        popupContainerFragments.add(StartingNewCallFragment::class.java)
-        popupContainerFragments.add(EditProfileFragment::class.java)
-        popupContainerFragments.add(LoginFragment::class.java)
-        popupContainerFragments.add(SignUpFragment::class.java)
-        popupContainerFragments.add(FriendFragment::class.java)
-        popupContainerFragments.add(FollowersFragment::class.java)
-        popupContainerFragments.add(FollowingFragment::class.java)
-        popupContainerFragments.add(AddFriendFragment::class.java)
-        popupContainerFragments.add(InviteFriendFragment::class.java)
-        popupContainerFragments.add(SignUpLoginFragment::class.java)
-        popupContainerFragments.add(CreateChatFragment::class.java)
+        popupContainerFragments.addAll(listOf(
+                ProfileFragment::class.java,
+                StashFragment::class.java,
+                YourStatementFragment::class.java,
+                WalletFragment::class.java,
+                LanguageFragment::class.java,
+                FriendsFragment::class.java,
+                FriendRequestsFragment::class.java,
+                StartingNewCallFragment::class.java,
+                EditProfileFragment::class.java,
+                LoginFragment::class.java,
+                SignUpFragment::class.java,
+                FriendFragment::class.java,
+                FollowersFragment::class.java,
+                FollowingFragment::class.java,
+                AddFriendFragment::class.java,
+                InviteFriendFragment::class.java,
+                SignUpLoginFragment::class.java,
+                CreateChatFragment::class.java))
         fragmentOrganizer.setUpContainer(R.id.popupFragmentHolder, popupContainerFragments, true)
 
         popupDialogFragments = ArrayList()
