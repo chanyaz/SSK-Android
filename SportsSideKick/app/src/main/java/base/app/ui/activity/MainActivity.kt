@@ -508,7 +508,7 @@ class MainActivity : BaseActivityWithPush(),
     override fun onLoginAnonymously() {
         resetUserDetails()
         updateTopBar()
-        splash!!.visibility = View.GONE
+        splash.visibility = View.GONE
     }
 
     override fun onLogin(user: UserInfo) {
@@ -528,7 +528,7 @@ class MainActivity : BaseActivityWithPush(),
             resetUserDetails()
         }
         updateTopBar()
-        splash!!.visibility = View.GONE
+        splash.visibility = View.GONE
     }
 
     private fun resetUserDetails() {
@@ -548,7 +548,6 @@ class MainActivity : BaseActivityWithPush(),
     }
 
     companion object {
-
-        val TAG = "Lounge Activity"
+        const val TAG = "Lounge Activity"
     }
 }
