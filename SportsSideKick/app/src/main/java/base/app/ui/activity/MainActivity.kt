@@ -8,7 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.DisplayMetrics
 import android.view.View
-import android.widget.*
+import android.widget.RelativeLayout
 import base.app.R
 import base.app.data.Model
 import base.app.data.tutorial.TutorialModel
@@ -35,11 +35,8 @@ import base.app.util.events.chat.AudioRecordedEvent
 import base.app.util.ui.ImageLoader
 import base.app.util.ui.LinearItemDecoration
 import base.app.util.ui.NavigationDrawerItems
-import base.app.util.ui.NoScrollRecycler
-import butterknife.BindView
-import butterknife.ButterKnife
+import base.app.util.ui.show
 import butterknife.OnClick
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -49,31 +46,6 @@ class MainActivity : BaseActivityWithPush(),
         LoginStateReceiver.LoginStateListener,
         SideMenuAdapter.IDrawerCloseSideMenu,
         MenuAdapter.IDrawerClose {
-
-    @BindView(R.id.activity_main)
-    internal var rootView: View? = null
-    @BindView(R.id.bottom_menu_recycler_view)
-    internal var sideMenuRecycler: NoScrollRecycler? = null
-    @BindView(R.id.logo)
-    internal var logoImageView: ImageView? = null
-    @BindView(R.id.fragment_popup_holder)
-    internal var popupHolder: View? = null
-    @BindView(R.id.user_level_progress)
-    internal var userLevelProgress: ProgressBar? = null
-    @BindView(R.id.your_coins_value)
-    internal var yourCoinsValue: TextView? = null
-    @BindView(R.id.user_level)
-    internal var yourLevel: TextView? = null
-    @BindView(R.id.left_top_bar_container)
-    internal var barContainer: RelativeLayout? = null
-    @BindView(R.id.fragment_tv_container)
-    internal var tvContainer: LinearLayout? = null
-    @BindView(R.id.fragment_radio_container)
-    internal var radioContainer: LinearLayout? = null
-    @BindView(R.id.notification_open)
-    internal var notificationIcon: ImageView? = null
-    @BindView(R.id.friends_open)
-    internal var friendsIcon: ImageView? = null
 
     private lateinit var sideMenuAdapter: SideMenuAdapter
     private lateinit var menuAdapter: MenuAdapter
@@ -87,11 +59,11 @@ class MainActivity : BaseActivityWithPush(),
     private lateinit var radioList: ArrayList<Class<*>>
     private lateinit var radioPlayerList: ArrayList<Class<*>>
 
-    @OnClick(R.id.notification_open)
+    @OnClick(R.id.notificationsButton)
     fun notificationOpen() {
     }
 
-    @OnClick(R.id.friends_open)
+    @OnClick(R.id.friendsButton)
     fun friendsOpen() {
         EventBus.getDefault().post(FragmentEvent(FriendsFragment::class.java))
     }
@@ -100,42 +72,42 @@ class MainActivity : BaseActivityWithPush(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        ButterKnife.bind(this)
-
         loginStateReceiver = LoginStateReceiver(this)
 
         setupFragments()
         setToolbar()
         updateTopBar()
 
-        Glide.with(this).load(R.drawable.sportingportugal).into(logoImageView!!)
-        Glide.with(this).load(R.drawable.video_chat_background).into(splashBackgroundImage!!)
+        logoImageView.show(R.drawable.sportingportugal)
+        splashBackgroundImage.show(R.drawable.video_chat_background)
     }
 
-    fun updateTopBar() {
+    private fun updateTopBar() {
         val visibility = if (Model.getInstance().isRealUser) View.VISIBLE else View.GONE
-        friendsIcon!!.visibility = visibility
-        notificationIcon!!.visibility = visibility
+        friendsButton.visibility = visibility
+        notificationsButton.visibility = visibility
     }
 
     private fun setToolbar() {
         NavigationDrawerItems.getInstance().generateList(1)
         menuAdapter = MenuAdapter(this, this)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        val displaymetrics = DisplayMetrics()
-        this.windowManager.defaultDisplay.getMetrics(displaymetrics)
-        screenWidth = (displaymetrics.widthPixels * 0.5).toInt()
+        val displayMetrics = DisplayMetrics()
+        this.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        screenWidth = (displayMetrics.widthPixels * 0.5).toInt()
         sideMenuAdapter = SideMenuAdapter(this, this)
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        sideMenuRecycler!!.layoutManager = layoutManager
-        sideMenuRecycler!!.adapter = sideMenuAdapter
-        drawerContainer!!.layoutParams = RelativeLayout.LayoutParams(screenWidth, DrawerLayout.LayoutParams.MATCH_PARENT)
-        val gridLayoutManager = GridLayoutManager(this, 2)
+        bottomNavigationRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = sideMenuAdapter
+        }
+        drawerContainer.layoutParams = RelativeLayout.LayoutParams(screenWidth, DrawerLayout.LayoutParams.MATCH_PARENT)
         var space = Utility.getDisplayWidth(this).toDouble()
-        space = space * 0.005
-        menuRecyclerView!!.addItemDecoration(LinearItemDecoration(space.toInt(), true, false))
-        menuRecyclerView!!.layoutManager = gridLayoutManager
-        menuRecyclerView!!.adapter = menuAdapter
+        space *= 0.005
+        menuRecyclerView.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            addItemDecoration(LinearItemDecoration(space.toInt(), true, false))
+            adapter = menuAdapter
+        }
 
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
@@ -184,7 +156,7 @@ class MainActivity : BaseActivityWithPush(),
         popupContainerFragments.add(InviteFriendFragment::class.java)
         popupContainerFragments.add(SignUpLoginFragment::class.java)
         popupContainerFragments.add(CreateChatFragment::class.java)
-        fragmentOrganizer.setUpContainer(R.id.fragment_popup_holder, popupContainerFragments, true)
+        fragmentOrganizer.setUpContainer(R.id.popupFragmentHolder, popupContainerFragments, true)
 
         popupDialogFragments = ArrayList()
         popupDialogFragments.add(AlertDialogFragment::class.java)
@@ -240,52 +212,52 @@ class MainActivity : BaseActivityWithPush(),
 
         // make tv container show or hidden
         if (youtubeList.contains(event.type) || youtubePlayer.contains(event.type)) {
-            tvContainer!!.visibility = View.VISIBLE
+            tvFragmentContainer.visibility = View.VISIBLE
         } else {
-            tvContainer!!.visibility = View.GONE
+            tvFragmentContainer.visibility = View.GONE
         }
 
         // make radio container show or hidden
         if (radioList.contains(event.type) || radioPlayerList.contains(event.type)) {
-            radioContainer!!.visibility = View.VISIBLE
+            radioFragmentContainer.visibility = View.VISIBLE
         } else {
-            radioContainer!!.visibility = View.GONE
+            radioFragmentContainer.visibility = View.GONE
         }
 
         if (popupLeftFragments.contains(event.type)) {
             // this is popup event - coming from left
-            fragmentLeftPopupHolder!!.visibility = View.VISIBLE
-            barContainer!!.visibility = View.INVISIBLE
-            popupHolder!!.visibility = View.INVISIBLE
+            fragmentLeftPopupHolder.visibility = View.VISIBLE
+            leftTopBarContainer!!.visibility = View.INVISIBLE
+            popupFragmentHolder!!.visibility = View.INVISIBLE
         } else if (popupContainerFragments.contains(event.type)) {
             // this is popup event
-            fragmentLeftPopupHolder!!.visibility = View.INVISIBLE
-            barContainer!!.visibility = View.VISIBLE
-            popupHolder!!.visibility = View.VISIBLE
+            fragmentLeftPopupHolder.visibility = View.INVISIBLE
+            leftTopBarContainer!!.visibility = View.VISIBLE
+            popupFragmentHolder!!.visibility = View.VISIBLE
         } else if (popupDialogFragments.contains(event.type)) {
             // this is popup event - Alert Dialog
-            if (fragmentLeftPopupHolder!!.visibility == View.VISIBLE) {
+            if (fragmentLeftPopupHolder.visibility == View.VISIBLE) {
                 toggleBlur(true, fragmentLeftPopupHolder)
-            } else if (popupHolder!!.visibility == View.VISIBLE) {
+            } else if (popupFragmentHolder!!.visibility == View.VISIBLE) {
                 //fragmentLeftPopupHolder is show so we need to take photo from that layout
-                toggleBlur(true, popupHolder)
+                toggleBlur(true, popupFragmentHolder)
             } else {
                 //main fragment view
                 toggleBlur(true, fragmentHolder)
             }
         } else {
             //main fragments
-            fragmentLeftPopupHolder!!.visibility = View.INVISIBLE
-            barContainer!!.visibility = View.VISIBLE
-            popupHolder!!.visibility = View.INVISIBLE
+            fragmentLeftPopupHolder.visibility = View.INVISIBLE
+            leftTopBarContainer!!.visibility = View.VISIBLE
+            popupFragmentHolder!!.visibility = View.INVISIBLE
         }
     }
 
     fun toggleBlur(visible: Boolean, fragmentView: View?) {
         if (visible) {
-            blurredBackground!!.visibility = View.VISIBLE
+            blurredBackground.visibility = View.VISIBLE
         } else {
-            blurredBackground!!.visibility = View.GONE
+            blurredBackground.visibility = View.GONE
         }
     }
 
@@ -322,9 +294,9 @@ class MainActivity : BaseActivityWithPush(),
 
         // Hiding fragments - TODO Instead of popping them from back stack?
         if (popupLeftFragments.contains(previousFragment)) {
-            fragmentLeftPopupHolder!!.visibility = View.VISIBLE
+            fragmentLeftPopupHolder.visibility = View.VISIBLE
         } else {
-            fragmentLeftPopupHolder!!.visibility = View.INVISIBLE
+            fragmentLeftPopupHolder.visibility = View.INVISIBLE
         }
 
         if (previousFragment == YoutubePlayerFragment::class.java) {
@@ -342,16 +314,16 @@ class MainActivity : BaseActivityWithPush(),
 
         // make tv container show or hidden
         if (youtubeList.contains(previousFragment) || youtubePlayer.contains(previousFragment)) {
-            tvContainer!!.visibility = View.VISIBLE
+            tvFragmentContainer.visibility = View.VISIBLE
         } else {
-            tvContainer!!.visibility = View.GONE
+            tvFragmentContainer.visibility = View.GONE
         }
 
         // make radio container show or hidden
         if (radioList.contains(previousFragment) || radioPlayerList.contains(previousFragment)) {
-            radioContainer!!.visibility = View.VISIBLE
+            radioFragmentContainer.visibility = View.VISIBLE
         } else {
-            radioContainer!!.visibility = View.GONE
+            radioFragmentContainer.visibility = View.GONE
         }
 
         if (previousFragment == ClubRadioStationFragment::class.java && penultimateFragment == ClubRadioFragment::class.java) {
@@ -361,7 +333,7 @@ class MainActivity : BaseActivityWithPush(),
             sideMenuAdapter.notifyDataSetChanged()
             if (drawerLayout.isDrawerOpen(GravityCompat.END))
                 drawerLayout.closeDrawer(GravityCompat.END)
-            tvContainer!!.visibility = View.VISIBLE
+            tvFragmentContainer.visibility = View.VISIBLE
             return
         }
 
@@ -374,7 +346,7 @@ class MainActivity : BaseActivityWithPush(),
             if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 drawerLayout.closeDrawer(GravityCompat.END)
             }
-            tvContainer!!.visibility = View.VISIBLE
+            tvFragmentContainer.visibility = View.VISIBLE
             return
         }
 
@@ -389,7 +361,7 @@ class MainActivity : BaseActivityWithPush(),
                 fragmentOrganizer.currentFragment!!.fragmentManager!!.popBackStack()
                 fragmentOrganizer.currentFragment!!.fragmentManager!!.popBackStack()
                 if (penultimateFragment == ClubRadioStationFragment::class.java) {
-                    radioContainer!!.visibility = View.VISIBLE
+                    radioFragmentContainer.visibility = View.VISIBLE
                     NavigationDrawerItems.getInstance().setByPosition(5)
                     menuAdapter.notifyDataSetChanged()
                     sideMenuAdapter.notifyDataSetChanged()
@@ -414,7 +386,7 @@ class MainActivity : BaseActivityWithPush(),
                 fragmentOrganizer.currentFragment!!.fragmentManager!!.popBackStack()
                 fragmentOrganizer.currentFragment!!.fragmentManager!!.popBackStack()
                 if (penultimateFragment == YoutubePlayerFragment::class.java) {
-                    tvContainer!!.visibility = View.VISIBLE
+                    tvFragmentContainer.visibility = View.VISIBLE
                     NavigationDrawerItems.getInstance().setByPosition(7)
                     menuAdapter.notifyDataSetChanged()
                     sideMenuAdapter.notifyDataSetChanged()
@@ -437,11 +409,11 @@ class MainActivity : BaseActivityWithPush(),
             //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class, true));
             return
         }
-        if (popupHolder!!.visibility == View.VISIBLE) {
-            popupHolder!!.visibility = View.INVISIBLE
+        if (popupFragmentHolder!!.visibility == View.VISIBLE) {
+            popupFragmentHolder!!.visibility = View.INVISIBLE
         }
-        if (barContainer!!.visibility != View.VISIBLE) {
-            barContainer!!.visibility = View.VISIBLE
+        if (leftTopBarContainer!!.visibility != View.VISIBLE) {
+            leftTopBarContainer!!.visibility = View.VISIBLE
         }
         if (fragmentOrganizer.handleNavigationFragment()) {
             menuAdapter.notifyDataSetChanged()
@@ -455,7 +427,7 @@ class MainActivity : BaseActivityWithPush(),
     }
 
     private fun setYourCoinsValue(value: String) {
-        yourCoinsValue!!.text = value
+        coinsTextView!!.text = value
     }
 
     fun onProfileClicked(view: View) {
@@ -518,11 +490,11 @@ class MainActivity : BaseActivityWithPush(),
                 ImageLoader.displayRoundImage(user.circularAvatarUrl, profileImage)
             }
             setYourCoinsValue(Model.getInstance().userInfo.currency.toString())
-            yourLevel!!.visibility = View.VISIBLE
-            yourLevel!!.text = user.progress.toInt().toString()
-            userLevelBackground!!.visibility = View.VISIBLE
-            userLevelProgress!!.visibility = View.VISIBLE
-            userLevelProgress!!.progress = (user.progress * userLevelProgress!!.max).toInt()
+            userLevelTextView!!.visibility = View.VISIBLE
+            userLevelTextView!!.text = user.progress.toInt().toString()
+            userLevelBackground.visibility = View.VISIBLE
+            userLevelProgress.visibility = View.VISIBLE
+            userLevelProgress.progress = (user.progress * userLevelProgress.max).toInt()
             TutorialModel.getInstance().userId = Model.getInstance().userInfo.userId
         } else {
             resetUserDetails()
@@ -533,9 +505,9 @@ class MainActivity : BaseActivityWithPush(),
 
     private fun resetUserDetails() {
         setYourCoinsValue(0.toString())
-        yourLevel!!.visibility = View.INVISIBLE
-        userLevelBackground!!.visibility = View.INVISIBLE
-        userLevelProgress!!.visibility = View.INVISIBLE
+        userLevelTextView!!.visibility = View.INVISIBLE
+        userLevelBackground.visibility = View.INVISIBLE
+        userLevelProgress.visibility = View.INVISIBLE
         val imgUri = "drawable://" + resources.getIdentifier("blank_profile_rounded", "drawable", this.packageName)
         ImageLoader.displayImage(imgUri, profileImage, R.drawable.blank_profile_rounded)
     }

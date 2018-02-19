@@ -81,7 +81,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class MainActivityTablet extends BaseActivity implements LoginStateReceiver.LoginStateListener {
 
     public static final String TAG = "Lounge Activity";
-    @BindView(R.id.activity_main)
+    @BindView(R.id.rootView)
     View rootView;
 
     @BindView(R.id.tabs_container_1)
@@ -105,13 +105,13 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
     @BindView(R.id.logo_second_team)
     ImageView logoOfSecondTeam;
 
-    @BindView(R.id.your_coins_value)
+    @BindView(R.id.coinsTextView)
     TextView yourCoinsValue;
-    @BindView(R.id.user_level)
+    @BindView(R.id.userLevelTextView)
     TextView yourLevel;
     @BindView(R.id.userLevelBackground)
     ImageView userLevelBackground;
-    @BindView(R.id.user_level_progress)
+    @BindView(R.id.userLevelProgress)
     ProgressBar userLevelProgress;
 
     @BindView(R.id.profileImage)
