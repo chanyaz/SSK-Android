@@ -97,7 +97,7 @@
                 android:layout_height="@dimen/height_40"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin_30"
-                android:src="@drawable/logo_fq" />
+                android:src="@drawable/logo_fc" />
 
             <LinearLayout
                 android:layout_width="match_parent"

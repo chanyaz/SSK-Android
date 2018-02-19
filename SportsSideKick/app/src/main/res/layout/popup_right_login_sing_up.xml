@@ -128,7 +128,7 @@
                     android:layout_height="@dimen/height_40"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/margin_15"
-                    android:src="@drawable/logo_fq" />
+                    android:src="@drawable/logo_fc" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

@@ -70,7 +70,7 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
 
         // TODO - Starting from Android O (API 26) there are channel_ids for notifications - implement it
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.logo_fq)
+                .setSmallIcon(R.drawable.logo_fc)
                 .setContentTitle("Fanschat")
                 .setContentText(alert)
                 .setAutoCancel(true)
