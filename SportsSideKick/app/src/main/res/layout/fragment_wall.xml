@@ -40,7 +40,9 @@
                     <ImageView
                         android:id="@+id/wall_top_image"
                         android:layout_width="match_parent"
-                        android:layout_height="240dp"
+                        android:layout_height="160dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
                         android:background="@color/colorPrimaryDark"
                         android:scaleType="centerCrop"
                         tools:src="@drawable/image_wall_background" />
@@ -72,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/wall_top_image"
                         android:layout_alignParentStart="true"
-                        android:layout_marginBottom="32dp">
+                        android:layout_marginBottom="24dp">
 
                         <LinearLayout
                             android:id="@+id/wall_top_info"
@@ -95,7 +97,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                tools:text="AST" />
+                                tools:text="SCP" />
 
                             <ImageView
                                 android:id="@+id/wall_team_left_image"
@@ -139,7 +141,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                tools:text="SCP" />
+                                tools:text="ASP" />
 
                         </LinearLayout>
 
@@ -205,9 +207,10 @@
                         <Button
                             android:id="@+id/join_now_button"
                             style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/standard_button_height"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
                             android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
                             android:background="@drawable/gym_bag_button_background"
                             android:paddingEnd="32dp"
                             android:paddingStart="32dp"
@@ -220,10 +223,11 @@
                         <Button
                             android:id="@+id/login_button"
                             style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/standard_button_height"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginStart="8dp"
+                            android:layout_weight="1"
                             android:background="@drawable/light_button_edit_profile_image"
                             android:gravity="center"
                             android:paddingEnd="32dp"
