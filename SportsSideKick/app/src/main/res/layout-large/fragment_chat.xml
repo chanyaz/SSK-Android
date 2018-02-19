@@ -249,7 +249,7 @@
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/chats_public_search"
-                android:textColor="?chatDetailsColorRef" />
+                android:textColor="@color/chatDetailsColorRef" />
             <TextView
                 android:id="@+id/chat_menu_alerts"
                 android:layout_width="match_parent"
@@ -262,7 +262,7 @@
                 android:gravity="center"
                 android:padding="@dimen/half_margin"
                 android:text="@string/alerts_on"
-                android:textColor="?chatDetailsColorRef" />
+                android:textColor="@color/chatDetailsColorRef" />
 
         </LinearLayout>
 

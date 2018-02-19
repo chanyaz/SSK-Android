@@ -7,4 +7,5 @@
     <color name="black_alpha_70">#b9000000</color>
     <color name="black_alpha_50">#81000000</color>
     <color name="chatBackground">#F4F4F4</color>
+    <color name="chatDetailsColorRef">#959595</color>
 </resources>

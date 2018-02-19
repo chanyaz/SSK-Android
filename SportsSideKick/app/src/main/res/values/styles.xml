@@ -135,7 +135,7 @@
 
         <item name="colorPrimaryVeryLightRef">@color/colorPrimaryVeryLight</item>
 
-        <item name="chatDetailsColorRef">@color/white</item>
+        <item name="chatDetailsColorRef">#959595</item>
 
         <item name="yourProfileUserNameColorRef">@color/white</item>
         <item name="yourProfileInfoDetailsColorRef">@color/white</item>

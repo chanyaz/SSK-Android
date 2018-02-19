@@ -68,7 +68,8 @@
         android:layout_marginStart="@dimen/margin_15"
         android:layout_toEndOf="@+id/profileImage"
         android:alpha="0.5"
-        android:textColor="?chatDetailsColorRef"
+        tools:text="Sender"
+        android:textColor="@color/chatDetailsColorRef"
         android:textSize="@dimen/font_size_10" />
 
     <TextView
@@ -76,21 +77,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/content_container"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         android:layout_toEndOf="@+id/sender"
         android:alpha="0.5"
         android:text="|"
-        android:textColor="?chatDetailsColorRef"
+        android:textColor="@color/chatDetailsColorRef"
         android:textSize="@dimen/font_size_10"
         tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/timestamp"
+        tools:text="Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/content_container"
         android:layout_toEndOf="@+id/splitter"
         android:alpha="0.5"
-        android:textColor="?chatDetailsColorRef"
+        android:textColor="@color/chatDetailsColorRef"
         android:textSize="@dimen/font_size_10" />
 
 
