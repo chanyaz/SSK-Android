@@ -227,18 +227,18 @@ class MainActivity : BaseActivityWithPush(),
         if (popupLeftFragments.contains(event.type)) {
             // this is popup event - coming from left
             fragmentLeftPopupHolder.visibility = View.VISIBLE
-            leftTopBarContainer!!.visibility = View.INVISIBLE
-            popupFragmentHolder!!.visibility = View.INVISIBLE
+            leftTopBarContainer.visibility = View.INVISIBLE
+            popupFragmentHolder.visibility = View.INVISIBLE
         } else if (popupContainerFragments.contains(event.type)) {
             // this is popup event
             fragmentLeftPopupHolder.visibility = View.INVISIBLE
-            leftTopBarContainer!!.visibility = View.VISIBLE
-            popupFragmentHolder!!.visibility = View.VISIBLE
+            leftTopBarContainer.visibility = View.VISIBLE
+            popupFragmentHolder.visibility = View.VISIBLE
         } else if (popupDialogFragments.contains(event.type)) {
             // this is popup event - Alert Dialog
             if (fragmentLeftPopupHolder.visibility == View.VISIBLE) {
                 toggleBlur(true, fragmentLeftPopupHolder)
-            } else if (popupFragmentHolder!!.visibility == View.VISIBLE) {
+            } else if (popupFragmentHolder.visibility == View.VISIBLE) {
                 //fragmentLeftPopupHolder is show so we need to take photo from that layout
                 toggleBlur(true, popupFragmentHolder)
             } else {
@@ -248,8 +248,8 @@ class MainActivity : BaseActivityWithPush(),
         } else {
             //main fragments
             fragmentLeftPopupHolder.visibility = View.INVISIBLE
-            leftTopBarContainer!!.visibility = View.VISIBLE
-            popupFragmentHolder!!.visibility = View.INVISIBLE
+            leftTopBarContainer.visibility = View.VISIBLE
+            popupFragmentHolder.visibility = View.INVISIBLE
         }
     }
 
@@ -409,11 +409,11 @@ class MainActivity : BaseActivityWithPush(),
             //EventBus.getDefault().createPost(new FragmentEvent(WallFragment.class, true));
             return
         }
-        if (popupFragmentHolder!!.visibility == View.VISIBLE) {
-            popupFragmentHolder!!.visibility = View.INVISIBLE
+        if (popupFragmentHolder.visibility == View.VISIBLE) {
+            popupFragmentHolder.visibility = View.INVISIBLE
         }
-        if (leftTopBarContainer!!.visibility != View.VISIBLE) {
-            leftTopBarContainer!!.visibility = View.VISIBLE
+        if (leftTopBarContainer.visibility != View.VISIBLE) {
+            leftTopBarContainer.visibility = View.VISIBLE
         }
         if (fragmentOrganizer.handleNavigationFragment()) {
             menuAdapter.notifyDataSetChanged()
@@ -427,7 +427,7 @@ class MainActivity : BaseActivityWithPush(),
     }
 
     private fun setYourCoinsValue(value: String) {
-        coinsTextView!!.text = value
+        coinsTextView.text = value
     }
 
     fun onProfileClicked(view: View) {
@@ -490,8 +490,8 @@ class MainActivity : BaseActivityWithPush(),
                 ImageLoader.displayRoundImage(user.circularAvatarUrl, profileImage)
             }
             setYourCoinsValue(Model.getInstance().userInfo.currency.toString())
-            userLevelTextView!!.visibility = View.VISIBLE
-            userLevelTextView!!.text = user.progress.toInt().toString()
+            userLevelTextView.visibility = View.VISIBLE
+            userLevelTextView.text = user.progress.toInt().toString()
             userLevelBackground.visibility = View.VISIBLE
             userLevelProgress.visibility = View.VISIBLE
             userLevelProgress.progress = (user.progress * userLevelProgress.max).toInt()
@@ -505,7 +505,7 @@ class MainActivity : BaseActivityWithPush(),
 
     private fun resetUserDetails() {
         setYourCoinsValue(0.toString())
-        userLevelTextView!!.visibility = View.INVISIBLE
+        userLevelTextView.visibility = View.INVISIBLE
         userLevelBackground.visibility = View.INVISIBLE
         userLevelProgress.visibility = View.INVISIBLE
         val imgUri = "drawable://" + resources.getIdentifier("blank_profile_rounded", "drawable", this.packageName)
