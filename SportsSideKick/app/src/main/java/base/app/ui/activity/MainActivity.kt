@@ -36,6 +36,7 @@ import base.app.util.ui.ImageLoader
 import base.app.util.ui.LinearItemDecoration
 import base.app.util.ui.NavigationDrawerItems
 import base.app.util.ui.show
+import butterknife.ButterKnife
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -51,13 +52,13 @@ class MainActivity : BaseActivityWithPush(),
     private lateinit var menuAdapter: MenuAdapter
     private var screenWidth: Int = 0
 
-    private lateinit var popupContainerFragments: ArrayList<Class<*>>
-    private lateinit var popupLeftFragments: ArrayList<Class<*>>
-    private lateinit var popupDialogFragments: ArrayList<Class<*>>
-    private lateinit var youtubePlayer: ArrayList<Class<*>>
-    private lateinit var youtubeList: ArrayList<Class<*>>
-    private lateinit var radioList: ArrayList<Class<*>>
-    private lateinit var radioPlayerList: ArrayList<Class<*>>
+    private val popupContainerFragments: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
+    private val popupLeftFragments: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
+    private val popupDialogFragments: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
+    private val youtubePlayer: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
+    private val youtubeList: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
+    private val radioList: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
+    private val radioPlayerList: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
 
     @OnClick(R.id.notificationsButton)
     fun notificationOpen() {
@@ -71,6 +72,8 @@ class MainActivity : BaseActivityWithPush(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        ButterKnife.bind(this)
 
         loginStateReceiver = LoginStateReceiver(this)
 
@@ -158,11 +161,9 @@ class MainActivity : BaseActivityWithPush(),
                 CreateChatFragment::class.java))
         fragmentOrganizer.setUpContainer(R.id.popupFragmentHolder, popupContainerFragments, true)
 
-        popupDialogFragments = ArrayList()
         popupDialogFragments.add(AlertDialogFragment::class.java)
         fragmentOrganizer.setUpContainer(R.id.fragment_dialog, popupDialogFragments, true)
 
-        popupLeftFragments = ArrayList()
         popupLeftFragments.add(EditChatFragment::class.java)
         popupLeftFragments.add(JoinChatFragment::class.java)
         popupLeftFragments.add(WallItemFragment::class.java)
@@ -170,21 +171,17 @@ class MainActivity : BaseActivityWithPush(),
         popupLeftFragments.add(PostCreateFragment::class.java)
         fragmentOrganizer.setUpContainer(R.id.fragmentLeftPopupHolder, popupLeftFragments, true)
 
-        youtubeList = ArrayList()
         youtubeList.add(ClubTVFragment::class.java)
         youtubeList.add(ClubTvPlaylistFragment::class.java)
         youtubeList.add(ClubRadioFragment::class.java)
         fragmentOrganizer.setUpContainer(R.id.play_list_holder, youtubeList, false)
 
-        radioList = ArrayList()
         radioList.add(ClubRadioFragment::class.java)
         fragmentOrganizer.setUpContainer(R.id.radio_list_holder, radioList, false)
 
-        youtubePlayer = ArrayList()
         youtubePlayer.add(YoutubePlayerFragment::class.java)
         fragmentOrganizer.setUpContainer(R.id.youtube_holder, youtubePlayer, true)
 
-        radioPlayerList = ArrayList()
         radioPlayerList.add(ClubRadioStationFragment::class.java)
         fragmentOrganizer.setUpContainer(R.id.radio_holder, radioPlayerList, true)
         // FIXME This will trigger sound?
