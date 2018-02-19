@@ -60,6 +60,7 @@ import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
 import base.app.util.ui.ImageLoader;
+import base.app.util.ui.LinearItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -127,6 +128,9 @@ public class WallFragment extends BaseFragment
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
+            int space = (int) getResources().getDimension(R.dimen.item_spacing_wall);
+            recyclerView.addItemDecoration(new LinearItemDecoration(space));
+
             refreshAdapter(false);
         }
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

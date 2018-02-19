@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="@dimen/margin_5"
-    android:background="@color/white"
     android:foreground="?selectableItemBackground">
 
     <View
@@ -161,6 +159,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="@drawable/wall_item_shadow" />
 </RelativeLayout>

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_5"
     android:foreground="?selectableItemBackground">
 
     <View
@@ -181,6 +180,7 @@
 
     <View
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="@dimen/height_2"
         android:layout_below="@id/comment_container"
         android:background="@drawable/wall_item_shadow" />
