@@ -72,7 +72,7 @@
         <item name="radioButtonNormalLeft">@drawable/radio_button_normal_left</item>
         <item name="userLevelProgress">@drawable/circle_shape</item>
         <item name="userCoinIcon">@drawable/skk_coin_large</item>
-        <item name="logoIcon">@drawable/sportingportugal</item>
+        <item name="logoIcon">@drawable/club_logo</item>
         <item name="ligaBanner">@drawable/liga</item>
         <item name="notificationIcon">@drawable/notification</item>
         <item name="profileImageIcon">@drawable/blank_profile_rounded</item>
@@ -218,8 +218,8 @@
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splash</item>
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="fontTitilliumWebLight">

@@ -81,7 +81,7 @@ class MainActivity : BaseActivityWithPush(),
         setToolbar()
         updateTopBar()
 
-        logoImageView.show(R.drawable.sportingportugal)
+        logoImageView.show(R.drawable.club_logo)
         splashBackgroundImage.show(R.drawable.video_chat_background)
     }
 

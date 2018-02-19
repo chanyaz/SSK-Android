@@ -32,8 +32,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha="0.7"
-                    android:background="@drawable/phone_background"
+                    android:background="@color/colorPrimary"
                     android:paddingTop="24dp"
                     android:tileMode="repeat"
                     tools:paddingTop="0dp" />

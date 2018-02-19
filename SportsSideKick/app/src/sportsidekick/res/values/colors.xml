@@ -15,7 +15,7 @@
     <color name="colorPrimarySemiDark">#022b31</color>
     <color name="colorPrimarySemiDarkSemiTransparent">#a800363b</color>
 
-    <color name="colorPrimary">#023639</color>
+    <color name="colorPrimary">#04B46B</color>
 
     <color name="colorPrimarySlightlyLight">#005e30</color>
     <color name="colorPrimaryMediumLight">#115e38</color>
@@ -40,6 +40,6 @@
     <color name="facebook_blue">#3b5998</color>
     <color name="shop_blue">#0be5ff</color>
     <color name="stats_pink">#ff0b5b</color>
-    <color name="phoneLoungeTickerColor">#C2FF01</color>
+    <color name="phoneLoungeTickerColor">@color/white</color>
 
 </resources>
