@@ -29,6 +29,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/top_buttons_container">
+        
+        <ImageView
+            android:id="@+id/backgroundImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="#99000000"
+            tools:src="@drawable/background_sporting"
+            tools:scaleType="centerCrop"/>
 
         <RelativeLayout
             android:id="@+id/forgot_password_container"
@@ -93,6 +101,7 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/club_logo" />
 
@@ -101,6 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="-4dp"
                     android:gravity="center"
@@ -114,6 +124,7 @@
                     android:id="@+id/facebook_button"
                     style="@style/facebook_login_button_phone"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_30"
                     android:layout_marginStart="@dimen/margin_30"
@@ -129,7 +140,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/login_facebook"
                     android:visibility="gone" />
-
 
                 <LinearLayout
                     android:id="@+id/orContainer"
@@ -235,8 +245,22 @@
                     android:layout_marginTop="16dp"
                     android:background="@drawable/button_login_login"
                     android:text="@string/sign_in"
-                    android:textColor="@color/black_alpha_70"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/font_size_18" />
+
+                <TextView
+                    android:id="@+id/forgot_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/loginButton"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="@dimen/margin_60"
+                    android:layout_marginStart="@dimen/margin_60"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/forgot_your_password"
+                    android:textColor="@color/white" />
 
                 <ProgressBar
                     android:id="@+id/login_progress_bar"
@@ -258,7 +282,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/button_login_login"
                     android:clickable="true"
-                    android:visibility="invisible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/reset_text"
@@ -292,7 +316,7 @@
         android:id="@+id/topSpacer"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:background="@drawable/phone_background"
+        android:background="@color/colorPrimary"
         tools:visibility="gone" />
 
     <RelativeLayout
@@ -300,7 +324,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_below="@id/topSpacer"
-        android:background="@drawable/phone_background"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <ImageButton
@@ -319,24 +343,12 @@
             android:layout_centerInParent="true"
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
+            android:textAllCaps="true"
             android:text="@string/sign_in"
-            android:textColor="@color/white_alpha_70"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_size_16" />
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/forgot_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="@dimen/margin_60"
-        android:layout_marginStart="@dimen/margin_60"
-        android:layout_marginTop="16dp"
-        android:text="@string/forgot_your_password"
-        android:textColor="@color/white_alpha_40" />
 
     <FrameLayout
         android:id="@+id/loadingOverlay"
@@ -352,5 +364,13 @@
             android:layout_gravity="center" />
 
     </FrameLayout>
+
+    <ImageView
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:src="@drawable/logo_fc"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

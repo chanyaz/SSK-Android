@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -118,6 +119,8 @@ public class LoginFragment extends BaseFragment
     View facebookButton;
     @BindView(R.id.orContainer)
     View orContainer;
+    @BindView(R.id.backgroundImageView)
+    ImageView backgroundImageView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -168,20 +171,20 @@ public class LoginFragment extends BaseFragment
 
                 int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
                 if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
-                    titleText.setVisibility(View.GONE);
-                    imageLogo.setVisibility(View.GONE);
                     facebookButton.setVisibility(View.GONE);
                     forgotButton.setVisibility(View.GONE);
                     orContainer.setVisibility(View.INVISIBLE);
                 } else {
-                    titleText.setVisibility(View.VISIBLE);
-                    imageLogo.setVisibility(View.VISIBLE);
                     facebookButton.setVisibility(View.VISIBLE);
                     forgotButton.setVisibility(View.VISIBLE);
                     orContainer.setVisibility(View.VISIBLE);
                 }
             }
         });
+        Glide.with(getContext())
+                .load(R.drawable.background_sporting)
+                .into(backgroundImageView);
+
         return view;
     }
 
