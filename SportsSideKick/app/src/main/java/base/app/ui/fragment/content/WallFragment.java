@@ -211,6 +211,11 @@ public class WallFragment extends BaseFragment
         EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
+    @OnClick(R.id.buttonTickets)
+    public void onClickTickets() {
+        EventBus.getDefault().post(new FragmentEvent(TicketsFragment.class));
+    }
+
     @Subscribe
     public void onItemUpdate(ItemUpdateEvent event) {
         final WallBase post = event.getPost();

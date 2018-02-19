@@ -14,6 +14,7 @@ import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.events.post.ItemUpdateEvent
+import base.app.util.ui.LinearItemDecoration
 import base.app.util.ui.inflate
 import base.app.util.ui.show
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -39,6 +40,7 @@ open class NewsFragment : BaseFragment() {
 
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
+        recyclerView.addItemDecoration(LinearItemDecoration(resources.getDimension(R.dimen.item_spacing_news).toInt()))
 
         showItems()
     }

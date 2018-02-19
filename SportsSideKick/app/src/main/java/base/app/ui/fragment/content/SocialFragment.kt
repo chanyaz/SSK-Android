@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import base.app.R
+import base.app.R.dimen
 import base.app.data.news.NewsModel.NewsType
 import base.app.data.news.NewsModel.getInstance
 import base.app.data.news.NewsPageEvent
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.events.post.AutoTranslateEvent
+import base.app.util.ui.LinearItemDecoration
 import base.app.util.ui.show
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_news.*
@@ -42,6 +44,7 @@ class SocialFragment : BaseFragment() {
 
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
+        recyclerView.addItemDecoration(LinearItemDecoration(resources.getDimension(dimen.item_spacing_news).toInt()))
 
         if (getInstance().getAllCachedItems(type).size > 0) {
             val event = NewsPageEvent(getInstance().getAllCachedItems(type))
