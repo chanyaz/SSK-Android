@@ -192,8 +192,6 @@ public class ChatFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.logo)
     ImageView Logo;
-    @BindView(R.id.backgroundImage)
-    ImageView backgroundImage;
     @BindView(R.id.loginBackgroundImage)
     ImageView loginBackgroundImage;
     @Nullable
@@ -353,10 +351,6 @@ public class ChatFragment extends BaseFragment {
             fullScreenContainer.setOnClickListener(disabledClick);
         }
         videoViewContainer.setOnClickListener(disabledClick);
-
-        Glide.with(getContext())
-                .load(R.drawable.phone_chat_background)
-                .into(backgroundImage);
 
         showLockIconWhenKeyboardClosed(view);
 

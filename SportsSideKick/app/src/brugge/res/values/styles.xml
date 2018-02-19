@@ -63,7 +63,7 @@
         <item name="chatEditTextHintColor">@color/black_transparent_154</item>
 
         <!-- Drawables -->
-        <item name="phoneChatBackground">@color/colorPrimaryMediumLight</item>
+        <item name="phoneChatBackground">@color/chatBackground</item>
         <item name="chatAddUserIcon">@drawable/chat_add_user</item>
         <item name="chatNotificationIcon">@drawable/chat_head_notification</item>
         <item name="chatBubbleIcon">@drawable/chat_bubble</item>

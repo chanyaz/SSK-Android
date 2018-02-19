@@ -3,18 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?white_semitransparent"
     android:paddingTop="72dp"
+    android:background="@color/chatBackground"
     tools:context=".ui.fragment.other.ChatFragment"
     tools:paddingTop="0dp">
-
-    <!-- Background image -->
-    <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:src="?phoneChatBackground" />
 
     <!-- Empty chat info text -->
     <TextView
@@ -41,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="?chatHeadBackgroundColor"
             android:focusableInTouchMode="true"
             android:scrollbars="none"
             tools:layout_height="60dp"
@@ -52,13 +43,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_20"
             android:layout_below="@id/chat_heads_view"
-            android:background="?chatInfoBackgroundColor"
+            android:background="?white"
             android:ellipsize="marquee"
             android:gravity="center"
             android:lines="1"
             android:paddingEnd="@dimen/margin_60"
             android:paddingStart="@dimen/margin_60"
-            android:textColor="?white_semitransparent"
+            android:textColor="?black"
             android:textSize="@dimen/font_size_10"
             tools:text="SCP: You and your friends" />
     </RelativeLayout>
@@ -96,10 +87,15 @@
         android:id="@+id/input_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
+        android:background="#f6f7fa"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:animateLayoutChanges="true"
-        android:background="?white">
+        android:animateLayoutChanges="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#c3c3c3"/>
 
         <RelativeLayout
             android:id="@+id/chat_buttons_container"
@@ -156,20 +152,21 @@
         </RelativeLayout>
 
         <ImageButton
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/menu_button"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/height_1"
             android:layout_toEndOf="@+id/chat_buttons_container"
-            android:background="@null"
-            android:src="?chatAddButtonIcon" />
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/menu_button"
-            android:background="@color/colorGrayLight"
             android:gravity="center_vertical"
             android:layout_toStartOf="@+id/chat_menu_dots"
             android:animateLayoutChanges="true"
@@ -218,7 +215,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/height_1"
             android:background="@null"
-            android:src="?chatMenuButtonIcon" />
+            android:src="@drawable/ic_more_horiz_black_24dp" />
 
         <LinearLayout
             android:id="@+id/chat_menu_dots_container"
