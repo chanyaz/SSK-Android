@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/wall_top_image_container"
                     android:layout_marginBottom="8dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingTop="4dp"
                     android:visibility="gone"
@@ -189,7 +189,7 @@
                         android:paddingTop="@dimen/padding_8"
                         android:text="@string/access_full"
                         android:textAlignment="center"
-                        android:textColor="@color/white"
+                        android:textColor="@color/colorPrimaryVeryLight"
                         android:textSize="20sp" />
 
                     <LinearLayout
@@ -207,24 +207,13 @@
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/standard_button_height"
+                            android:layout_marginEnd="8dp"
                             android:background="@drawable/gym_bag_button_background"
                             android:paddingEnd="32dp"
                             android:paddingStart="32dp"
                             android:text="@string/join"
                             android:textAlignment="center"
                             android:textAllCaps="false"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_19" />
-
-                        <TextView
-                            style="@style/fontTitilliumWebLight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:paddingEnd="16dp"
-                            android:paddingStart="16dp"
-                            android:text="@string/or"
-                            android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="@dimen/font_size_19" />
 
@@ -234,6 +223,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/standard_button_height"
                             android:layout_gravity="center"
+                            android:layout_marginStart="8dp"
                             android:background="@drawable/light_button_edit_profile_image"
                             android:gravity="center"
                             android:paddingEnd="32dp"

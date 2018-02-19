@@ -29,7 +29,7 @@ android {
         ignoreWarnings true
         quiet true
         lintOptions {
-            disable 'ContentDescription', 'KeyboardInaccessibleWidget'
+            disable 'ContentDescription', 'KeyboardInaccessibleWidget', 'MissingPrefix'
         }
     }
     buildTypes {
