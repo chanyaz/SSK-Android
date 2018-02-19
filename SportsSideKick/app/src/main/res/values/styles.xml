@@ -217,9 +217,9 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">#096F40</item>
+        <item name="android:statusBarColor">#096F40</item>
         <item name="android:windowBackground">@drawable/background_splash</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="fontTitilliumWebLight">
