@@ -46,7 +46,7 @@
                     android:padding="@dimen/padding_4"
                     android:scaleType="fitCenter"
                     tools:layout_marginTop="0dp"
-                    tools:src="?logoIcon" />
+                    tools:src="@drawable/logo_toolbar" />
 
                 <TextView
                     android:id="@+id/caption"
