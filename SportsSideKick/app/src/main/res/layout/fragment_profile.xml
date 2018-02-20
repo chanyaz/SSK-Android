@@ -40,7 +40,7 @@
                 android:scaleType="centerInside"
                 android:alpha="0.7"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
     </RelativeLayout>
     <!-- TOP BUTTONS CONTAINER -->
     <android.support.v7.widget.CardView

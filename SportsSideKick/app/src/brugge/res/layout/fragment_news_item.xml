@@ -40,7 +40,7 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
         </RelativeLayout>
     </RelativeLayout>
 

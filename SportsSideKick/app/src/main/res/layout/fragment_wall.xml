@@ -263,10 +263,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@id/login_holder"
-                    android:layout_marginTop="?wallRecyclerListPhoneTopMargin"
+                    android:layout_marginTop="4dp"
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
-                    android:paddingTop="8dp"
                     tools:paddingStart="16dp"
                     tools:targetApi="lollipop" />
 

@@ -338,7 +338,7 @@
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentBottom="true"
             android:alpha="0.75"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+            android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
 
         <TextView
             style="@style/boldText"

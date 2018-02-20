@@ -41,7 +41,7 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -507,7 +507,7 @@
                 android:layout_width="56dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
                 android:tint="#95008643" />
 
             <ImageView
@@ -627,7 +627,7 @@
             android:layout_height="56dp"
             android:layout_above="@id/previewInputContainer"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
+            android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
 
         <Button
             android:id="@+id/postButtonSharedComment"
@@ -644,6 +644,7 @@
         <RelativeLayout
             android:id="@+id/previewInputContainer"
             android:layout_width="match_parent"
+            android:background="?white"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
