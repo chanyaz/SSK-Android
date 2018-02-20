@@ -177,10 +177,10 @@ public class WallFragment extends BaseFragment
             if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
                 nextMatchContainer.setVisibility(View.VISIBLE);
                 NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
-                ImageLoader.displayImage(R.drawable.club_logo, wallLeftTeamImage);
-                ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallRightTeamImage);
-                wallRightTeamName.setText(newsTickerInfo.getFirstClubName());
-                wallLeftTeamName.setText(newsTickerInfo.getSecondClubName());
+                ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage);
+                ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage);
+                wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
+                wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
                 long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
                 wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(), timestamp, false));
             } else {
