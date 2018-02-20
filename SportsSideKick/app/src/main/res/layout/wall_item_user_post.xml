@@ -52,6 +52,8 @@
         android:id="@+id/text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:breakStrategy="high_quality"
+        tools:targetApi="m"
         android:layout_below="@id/authorImage"
         android:layout_toEndOf="@id/image"
         android:ellipsize="end"

@@ -31,18 +31,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-4dp"
+                android:breakStrategy="high_quality"
                 android:ellipsize="end"
-                android:hyphenationFrequency="full"
                 android:lineSpacingMultiplier="0.9"
                 android:maxLines="2"
                 android:paddingBottom="8dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp"
+                android:paddingTop="8dp"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/list_item_text_size"
                 tools:ellipsize="none"
+                tools:targetApi="m"
                 tools:text="@string/lorem_ipsum"
                 tools:textStyle="bold" />
 
@@ -51,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-8dp"
+                android:breakStrategy="high_quality"
                 android:ellipsize="end"
                 android:lineSpacingMultiplier="0.9"
                 android:maxLines="2"
@@ -60,6 +62,7 @@
                 android:textColor="#1b1c1a"
                 android:textSize="12sp"
                 tools:ellipsize="none"
+                tools:targetApi="m"
                 tools:text="@string/lorem_ipsum" />
 
             <android.support.v4.widget.Space
