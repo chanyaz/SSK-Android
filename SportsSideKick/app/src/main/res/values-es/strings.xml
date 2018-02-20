@@ -85,9 +85,9 @@
     <string name="subscribed_since">Suscrito desde</string>
     <string name="auto_translation">Traducción automática</string>
     <string name="notify_wall">Notificaciones</string>
-    <string name="notify_news">Notificaciones de noticias</string>
-    <string name="notify_rumours">Notificaciones de rumores</string>
-    <string name="notify_social">Notificaciones de feeds sociales</string>
+    <string name="notify_news">Activar notificaciones de noticias</string>
+    <string name="notify_rumours">Activar notificaciones de rumores</string>
+    <string name="notify_social">Activar notificaciones sociales</string>
     <string name="edit_profile">Edita tu perfil</string>
     <string name="edit_photo">Editar foto</string>
     <string name="done">Listo</string>
@@ -230,6 +230,8 @@
     <string name="share">Compartir</string>
     <string name="post">Enviar</string>
     <string name="back">Espalda</string>
+    <string name="translated">Traducido</string>
+    <string name="translated_from">Traducido del</string>
 
     <!--Purchases-->
     <string name="rewards_received">Recompensas y objetos conseguidos en bolsas de gimnasio</string>

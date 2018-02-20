@@ -85,9 +85,9 @@
     <string name="subscribed_since">Inscrit depuis</string>
     <string name="auto_translation">Traduction automatique</string>
     <string name="notify_wall">Notifications du mur</string>
-    <string name="notify_news">Notifications de nouvelles</string>
-    <string name="notify_rumours">Notifications de rumeurs</string>
-    <string name="notify_social">Notifications de flux social</string>
+    <string name="notify_news">Activer les notifications d’information</string>
+    <string name="notify_rumours">Activer les notifications de rumeurs</string>
+    <string name="notify_social">Activer les notifications de réseaux sociaux</string>
     <string name="edit_profile">Modifier votre profil</string>
     <string name="edit_photo">Modifier l’image</string>
     <string name="done">Terminé</string>
@@ -230,6 +230,8 @@
     <string name="share">Partager</string>
     <string name="post">Poster</string>
     <string name="back">Arrière</string>
+    <string name="translated">Traduit</string>
+    <string name="translated_from">Traduit depuis</string>
 
     <!--Purchases-->
     <string name="rewards_received">Récompenses et objets reçus depuis les sacs de sport</string>

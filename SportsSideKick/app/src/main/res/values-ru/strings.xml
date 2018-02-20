@@ -85,9 +85,9 @@
     <string name="subscribed_since">Подписка с</string>
     <string name="auto_translation">Автоматический перевод</string>
     <string name="notify_wall">Уведомления (стена)</string>
-    <string name="notify_news">Новостные уведомления</string>
-    <string name="notify_rumours">Уведомления о слухах</string>
-    <string name="notify_social">Социальные уведомления</string>
+    <string name="notify_news">Включить новостные уведомления</string>
+    <string name="notify_rumours">Включить уведомления о слухах</string>
+    <string name="notify_social">Включить соц. уведомления</string>
     <string name="edit_profile">Редактируйте профиль</string>
     <string name="edit_photo">Изменить фото</string>
     <string name="done">Готово</string>
@@ -230,6 +230,8 @@
     <string name="share">Опубликовать</string>
     <string name="post">Опубликовать</string>
     <string name="back">Назад</string>
+    <string name="translated">Переведено</string>
+    <string name="translated_from">Переведено с:</string>
 
     <!--Purchases-->
     <string name="rewards_received">Награды и предметы из спортивных сумок</string>

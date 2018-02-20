@@ -85,9 +85,9 @@
     <string name="subscribed_since">مسجل منذ</string>
     <string name="auto_translation">الترجمة الآلية</string>
     <string name="notify_wall">إشعارات الحائط</string>
-    <string name="notify_news">أخبار الإخطارات</string>
-    <string name="notify_rumours">الإشاعات الإخطارات</string>
-    <string name="notify_social">إشعارات الخلاصة الاجتماعية</string>
+    <string name="notify_news">خبروں کی اطلاعات کو فعال کریں</string>
+    <string name="notify_rumours">افواہوں کی اطلاعات کو فعال کریں</string>
+    <string name="notify_social">خصوصی اطلاعات کو فعال کریں</string>
     <string name="edit_profile">تعديل ملفك</string>
     <string name="edit_photo">تعديل الصورة</string>
     <string name="done">تم</string>
@@ -230,6 +230,8 @@
     <string name="share">مشاركة</string>
     <string name="post">بريد</string>
     <string name="back">الى الخلف</string>
+    <string name="translated">ترجمہ شدہ از</string>
+    <string name="translated_from">ترجمہ شدہ</string>
 
     <!--Purchases-->
     <string name="rewards_received">الجوائز والعناصر المتلقاة من حقائب الجيم</string>

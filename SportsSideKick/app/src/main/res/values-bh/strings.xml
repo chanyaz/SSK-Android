@@ -85,9 +85,9 @@
     <string name="subscribed_since">এই সময় থেকে সদস্য আছেন</string>
     <string name="auto_translation">স্বয়ংক্রিয় অনুবাদ</string>
     <string name="notify_wall">ওয়াল বিজ্ঞপ্তিগুলি</string>
-    <string name="notify_news">সংবাদ বিজ্ঞপ্তিগুলি</string>
-    <string name="notify_rumours">গুজব তথ্য</string>
-    <string name="notify_social">সামাজিক ফিড বিজ্ঞপ্তিগুলি</string>
+    <string name="notify_news">খবরের বিজ্ঞপ্তি সক্ষম করুন</string>
+    <string name="notify_rumours">গুজবের বিজ্ঞপ্তি সক্ষম করুন</string>
+    <string name="notify_social">সোশ্যাল বিজ্ঞপ্তি সক্ষম করুন</string>
     <string name="edit_profile">আপনার প্রোফাইল সম্পাদনা করুন</string>
     <string name="edit_photo">ছবি সম্পাদনা করুন</string>
     <string name="done">সম্পন্ন</string>
@@ -230,6 +230,8 @@
     <string name="share">শেয়ার</string>
     <string name="post">পোস্ট</string>
     <string name="back">পিছনে</string>
+    <string name="translated">অনুবাদ করা হয়েছে এখান থেকে</string>
+    <string name="translated_from">অনুবাদ করা হয়েছে</string>
 
     <!--Purchases-->
     <string name="rewards_received">জিম ব্যাগ থেকে যে পুরষ্কার এবং বস্তুগুলি পাওয়া গেছে</string>

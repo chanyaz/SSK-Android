@@ -85,9 +85,9 @@
     <string name="subscribed_since">初次订阅时间：</string>
     <string name="auto_translation">自动翻译</string>
     <string name="notify_wall">公告墙通知</string>
-    <string name="notify_news">新闻通知</string>
-    <string name="notify_rumours">谣言通知</string>
-    <string name="notify_social">社交Feed通知</string>
+    <string name="notify_news">启用新闻通知</string>
+    <string name="notify_rumours">启用传闻通知</string>
+    <string name="notify_social">启用社交通知</string>
     <string name="edit_profile">编辑您的个人资料</string>
     <string name="edit_photo">编辑照片</string>
     <string name="done">完成</string>
@@ -230,6 +230,8 @@
     <string name="share">分享</string>
     <string name="post">岗位</string>
     <string name="back">背部</string>
+    <string name="translated">已翻译</string>
+    <string name="translated_from">译自</string>
 
     <!--Purchases-->
     <string name="rewards_received">从 Gym Bags 处获得的奖励与物品</string>

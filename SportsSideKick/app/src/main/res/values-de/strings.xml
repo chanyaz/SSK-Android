@@ -85,9 +85,9 @@
     <string name="subscribed_since">Registriert seit</string>
     <string name="auto_translation">Automatische vertaling</string>
     <string name="notify_wall">Pinnwand-Benachrichtigungen</string>
-    <string name="notify_news">Nieuwsmeldingen</string>
-    <string name="notify_rumours">Geruchtenmeldingen</string>
-    <string name="notify_social">Social feed-meldingen</string>
+    <string name="notify_news">Benachrichtigungen aktivieren</string>
+    <string name="notify_rumours">Gerüchte aktivieren</string>
+    <string name="notify_social">Soziale Meldungen aktivieren</string>
     <string name="edit_profile">Dein profil bearbeiten</string>
     <string name="edit_photo">Foto bearbeiten</string>
     <string name="done">Fertig</string>
@@ -230,6 +230,8 @@
     <string name="share">Teilen</string>
     <string name="post">Post</string>
     <string name="back">Terug</string>
+    <string name="translated">Übersetzt von</string>
+    <string name="translated_from">Übersetzt</string>
 
     <!--Purchases-->
     <string name="rewards_received">Erhaltene Belohnungen und Gegenstände aus Sportbeuteln</string>

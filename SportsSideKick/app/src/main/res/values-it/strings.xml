@@ -85,9 +85,9 @@
     <string name="subscribed_since">Abbonato da</string>
     <string name="auto_translation">Traduzione automatica</string>
     <string name="notify_wall">Notifiche bacheca</string>
-    <string name="notify_news">Notifiche di notizie</string>
-    <string name="notify_rumours">Notifiche di voci</string>
-    <string name="notify_social">Notifiche sui feed sociali</string>
+    <string name="notify_news">Abilita notifiche relative alle notizie</string>
+    <string name="notify_rumours">Abilita notifiche relative alle voci di mercato</string>
+    <string name="notify_social">Abilita notifiche relative ai social</string>
     <string name="edit_profile">Modifica il tuo profilo</string>
     <string name="edit_photo">Modifica foto</string>
     <string name="done">Fatto</string>
@@ -230,6 +230,8 @@
     <string name="share">Condividi</string>
     <string name="post">Inviare</string>
     <string name="back">Indietro</string>
+    <string name="translated_from">Tradotto da</string>
+    <string name="translated">Tradotto</string>
 
     <!--Purchases-->
     <string name="rewards_received">Ricompense e oggetti ricevuti dal Borsone da Palestra</string>

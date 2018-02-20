@@ -85,9 +85,9 @@
     <string name="subscribed_since">Subskrypcja od</string>
     <string name="auto_translation">Automatyczne tłumaczenie</string>
     <string name="notify_wall">Powiadomienia z tablicy</string>
-    <string name="notify_news">Powiadomienia o nowościach</string>
-    <string name="notify_rumours">Powiadomienia o pogłoskach</string>
-    <string name="notify_social">Powiadomienia z kanałów społecznościowych</string>
+    <string name="notify_news">Włącz powiadomienia o newsach</string>
+    <string name="notify_rumours">Włącz powiadomienia o pogłoskach</string>
+    <string name="notify_social">Włącz powiadomienia społecznościowe</string>
     <string name="edit_profile">Edytowanie profilu</string>
     <string name="edit_photo">Edytuj zdjęcie</string>
     <string name="done">Gotowe</string>
@@ -230,6 +230,8 @@
     <string name="share">Udostępnij</string>
     <string name="post">Stanowisko</string>
     <string name="back">Plecy</string>
+    <string name="translated">Przetłumaczono</string>
+    <string name="translated_from">Oryginalny język</string>
 
     <!--Purchases-->
     <string name="rewards_received">Nagrody i przedmioty dostarczone w torbie sportowej.</string>

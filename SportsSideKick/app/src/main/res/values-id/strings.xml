@@ -85,9 +85,9 @@
     <string name="subscribed_since">Berlangganan sejak</string>
     <string name="auto_translation">Terjemahan otomatis</string>
     <string name="notify_wall">Pemberitahuan Dinding</string>
-    <string name="notify_news">Pemberitahuan berita</string>
-    <string name="notify_rumours">Rumor pemberitahuan</string>
-    <string name="notify_social">Pemberitahuan umpan sosial</string>
+    <string name="notify_news">Aktifkan pemberitahuan berita</string>
+    <string name="notify_rumours">Aktifkan pemberitahuan rumor</string>
+    <string name="notify_social">Aktifkan pemberitahuan sosial</string>
     <string name="edit_profile">Sunting profil anda</string>
     <string name="edit_photo">Sunting Foto</string>
     <string name="done">Selesai</string>
@@ -230,6 +230,8 @@
     <string name="share">Berbagi</string>
     <string name="post">Pos</string>
     <string name="back">Kembali</string>
+    <string name="translated">Diterjemahkan</string>
+    <string name="translated_from">Diterjemahkan dari</string>
 
     <!--Purchases-->
     <string name="rewards_received">Hadiah dan barang yang diterima dari Tas Gym</string>

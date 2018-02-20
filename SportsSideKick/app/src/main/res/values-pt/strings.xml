@@ -85,9 +85,9 @@
     <string name="subscribed_since">Registado desde</string>
     <string name="auto_translation">Tradução automática</string>
     <string name="notify_wall">Notificações no Mural</string>
-    <string name="notify_news">Notificações de notícias</string>
-    <string name="notify_rumours">Notificações de rumores</string>
-    <string name="notify_social">Notificações de feed social</string>
+    <string name="notify_news">Ativar notificações de notícias</string>
+    <string name="notify_rumours">Ativar notificações de rumores</string>
+    <string name="notify_social">Ativar notificações sociais</string>
     <string name="edit_profile">Editar o seu perfil</string>
     <string name="edit_photo">Editar Fotografia</string>
     <string name="done">Feito</string>
@@ -230,6 +230,8 @@
     <string name="share">Partilha</string>
     <string name="post">Postar</string>
     <string name="back">Costas</string>
+    <string name="translated">Traduzido</string>
+    <string name="translated_from">Traduzido de</string>
 
     <!--Purchases-->
     <string name="rewards_received">Prémios e Items recebidos por parte do Gym Bags</string>

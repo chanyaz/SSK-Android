@@ -243,17 +243,18 @@
                         </LinearLayout>
 
                         <View
+                            android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:background="?white"
-                            android:layout_width="1dp"/>
+                            android:background="?white" />
 
                         <ImageView
-                            android:layout_width="32dp"
-                            android:scaleType="fitCenter"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="8dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/logo_fc"/>
+                            android:layout_marginStart="8dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/logo_fc" />
 
                     </LinearLayout>
 
@@ -332,41 +333,40 @@
                     <Button
                         android:id="@+id/translate"
                         style="@style/Widget.AppCompat.Button.Borderless"
+                        fontPath="fonts/TitilliumWeb-Light.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="-4dp"
                         android:layout_marginStart="-4dp"
                         android:minWidth="0dp"
                         android:text="@string/translate"
-                        fontPath="fonts/TitilliumWeb-Light.ttf"
-                        tools:fontFamily="sans-serif-light"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:fontFamily="sans-serif-light" />
 
                     <TextView
                         android:id="@+id/read_more_text"
                         style="@style/Widget.AppCompat.Button.Borderless"
+                        fontPath="fonts/TitilliumWeb-Light.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="-4dp"
                         android:layout_marginStart="-4dp"
                         android:minWidth="0dp"
                         android:text="@string/read_more"
-                        fontPath="fonts/TitilliumWeb-Light.ttf"
-                        tools:fontFamily="sans-serif-light"
                         android:textAllCaps="false"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        tools:fontFamily="sans-serif-light" />
 
                     <TextView
                         android:id="@+id/delete"
                         style="@style/Widget.AppCompat.Button.Borderless"
+                        fontPath="fonts/TitilliumWeb-Light.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="-4dp"
-                        fontPath="fonts/TitilliumWeb-Light.ttf"
-                        tools:fontFamily="sans-serif-light"
                         android:layout_marginStart="-4dp"
                         android:minWidth="0dp"
                         android:text="@string/delete"
@@ -374,6 +374,7 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp"
                         android:visibility="gone"
+                        tools:fontFamily="sans-serif-light"
                         tools:visibility="visible" />
                 </LinearLayout>
 
@@ -657,9 +658,9 @@
         <RelativeLayout
             android:id="@+id/previewInputContainer"
             android:layout_width="match_parent"
-            android:background="?white"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:background="?white">
 
             <LinearLayout
                 android:layout_width="match_parent"
