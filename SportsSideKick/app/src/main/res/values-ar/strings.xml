@@ -5,6 +5,7 @@
     <string name="wall">جدار</string>
     <string name="news">الأخبار</string>
     <string name="rumours">إشاعات الويب</string>
+    <string name="social">SCP سوشل</string>
     <string name="stats">إحصائيات</string>
     <string name="shop">تسوق</string>
     <string name="chat">محادثة</string>
@@ -226,7 +227,7 @@
     <string name="read_less">قراءة أقل &lt;</string>
     <string name="edit">تعديل</string>
     <string name="delete">حذف</string>
-    <string name="translate">ترجمه</string>
+    <string name="translate">پوسٹ کا ترجمہ کریں</string>
     <string name="share">مشاركة</string>
     <string name="post">بريد</string>
     <string name="back">الى الخلف</string>

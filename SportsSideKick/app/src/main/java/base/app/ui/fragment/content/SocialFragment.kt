@@ -59,7 +59,7 @@ class SocialFragment : BaseFragment() {
     }
 
     private fun showTitle() {
-        topCaption.text = "Social"
+        topCaption.text = getString(R.string.social)
         topImage.show(R.drawable.image_wall_background)
     }
 

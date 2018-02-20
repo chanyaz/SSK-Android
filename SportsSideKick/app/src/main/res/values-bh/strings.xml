@@ -5,6 +5,7 @@
     <string name="wall">ওয়াল</string>
     <string name="news">খবর</string>
     <string name="rumours">গুজবগুলি</string>
+    <string name="social">SCP सोशल</string>
     <string name="stats">পরিসংখ্যানগুলি</string>
     <string name="shop">জিনিস কিনুন</string>
     <string name="chat">চ্যাট করুন</string>
@@ -240,5 +241,8 @@
     <string name="wallet">মানিব্যাগ</string>
     <string name="stash">আপনার স্ট্যাশ</string>
     <string name="your_statement">আপনার বিবৃতি</string>
+
+    <!--Recently translated, organize by category if needed-->
+
 
 </resources>
