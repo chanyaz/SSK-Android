@@ -178,7 +178,7 @@
                         android:textSize="12sp"
                         android:layout_margin="8dp"
                         android:background="@drawable/button_tickets"
-                        android:text="Get Tickets"
+                        android:text="@string/tickets"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
 
