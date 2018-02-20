@@ -234,19 +234,35 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/loginButton"
-                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/standard_button_height"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_30"
                     android:layout_marginStart="@dimen/margin_30"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/button_login_login"
-                    android:text="@string/sign_in"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_18" />
+                    android:layout_marginTop="16dp">
+
+                    <Button
+                        android:id="@+id/loginButton"
+                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_button_height"
+                        android:background="@drawable/button_login_login"
+                        android:text="@string/sign_in"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_18" />
+
+                    <ProgressBar
+                        android:id="@+id/login_progress_bar"
+                        android:layout_width="@dimen/prodgres_bar"
+                        android:layout_height="@dimen/prodgres_bar"
+                        android:layout_gravity="center"
+                        android:elevation="@dimen/elevation_2"
+                        android:theme="@style/AppTheme.WhiteAccent"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/forgot_button"
@@ -260,17 +276,6 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/forgot_your_password"
                     android:textColor="@color/white" />
-
-                <ProgressBar
-                    android:id="@+id/login_progress_bar"
-                    android:layout_width="@dimen/prodgres_bar"
-                    android:layout_height="@dimen/prodgres_bar"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-34dp"
-                    android:elevation="@dimen/elevation_2"
-                    android:theme="@style/AppTheme.BlackAccent"
-                    android:visibility="gone"
-                    tools:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/bottom_buttons_container_reset"

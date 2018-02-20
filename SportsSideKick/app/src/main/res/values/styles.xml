@@ -358,6 +358,10 @@
         <item name="colorControlActivated">@color/black</item>
     </style>
 
+    <style name="AppTheme.WhiteAccent" parent="AppTheme">
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
     <style name="AppTheme.BlackControls" parent="Theme.AppCompat"/>
 
     <style name="DialogActivity" parent="Theme.AppCompat.Light.Dialog">
