@@ -207,10 +207,17 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     static void displaySubhead(WallBase item, ViewHolder holder) {
         if (holder.subheadTextView != null) {
+            String subheadText = null;
             if (item instanceof WallNews) {
-                holder.subheadTextView.setText(item.getContent());
+                subheadText = item.getContent();
             } else if (item instanceof WallPost) {
-                holder.subheadTextView.setText(item.getBodyText());
+                subheadText = item.getBodyText();
+            }
+            if (subheadText != null && !subheadText.isEmpty()) {
+                holder.subheadTextView.setText(subheadText);
+                holder.subheadTextView.setVisibility(View.VISIBLE);
+            } else {
+                holder.subheadTextView.setVisibility(View.GONE);
             }
         }
     }

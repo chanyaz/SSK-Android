@@ -283,9 +283,10 @@
                         android:layout_toLeftOf="@id/location_value"
                         android:ellipsize="end"
                         android:paddingEnd="16dp"
+                        android:singleLine="true"
                         android:textColor="?popupsCaptionColor"
                         android:textSize="@dimen/font_size_12"
-                        tools:text="test@test.com"
+                        tools:text="test.very.long.address@test.com"
                         android:layout_toStartOf="@id/location_value" />
 
                     <TextView
@@ -335,6 +336,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/location_caption"
+                        android:paddingEnd="8dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         android:layout_below="@id/location_caption"
                         android:layout_centerHorizontal="true"
                         android:layout_toLeftOf="@id/subscribed_since_value"
