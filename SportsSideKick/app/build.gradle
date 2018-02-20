@@ -48,6 +48,9 @@ kotlin {
     experimental {
         coroutines "enable"
     }
+    kapt {
+        useBuildCache = true
+    }
 }
 
 dependencies {
