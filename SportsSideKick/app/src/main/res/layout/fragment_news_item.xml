@@ -325,8 +325,10 @@
                         android:layout_marginStart="-4dp"
                         android:minWidth="0dp"
                         android:text="@string/translate"
+                        fontPath="fonts/TitilliumWeb-Light.ttf"
+                        tools:fontFamily="sans-serif-light"
                         android:textAllCaps="false"
-                        android:textColor="@color/colorPrimaryVeryLight"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
 
                     <TextView
@@ -338,8 +340,10 @@
                         android:layout_marginStart="-4dp"
                         android:minWidth="0dp"
                         android:text="@string/read_more"
+                        fontPath="fonts/TitilliumWeb-Light.ttf"
+                        tools:fontFamily="sans-serif-light"
                         android:textAllCaps="false"
-                        android:textColor="@color/colorPrimaryVeryLight"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
 
                     <TextView
@@ -348,11 +352,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="-4dp"
+                        fontPath="fonts/TitilliumWeb-Light.ttf"
+                        tools:fontFamily="sans-serif-light"
                         android:layout_marginStart="-4dp"
                         android:minWidth="0dp"
                         android:text="@string/delete"
                         android:textAllCaps="false"
-                        android:textColor="@color/colorPrimaryVeryLight"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="12sp"
                         android:visibility="gone"
                         tools:visibility="visible" />

@@ -27,20 +27,40 @@
 
             <TextView
                 android:id="@+id/text_content"
+                fontPath="fonts/TitilliumWeb-Bold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-4dp"
                 android:ellipsize="end"
-                android:lineSpacingMultiplier="0.8"
-                android:maxLines="4"
                 android:hyphenationFrequency="full"
+                android:lineSpacingMultiplier="0.9"
+                android:maxLines="2"
                 android:paddingBottom="8dp"
-                android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingStart="16dp"
                 android:paddingTop="16dp"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/list_item_text_size"
+                tools:ellipsize="none"
                 tools:text="@string/lorem_ipsum"
+                tools:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subheadTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:ellipsize="end"
+                android:lineSpacingMultiplier="0.9"
+                android:maxLines="2"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
                 android:textColor="#1b1c1a"
-                android:textSize="@dimen/list_item_text_size" />
+                android:textSize="12sp"
+                tools:ellipsize="none"
+                tools:text="@string/lorem_ipsum" />
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
@@ -70,7 +90,7 @@
                     android:layout_height="16dp"
                     android:layout_marginBottom="4dp"
                     android:layout_marginStart="16dp"
-                    tools:src="@drawable/ic_social_source_facebook"/>
+                    tools:src="@drawable/ic_social_source_facebook" />
 
                 <Space
                     android:layout_width="0dp"
@@ -80,8 +100,8 @@
                 <TextView
                     android:id="@+id/dateLabel"
                     android:layout_width="wrap_content"
-                    android:layout_marginEnd="12dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
                     android:textColor="#40000000"
                     android:textSize="12sp"
                     tools:text="Yesterday" />
@@ -104,8 +124,8 @@
                     android:id="@+id/likes_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginStart="2dp"
                     android:textSize="@dimen/font_size_10"
                     tools:text="6901" />
 
@@ -161,16 +181,16 @@
             android:minLines="1"
             android:padding="@dimen/padding_8"
             android:scrollHorizontally="true"
-            tools:text="@string/lorem_ipsum"
             android:textColor="#bd000000"
-            android:textSize="@dimen/font_size_14" />
+            android:textSize="@dimen/font_size_14"
+            tools:text="@string/lorem_ipsum" />
 
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="@dimen/height_2"
-        android:background="@drawable/wall_item_shadow" />
+        android:background="@drawable/wall_item_shadow"
+        android:visibility="gone" />
 
 </LinearLayout>
