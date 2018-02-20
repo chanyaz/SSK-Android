@@ -520,18 +520,17 @@ public class Model {
     public void logout() {
         FacebookModel.getInstance().logout(); // Facebook logout
 
-        GSAndroidPlatform.gs().getRequestBuilder().createEndSessionRequest()
-                .send(new GSEventConsumer<GSResponseBuilder.EndSessionResponse>() {
+        GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
+                .setEventKey("logoutUser")
+                .send(new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
                     @Override
-                    public void onEvent(GSResponseBuilder.EndSessionResponse endSessionResponse) {
-                        if (endSessionResponse != null) {
-                            if (endSessionResponse.hasErrors()) {
-                                Log.d(TAG, "Model.onSessionEnded() -> Error ending session!");
-                            } else {
-                                clearUser();
-                                setLoggedInUserType(NONE);
-                                login();
-                            }
+                    public void onEvent(GSResponseBuilder.LogEventResponse logEventResponse) {
+                        if (logEventResponse.hasErrors()) {
+                            Log.d(TAG, "Model.onSessionEnded() -> Error ending session!");
+                        } else {
+                            clearUser();
+                            setLoggedInUserType(NONE);
+                            login();
                         }
                     }
                 });
@@ -898,7 +897,7 @@ public class Model {
         FileUploader.getInstance().upload(filename, filepath, completion);
     }
 
-    public static String getAudioFilePath()  {
+    public static String getAudioFilePath() {
         String filepath = Environment.getExternalStorageDirectory().getAbsolutePath();
         filepath += "/audiorecord.3gp";
         return filepath;
