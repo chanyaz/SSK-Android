@@ -71,7 +71,8 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     public void onBindViewHolder(final WallAdapter.ViewHolder holder, final int position) {
         final WallNews news = values.get(position);
         WallAdapter.displayUserInfo(news, holder);
-        WallAdapter.displayCaption(news.getTitle(), holder);
+        WallAdapter.displayTitle(news.getTitle(), holder);
+        WallAdapter.displaySubhead(news, holder);
         WallAdapter.displayPostImage(news, holder);
         WallAdapter.displayCommentsAndLikes(news, holder);
         holder.view.setOnClickListener(getClickListener(news));

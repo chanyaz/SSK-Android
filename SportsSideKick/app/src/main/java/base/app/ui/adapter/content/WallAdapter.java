@@ -118,6 +118,9 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         @Nullable
         @BindView(R.id.dateLabel)
         TextView dateLabel;
+        @Nullable
+        @BindView(R.id.subheadTextView)
+        TextView subheadTextView;
 
         ViewHolder(View v) {
             super(v);
@@ -196,9 +199,19 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     // Replace the contents of a view (invoked by the layout manager)
 
-    static void displayCaption(String value, ViewHolder holder) {
+    static void displayTitle(String value, ViewHolder holder) {
         if (holder.contentTextView != null && value != null) {
             holder.contentTextView.setText(value.replace("\n\n", "\n"));
+        }
+    }
+
+    static void displaySubhead(WallBase item, ViewHolder holder) {
+        if (holder.subheadTextView != null) {
+            if (item instanceof WallNews) {
+                holder.subheadTextView.setText(item.getContent());
+            } else if (item instanceof WallPost) {
+                holder.subheadTextView.setText(item.getBodyText());
+            }
         }
     }
 
@@ -322,7 +335,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                             holder.contentTextView.setMaxLines(6);
                         }
                     }
-                    displayCaption(post.getTitle(), holder);
+                    displayTitle(post.getTitle(), holder);
                     displayCommentsAndLikes(post, holder);
 
                     if (holder.playButton != null) {
@@ -335,7 +348,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     WallNews referencedItem = (WallNews) item.getReferencedItem();
                     if (referencedItem == null) return; // todo remove this line
                     displayUserInfo(item, holder);
-                    displayCaption(referencedItem.getTitle() != null
+                    displayTitle(referencedItem.getTitle() != null
                             ? referencedItem.getTitle() : referencedItem.getMessage(), holder);
                     displayPostImage(referencedItem, holder);
                     displayCommentsAndLikes(referencedItem, holder);
@@ -352,20 +365,20 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                     break;
                 case rumor:
-                    displayCaption(item.getTitle(), holder);
+                    displayTitle(item.getTitle(), holder);
                     displayCommentsAndLikes(item, holder);
                     break;
                 case wallStoreItem:
                     WallStoreItem storeItem = (WallStoreItem) item;
                     displayUserInfo(storeItem, holder);
-                    displayCaption(storeItem.getTitle(), holder);
+                    displayTitle(storeItem.getTitle(), holder);
                     displayPostImage(storeItem, holder);
                     displayCommentsAndLikes(storeItem, holder);
                     break;
                 case stats:
                     WallStats statsItem = (WallStats) item;
                     displayUserInfo(statsItem, holder);
-                    displayCaption(statsItem.getTitle(), holder);
+                    displayTitle(statsItem.getTitle(), holder);
                     displayPostImage(statsItem, holder);
                     displayCommentsAndLikes(statsItem, holder);
                     break;
