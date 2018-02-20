@@ -17,6 +17,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.facebook.internal.CallbackManagerImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +35,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.GSAndroidPlatform;
 import base.app.data.Model;
@@ -61,6 +64,7 @@ import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
 import base.app.util.events.notify.NotificationEvent;
 import butterknife.BindView;
+import io.fabric.sdk.android.Fabric;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -110,6 +114,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         StatusBarUtil.setTransparent(this);
 
         handleStartingIntent(getIntent());
+
+        initCrashlytics();
     }
 
     protected Bundle savedIntentData = null;
@@ -383,5 +389,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Subscribe
     public void onShareNativeEvent(NativeShareEvent event) {
         startActivity(Intent.createChooser(event.getIntent(), getResources().getString(R.string.share)));
+    }
+
+    private void initCrashlytics() {
+        // Set up Crashlytics, disabled for debug builds
+        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                .build();
+
+        // Initialize Fabric with the debug-disabled crashlytics.
+        Fabric.with(this, crashlyticsKit);
     }
 }

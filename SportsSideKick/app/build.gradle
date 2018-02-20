@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 27
@@ -136,11 +137,20 @@ dependencies {
     // List animations
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
 
-    // Dev tools
+
+    // *** Dev tools *** \\
+
+    // Crash reporting
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.0@aar') {
+        transitive = true
+    }
+
+    // Detecting memory leaks
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
-    // *** Replaceable with Kotlin or RxJava, deprecated libraries
+
+    // *** Replaceable with Kotlin or RxJava, deprecated libraries *** \\
 
     // Binds Android views and callbacks to fields and methods
     implementation 'com.jakewharton:butterknife:8.8.1'

@@ -83,7 +83,6 @@
 
 -optimizationpasses 5
 -dontskipnonpubliclibraryclassmembers
--printmapping proguardMapping.txt
 -optimizations !code/simplification/cast,!field/*,!class/merging/*
 -keepattributes *Annotation*,InnerClasses
 -keepattributes Signature
@@ -566,3 +565,6 @@ public void xxxxxx(**);
  -dontwarn org.codehaus.jackson.**
  -dontwarn org.apache.commons.logging.impl.**
  -dontwarn org.apache.http.conn.scheme.**
+
+ -keep class com.crashlytics.** { *; }
+ -keepattributes SourceFile,LineNumberTable
