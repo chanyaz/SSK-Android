@@ -355,7 +355,7 @@ public class ChatFragment extends BaseFragment {
         showLockIconWhenKeyboardClosed(view);
 
         description.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
-        ImageLoader.displayImage(R.drawable.video_chat_background, loginBackgroundImage);
+        ImageLoader.displayImage(R.drawable.background_sporting, loginBackgroundImage);
 
         return view;
     }

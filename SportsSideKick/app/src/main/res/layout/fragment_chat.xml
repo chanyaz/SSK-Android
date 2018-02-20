@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="72dp"
     android:background="@color/chatBackground"
     tools:context=".ui.fragment.other.ChatFragment"
     tools:paddingTop="0dp">
@@ -11,13 +10,13 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:layout_marginBottom="10dp"
         android:layout_above="@id/input_container"
         android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="12dp"
+        android:adjustViewBounds="true"
         android:src="@drawable/logo_fc"
-        android:tint="#dbdbdb"/>
+        android:tint="#dbdbdb" />
 
     <!-- Empty chat info text -->
     <TextView
@@ -35,7 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/standard_button_height">
+        android:layout_marginBottom="@dimen/standard_button_height"
+        android:layout_marginTop="72dp"
+        tools:layout_marginTop="0dp">
 
         <!-- Chat heads recycler view -->
         <android.support.v7.widget.RecyclerView
@@ -97,15 +98,15 @@
         android:id="@+id/input_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:background="#f6f7fa"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:background="#f6f7fa">
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#c3c3c3"/>
+            android:background="#c3c3c3" />
 
         <RelativeLayout
             android:id="@+id/chat_buttons_container"
@@ -162,39 +163,39 @@
         </RelativeLayout>
 
         <ImageButton
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:id="@+id/menu_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="@dimen/standard_button_height"
             android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:padding="8dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/height_1"
             android:layout_toEndOf="@+id/chat_buttons_container"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toEndOf="@+id/menu_button"
-            android:gravity="center_vertical"
             android:layout_toStartOf="@+id/chat_menu_dots"
             android:animateLayoutChanges="true"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/input_edit_text"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_weight="1"
                 android:animateLayoutChanges="true"
+                android:background="@null"
                 android:gravity="start|center_vertical"
                 android:hint="@string/message_hint"
                 android:imeOptions="actionSend"
                 android:inputType="textCapSentences"
-                android:background="@null"
                 android:maxLines="1"
                 android:paddingBottom="@dimen/padding_13"
                 android:paddingEnd="@dimen/padding_8"
@@ -417,25 +418,23 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="false"
-        tools:layout_height="0dp">
+        tools:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/loginBackgroundImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.9"
+            android:foreground="#99000000"
             android:scaleType="centerCrop"
-            tools:src="@drawable/video_chat_background" />
+            tools:src="@drawable/background_sporting" />
 
-        <ImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@drawable/phone_background" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp"
+            android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:layout_marginEnd="@dimen/margin_40"
             android:layout_marginStart="@dimen/margin_40">
@@ -449,10 +448,12 @@
                 android:layout_marginBottom="@dimen/margin_20"
                 android:contentDescription="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ssk_logo" />
+                android:src="@drawable/ssk_logo"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/text1"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/description"
@@ -460,32 +461,22 @@
                 android:text="@string/chat_with_friends_login"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_20" />
+                android:textSize="@dimen/font_size_20"
+                tools:textStyle="bold" />
 
             <TextView
                 android:id="@+id/description"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/center_below"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="100dp"
                 android:text="@string/login_slider_chat"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_size_12" />
-
-            <View
-                android:id="@+id/center_parent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/margin_60" />
-
-            <View
-                android:id="@+id/center_below"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_below="@id/center_parent" />
 
             <!-- LOGIN CONTAINER -->
             <LinearLayout
@@ -498,46 +489,31 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-
-                <LinearLayout
+                <Button
+                    android:id="@+id/join_now_button"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/standard_button_height"
-                    android:alpha="0.8"
-                    android:background="@drawable/button_login_transparent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_login_login"
+                    android:text="@string/join"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_18" />
 
-                    <Button
-                        android:id="@+id/join_now_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:text="@string/join"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_18" />
-                </LinearLayout>
-
-
-                <LinearLayout
+                <Button
+                    android:id="@+id/login_button"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/standard_button_height"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/margin_10"
-                    android:alpha="0.8"
-                    android:background="@drawable/button_login_transparent">
+                    android:background="@drawable/button_login_login"
+                    android:text="@string/sign_in"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_size_18" />
 
-                    <Button
-                        android:id="@+id/login_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:text="@string/sign_in"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_18" />
-                </LinearLayout>
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
     <!--** ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  ** ** ** **  -->
 
