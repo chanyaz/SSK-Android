@@ -239,6 +239,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         });
                         Translator.getInstance().translateMessage(messageId,source);
                     }
+
+                    if (getItemViewType(position) == VIEW_TYPE_MESSAGE_THIS_USER) {
+                        holder.contentContainer.setBackgroundResource(R.drawable.chat_message_right);
+                    } else {
+                        holder.contentContainer.setBackgroundResource(R.drawable.chat_message_left);
+                    }
                     break;
             }
         } else {

@@ -369,7 +369,7 @@ public class PurchaseModel {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        activityCheckout.onActivityResult(requestCode, resultCode, data);
+        // activityCheckout.onActivityResult(requestCode, resultCode, data);
     }
 
     public void onDestroy() {
