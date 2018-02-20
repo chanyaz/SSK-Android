@@ -14,9 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_below="@id/topSpacer"
-        android:background="@drawable/phone_background"
-        android:orientation="horizontal"
-        android:tileMode="repeat">
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentBottom="true"
+            android:alpha="0.75"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
         <TextView
             style="@style/boldText"
@@ -27,19 +35,9 @@
             android:gravity="center_vertical"
             android:text="@string/join_sign_in"
             android:textAllCaps="true"
-            android:textColor="?popupsCaptionColor"
+            android:textColor="@color/white"
             android:textSize="@dimen/font_size_16" />
 
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="@dimen/standard_button_height"
-            android:layout_height="@dimen/standard_button_height"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:tint="@color/colorPrimaryVeryLight"
-            android:visibility="gone" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,20 +50,15 @@
             android:id="@+id/backgroundImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.9"
+            android:foreground="#99000000"
             android:scaleType="centerCrop"
-            tools:src="@drawable/video_chat_background" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@drawable/phone_background" />
+            tools:src="@drawable/background_sporting" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:paddingTop="48dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_30"
             android:layout_marginStart="@dimen/margin_30"
@@ -74,68 +67,56 @@
             <ImageView
                 android:layout_width="@dimen/height_80"
                 android:layout_height="@dimen/height_80"
+                android:visibility="gone"
                 android:layout_gravity="center"
                 android:src="@drawable/club_logo" />
-
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:lineSpacingMultiplier="0.8"
                 android:layout_marginBottom="@dimen/margin_30"
                 android:layout_marginTop="@dimen/margin_30"
+                android:gravity="center"
+                android:lineSpacingMultiplier="0.8"
                 android:text="@string/slogan"
                 android:textColor="?popupsCaptionColor"
                 android:textSize="@dimen/font_size_28" />
 
-
-            <ImageView
-                android:layout_width="@dimen/height_50"
-                android:layout_height="@dimen/height_40"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/margin_30"
-                android:src="@drawable/logo_fc" />
-
-            <LinearLayout
+            <Button
+                android:id="@+id/join_now_button"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/standard_button_height"
-                android:alpha="0.8"
-                android:background="@drawable/button_login_transparent">
+                android:layout_height="match_parent"
+                android:background="@drawable/button_login_login"
+                android:text="@string/join"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18" />
 
-                <Button
-                    android:id="@+id/join_now_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:text="@string/join"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_18" />
-            </LinearLayout>
-
-
-            <LinearLayout
+            <Button
+                android:id="@+id/login_button"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/standard_button_height"
-                android:layout_marginTop="@dimen/margin_20"
-                android:alpha="0.8"
-                android:background="@drawable/button_login_transparent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button_login_login"
+                android:text="@string/sign_in"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18" />
 
-                <Button
-                    android:id="@+id/login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:text="@string/sign_in"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_18" />
-            </LinearLayout>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/logo_fc" />
+
     </RelativeLayout>
 </RelativeLayout>

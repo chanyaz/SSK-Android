@@ -49,7 +49,7 @@ public class SignUpLoginFragment extends BaseFragment {
         if (text != null) {
             text.setText(Html.fromHtml(getString(R.string.slogan)));
         }
-        ImageLoader.displayImage(R.drawable.video_chat_background, backgroundImage);
+        ImageLoader.displayImage(R.drawable.background_sporting, backgroundImage);
         return view;
     }
 
@@ -79,7 +79,8 @@ public class SignUpLoginFragment extends BaseFragment {
        getActivity().onBackPressed();
     }
 
-
-
-
+    @OnClick(R.id.backButton)
+    public void onBackPressed() {
+        getActivity().onBackPressed();
+    }
 }
