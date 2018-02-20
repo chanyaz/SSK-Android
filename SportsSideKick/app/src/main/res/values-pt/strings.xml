@@ -78,7 +78,7 @@
     <string name="waiting_for_internet">Esperando ligação a internet ativa…</string>
 
     <!--Profile-->
-    <string name="go_to_profile">Vá para Perfil></string>
+    <string name="go_to_profile">Ir para o perfil ></string>
     <string name="profile">O Seu perfil</string>
     <string name="contact_info">Informação de contacto</string>
     <string name="choose_your_language">Escolher o seu idioma</string>
@@ -215,22 +215,22 @@
     <string name="live">Direto</string>
 
     <!--Posts & News-->
-    <string name="post_create">Criar novo post</string>
-    <string name="post_title_hint">Clique aqui para inserir o título da sua publicação</string>
-    <string name="post_body_hint">Clique aqui para começar a escrever sua postagem…</string>
+    <string name="post_create">Criar nova publicação</string>
+    <string name="post_title_hint">Clica aqui para introduzires o título da tua publicação</string>
+    <string name="post_body_hint">Clica aqui para começares a escrever a tua publicação</string>
     <string name="post_create_tip_header">Para criar uma nova postagem:</string>
     <string name="post_create_tip_body"><![CDATA[<b>1.</b> Escolha uma imagem da sua biblioteca de mídia ou tire uma nova imagem selecionando um dos dois ícones na área da imagem na parte superior (opcional) <br/> <b>2.</b> Criar um título, selecionando o título e digitando. <br/> <b>3.</b> Crie conteúdo selecionando o texto do conteúdo e digitando.]]></string>
     <string name="pin_title">Publica isto no teu mural?</string>
     <string name="pin_confirm">Gostarias de publicar isto no teu mural?</string>
     <string name="pin_message_hint">Digite uma mensagem com sua postagem compartilhada…</string>
-    <string name="comment_hint">Digite seu comentário aqui…</string>
+    <string name="comment_hint">Introduz aqui o teu comentário…</string>
     <string name="read_more">Leia mais &gt;</string>
     <string name="read_less">Leia menos &lt;</string>
     <string name="edit">Editar</string>
     <string name="delete">Excluir</string>
     <string name="translate">Traduzir</string>
     <string name="share">Partilha</string>
-    <string name="post">Postar</string>
+    <string name="post">Publicar</string>
     <string name="back">Costas</string>
     <string name="translated">Traduzido</string>
     <string name="translated_from">Traduzido de</string>
