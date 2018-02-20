@@ -9,7 +9,7 @@
     <string name="stats">Estats</string>
     <string name="shop">Loja</string>
     <string name="chat">Chat</string>
-    <string name="video_chat">Chat de Video</string>
+    <string name="video_chat">Chat de Vídeo</string>
     <string name="radio">Rádio do clube</string>
     <string name="tv">Sporting TV</string>
     <string name="tickets">Bilhetes</string>
@@ -193,12 +193,12 @@
     <string name="call_add_member">Adiciona uma chamada</string>
     <string name="accept_call">Aceitar chamada?</string>
     <string name="call_receive">A receber chamada de</string>
-    <string name="video_chat_max">Desculpe apenas pode aceder a video chamada com o máximo de 3 amigos, e este video chat ja está lotado.</string>
-    <string name="video_chats">Video Chat</string>
+    <string name="video_chat_max">Desculpe apenas pode aceder a vídeo chamada com o máximo de 3 amigos, e este vídeo chat ja está lotado.</string>
+    <string name="video_chats">Vídeo Chat</string>
     <string name="friends_in_video_chat">Amigos no Chat de Vídeo</string>
     <string name="friend_in_video_chat">1 amigo no bate-papo por vídeo</string>
     <string name="no_users_selected">Não selecionou nenhum user</string>
-    <string name="no_users_selected_message">Não selecionou ninguem para chamar</string>
+    <string name="no_users_selected_message">Não selecionou ninguém para chamar</string>
     <string name="select_friends_to_call">Selecciona amigos para se juntarem a esta chamada</string>
 
     <!--Next match-->
