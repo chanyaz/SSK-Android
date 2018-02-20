@@ -67,6 +67,7 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
+        android:enabled="false"
         android:layout_height="match_parent"
         android:layout_above="@id/input_container"
         android:layout_below="@id/chat_info_line"
