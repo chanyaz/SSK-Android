@@ -59,7 +59,7 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/post_container"
+        android:layout_above="@id/include_post_container"
         android:layout_below="@id/top_buttons_container"
         android:enabled="false"
         android:overScrollMode="always">
@@ -461,7 +461,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/include_post_container"
         layout="@layout/include_input_field" />
 
     <ImageButton
