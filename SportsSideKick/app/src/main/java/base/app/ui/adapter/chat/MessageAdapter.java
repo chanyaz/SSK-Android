@@ -142,6 +142,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                             EventBus.getDefault().post(new FullScreenImageEvent(imageUrl));
                         }
                     });
+                    holder.contentContainer.setBackgroundResource(R.drawable.chat_message_right);
                     break;
                 case GSConstants.UPLOAD_TYPE_VIDEO:
                     holder.textView.setVisibility(View.GONE);
