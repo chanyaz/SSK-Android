@@ -31,8 +31,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_size_11" />
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/contentImage"
