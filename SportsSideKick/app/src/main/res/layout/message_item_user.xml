@@ -24,7 +24,7 @@
             android:layout_marginEnd="4dp"
             android:layout_marginStart="4dp"
             tools:text="Demo content."
-            android:textColor="?messageUserTextColor"
+            android:textColor="#313230"
             android:textSize="@dimen/font_size_11" />
 
         <ImageView
