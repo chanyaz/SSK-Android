@@ -15,26 +15,25 @@
         android:background="@color/colorPrimaryVeryLight" />
 
     <ImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/wall_image_size"
+        android:layout_height="@dimen/wall_image_size"
+        android:layout_toEndOf="@id/strip"
+        android:scaleType="centerCrop"
+        android:src="@drawable/news_holder_image"
+        android:visibility="visible" />
+
+    <ImageView
         android:id="@+id/authorImage"
         android:layout_width="@dimen/width_26"
         android:layout_height="@dimen/height_26"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="@dimen/margin_5"
         android:layout_marginEnd="@dimen/margin_5"
         android:layout_marginStart="@dimen/margin_12"
         android:layout_marginTop="@dimen/margin_5"
+        android:layout_toEndOf="@id/image"
         android:src="?profileImageIcon"
-        android:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="@dimen/wall_image_size"
-        android:layout_height="@dimen/wall_image_size"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/news_holder_image"
         android:visibility="visible" />
 
     <TextView
@@ -45,7 +44,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/margin_5"
         android:layout_toEndOf="@+id/authorImage"
-        android:layout_toStartOf="@+id/image"
         android:gravity="center_vertical|start"
         android:textColor="@color/colorPrimaryVeryLight"
         tools:text="Karen Smith" />
@@ -55,13 +53,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/authorImage"
-        android:layout_marginTop="-12dp"
-        android:layout_toEndOf="@+id/strip"
-        android:layout_toStartOf="@+id/image"
+        android:layout_toEndOf="@id/image"
         android:ellipsize="end"
         android:lineSpacingMultiplier="0.9"
+        android:layout_marginTop="-2dp"
         android:maxLines="2"
-        android:padding="@dimen/padding_8"
+        android:paddingBottom="8dp"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
         android:textColor="#1b1c1a"
         android:textSize="16sp"
         tools:ellipsize="none"
@@ -74,8 +73,7 @@
         android:layout_alignBottom="@+id/image"
         android:layout_alignWithParentIfMissing="true"
         android:layout_below="@id/text_content"
-        android:layout_toEndOf="@+id/strip"
-        android:layout_toStartOf="@+id/image"
+        android:layout_toEndOf="@+id/image"
         android:gravity="bottom|end"
         android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_5">
@@ -161,4 +159,5 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/wall_item_shadow"
         android:visibility="gone" />
+
 </RelativeLayout>
