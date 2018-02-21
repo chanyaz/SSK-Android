@@ -18,11 +18,6 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
 
-/**
- * Created by Djordje on 01/03/2017.
- * Copyright by Hypercube d.o.o.
- * www.hypercubesoft.com
- */
 class SocialFragment : BaseFragment() {
 
     private val type = NewsType.SOCIAL
