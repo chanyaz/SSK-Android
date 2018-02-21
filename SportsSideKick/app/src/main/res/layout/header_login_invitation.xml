@@ -37,10 +37,10 @@
 
         <Button
             android:id="@+id/join_now_button"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
+            android:foreground="?selectableItemBackground"
             android:layout_weight="1"
             android:background="@drawable/gym_bag_button_background"
             android:paddingEnd="32dp"
@@ -53,7 +53,7 @@
 
         <Button
             android:id="@+id/login_button"
-            style="?android:attr/borderlessButtonStyle"
+            android:foreground="?selectableItemBackground"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
