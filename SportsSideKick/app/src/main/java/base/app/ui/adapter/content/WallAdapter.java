@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +44,8 @@ import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.WallItemFragment;
+import base.app.ui.fragment.popup.LoginFragment;
+import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
@@ -362,6 +365,21 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 topCaption.setVisibility(View.VISIBLE);
             }
         } else if (getItemViewType(position) == ITEM_TYPE_LOGIN_INVITATION) {
+            Button loginButton = holder.view.findViewById(R.id.login_button);
+            Button registerButton = holder.view.findViewById(R.id.join_now_button);
+
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
+                }
+            });
+            registerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
+                }
+            });
         } else {
             // this is wall item
             final int index;

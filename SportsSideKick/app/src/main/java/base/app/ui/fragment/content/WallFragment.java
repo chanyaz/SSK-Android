@@ -42,8 +42,6 @@ import base.app.ui.adapter.content.WallAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.popup.LoginFragment;
-import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.post.PostCreateFragment;
 import base.app.util.commons.Utility;
@@ -56,7 +54,6 @@ import base.app.util.ui.LinearItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Optional;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
@@ -158,18 +155,6 @@ public class WallFragment extends BaseFragment
         } else {
             EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
-    }
-
-    @Optional
-    @OnClick(R.id.join_now_button)
-    public void joinOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(SignUpFragment.class));
-    }
-
-    @Optional
-    @OnClick(R.id.login_button)
-    public void loginOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
     }
 
     @OnClick(R.id.buttonTickets)
