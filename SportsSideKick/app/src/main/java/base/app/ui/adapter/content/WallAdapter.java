@@ -43,6 +43,7 @@ import base.app.data.wall.WallStats;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
+import base.app.ui.fragment.content.TicketsFragment;
 import base.app.ui.fragment.content.WallItemFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
@@ -342,6 +343,14 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         } else if (getItemViewType(position) == ITEM_TYPE_NEXT_MATCH) {
             ImageView wallTopImage = holder.view.findViewById(R.id.wall_top_image);
             Glide.with(context).load(R.drawable.image_wall_background).into(wallTopImage);
+
+            Button buttonTickets = holder.view.findViewById(R.id.buttonTickets);
+            buttonTickets.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new FragmentEvent(TicketsFragment.class));
+                }
+            });
 
             if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
                 ImageView wallLeftTeamImage = holder.view.findViewById(R.id.wall_team_left_image);
