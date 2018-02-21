@@ -105,12 +105,13 @@
                     android:tint="?phoneLoungeIconsColor"
                     tools:layout_marginTop="0dp" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/friendsButton"
                     android:layout_width="@dimen/top_bar_logo_tema_size"
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="24dp"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:padding="@dimen/half_margin"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_friends"

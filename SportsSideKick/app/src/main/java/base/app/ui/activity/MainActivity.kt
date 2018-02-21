@@ -41,6 +41,7 @@ import butterknife.OnClick
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
 
 class MainActivity : BaseActivityWithPush(),
@@ -52,21 +53,16 @@ class MainActivity : BaseActivityWithPush(),
     private lateinit var sideMenuAdapter: SideMenuAdapter
     private var screenWidth: Int = 0
 
-    private val popupContainerFragments: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
-    private val popupLeftFragments: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
-    private val popupDialogFragments: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
-    private val youtubePlayer: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
-    private val youtubeList: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
-    private val radioList: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
-    private val radioPlayerList: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
+    private val popupContainerFragments: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
+    private val popupLeftFragments: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
+    private val popupDialogFragments: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
+    private val youtubePlayer: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
+    private val youtubeList: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
+    private val radioList: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
+    private val radioPlayerList: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
 
     @OnClick(R.id.notificationsButton)
     fun notificationOpen() {
-    }
-
-    @OnClick(R.id.friendsButton)
-    fun friendsOpen() {
-        EventBus.getDefault().post(FragmentEvent(FriendsFragment::class.java))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,9 +76,16 @@ class MainActivity : BaseActivityWithPush(),
         setupFragments()
         setToolbar()
         updateTopBar()
+        setClickListeners()
 
         logoImageView.show(R.drawable.logo_toolbar)
         splashBackgroundImage.show(R.drawable.video_chat_background)
+    }
+
+    private fun setClickListeners() {
+        friendsButton.onClick {
+            EventBus.getDefault().post(FragmentEvent(FriendsFragment::class.java))
+        }
     }
 
     private fun updateTopBar() {
