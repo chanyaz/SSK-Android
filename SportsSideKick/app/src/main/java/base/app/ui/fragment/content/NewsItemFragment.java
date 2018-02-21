@@ -50,6 +50,7 @@ import base.app.data.wall.WallNews;
 import base.app.ui.activity.MainActivity;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentDeleteEvent;
@@ -259,7 +260,9 @@ public class NewsItemFragment extends BaseFragment {
         }
         autoTranslateIfNeeded();
 
-        if (BuildConfig.DEBUG) { showDummyInfo(); }
+        if (BuildConfig.DEBUG) {
+            showDummyInfo();
+        }
     }
 
     protected void showDummyInfo() {
@@ -751,9 +754,7 @@ public class NewsItemFragment extends BaseFragment {
         itemToPost.setReferencedItem(item);
         WallModel.getInstance().createPost(itemToPost);
 
-        if (getActivity() != null) {
-            getActivity().onBackPressed();
-        }
+        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
     }
 
     @OnClick(R.id.pin_container)

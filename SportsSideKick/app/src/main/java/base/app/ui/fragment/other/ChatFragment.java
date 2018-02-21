@@ -56,6 +56,7 @@ import com.universalvideoview.UniversalVideoView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.List;
@@ -72,6 +73,7 @@ import base.app.data.im.event.ChatNotificationsEvent;
 import base.app.data.im.event.ChatsInfoUpdatesEvent;
 import base.app.data.im.event.CreateNewChatSuccessEvent;
 import base.app.data.im.event.UserIsTypingEvent;
+import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.chat.ChatHeadsAdapter;
 import base.app.ui.adapter.chat.MessageAdapter;
@@ -1283,5 +1285,17 @@ public class ChatFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         translationView.setVisibility(View.GONE);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UserEvent event) {
+        switch (event.getType()) {
+            case onLogin:
+                inactiveContainer.setVisibility(View.GONE);
+                break;
+            case onLoginAnonymously:
+                inactiveContainer.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }
