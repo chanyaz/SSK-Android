@@ -50,9 +50,13 @@
             android:id="@+id/backgroundImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="#99000000"
             android:scaleType="centerCrop"
             tools:src="@drawable/background_sporting" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000" />
 
         <LinearLayout
             android:layout_width="match_parent"

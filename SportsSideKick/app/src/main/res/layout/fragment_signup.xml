@@ -72,12 +72,16 @@
             android:id="@+id/clickOutsideContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:foreground="#99000000"
             android:orientation="horizontal"
             android:scaleType="centerCrop"
             android:clickable="true"
             android:focusable="false"
             tools:src="@drawable/background_sporting" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000" />
 
         <LinearLayout
             android:layout_width="match_parent"
