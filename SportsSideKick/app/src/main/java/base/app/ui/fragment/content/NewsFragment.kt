@@ -16,7 +16,6 @@ import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.events.post.ItemUpdateEvent
 import base.app.util.ui.LinearItemDecoration
 import base.app.util.ui.inflate
-import base.app.util.ui.show
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
@@ -36,8 +35,6 @@ open class NewsFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        topImage.show(R.drawable.image_wall_background)
-
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
         recyclerView.addItemDecoration(LinearItemDecoration(resources.getDimension(R.dimen.item_spacing_news).toInt()))

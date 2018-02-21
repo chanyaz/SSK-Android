@@ -14,7 +14,6 @@ import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.ui.LinearItemDecoration
-import base.app.util.ui.show
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
@@ -27,7 +26,7 @@ import org.greenrobot.eventbus.Subscribe
 class SocialFragment : BaseFragment() {
 
     private val type = NewsType.SOCIAL
-    private val adapter: NewsAdapter = NewsAdapter(type)
+    private val adapter: NewsAdapter = NewsAdapter(type, getString(R.string.social))
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -35,7 +34,6 @@ class SocialFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        showTitle()
         showItems()
     }
 
@@ -56,11 +54,6 @@ class SocialFragment : BaseFragment() {
             getInstance().setLoading(false, type)
             getInstance().loadPage(type)
         }
-    }
-
-    private fun showTitle() {
-        topCaption.text = getString(R.string.social)
-        topImage.show(R.drawable.image_wall_background)
     }
 
     @Subscribe
