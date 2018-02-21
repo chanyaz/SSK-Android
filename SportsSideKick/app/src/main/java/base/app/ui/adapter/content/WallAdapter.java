@@ -276,14 +276,20 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             );
             holder.dateLabel.setText(time);
         }
-        holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
-        holder.likesCount.setText(String.valueOf(post.getLikeCount()));
+        if (holder.commentsCount != null) {
+            holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
+        }
+        if (holder.likesCount != null) {
+            holder.likesCount.setText(String.valueOf(post.getLikeCount()));
+        }
         if (post.isLikedByUser()) {
             holder.likedIcon.setVisibility(View.VISIBLE);
             holder.likesIcon.setVisibility(View.GONE);
         } else {
-            holder.likedIcon.setVisibility(View.GONE);
-            holder.likesIcon.setVisibility(View.VISIBLE);
+            if (holder.likedIcon != null) {
+                holder.likedIcon.setVisibility(View.GONE);
+                holder.likesIcon.setVisibility(View.VISIBLE);
+            }
         }
         if (post instanceof WallNews && ((WallNews) post).getSource() != null) {
             int sourceImageResource = 0;
@@ -391,6 +397,13 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     break;
                 case betting:
                     break;
+                case newsOfficial:
+                case newsUnOfficial:
+                    NewsAdapter.showItemDetails(holder, (WallNews) item);
+                    break;
+                default:
+                    Log.e("WallAdapter", "Unsupported post type: " + item.getType());
+                    break;
             }
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -420,7 +433,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     translateInternalNewsItem(holder, itemToTranslateId, item);
                 } else if (item.getType() == PostType.socialShare) {
                     translateInternalSocialItem(holder, itemToTranslateId, item);
-                }else {
+                } else if (!(item instanceof WallNews)) { // Don't translate WallNews items, they are no supposed to be there. Only WallNewsShare and such are allowed
                     TaskCompletionSource<WallBase> task = new TaskCompletionSource<>();
                     task.getTask().addOnCompleteListener(new OnCompleteListener<WallBase>() {
                         @Override

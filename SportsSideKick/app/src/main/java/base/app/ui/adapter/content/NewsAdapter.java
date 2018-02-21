@@ -66,16 +66,33 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         return R.layout.wall_item_news;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(final WallAdapter.ViewHolder holder, final int position) {
-        final WallNews news = values.get(position);
+    @NonNull
+    public static WallNews showItemDetails(WallAdapter.ViewHolder holder, WallNews news) {
         WallAdapter.displayUserInfo(news, holder);
         WallAdapter.displayTitle(news.getTitle(), holder);
         WallAdapter.displaySubhead(news, holder);
         WallAdapter.displayPostImage(news, holder);
         WallAdapter.displayCommentsAndLikes(news, holder);
         holder.view.setOnClickListener(getClickListener(news));
+        return news;
+    }
+
+    @NonNull
+    private static View.OnClickListener getClickListener(final WallNews item) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
+                fe.setId(item.getPostId());
+                EventBus.getDefault().post(fe);
+            }
+        };
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(final WallAdapter.ViewHolder holder, final int position) {
+        final WallNews news = showItemDetails(holder, values.get(position));
 
         if (isAutoTranslateEnabled() && news.isNotTranslated()) {
             TaskCompletionSource<WallNews> task = new TaskCompletionSource<>();
@@ -105,18 +122,6 @@ public class NewsAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 );
             }
         }
-    }
-
-    @NonNull
-    protected View.OnClickListener getClickListener(final WallNews item) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentEvent fe = new FragmentEvent(NewsItemFragment.class);
-                fe.setId(item.getPostId());
-                EventBus.getDefault().post(fe);
-            }
-        };
     }
 
     @Override

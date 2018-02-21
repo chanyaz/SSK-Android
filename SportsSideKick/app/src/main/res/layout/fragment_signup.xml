@@ -13,7 +13,7 @@
     <RelativeLayout
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
+        android:layout_height="72dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
