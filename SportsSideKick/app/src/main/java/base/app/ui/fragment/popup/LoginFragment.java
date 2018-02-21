@@ -9,11 +9,13 @@ import android.support.design.widget.TextInputLayout;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -204,6 +206,18 @@ public class LoginFragment extends BaseFragment
             passwordEditText.setText("temppass");
         }
         passwordInputLayout.setPasswordVisibilityToggleEnabled(true);
+
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    loginOnClick();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
     }
 
     @Override

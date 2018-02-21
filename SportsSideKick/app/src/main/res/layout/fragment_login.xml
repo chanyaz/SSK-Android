@@ -223,6 +223,7 @@
                         android:layout_height="@dimen/standard_button_height"
                         android:background="@drawable/text_login_selector"
                         android:drawablePadding="-48dp"
+                        android:imeOptions="actionSend"
                         android:gravity="center"
                         android:hint="@string/password"
                         android:inputType="textPassword"
