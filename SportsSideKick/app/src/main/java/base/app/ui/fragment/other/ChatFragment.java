@@ -266,7 +266,6 @@ public class ChatFragment extends BaseFragment {
                                         if (currentlyActiveChat != null) {
                                             if (currentlyActiveChat.equals(refreshingChat)) {
                                                 messageAdapter.notifyDataSetChanged();
-                                                messagesRecyclerView.smoothScrollToPosition(0);
                                             }
                                         }
                                     }
@@ -451,6 +450,7 @@ public class ChatFragment extends BaseFragment {
         updateAllViews();
         if (currentlyActiveChat != null) {
             messageAdapter.setChatInfo(currentlyActiveChat);
+            messagesRecyclerView.scrollToPosition(messageAdapter.getItemCount() - 1); // Scroll to bottom!
         } else {
             messageAdapter.setChatInfo(null);
         }
@@ -959,6 +959,7 @@ public class ChatFragment extends BaseFragment {
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
+                messagesRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1); // Scroll to bottom!
             }
         }
     }
@@ -977,6 +978,7 @@ public class ChatFragment extends BaseFragment {
         } else {
             setCurrentlyActiveChat(chatInfo);
         }
+        messagesRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1); // Scroll to bottom!
     }
 
     private void checkPushNotification() {
