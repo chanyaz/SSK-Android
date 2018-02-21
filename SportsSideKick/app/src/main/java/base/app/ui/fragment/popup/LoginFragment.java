@@ -121,6 +121,8 @@ public class LoginFragment extends BaseFragment
     View orContainer;
     @BindView(R.id.backgroundImageView)
     ImageView backgroundImageView;
+    @BindView(R.id.logoImageView)
+    View logoImageView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -162,6 +164,15 @@ public class LoginFragment extends BaseFragment
             emailForgotPassword.setOnFocusChangeListener(focusChangeListener);
         }
 
+        hideSecondaryViewsOnKeyboardOpen(view);
+        Glide.with(getContext())
+                .load(R.drawable.background_sporting)
+                .into(backgroundImageView);
+
+        return view;
+    }
+
+    private void hideSecondaryViewsOnKeyboardOpen(final View view) {
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -173,19 +184,16 @@ public class LoginFragment extends BaseFragment
                 if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
                     facebookButton.setVisibility(View.GONE);
                     forgotButton.setVisibility(View.GONE);
+                    logoImageView.setVisibility(View.GONE);
                     orContainer.setVisibility(View.INVISIBLE);
                 } else {
                     facebookButton.setVisibility(View.VISIBLE);
                     forgotButton.setVisibility(View.VISIBLE);
+                    logoImageView.setVisibility(View.VISIBLE);
                     orContainer.setVisibility(View.VISIBLE);
                 }
             }
         });
-        Glide.with(getContext())
-                .load(R.drawable.background_sporting)
-                .into(backgroundImageView);
-
-        return view;
     }
 
     @Override

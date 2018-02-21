@@ -3,6 +3,7 @@ package base.app.ui.fragment.popup;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -118,6 +120,10 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     TextInputLayout passwordInputLayout;
     @BindView(R.id.clickOutsideContainer)
     ImageView clickOutsideContainer;
+    @BindView(R.id.orContainer)
+    View orContainer;
+    @BindView(R.id.logoImageView)
+    View logoImageView;
 
     private CallbackManager callbackManager;
 
@@ -177,6 +183,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
         ImageLoader.displayImage(R.drawable.background_sporting, clickOutsideContainer);
 
+        hideSecondaryViewsOnKeyboardOpen(view);
+
         return view;
     }
 
@@ -189,9 +197,26 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
+    private void hideSecondaryViewsOnKeyboardOpen(final View view) {
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                //r will be populated with the coordinates of your view that area still visible.
+                view.getWindowVisibleDisplayFrame(r);
+
+                int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
+                if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
+                    facebookButton.setVisibility(View.GONE);
+                    orContainer.setVisibility(View.GONE);
+                    logoImageView.setVisibility(View.GONE);
+                } else {
+                    facebookButton.setVisibility(View.VISIBLE);
+                    orContainer.setVisibility(View.VISIBLE);
+                    logoImageView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void setUpPolicyWebView() {
