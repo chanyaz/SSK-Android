@@ -12,11 +12,13 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -184,6 +186,18 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         ImageLoader.displayImage(R.drawable.background_sporting, clickOutsideContainer);
 
         hideSecondaryViewsOnKeyboardOpen(view);
+
+        password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    signUpOnClick();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
         return view;
     }
