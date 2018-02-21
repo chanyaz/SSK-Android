@@ -164,37 +164,42 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         manager.loadAds(NativeAd.MediaCacheFlag.ALL);
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        int viewResourceId = -1;
-        if (viewType == WALL_ADVERT_VIEW_TYPE) {
-            viewResourceId = R.layout.wall_native_ad;
+    static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
+        if (post.getTimestamp() != null && holder.dateLabel != null) {
+            String time = "" + DateUtils.getRelativeTimeSpanString(
+                    (long) (post.getTimestamp() * 1000),
+                    Utility.getCurrentTime(),
+                    DateUtils.MINUTE_IN_MILLIS
+            );
+            holder.dateLabel.setText(time);
+        }
+        holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
+        holder.likesCount.setText(String.valueOf(post.getLikeCount()));
+        if (post.isLikedByUser()) {
+            holder.likedIcon.setVisibility(View.VISIBLE);
+            holder.likesIcon.setVisibility(View.GONE);
         } else {
-            switch (postTypeValues[viewType]) {
-                case post:
-                    viewResourceId = R.layout.wall_item_user_post;
+            holder.likedIcon.setVisibility(View.GONE);
+            holder.likesIcon.setVisibility(View.VISIBLE);
+        }
+        if (post instanceof WallNews && ((WallNews) post).getSource() != null) {
+            int sourceImageResource = 0;
+            switch (((WallNews) post).getSource().toLowerCase()) {
+                case "facebook":
+                    sourceImageResource = R.drawable.ic_social_source_facebook;
                     break;
-                case newsShare:
-                case rumourShare:
-                case socialShare:
-                    viewResourceId = R.layout.wall_item_news;
+                case "twitter":
+                    sourceImageResource = R.drawable.ic_social_source_twitter;
                     break;
-                case rumor:
-                    viewResourceId = R.layout.wall_item_rumour;
+                case "instagram":
+                    sourceImageResource = R.drawable.ic_social_source_instagram;
                     break;
-                case wallStoreItem:
-                    viewResourceId = R.layout.wall_item_store;
-                    break;
-                case stats:
-                    viewResourceId = R.layout.wall_item_stats;
+                case "gplus":
+                    sourceImageResource = R.drawable.ic_social_source_gplus;
                     break;
             }
+            ImageLoader.displayImage(sourceImageResource, holder.socialSource);
         }
-        View view = new View(context);
-        if (viewResourceId != -1) {
-            view = LayoutInflater.from(parent.getContext()).inflate(viewResourceId, parent, false);
-        }
-        return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -267,48 +272,42 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         });
     }
 
-    static void displayCommentsAndLikes(WallBase post, final ViewHolder holder) {
-        if (post.getTimestamp() != null && holder.dateLabel != null) {
-            String time = "" + DateUtils.getRelativeTimeSpanString(
-                    (long) (post.getTimestamp() * 1000),
-                    Utility.getCurrentTime(),
-                    DateUtils.MINUTE_IN_MILLIS
-            );
-            holder.dateLabel.setText(time);
-        }
-        if (holder.commentsCount != null) {
-            holder.commentsCount.setText(String.valueOf(post.getCommentsCount()));
-        }
-        if (holder.likesCount != null) {
-            holder.likesCount.setText(String.valueOf(post.getLikeCount()));
-        }
-        if (post.isLikedByUser()) {
-            holder.likedIcon.setVisibility(View.VISIBLE);
-            holder.likesIcon.setVisibility(View.GONE);
+    @Override
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        int viewResourceId = -1;
+        if (viewType == WALL_ADVERT_VIEW_TYPE) {
+            viewResourceId = R.layout.wall_native_ad;
         } else {
-            if (holder.likedIcon != null) {
-                holder.likedIcon.setVisibility(View.GONE);
-                holder.likesIcon.setVisibility(View.VISIBLE);
+            switch (postTypeValues[viewType]) {
+                case post:
+                    viewResourceId = R.layout.wall_item_user_post;
+                    break;
+                case newsShare:
+                case rumourShare:
+                case socialShare:
+                    viewResourceId = R.layout.wall_item_news;
+                    break;
+                case rumor:
+                    viewResourceId = R.layout.wall_item_rumour;
+                    break;
+                case wallStoreItem:
+                    viewResourceId = R.layout.wall_item_store;
+                    break;
+                case stats:
+                    viewResourceId = R.layout.wall_item_stats;
+                    break;
+                case newsOfficial:
+                case newsUnOfficial:
+                case social:
+                    viewResourceId = R.layout.wall_item_news;
+                    break;
             }
         }
-        if (post instanceof WallNews && ((WallNews) post).getSource() != null) {
-            int sourceImageResource = 0;
-            switch (((WallNews) post).getSource().toLowerCase()) {
-                case "facebook":
-                    sourceImageResource = R.drawable.ic_social_source_facebook;
-                    break;
-                case "twitter":
-                    sourceImageResource = R.drawable.ic_social_source_twitter;
-                    break;
-                case "instagram":
-                    sourceImageResource = R.drawable.ic_social_source_instagram;
-                    break;
-                case "gplus":
-                    sourceImageResource = R.drawable.ic_social_source_gplus;
-                    break;
-            }
-            ImageLoader.displayImage(sourceImageResource, holder.socialSource);
+        View view = new View(context);
+        if (viewResourceId != -1) {
+            view = LayoutInflater.from(parent.getContext()).inflate(viewResourceId, parent, false);
         }
+        return new ViewHolder(view);
     }
 
     @Override
@@ -399,6 +398,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     break;
                 case newsOfficial:
                 case newsUnOfficial:
+                case social:
                     NewsAdapter.showItemDetails(holder, (WallNews) item);
                     break;
                 default:
