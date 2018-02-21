@@ -143,7 +143,8 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
         if (position < values.size()) { // don't take the last element!
             final ChatInfo info = values.get(position);
 
-            if (position == 0) {
+            if (info.getChatAvatarUrl().contains("SCP-logo")) {
+                // override logo
                 ImageLoader.displayRoundImage(R.drawable.chat_head_sporting, holder.imageView);
             } else {
                 ImageLoader.displayRoundImage(info.getChatAvatarUrl(), holder.imageView);
