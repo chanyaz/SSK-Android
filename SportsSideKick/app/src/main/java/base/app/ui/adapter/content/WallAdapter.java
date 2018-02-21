@@ -279,6 +279,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
         int viewResourceId = -1;
         if (viewType == ITEM_TYPE_AD) {
             viewResourceId = R.layout.wall_native_ad;
+        } else if (viewType == ITEM_TYPE_NEXT_MATCH) {
+            viewResourceId = R.layout.header_next_match;
+        } else if (viewType == ITEM_TYPE_LOGIN_INVITATION) {
+            viewResourceId = R.layout.header_login_invitation;
         } else {
             switch (postTypeValues[viewType]) {
                 case post:

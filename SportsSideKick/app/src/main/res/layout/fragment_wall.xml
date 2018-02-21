@@ -14,43 +14,34 @@
         android:descendantFocusability="blocksDescendants"
         android:enabled="false">
 
-        <android.support.v4.widget.NestedScrollView
-            android:id="@+id/scroll"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="match_parent">
 
-            <RelativeLayout
+            <!--For XML preview only, actual header is in the adapter-->
+            <include
+                layout="@layout/header_next_match"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <!--For XML preview only, actual header is in the adapter-->
+            <include
+                layout="@layout/header_login_invitation"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_wall_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_below="@id/login_holder"
+                android:layout_marginTop="4dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                tools:paddingStart="16dp"
+                tools:targetApi="lollipop" />
 
-                <!--For XML preview only, actual header is in the adapter-->
-                <include
-                    layout="@layout/header_next_match"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <!--For XML preview only, actual header is in the adapter-->
-                <include
-                    layout="@layout/header_login_invitation"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_wall_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/login_holder"
-                    android:layout_marginTop="4dp"
-                    android:clipToPadding="false"
-                    android:nestedScrollingEnabled="false"
-                    tools:paddingStart="16dp"
-                    tools:targetApi="lollipop" />
-
-            </RelativeLayout>
-
-        </android.support.v4.widget.NestedScrollView>
+        </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
