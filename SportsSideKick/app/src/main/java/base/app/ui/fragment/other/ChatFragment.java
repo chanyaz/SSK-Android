@@ -45,7 +45,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -123,7 +122,7 @@ public class ChatFragment extends BaseFragment {
 
     private static final String TAG = "CHAT Fragment";
     @BindView(R.id.message_container)
-    RecyclerView messageListView;
+    RecyclerView messagesRecyclerView;
     @BindView(R.id.chat_heads_view)
     RecyclerView chatHeadsView;
     @BindView(R.id.progressBar)
@@ -239,12 +238,14 @@ public class ChatFragment extends BaseFragment {
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
         messageAdapter = new MessageAdapter(getContext());
-        messageListView.setAdapter(messageAdapter);
+        messagesRecyclerView.setAdapter(messageAdapter);
 
         messageAdapter.setTranslationView(translationView);
         translationView.setParentView(view);
 
-        messageListView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager messagesLayoutManager = new LinearLayoutManager(getContext());
+        messagesLayoutManager.setStackFromEnd(true);
+        messagesRecyclerView.setLayoutManager(messagesLayoutManager);
         if (Utility.isPhone(getActivity()) && ImsManager.getInstance().getUserChatsList().size() == 0) {
             ImsManager.getInstance().reload();
         }
@@ -265,7 +266,7 @@ public class ChatFragment extends BaseFragment {
                                         if (currentlyActiveChat != null) {
                                             if (currentlyActiveChat.equals(refreshingChat)) {
                                                 messageAdapter.notifyDataSetChanged();
-                                                messageListView.smoothScrollToPosition(0);
+                                                messagesRecyclerView.smoothScrollToPosition(0);
                                             }
                                         }
                                     }
@@ -450,7 +451,6 @@ public class ChatFragment extends BaseFragment {
         updateAllViews();
         if (currentlyActiveChat != null) {
             messageAdapter.setChatInfo(currentlyActiveChat);
-            messageListView.scrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
         } else {
             messageAdapter.setChatInfo(null);
         }
@@ -959,7 +959,6 @@ public class ChatFragment extends BaseFragment {
                 swipeRefreshLayout.setRefreshing(false);
                 progressBar.setVisibility(View.GONE);
                 messageAdapter.notifyDataSetChanged();
-                messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
             }
         }
     }
@@ -978,7 +977,6 @@ public class ChatFragment extends BaseFragment {
         } else {
             setCurrentlyActiveChat(chatInfo);
         }
-        messageListView.smoothScrollToPosition(messageAdapter.getItemCount()); // Scroll to bottom!
     }
 
     private void checkPushNotification() {
