@@ -326,4 +326,12 @@
 
     </FrameLayout>
 
+    <ImageView
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/logo_fc" />
+
 </RelativeLayout>
