@@ -35,6 +35,7 @@ import base.app.data.wall.WallModel;
 import base.app.ui.adapter.profile.UserStatsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.content.WallFragment;
 import base.app.util.commons.Utility;
 import base.app.util.events.post.AutoTranslateEvent;
 import base.app.util.ui.ImageLoader;
@@ -261,6 +262,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                     public void onClick(View v) {
                         Model.getInstance().logout();
                         getActivity().onBackPressed();
+                        EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
                     }
                 });
     }
