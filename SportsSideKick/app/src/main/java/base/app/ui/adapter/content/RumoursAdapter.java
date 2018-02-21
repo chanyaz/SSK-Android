@@ -7,11 +7,13 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.data.news.NewsModel;
+import base.app.data.wall.WallNews;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
-import base.app.data.wall.WallNews;
 
-import static android.view.View.*;
+import static android.view.View.GONE;
+import static android.view.View.OnClickListener;
+import static android.view.View.VISIBLE;
 
 /**
  * Created by Djordje on 10/01/2017.
@@ -22,7 +24,7 @@ import static android.view.View.*;
 public class RumoursAdapter extends NewsAdapter {
 
     public RumoursAdapter() {
-        super(NewsModel.NewsType.OFFICIAL);
+        super(NewsModel.NewsType.UNOFFICIAL);
     }
 
     @Override

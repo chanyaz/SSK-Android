@@ -13,7 +13,6 @@ import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.RumoursAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.events.post.ItemUpdateEvent
-import base.app.util.ui.show
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.greenrobot.eventbus.Subscribe
 
@@ -33,7 +32,6 @@ class RumoursFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        showTitle()
         showRumours()
     }
 
@@ -52,11 +50,6 @@ class RumoursFragment : BaseFragment() {
             getInstance().setLoading(false, type)
             getInstance().loadPage(type)
         }
-    }
-
-    private fun showTitle() {
-        topCaption.text = getString(R.string.rumours)
-        topImage.show(R.drawable.image_wall_background)
     }
 
     @Subscribe
