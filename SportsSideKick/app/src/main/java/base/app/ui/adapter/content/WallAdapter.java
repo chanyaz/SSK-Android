@@ -55,9 +55,11 @@ import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
  */
 public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
+    private static final int ITEM_TYPE_NEXT_MATCH = 10003;
+    private static final int ITEM_TYPE_LOGIN_INVITATION = 10004;
+    private static final int ITEM_TYPE_AD = 10005;
     private static final int ADS_INTERVAL = 30;
     private static final int ADS_COUNT = 10;
-    private static final int WALL_ADVERT_VIEW_TYPE = 10005;
 
     private Context context;
 
@@ -275,7 +277,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         int viewResourceId = -1;
-        if (viewType == WALL_ADVERT_VIEW_TYPE) {
+        if (viewType == ITEM_TYPE_AD) {
             viewResourceId = R.layout.wall_native_ad;
         } else {
             switch (postTypeValues[viewType]) {
@@ -510,8 +512,12 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (isAdvert(position)) {
-            return WALL_ADVERT_VIEW_TYPE;
+        if (position == 0) {
+            return ITEM_TYPE_NEXT_MATCH;
+        } else if (position == 1 && !Model.getInstance().isRealUser()) {
+            return ITEM_TYPE_LOGIN_INVITATION;
+        } else if (isAdvert(position)) {
+            return ITEM_TYPE_AD;
         } else {
             int index = position;
             if (currentAdInterval > 0) {

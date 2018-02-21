@@ -2,7 +2,6 @@ package base.app.ui.fragment.content;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,6 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -94,8 +92,6 @@ public class WallFragment extends BaseFragment
     TextView wallRightTeamName;
     @BindView(R.id.wall_team_time)
     TextView wallTeamTime;
-    @BindView(R.id.scroll)
-    NestedScrollView scroll;
     @BindView(R.id.topCaption)
     View topCaption;
     @BindView(R.id.wall_top_info_container)
@@ -161,13 +157,6 @@ public class WallFragment extends BaseFragment
     }
 
     protected void scrollUp() {
-        scroll.post(new Runnable() {
-            @Override
-            public void run() {
-                scroll.scrollTo(0, 0);
-                scroll.fullScroll(ScrollView.FOCUS_UP);
-            }
-        });
         recyclerView.smoothScrollToPosition(0);
     }
 

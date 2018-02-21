@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/wall_top_image_container"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical"
+    android:paddingTop="4dp"
+    android:visibility="gone"
+    tools:showIn="@layout/fragment_wall"
+    tools:visibility="visible">
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/fontTitilliumWebLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="0.8"
+        android:paddingBottom="4dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="@dimen/padding_8"
+        android:text="@string/access_full"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryVeryLight"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp">
+
+        <Button
+            android:id="@+id/join_now_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/gym_bag_button_background"
+            android:paddingEnd="32dp"
+            android:paddingStart="32dp"
+            android:text="@string/join"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_19" />
+
+        <Button
+            android:id="@+id/login_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/light_button_edit_profile_image"
+            android:gravity="center"
+            android:paddingEnd="32dp"
+            android:paddingStart="32dp"
+            android:text="@string/sign_in"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_size_19" />
+
+    </LinearLayout>
+
+</LinearLayout>
