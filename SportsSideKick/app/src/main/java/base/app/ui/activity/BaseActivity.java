@@ -44,6 +44,7 @@ import base.app.data.purchases.PurchaseModel;
 import base.app.data.sharing.NativeShareEvent;
 import base.app.data.sharing.SharingManager;
 import base.app.data.ticker.NewsTickerInfo;
+import base.app.data.ticker.NextMatchModel;
 import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.videoChat.VideoChatEvent;
@@ -116,6 +117,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         handleStartingIntent(getIntent());
 
         initCrashlytics();
+
+        NextMatchModel.getInstance().requestNextMatchInfo();
     }
 
     protected Bundle savedIntentData = null;

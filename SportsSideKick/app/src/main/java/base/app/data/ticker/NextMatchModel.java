@@ -52,7 +52,7 @@ public class NextMatchModel {
         mapper =  new ObjectMapper();
     }
 
-    public void getNextMatchInfo() {
+    public void requestNextMatchInfo() {
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("tickerGetNextMatch")
                 .setEventAttribute("language", language)
@@ -105,7 +105,7 @@ public class NextMatchModel {
             return;
         }
         changeLanguage(DEFAULT_LANGUAGE);
-        getNextMatchInfo();
+        requestNextMatchInfo();
     }
 
     private void changeLanguage (String language) {

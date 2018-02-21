@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.ads.AdError;
 import com.facebook.ads.MediaView;
 import com.facebook.ads.NativeAd;
@@ -30,6 +31,8 @@ import java.util.List;
 import base.app.R;
 import base.app.data.Model;
 import base.app.data.Translator;
+import base.app.data.ticker.NewsTickerInfo;
+import base.app.data.ticker.NextMatchModel;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallBase.PostType;
@@ -40,6 +43,7 @@ import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.WallItemFragment;
+import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
@@ -333,6 +337,30 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 });
             }
         } else if (getItemViewType(position) == ITEM_TYPE_NEXT_MATCH) {
+            ImageView wallTopImage = holder.view.findViewById(R.id.wall_top_image);
+            Glide.with(context).load(R.drawable.image_wall_background).into(wallTopImage);
+
+            if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
+                ImageView wallLeftTeamImage = holder.view.findViewById(R.id.wall_team_left_image);
+                ImageView wallRightTeamImage = holder.view.findViewById(R.id.wall_team_right_image);
+                TextView wallLeftTeamName = holder.view.findViewById(R.id.wall_team_left_name);
+                TextView wallRightTeamName = holder.view.findViewById(R.id.wall_team_right_name);
+                TextView wallTeamTime = holder.view.findViewById(R.id.wall_team_time);
+
+                NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
+                ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage);
+                ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage);
+                wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
+                wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
+                long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
+                wallTeamTime.setText(NextMatchCountdown.getTextValue(context, timestamp, false));
+            } else {
+                TextView topCaption = holder.view.findViewById(R.id.topCaption);
+                View wallTopInfoContainer = holder.view.findViewById(R.id.wall_top_info_container);
+
+                wallTopInfoContainer.setVisibility(View.GONE);
+                topCaption.setVisibility(View.VISIBLE);
+            }
         } else if (getItemViewType(position) == ITEM_TYPE_LOGIN_INVITATION) {
         } else {
             // this is wall item

@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -34,9 +33,6 @@ import base.app.data.Model;
 import base.app.data.friendship.FriendsListChangedEvent;
 import base.app.data.news.NewsModel;
 import base.app.data.news.NewsModel.NewsType;
-import base.app.data.ticker.NewsTickerInfo;
-import base.app.data.ticker.NextMatchModel;
-import base.app.data.ticker.NextMatchUpdateEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;
@@ -50,14 +46,12 @@ import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.ui.fragment.popup.post.PostCreateFragment;
-import base.app.util.commons.NextMatchCountdown;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentReceiveEvent;
 import base.app.util.events.post.AutoTranslateEvent;
 import base.app.util.events.post.ItemUpdateEvent;
 import base.app.util.events.post.PostDeletedEvent;
 import base.app.util.events.post.WallLikeUpdateEvent;
-import base.app.util.ui.ImageLoader;
 import base.app.util.ui.LinearItemDecoration;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -149,34 +143,12 @@ public class WallFragment extends BaseFragment
         if (wallItems.size() > 0) {
             swipeRefreshLayout.setRefreshing(false);
         }
-        Glide.with(view).load(R.drawable.image_wall_background).into(wallTopImage);
-
-        NextMatchModel.getInstance().getNextMatchInfo();
 
         return view;
     }
 
     protected void scrollUp() {
         recyclerView.smoothScrollToPosition(0);
-    }
-
-    @Subscribe
-    public void updateNextMatchInfo(NextMatchUpdateEvent event) {
-        if (Utility.isPhone(getActivity())) {
-            if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
-                // nextMatchContainer.setVisibility(View.VISIBLE);
-                NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
-                ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage);
-                ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage);
-                wallLeftTeamName.setText(newsTickerInfo.getFirstClubName());
-                wallRightTeamName.setText(newsTickerInfo.getSecondClubName());
-                long timestamp = Long.parseLong(newsTickerInfo.getMatchDate());
-                wallTeamTime.setText(NextMatchCountdown.getTextValue(getContext(), timestamp, false));
-            } else {
-                wallTopInfoContainer.setVisibility(View.GONE);
-                topCaption.setVisibility(View.VISIBLE);
-            }
-        }
     }
 
     @OnClick(R.id.fab)
