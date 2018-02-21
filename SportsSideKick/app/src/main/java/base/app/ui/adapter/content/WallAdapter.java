@@ -585,6 +585,10 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
     }
 
     public void addAll(List<WallBase> items) {
+        values.add(null); // next match header item
+        if (!Model.getInstance().isRealUser()) {
+            values.add(null); // login invitation header item
+        }
         values.addAll(items);
     }
 
