@@ -15,7 +15,7 @@ import base.app.data.tutorial.TutorialModel
 import base.app.data.user.LoginStateReceiver
 import base.app.data.user.UserEvent
 import base.app.data.user.UserInfo
-import base.app.ui.adapter.menu.MenuAdapter
+import base.app.ui.adapter.menu.BottomMenuAdapter
 import base.app.ui.adapter.menu.SideMenuAdapter
 import base.app.ui.fragment.base.ActivityEvent
 import base.app.ui.fragment.base.BaseFragment
@@ -45,11 +45,11 @@ import java.util.*
 
 class MainActivity : BaseActivityWithPush(),
         LoginStateReceiver.LoginStateListener,
-        SideMenuAdapter.IDrawerCloseSideMenu,
-        MenuAdapter.IDrawerClose {
+        BottomMenuAdapter.IDrawerCloseSideMenu,
+        SideMenuAdapter.IDrawerClose {
 
+    private lateinit var bottomMenuAdapter: BottomMenuAdapter
     private lateinit var sideMenuAdapter: SideMenuAdapter
-    private lateinit var menuAdapter: MenuAdapter
     private var screenWidth: Int = 0
 
     private val popupContainerFragments: ArrayList<Class<*>> by lazy {ArrayList<Class<*>>()}
@@ -93,15 +93,15 @@ class MainActivity : BaseActivityWithPush(),
 
     private fun setToolbar() {
         NavigationDrawerItems.getInstance().generateList(1)
-        menuAdapter = MenuAdapter(this, this)
+        sideMenuAdapter = SideMenuAdapter(this, this)
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         val displayMetrics = DisplayMetrics()
         this.windowManager.defaultDisplay.getMetrics(displayMetrics)
         screenWidth = (displayMetrics.widthPixels * 0.5).toInt()
-        sideMenuAdapter = SideMenuAdapter(this, this)
+        bottomMenuAdapter = BottomMenuAdapter(this, this)
         bottomNavigationRecyclerView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = sideMenuAdapter
+            adapter = bottomMenuAdapter
         }
         drawerContainer.layoutParams = RelativeLayout.LayoutParams(screenWidth, DrawerLayout.LayoutParams.MATCH_PARENT)
         var space = Utility.getDisplayWidth(this).toDouble()
@@ -109,7 +109,7 @@ class MainActivity : BaseActivityWithPush(),
         menuRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(LinearItemDecoration(space.toInt(), true, false))
-            adapter = menuAdapter
+            adapter = sideMenuAdapter
         }
 
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -326,8 +326,8 @@ class MainActivity : BaseActivityWithPush(),
         if (previousFragment == ClubRadioStationFragment::class.java && penultimateFragment == ClubRadioFragment::class.java) {
             NavigationDrawerItems.getInstance().setByPosition(5)
             fragmentOrganizer.currentFragment!!.fragmentManager!!.popBackStack()
-            menuAdapter.notifyDataSetChanged()
             sideMenuAdapter.notifyDataSetChanged()
+            bottomMenuAdapter.notifyDataSetChanged()
             if (drawerLayout.isDrawerOpen(GravityCompat.END))
                 drawerLayout.closeDrawer(GravityCompat.END)
             tvFragmentContainer.visibility = View.VISIBLE
@@ -338,8 +338,8 @@ class MainActivity : BaseActivityWithPush(),
                 && penultimateFragment == ClubTVFragment::class.java
                 && currentFragment is YoutubePlayerFragment) {
             NavigationDrawerItems.getInstance().setByPosition(7)
-            menuAdapter.notifyDataSetChanged()
             sideMenuAdapter.notifyDataSetChanged()
+            bottomMenuAdapter.notifyDataSetChanged()
             if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 drawerLayout.closeDrawer(GravityCompat.END)
             }
@@ -360,8 +360,8 @@ class MainActivity : BaseActivityWithPush(),
                 if (penultimateFragment == ClubRadioStationFragment::class.java) {
                     radioFragmentContainer.visibility = View.VISIBLE
                     NavigationDrawerItems.getInstance().setByPosition(5)
-                    menuAdapter.notifyDataSetChanged()
                     sideMenuAdapter.notifyDataSetChanged()
+                    bottomMenuAdapter.notifyDataSetChanged()
                     if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                         drawerLayout.closeDrawer(GravityCompat.END)
                     }
@@ -370,8 +370,8 @@ class MainActivity : BaseActivityWithPush(),
                 for (i in Constant.PHONE_MENU_OPTIONS.indices) {
                     if (penultimateFragment == Constant.PHONE_MENU_OPTIONS[i]) {
                         NavigationDrawerItems.getInstance().setByPosition(i)
-                        menuAdapter.notifyDataSetChanged()
                         sideMenuAdapter.notifyDataSetChanged()
+                        bottomMenuAdapter.notifyDataSetChanged()
                         return
                     }
                 }
@@ -385,8 +385,8 @@ class MainActivity : BaseActivityWithPush(),
                 if (penultimateFragment == YoutubePlayerFragment::class.java) {
                     tvFragmentContainer.visibility = View.VISIBLE
                     NavigationDrawerItems.getInstance().setByPosition(7)
-                    menuAdapter.notifyDataSetChanged()
                     sideMenuAdapter.notifyDataSetChanged()
+                    bottomMenuAdapter.notifyDataSetChanged()
                     if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                         drawerLayout.closeDrawer(GravityCompat.END)
                     }
@@ -394,8 +394,8 @@ class MainActivity : BaseActivityWithPush(),
                 for (i in Constant.PHONE_MENU_OPTIONS.indices) {
                     if (penultimateFragment == Constant.PHONE_MENU_OPTIONS[i]) {
                         NavigationDrawerItems.getInstance().setByPosition(i)
-                        menuAdapter.notifyDataSetChanged()
                         sideMenuAdapter.notifyDataSetChanged()
+                        bottomMenuAdapter.notifyDataSetChanged()
                         return
                     }
                 }
@@ -413,8 +413,8 @@ class MainActivity : BaseActivityWithPush(),
             leftTopBarContainer.visibility = View.VISIBLE
         }
         if (fragmentOrganizer.handleNavigationFragment()) {
-            menuAdapter.notifyDataSetChanged()
             sideMenuAdapter.notifyDataSetChanged()
+            bottomMenuAdapter.notifyDataSetChanged()
             if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 drawerLayout.closeDrawer(GravityCompat.END)
             }
@@ -450,9 +450,9 @@ class MainActivity : BaseActivityWithPush(),
         if (goodPosition) {
             NavigationDrawerItems.getInstance().setByPosition(position)
             drawerLayout.closeDrawer(GravityCompat.END)
-            sideMenuAdapter.notifyDataSetChanged()
+            bottomMenuAdapter.notifyDataSetChanged()
             if (position > 3) {
-                menuAdapter.notifyItemRangeChanged(0, 3)
+                sideMenuAdapter.notifyItemRangeChanged(0, 3)
             }
         } else {
             drawerLayout.closeDrawer(GravityCompat.END)
@@ -465,7 +465,7 @@ class MainActivity : BaseActivityWithPush(),
             drawerLayout.openDrawer(GravityCompat.END)
         } else {
             NavigationDrawerItems.getInstance().setByPosition(position)
-            menuAdapter.notifyDataSetChanged()
+            sideMenuAdapter.notifyDataSetChanged()
         }
     }
 
