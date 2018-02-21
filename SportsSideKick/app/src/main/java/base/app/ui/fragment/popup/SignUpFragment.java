@@ -19,6 +19,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.WallFragment;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
+import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -114,6 +116,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     View loadingOverlay;
     @BindView(R.id.passwordInputLayout)
     TextInputLayout passwordInputLayout;
+    @BindView(R.id.clickOutsideContainer)
+    ImageView clickOutsideContainer;
 
     private CallbackManager callbackManager;
 
@@ -170,6 +174,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             phone.setText("123");
         }
         passwordInputLayout.setPasswordVisibilityToggleEnabled(true);
+
+        ImageLoader.displayImage(R.drawable.background_sporting, clickOutsideContainer);
 
         return view;
     }
