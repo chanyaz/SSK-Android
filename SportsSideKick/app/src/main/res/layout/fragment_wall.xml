@@ -25,10 +25,10 @@
                 tools:visibility="visible" />
 
             <!--For XML preview only, actual header is in the adapter-->
-            <include
-                layout="@layout/header_login_invitation"
-                android:visibility="gone"
-                tools:visibility="visible" />
+            <!--<include-->
+            <!--layout="@layout/header_login_invitation"-->
+            <!--android:visibility="gone"-->
+            <!--tools:visibility="visible" />-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/fragment_wall_recycler_view"

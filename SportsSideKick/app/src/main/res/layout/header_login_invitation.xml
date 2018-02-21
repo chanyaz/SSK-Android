@@ -4,13 +4,11 @@
     android:id="@+id/login_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@id/wall_top_image_container"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="-30dp"
+    tools:layout_marginBottom="8dp"
     android:orientation="vertical"
     android:paddingTop="4dp"
-    android:visibility="gone"
-    tools:showIn="@layout/fragment_wall"
-    tools:visibility="visible">
+    tools:showIn="@layout/fragment_wall">
 
     <TextView
         android:id="@+id/textView2"
