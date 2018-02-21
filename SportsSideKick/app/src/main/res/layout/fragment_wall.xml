@@ -34,8 +34,7 @@
                 android:id="@+id/fragment_wall_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
-                android:clipToPadding="false"
+                tools:layout_below="@id/login_holder"
                 tools:paddingStart="16dp"
                 tools:targetApi="lollipop" />
 
