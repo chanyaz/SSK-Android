@@ -7,8 +7,10 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.DisplayMetrics
+import android.view.Gravity
 import android.view.View
 import android.widget.RelativeLayout
+import android.widget.Toast
 import base.app.R
 import base.app.data.Model
 import base.app.data.tutorial.TutorialModel
@@ -37,7 +39,6 @@ import base.app.util.ui.LinearItemDecoration
 import base.app.util.ui.NavigationDrawerItems
 import base.app.util.ui.show
 import butterknife.ButterKnife
-import butterknife.OnClick
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -61,10 +62,6 @@ class MainActivity : BaseActivityWithPush(),
     private val radioList: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
     private val radioPlayerList: ArrayList<Class<*>> by lazy { ArrayList<Class<*>>() }
 
-    @OnClick(R.id.notificationsButton)
-    fun notificationOpen() {
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -85,6 +82,12 @@ class MainActivity : BaseActivityWithPush(),
     private fun setClickListeners() {
         friendsButton.onClick {
             EventBus.getDefault().post(FragmentEvent(FriendsFragment::class.java))
+        }
+        notificationsButton.onClick {
+            val toast = Toast.makeText(this@MainActivity,
+                    "No recent notifications", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.TOP / Gravity.CENTER_HORIZONTAL, 0, 0)
+            toast.show()
         }
     }
 
