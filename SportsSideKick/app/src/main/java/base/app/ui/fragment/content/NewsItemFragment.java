@@ -500,6 +500,9 @@ public class NewsItemFragment extends BaseFragment {
         textContent.setText(item.getTitle());
         content.setText(item.getContent());
 
+        TextView pinPreviewBody = commentInputOverlay.findViewById(R.id.subheadTextView);
+        pinPreviewBody.setText(item.getContent());
+
         if (item.getTimestamp() != null) {
             String time = "" + DateUtils.getRelativeTimeSpanString(
                     (long) (item.getTimestamp() * 1000),

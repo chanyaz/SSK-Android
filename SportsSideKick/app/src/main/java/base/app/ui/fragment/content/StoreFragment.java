@@ -36,12 +36,10 @@ import base.app.util.commons.Utility;
  * www.hypercubesoft.com
  */
 
-
 public class StoreFragment extends BaseFragment {
 
     public String mUrl;
     WebView webView;
-    WebViewClient webViewClient;
 
     ImageView backButton;
     ImageView forwardButton;
