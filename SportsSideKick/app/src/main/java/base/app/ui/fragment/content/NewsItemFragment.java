@@ -175,7 +175,6 @@ public class NewsItemFragment extends BaseFragment {
     View sharedMessageDivider;
     @BindView(R.id.sharedMessageAvatar)
     ImageView sharedMessageAvatar;
-
     @BindView(R.id.sharedMessageMoreButton)
     ImageButton sharedMessageMoreButton;
     @BindView(R.id.sharedMessageDeleteEditContainer)
@@ -184,6 +183,8 @@ public class NewsItemFragment extends BaseFragment {
     Button sharedMessageEditButton;
     @BindView(R.id.sharedMessageDeleteButton)
     Button sharedMessageDeleteButton;
+    @BindView(R.id.read_more_text)
+    TextView readMoreText;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -419,6 +420,16 @@ public class NewsItemFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 commentInputOverlay.setVisibility(View.GONE);
+            }
+        });
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (content.getMaxLines() == 3) {
+                    content.setMaxLines(Integer.MAX_VALUE);
+                    content.setOnClickListener(null);
+                    readMoreText.setText(R.string.read_less);
+                }
             }
         });
     }

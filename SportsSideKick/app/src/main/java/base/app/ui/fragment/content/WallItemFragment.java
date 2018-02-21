@@ -151,6 +151,8 @@ public class WallItemFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.read_more_text)
+    TextView readMoreText;
 
     CommentsAdapter commentsAdapter;
     WallBase mPost;
@@ -270,6 +272,16 @@ public class WallItemFragment extends BaseFragment {
                     Utility.showKeyboard(getContext());
                 } else {
                     Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (content.getMaxLines() == 3) {
+                    content.setMaxLines(Integer.MAX_VALUE);
+                    content.setOnClickListener(null);
+                    readMoreText.setText(R.string.read_less);
                 }
             }
         });
