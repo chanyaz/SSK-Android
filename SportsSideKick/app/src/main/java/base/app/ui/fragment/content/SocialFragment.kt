@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.Subscribe
 class SocialFragment : BaseFragment() {
 
     private val type = NewsType.SOCIAL
-    private val adapter: NewsAdapter = NewsAdapter(type, getString(R.string.social))
+    private val adapter: NewsAdapter by lazy { NewsAdapter(type, getString(R.string.social)) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
