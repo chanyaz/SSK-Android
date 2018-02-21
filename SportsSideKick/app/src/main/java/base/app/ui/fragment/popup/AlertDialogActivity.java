@@ -53,11 +53,15 @@ public class AlertDialogActivity extends AppCompatActivity {
                 finish();
             }
         });
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        if (AlertDialogManager.getInstance().getCancelListener() != null) {
+            cancelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        } else {
+            cancelButton.setVisibility(View.GONE);
+        }
     }
 }

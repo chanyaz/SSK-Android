@@ -81,14 +81,12 @@ public class LoginFragment extends BaseFragment
     EditText passwordEditText;
     @BindView(R.id.login_progress_bar)
     View progressBar;
-    @BindView(R.id.reset_text)
-    TextView resetText;
+    @BindView(R.id.reset_progress_bar)
+    View resetProgressBar;
     @BindView(R.id.forgot_password_container)
     RelativeLayout forgotPasswordContainer;
     @BindView(R.id.content_container)
     RelativeLayout loginContainer;
-    @BindView(R.id.forgot_password_back)
-    ImageView forgotPasswordBack;
     @BindView(R.id.image_logo)
     ImageView imageLogo;
     @Nullable
@@ -103,8 +101,8 @@ public class LoginFragment extends BaseFragment
     @Nullable
     @BindView(R.id.title_text)
     TextView titleText;
-    @BindView(R.id.bottom_buttons_container_reset)
-    RelativeLayout resetButtonContainer;
+    @BindView(R.id.restoreButton)
+    Button restoreButton;
     @Nullable
     @BindView(R.id.loginButton)
     Button loginButton;
@@ -125,6 +123,8 @@ public class LoginFragment extends BaseFragment
     ImageView backgroundImageView;
     @BindView(R.id.logoImageView)
     View logoImageView;
+    @BindView(R.id.titleTextView)
+    TextView titleTextView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -147,18 +147,6 @@ public class LoginFragment extends BaseFragment
             titleText.setText(Html.fromHtml(getString(R.string.slogan)));
         }
 
-        forgotPasswordBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginContainer.setVisibility(View.VISIBLE);
-                if (loginButton != null) {
-                    loginButton.setVisibility(View.VISIBLE);
-                }
-                resetButtonContainer.setVisibility(View.INVISIBLE);
-                forgotPasswordContainer.setVisibility(View.GONE);
-            }
-        });
-
         if (Utility.isTablet(getContext())) {
             View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
             emailEditText.setOnFocusChangeListener(focusChangeListener);
@@ -172,6 +160,17 @@ public class LoginFragment extends BaseFragment
                 .into(backgroundImageView);
 
         return view;
+    }
+
+    private void closeForgotView() {
+        loginContainer.setVisibility(View.VISIBLE);
+        if (loginButton != null) {
+            loginButton.setVisibility(View.VISIBLE);
+        }
+        restoreButton.setVisibility(View.GONE);
+        forgotPasswordContainer.setVisibility(View.GONE);
+
+        titleTextView.setText(getString(R.string.sign_in));
     }
 
     private void hideSecondaryViewsOnKeyboardOpen(final View view) {
@@ -317,10 +316,13 @@ public class LoginFragment extends BaseFragment
     }
 
     @Optional
-    @OnClick(R.id.reset_text)
+    @OnClick(R.id.restoreButton)
     public void forgotPasswordOnClick() {
         String email = emailForgotPassword.getText().toString();
         Model.getInstance().resetPassword(email);
+
+        restoreButton.setText(null);
+        resetProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Optional
@@ -330,21 +332,16 @@ public class LoginFragment extends BaseFragment
     }
 
     protected void showForgotUI() {
-        if (Utility.isTablet(getActivity())) {
-            if (loginButton != null) {
-                loginButton.setVisibility(View.GONE);
-            }
-            loginContainer.setVisibility(View.GONE);
-        } else {
-            loginContainer.setVisibility(View.INVISIBLE);
-            if (loginButton != null) {
-                loginButton.setVisibility(View.INVISIBLE);
-            }
+        loginContainer.setVisibility(View.INVISIBLE);
+        if (loginButton != null) {
+            loginButton.setVisibility(View.INVISIBLE);
         }
-        resetButtonContainer.setVisibility(View.VISIBLE);
+        restoreButton.setVisibility(View.VISIBLE);
         forgotPasswordContainer.setVisibility(View.VISIBLE);
 
         emailForgotPassword.setText(emailEditText.getText());
+
+        titleTextView.setText(getString(R.string.forgot_your_password));
     }
 
     protected void hideForgotUI() {
@@ -353,7 +350,7 @@ public class LoginFragment extends BaseFragment
             loginButton.setVisibility(View.VISIBLE);
         }
 
-        resetButtonContainer.setVisibility(View.GONE);
+        restoreButton.setVisibility(View.GONE);
         forgotPasswordContainer.setVisibility(View.GONE);
     }
 
@@ -413,6 +410,8 @@ public class LoginFragment extends BaseFragment
                         hideForgotUI();
                     }
                 });
+        restoreButton.setText(R.string.password_reset);
+        resetProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -430,6 +429,8 @@ public class LoginFragment extends BaseFragment
                     public void onClick(View v) {
                     }
                 });
+        restoreButton.setText(R.string.password_reset);
+        resetProgressBar.setVisibility(View.GONE);
     }
 
     @Optional
@@ -442,7 +443,11 @@ public class LoginFragment extends BaseFragment
 
     @OnClick(R.id.backButton)
     public void onBackPressed() {
-        getActivity().onBackPressed();
+        if (forgotPasswordContainer.getVisibility() == View.VISIBLE) {
+            closeForgotView();
+        } else {
+            getActivity().onBackPressed();
+        }
     }
 
     @OnClick(R.id.clickOutsideContainer)

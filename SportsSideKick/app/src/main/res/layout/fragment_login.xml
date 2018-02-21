@@ -47,19 +47,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-
+            tools:visibility="visible"
             android:clickable="true"
             android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/forgot_password_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/margin_10"
-                android:src="@drawable/ic_arrow_back" />
-
-            <RelativeLayout
-                android:layout_width="@dimen/login_conteiner_width"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/margin_40"
@@ -67,18 +60,53 @@
                 android:orientation="vertical">
 
                 <EditText
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:id="@+id/login_forgot_pass_email"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/standard_button_height"
+                    android:layout_marginEnd="@dimen/margin_30"
+                    android:layout_marginStart="@dimen/margin_30"
+                    android:textAlignment="center"
+                    android:textColor="?black"
                     android:background="@drawable/text_login_selector"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@+id/login_password"
                     android:padding="@dimen/padding_8"
-                    android:textAlignment="center"
-                    android:textColor="?white"
-                    android:textColorHint="?white" />
-            </RelativeLayout>
+                    android:textColorHint="#8a000000" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/restoreButton"
+                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/standard_button_height"
+                        android:layout_marginEnd="@dimen/margin_30"
+                        android:layout_marginStart="@dimen/margin_30"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_login_login"
+                        android:text="@string/password_reset"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_size_16"
+                        android:visibility="visible" />
+
+                    <ProgressBar
+                        android:id="@+id/reset_progress_bar"
+                        android:layout_width="@dimen/prodgres_bar"
+                        android:layout_height="@dimen/prodgres_bar"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="6dp"
+                        android:elevation="@dimen/elevation_2"
+                        android:theme="@style/AppTheme.WhiteAccent"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </FrameLayout>
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -199,13 +227,13 @@
                     android:layout_height="@dimen/standard_button_height"
                     android:layout_marginEnd="@dimen/margin_30"
                     android:layout_marginStart="@dimen/margin_30"
+                    android:textAlignment="center"
+                    android:textColor="?black"
                     android:background="@drawable/text_login_selector"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@+id/login_password"
                     android:padding="@dimen/padding_8"
-                    android:textAlignment="center"
-                    android:textColor="?black"
                     android:textColorHint="#8a000000" />
 
                 <android.support.design.widget.TextInputLayout
@@ -282,40 +310,6 @@
                     android:text="@string/forgot_your_password"
                     android:textColor="@color/white" />
 
-                <RelativeLayout
-                    android:id="@+id/bottom_buttons_container_reset"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/standard_button_height"
-                    android:layout_marginEnd="@dimen/margin_30"
-                    android:layout_marginStart="@dimen/margin_30"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button_login_login"
-                    android:clickable="true"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/reset_text"
-                        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="@string/password_reset"
-                        android:textColor="@color/black_alpha_70"
-                        android:textSize="@dimen/font_size_18"
-                        android:visibility="visible" />
-
-                    <ProgressBar
-                        android:id="@+id/reset_progress_bar"
-                        android:layout_width="@dimen/prodgres_bar"
-                        android:layout_height="@dimen/prodgres_bar"
-                        android:layout_centerInParent="true"
-                        android:elevation="@dimen/elevation_2"
-                        android:theme="@style/AppTheme.BlackAccent"
-                        android:visibility="gone" />
-
-                </RelativeLayout>
-
-
             </LinearLayout>
             <!--Login username and password container-->
         </RelativeLayout>
@@ -347,6 +341,7 @@
 
         <TextView
             style="@style/boldText"
+            android:id="@+id/titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
