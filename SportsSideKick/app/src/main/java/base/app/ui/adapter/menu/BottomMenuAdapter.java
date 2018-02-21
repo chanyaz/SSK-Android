@@ -60,14 +60,16 @@ public class BottomMenuAdapter extends RecyclerView.Adapter<BottomMenuAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                if (viewHolder.getAdapterPosition() != (getItemCount() - 1)) {
+                int position = viewHolder.getAdapterPosition();
+                if (position != (getItemCount() - 1)) {
                     notifyItemChanged(oldPosition);
-                    iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), false);
-                    oldPosition = viewHolder.getAdapterPosition();
+                    iDrawerCloseSideMenu.closeDrawerSideMenu(position, false);
+                    oldPosition = position;
                     viewHolder.itemView.setSelected(true);
-                    EventBus.getDefault().post(new FragmentEvent(Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition())));
+                    EventBus.getDefault().post(new FragmentEvent(
+                            Constant.PHONE_MENU_OPTIONS.get(position)));
                 } else {
-                    iDrawerCloseSideMenu.closeDrawerSideMenu(viewHolder.getAdapterPosition(), true);
+                    iDrawerCloseSideMenu.closeDrawerSideMenu(position, true);
                 }
             }
         });
@@ -76,7 +78,7 @@ public class BottomMenuAdapter extends RecyclerView.Adapter<BottomMenuAdapter.Vi
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.itemView.setSelected(NavigationDrawerItems.getInstance().getItemById(position));
         if (holder.itemView.isSelected()) {
             oldPosition = position;
