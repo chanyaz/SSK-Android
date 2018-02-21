@@ -332,6 +332,8 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     }
                 });
             }
+        } else if (getItemViewType(position) == ITEM_TYPE_NEXT_MATCH) {
+        } else if (getItemViewType(position) == ITEM_TYPE_LOGIN_INVITATION) {
         } else {
             // this is wall item
             final int index;

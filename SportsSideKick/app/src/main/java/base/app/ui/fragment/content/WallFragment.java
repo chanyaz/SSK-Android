@@ -164,7 +164,7 @@ public class WallFragment extends BaseFragment
     public void updateNextMatchInfo(NextMatchUpdateEvent event) {
         if (Utility.isPhone(getActivity())) {
             if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
-                nextMatchContainer.setVisibility(View.VISIBLE);
+                // nextMatchContainer.setVisibility(View.VISIBLE);
                 NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
                 ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage);
                 ImageLoader.displayImage(newsTickerInfo.getSecondClubUrl(), wallRightTeamImage);
