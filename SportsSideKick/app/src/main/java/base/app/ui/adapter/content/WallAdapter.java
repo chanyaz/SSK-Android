@@ -425,6 +425,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                     displayUserInfo(item, holder);
                     displayTitle(referencedItem.getTitle() != null
                             ? referencedItem.getTitle() : referencedItem.getMessage(), holder);
+                    displaySubhead(referencedItem, holder);
                     displayPostImage(referencedItem, holder);
                     displayCommentsAndLikes(referencedItem, holder);
                     if (item.hasSharedComment()) {
