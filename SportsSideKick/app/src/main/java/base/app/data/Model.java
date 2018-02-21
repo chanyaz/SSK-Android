@@ -17,6 +17,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.gamesparks.sdk.GSEventConsumer;
 import com.gamesparks.sdk.api.GSData;
 import com.gamesparks.sdk.api.autogen.GSRequestBuilder;
@@ -129,6 +130,7 @@ public class Model {
     private Model() {
         userCache = new HashMap<>();
         mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         loggedInUserType = NONE;
     }
 
