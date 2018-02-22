@@ -640,7 +640,7 @@ public class NewsItemFragment extends BaseFragment {
     public void onCommentPosted(PostCommentCompleteEvent event) {
         postCommentProgressBar.setVisibility(View.GONE);
         commentsAdapter.getComments().add(0, event.getComment());
-        commentsAdapter.notifyDataSetChanged();
+        commentsAdapter.notifyItemInserted(0);
         commentsListView.scrollToPosition(commentsAdapter.getComments().size() - 1);
         item.setCommentsCount(commentsAdapter.getComments().size());
         if (commentsCount != null) {

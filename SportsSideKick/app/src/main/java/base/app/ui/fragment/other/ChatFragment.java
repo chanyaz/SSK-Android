@@ -346,7 +346,11 @@ public class ChatFragment extends BaseFragment {
         updateAllViews();
 
         if (Utility.isPhone(getActivity())) {
-            onLoginStateChange();
+            if (Model.getInstance().isRealUser()) {
+                if (inactiveContainer != null) {
+                    inactiveContainer.setVisibility(View.GONE);
+                }
+            }
         }
 
         if (fullScreenContainer != null) {
@@ -378,14 +382,6 @@ public class ChatFragment extends BaseFragment {
                 }
             }
         });
-    }
-
-    private void onLoginStateChange() {
-        if (Model.getInstance().isRealUser()) {
-            if (inactiveContainer != null) {
-                inactiveContainer.setVisibility(View.GONE);
-            }
-        }
     }
 
     @Optional
@@ -891,6 +887,7 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event) {
+        findActiveChat();
         checkPushNotification();
     }
 
@@ -996,11 +993,11 @@ public class ChatFragment extends BaseFragment {
             ChatInfo chat = ImsManager.getInstance().getChatInfoById(chatId);
             if (chat != null) {
                 setCurrentlyActiveChat(chat);
-                return;
             }
+        } else {
+            //! Set first one if chat was not selected
+            setFirstChatAsActive();
         }
-        //! Set first one if chat was not selected
-        setFirstChatAsActive();
     }
 
     private void setFirstChatAsActive() {
@@ -1008,7 +1005,6 @@ public class ChatFragment extends BaseFragment {
             List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
             if (chats != null && chats.size() > 0) {
                 setCurrentlyActiveChat(chats.get(0));
-                return;
             }
         }
     }

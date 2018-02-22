@@ -30,7 +30,7 @@ public class Application extends MultiDexApplication {
         }
         // LeakCanary.install(this);
 
-        if (BuildConfig.DEBUG) enableStrictMode();
+        // if (BuildConfig.DEBUG) enableStrictMode();
 
         // Shared prefs initialization
         new Prefs.Builder()

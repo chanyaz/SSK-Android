@@ -329,19 +329,19 @@ public class WallModel extends GSMessageHandlerAbstract {
      * post the comment on the given post, once the comment is successfully stored in DB
      * the post comments count will be increased by 1
      */
-    public void postComment(final PostComment comment, final WallBase post) {
+    public void postComment(PostComment comment, WallBase post) {
         comment.setId(new Id(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10)));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object commentObj = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
-                    PostComment comment = mapper.convertValue(commentObj, new TypeReference<PostComment>() {
+                    PostComment commentFromServer = mapper.convertValue(commentObj, new TypeReference<PostComment>() {
                     });
                     Object postObj = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase postFromServer = WallBase.postFactory(postObj, mapper, true);
 
-                    EventBus.getDefault().post(new PostCommentCompleteEvent(comment, postFromServer));
+                    EventBus.getDefault().post(new PostCommentCompleteEvent(commentFromServer, postFromServer));
                     EventBus.getDefault().post(new ItemUpdateEvent(postFromServer));
                 } else {
                     Log.e("WallModel", "Posting of comment failed!");
