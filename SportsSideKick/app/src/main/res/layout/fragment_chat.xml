@@ -201,8 +201,9 @@
                 android:paddingStart="@dimen/padding_16"
                 android:paddingTop="@dimen/padding_13"
                 android:privateImeOptions=""
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="?chatEditTextHintColor"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+                android:textColor="@color/black"
+                android:textColorHint="#7e000000"
                 android:textSize="@dimen/font_size_16" />
 
             <ImageView
