@@ -914,12 +914,14 @@ public class ChatFragment extends BaseFragment {
             case CHANGED_CHAT_MESSAGE:
                 if (currentlyActiveChat != null) {
                     List<ImsMessage> messages = currentlyActiveChat.getMessages();
-                    ImsMessage messageToUpdate = event.getMessage();
-                    if (messages != null && messageToUpdate != null) {
+                    ImsMessage updatedMessage = event.getMessage();
+                    if (messages != null && updatedMessage != null) {
                         for (int i = 0; i < messages.size(); i++) {
                             ImsMessage messageInAdapter = messages.get(i);
-                            if (messageInAdapter.getId().equals(messageToUpdate.getId())) {
-                                messageAdapter.notifyItemChanged(messages.indexOf(messageToUpdate));
+                            if (messageInAdapter.getId().equals(updatedMessage.getId())) {
+                                currentlyActiveChat.getMessages().remove(i);
+                                currentlyActiveChat.getMessages().add(i, updatedMessage);
+                                messageAdapter.notifyItemChanged(messages.indexOf(updatedMessage));
                             }
                         }
                     } else {
