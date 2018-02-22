@@ -891,7 +891,6 @@ public class ChatFragment extends BaseFragment {
 
     @Subscribe
     public void onEvent(ChatsInfoUpdatesEvent event) {
-        findActiveChat();
         checkPushNotification();
     }
 
@@ -917,10 +916,11 @@ public class ChatFragment extends BaseFragment {
                     List<ImsMessage> messages = currentlyActiveChat.getMessages();
                     ImsMessage messageToUpdate = event.getMessage();
                     if (messages != null && messageToUpdate != null) {
-                        if (messages.contains(messageToUpdate)) {
-                            messageAdapter.notifyItemChanged(messages.indexOf(messageToUpdate));
-                        } else {
-                            Log.e(TAG, "Active chat does not contain this message!");
+                        for (int i = 0; i < messages.size(); i++) {
+                            ImsMessage messageInAdapter = messages.get(i);
+                            if (messageInAdapter.getId().equals(messageToUpdate.getId())) {
+                                messageAdapter.notifyItemChanged(messages.indexOf(messageToUpdate));
+                            }
                         }
                     } else {
                         Log.e(TAG, "Message to be updated is not in active chat!");
@@ -1009,7 +1009,6 @@ public class ChatFragment extends BaseFragment {
                 return;
             }
         }
-        setCurrentlyActiveChat(null);
     }
 
     @Subscribe

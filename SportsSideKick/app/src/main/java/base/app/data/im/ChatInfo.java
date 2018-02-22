@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
@@ -142,7 +141,6 @@ public class ChatInfo {
             });
         } else {
             source.setResult(null);
-            EventBus.getDefault().post(new ChatNotificationsEvent(this, ChatNotificationsEvent.Key.UPDATED_CHAT_USERS));
         }
         return source.getTask();
     }
@@ -329,33 +327,6 @@ public class ChatInfo {
         }else{
             Log.e(TAG,"Error - cant add user to a chat that you are not the owner of!");
         }
-    }
-
-    public void addUserIfChatIsGlobal(final UserInfo uinfo){
-        Task<List<ChatInfo>> task = ImsManager.getInstance().getGlobalChats();
-        task.addOnSuccessListener(new OnSuccessListener<List<ChatInfo>>() {
-            @Override
-            public void onSuccess(List<ChatInfo> chatInfos) {
-            for(ChatInfo chatInfo : chatInfos){
-                if(chatInfo.getChatId().equals(chatId)){
-                    if(chatInfo.getUsersIds().contains(uinfo.getUserId())){
-                        Log.e(TAG,"ERROR - User already added to Global chat");
-                    } else {
-                        loadChatUsers().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                usersIds.add(uinfo.getUserId());
-                                chatUsers.add(uinfo);
-                                updateChatInfo();
-                            }
-                        });
-                    }
-                } else {
-                    Log.e(TAG,"ERROR - Trying to add user to not-global chat");
-                }
-            }
-            }
-        });
     }
 
     /**
