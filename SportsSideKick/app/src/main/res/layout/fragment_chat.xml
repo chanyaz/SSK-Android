@@ -29,49 +29,62 @@
         android:textColor="@color/white"
         android:textSize="@dimen/font_size_10" />
 
-    <RelativeLayout
-        android:id="@+id/chat_info_line"
+    <android.support.v7.widget.CardView
+        android:id="@+id/chat_info_line_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/standard_button_height">
+        android:layout_marginBottom="1dp"
+        app:cardCornerRadius="0dp"
+        app:contentPadding="@dimen/card_negative_padding"
+        app:elevation="1dp">
 
-        <!-- Chat heads recycler view -->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/chat_heads_view"
+        <RelativeLayout
+            android:id="@+id/chat_info_line"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:focusableInTouchMode="true"
-            android:scrollbars="none"
-            tools:layout_height="60dp"
-            tools:padding="16dp" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/chat_info_line_text"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_20"
-            android:layout_below="@id/chat_heads_view"
-            android:background="?white"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:lines="1"
-            android:paddingEnd="@dimen/margin_60"
-            android:paddingStart="@dimen/margin_60"
-            android:textColor="?black"
-            android:textSize="@dimen/font_size_10"
-            tools:text="SCP: You and your friends" />
-    </RelativeLayout>
+            <!-- Chat heads recycler view -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/chat_heads_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@color/chatBackground"
+                android:focusableInTouchMode="true"
+                android:scrollbars="none"
+                app:elevation="1dp"
+                tools:layout_height="60dp"
+                tools:padding="16dp" />
+
+            <TextView
+                android:id="@+id/chat_info_line_text"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_20"
+                android:layout_below="@id/chat_heads_view"
+                android:background="?white"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="1"
+                android:paddingEnd="@dimen/margin_60"
+                android:paddingStart="@dimen/margin_60"
+                android:textColor="?black"
+                android:textSize="@dimen/font_size_10"
+                tools:text="SCP: You and your friends" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
     <!-- Messages container -->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:enabled="false"
         android:layout_height="match_parent"
         android:layout_above="@id/input_container"
-        android:layout_below="@id/chat_info_line"
-        android:layout_marginTop="@dimen/margin_negative_48">
+        android:layout_below="@id/chat_info_line_wrapper"
+        android:layout_marginTop="@dimen/margin_negative_48"
+        android:enabled="false">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_container"
@@ -184,6 +197,7 @@
 
             <EditText
                 android:id="@+id/input_edit_text"
+                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
@@ -201,20 +215,19 @@
                 android:paddingStart="@dimen/padding_16"
                 android:paddingTop="@dimen/padding_13"
                 android:privateImeOptions=""
-                fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                 android:textColor="@color/black"
                 android:textColorHint="#7e000000"
                 android:textSize="@dimen/font_size_16" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/lockIcon"
-                android:tint="#D4D8DC"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_lock_outline_black_24dp" />
+                android:src="@drawable/ic_lock_outline_black_24dp"
+                android:tint="#D4D8DC" />
 
         </LinearLayout>
 
@@ -435,12 +448,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="32dp"
-            android:gravity="center_horizontal"
             android:layout_centerInParent="true"
             android:layout_marginEnd="@dimen/margin_40"
-            android:layout_marginStart="@dimen/margin_40">
+            android:layout_marginStart="@dimen/margin_40"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
 
             <ImageView
                 android:id="@+id/logo"
@@ -474,8 +487,8 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@id/center_below"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="100dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/login_slider_chat"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
@@ -493,22 +506,22 @@
 
                 <Button
                     android:id="@+id/join_now_button"
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_login_login"
                     android:text="@string/join"
                     android:textAlignment="center"
                     android:textAllCaps="false"
-                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:textColor="@color/white"
                     android:textSize="@dimen/font_size_18" />
 
                 <Button
                     android:id="@+id/login_button"
+                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/margin_10"
-                    fontPath="fonts/TitilliumWeb-SemiBold.ttf"
                     android:background="@drawable/button_login_login"
                     android:text="@string/sign_in"
                     android:textAlignment="center"
