@@ -153,6 +153,8 @@ public class WallItemFragment extends BaseFragment {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.read_more_text)
     TextView readMoreText;
+    @BindView(R.id.contentTextWrapper)
+    ViewGroup contentTextWrapper;
 
     CommentsAdapter commentsAdapter;
     WallBase mPost;
@@ -275,13 +277,15 @@ public class WallItemFragment extends BaseFragment {
                 }
             }
         });
-        content.setOnClickListener(new View.OnClickListener() {
+        contentTextWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (content.getMaxLines() == 3) {
                     content.setMaxLines(Integer.MAX_VALUE);
-                    content.setOnClickListener(null);
-                    content.setOnClickListener(null);
+                    contentTextWrapper.setClickable(false);
+                    contentTextWrapper.forceLayout();
+                    contentTextWrapper.requestLayout();
+                    content.setTextIsSelectable(true);
                     readMoreText.setText(R.string.read_less);
                 }
             }

@@ -585,7 +585,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             if (currentAdInterval > 0) {
                 index = position - (position / currentAdInterval);
             }
-            return values.get(index).getType().ordinal();
+            if (values.get(index) != null) {
+                return values.get(index).getType().ordinal();
+            } else {
+                return 0;
+            }
         }
     }
 

@@ -187,6 +187,8 @@ public class NewsItemFragment extends BaseFragment {
     Button sharedMessageDeleteButton;
     @BindView(R.id.read_more_text)
     TextView readMoreText;
+    @BindView(R.id.contentTextWrapper)
+    ViewGroup contentTextWrapper;
 
     CommentsAdapter commentsAdapter;
     WallNews item;
@@ -426,13 +428,15 @@ public class NewsItemFragment extends BaseFragment {
                 commentInputOverlay.setVisibility(View.GONE);
             }
         });
-        content.setOnClickListener(new View.OnClickListener() {
+        contentTextWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (content.getMaxLines() == 3) {
                     content.setMaxLines(Integer.MAX_VALUE);
-                    content.setOnClickListener(null);
-                    content.setClickable(false);
+                    contentTextWrapper.setClickable(false);
+                    contentTextWrapper.forceLayout();
+                    contentTextWrapper.requestLayout();
+                    content.setTextIsSelectable(true);
                     readMoreText.setText(R.string.read_less);
                 }
             }

@@ -64,7 +64,7 @@
     <string name="login_slider_chat">You can chat with <font color="#c3ff01">friends, create groups</font> and even connect with your <font color="#c3ff01">favourite players!</font></string>
     <string name="logout_from_app">This will log you out of the app!</string>
     <string name="reset_app">This action will reload the application.</string>
-    <string name="error_username_taken">Registration error - username is already taken, please select a different username.</string>
+    <string name="error_username_taken">Registration error - email is already registered, please login instead.</string>
     <string name="facebook_error">Your public profile could not be received. Please try again!</string>
 
     <!--Dialogs-->

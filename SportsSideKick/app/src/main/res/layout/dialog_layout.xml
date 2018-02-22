@@ -40,7 +40,6 @@
             tools:text="Content"
             android:layout_marginEnd="@dimen/margin_40"
             android:layout_marginStart="@dimen/margin_40"
-            android:layout_marginTop="@dimen/margin_20"
             android:gravity="center_horizontal"
             android:textColor="@color/white" />
 

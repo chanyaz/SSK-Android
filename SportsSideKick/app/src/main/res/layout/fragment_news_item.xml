@@ -244,8 +244,8 @@
 
                         <View
                             android:layout_width="1dp"
-                            android:alpha="0.5"
                             android:layout_height="match_parent"
+                            android:alpha="0.5"
                             android:background="?white" />
 
                         <ImageView
@@ -295,40 +295,46 @@
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="0.9"
                     android:paddingEnd="8dp"
-                    android:textIsSelectable="true"
                     android:textColor="@color/colorPrimaryVeryLight"
+                    android:textIsSelectable="true"
                     android:textSize="20sp"
                     tools:targetApi="m"
                     tools:text="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam." />
 
-                <TextView
-                    android:id="@+id/content_text"
-                    android:textIsSelectable="true"
+                <FrameLayout
+                    android:id="@+id/contentTextWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title"
-                    android:layout_marginEnd="@dimen/margin_15"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
-                    android:focusable="false"
-                    android:layout_marginStart="@dimen/margin_15"
-                    android:animateLayoutChanges="true"
-                    android:autoLink="all"
-                    android:breakStrategy="high_quality"
-                    android:ellipsize="end"
-                    android:lineSpacingMultiplier="0.9"
-                    android:maxLines="3"
-                    android:paddingEnd="8dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:targetApi="m"
-                    tools:text="@string/lorem_ipsum" />
+                    android:focusable="false">
+
+                    <TextView
+                        android:id="@+id/content_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_15"
+                        android:layout_marginStart="@dimen/margin_15"
+                        android:animateLayoutChanges="true"
+                        android:autoLink="all"
+                        android:breakStrategy="high_quality"
+                        android:ellipsize="end"
+                        android:lineSpacingMultiplier="0.9"
+                        android:maxLines="3"
+                        android:paddingEnd="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:targetApi="m"
+                        tools:text="@string/lorem_ipsum" />
+
+                </FrameLayout>
 
                 <LinearLayout
                     android:id="@+id/read_more_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/content_text"
+                    android:layout_below="@id/contentTextWrapper"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="-8dp"

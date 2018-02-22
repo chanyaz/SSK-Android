@@ -53,10 +53,10 @@ import base.app.R;
 import base.app.data.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.RegistrationStateReceiver;
+import base.app.ui.activity.BaseActivity;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.content.WallFragment;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
@@ -399,7 +399,10 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             EventBus.getDefault().post(new FragmentEvent(AccountCreatingAdapter.class));
         } else {
-            EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+            BaseActivity activity = (BaseActivity) getActivity();
+            if (activity != null && !activity.fragmentOrganizer.handleNavigationFragment()) {
+                activity.onBackPressed();
+            }
         }
     }
 
