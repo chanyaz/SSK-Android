@@ -34,7 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="1dp"
         app:cardCornerRadius="0dp"
         app:contentPadding="@dimen/card_negative_padding"
         app:elevation="1dp">
@@ -83,7 +82,6 @@
         android:layout_height="match_parent"
         android:layout_above="@id/input_container"
         android:layout_below="@id/chat_info_line_wrapper"
-        android:layout_marginTop="@dimen/margin_negative_48"
         android:enabled="false">
 
         <android.support.v7.widget.RecyclerView
@@ -92,6 +90,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="48dp"
+            android:paddingTop="16dp"
             tools:padding="16dp" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
