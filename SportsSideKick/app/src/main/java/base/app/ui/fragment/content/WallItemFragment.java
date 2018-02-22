@@ -281,7 +281,7 @@ public class WallItemFragment extends BaseFragment {
                 if (content.getMaxLines() == 3) {
                     content.setMaxLines(Integer.MAX_VALUE);
                     content.setOnClickListener(null);
-                    content.setClickable(false);
+                    content.setOnClickListener(null);
                     readMoreText.setText(R.string.read_less);
                 }
             }

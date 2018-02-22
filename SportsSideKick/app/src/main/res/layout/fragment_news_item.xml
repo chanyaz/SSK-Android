@@ -244,6 +244,7 @@
 
                         <View
                             android:layout_width="1dp"
+                            android:alpha="0.5"
                             android:layout_height="match_parent"
                             android:background="?white" />
 
@@ -294,6 +295,7 @@
                     android:ellipsize="end"
                     android:lineSpacingMultiplier="0.9"
                     android:paddingEnd="8dp"
+                    android:textIsSelectable="true"
                     android:textColor="@color/colorPrimaryVeryLight"
                     android:textSize="20sp"
                     tools:targetApi="m"
@@ -301,6 +303,7 @@
 
                 <TextView
                     android:id="@+id/content_text"
+                    android:textIsSelectable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/title"

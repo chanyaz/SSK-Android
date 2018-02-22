@@ -10,6 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -499,7 +500,12 @@ public class NewsItemFragment extends BaseFragment {
     private void showTextContent(WallNews item) {
         title.setText(item.getTitle());
         textContent.setText(item.getTitle());
-        content.setText(item.getContent());
+        if (item.getContent() != null && !item.getContent().trim().isEmpty()) {
+            // double conversion to change html symbol codes to corresponding characters
+            content.setText(Html.fromHtml(Html.fromHtml(item.getContent()).toString()));
+        } else {
+            content.setVisibility(View.GONE);
+        }
 
         TextView pinPreviewBody = commentInputOverlay.findViewById(R.id.subheadTextView);
         pinPreviewBody.setText(item.getContent());
