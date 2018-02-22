@@ -206,14 +206,14 @@
                 android:textColorHint="#7e000000"
                 android:textSize="@dimen/font_size_16" />
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/lockIcon"
+                android:tint="#D4D8DC"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
-                android:alpha="0.15"
                 android:src="@drawable/ic_lock_outline_black_24dp" />
 
         </LinearLayout>
@@ -418,7 +418,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="false"
-        tools:layout_height="match_parent">
+        tools:layout_height="0dp">
 
         <ImageView
             android:id="@+id/loginBackgroundImage"
