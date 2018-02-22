@@ -135,20 +135,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
         // Required empty public constructor
     }
 
-    public void scaleViews() {
-        int width = Utility.getDisplayWidth(getActivity());
-        if (editTextContainer != null) {
-            editTextContainer.getLayoutParams().width = (int) (width * 0.55);
-        }
-        if (facebookButton != null) {
-            facebookButton.getLayoutParams().width = (int) (width * 0.4);
-        }
-        if (joinNowContainer != null) {
-            joinNowContainer.getLayoutParams().width = (int) (width * 0.4);
-        }
-
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -158,11 +144,8 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
 
         initFacebook();
         setupPolicyText();
-        if (Utility.isTablet(getActivity())) {
-            scaleViews();
-        }
         termsHolder.setVisibility(View.INVISIBLE);
-        setUpPolicyWebView();
+        // setUpPolicyWebView();
 
         if (Utility.isTablet(getContext())) {
             View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
@@ -234,7 +217,6 @@ public class SignUpFragment extends BaseFragment implements RegistrationStateRec
     }
 
     private void setUpPolicyWebView() {
-
         progressBarVebView.setVisibility(View.VISIBLE);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSupportZoom(true);

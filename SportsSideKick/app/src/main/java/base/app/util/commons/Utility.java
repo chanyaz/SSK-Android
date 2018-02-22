@@ -143,11 +143,12 @@ public class Utility {
     }
 
     public static Boolean isTablet(Context context) {
-        if(context!=null) {
+        return false;
+        /*if(context!=null) {
             return context.getResources().getBoolean(R.bool.is_tablet);
         } else {
             return Prefs.getBoolean(IS_TABLET, false);
-        }
+        }*/
     }
 
     public static boolean isKitKat() {
