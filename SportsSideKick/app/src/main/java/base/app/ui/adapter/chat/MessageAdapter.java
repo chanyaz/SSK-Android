@@ -197,16 +197,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         }
                     });
 
-                    if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_THIS_USER) {
-                        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
-                            @Override
-                            public boolean onLongClick(View v) {
-                                EventBus.getDefault().post(new MessageSelectedEvent(message));
-                                return true;
-                            }
-                        });
-                    }
-
                     holder.playButton.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.GONE);
                     holder.textView.setVisibility(View.VISIBLE);
@@ -247,6 +237,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         holder.contentContainer.setBackgroundResource(R.drawable.chat_message_left);
                     }
                     break;
+            }
+            if (holder.getItemViewType() == VIEW_TYPE_MESSAGE_THIS_USER) {
+                holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        EventBus.getDefault().post(new MessageSelectedEvent(message));
+                        return true;
+                    }
+                });
             }
         } else {
             Log.e(TAG,"Message type is null: " + message.getId());
