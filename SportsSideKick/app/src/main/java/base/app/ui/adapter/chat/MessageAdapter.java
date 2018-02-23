@@ -164,6 +164,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                     EventBus.getDefault().post(new PlayVideoEvent(videoUrl));
                                 }
                             });
+                    holder.contentContainer.setBackgroundResource(R.drawable.chat_message_right);
                     break;
                 case GSConstants.UPLOAD_TYPE_AUDIO:
                     holder.textView.setVisibility(View.GONE);
@@ -176,6 +177,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                             setupAudioPlayButton(imageUrl,contentView);
                         }
                     });
+                    holder.contentContainer.setBackgroundResource(R.drawable.chat_message_left);
                     break;
                 case GSConstants.UPLOAD_TYPE_TEXT:
                     holder.view.setOnClickListener(new View.OnClickListener(){

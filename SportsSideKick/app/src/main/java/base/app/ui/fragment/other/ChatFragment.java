@@ -62,7 +62,6 @@ import java.io.File;
 import java.util.List;
 import java.util.TimerTask;
 
-import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.GSConstants;
@@ -87,6 +86,7 @@ import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
 import base.app.util.commons.FilenameUtils;
+import base.app.util.commons.FilterHelperKt;
 import base.app.util.commons.Utility;
 import base.app.util.events.chat.FullScreenImageEvent;
 import base.app.util.events.chat.MessageSelectedEvent;
@@ -268,6 +268,10 @@ public class ChatFragment extends BaseFragment {
                                         refreshingChat.addReceivedMessage(messages);
                                         if (currentlyActiveChat != null) {
                                             if (currentlyActiveChat.equals(refreshingChat)) {
+                                                List<ImsMessage> filteredMessages = FilterHelperKt.filterMessages(
+                                                        currentlyActiveChat.getMessages());
+                                                currentlyActiveChat.getMessages().clear();
+                                                currentlyActiveChat.getMessages().addAll(filteredMessages);
                                                 messageAdapter.notifyDataSetChanged();
                                             }
                                         }
@@ -1005,11 +1009,11 @@ public class ChatFragment extends BaseFragment {
         if (ImsManager.getInstance().getUserChatsList() != null) {
             List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
             if (chats != null && chats.size() > 0) {
-                if (BuildConfig.DEBUG) {
-                    setCurrentlyActiveChat(chats.get(1));
-                } else {
+//                if (BuildConfig.DEBUG) {
+//                    setCurrentlyActiveChat(chats.get(1));
+//                } else {
                     setCurrentlyActiveChat(chats.get(0));
-                }
+//                }
             }
         }
     }

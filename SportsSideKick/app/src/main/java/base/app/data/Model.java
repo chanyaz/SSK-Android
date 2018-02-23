@@ -664,6 +664,7 @@ public class Model {
         } else {
             info = mapper.convertValue(response, UserInfo.class);
         }
+        info.setUserId(response.getUserId());
         currentUserInfo = info;
         userCache.put(info.getUserId(), info);
         EventBus.getDefault().post(new UserEvent(UserEvent.Type.onDetailsUpdated, currentUserInfo));
