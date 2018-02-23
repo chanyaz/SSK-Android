@@ -10,7 +10,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.ThumbnailUtils;
-import android.provider.MediaStore;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
@@ -147,9 +146,28 @@ public class FileUploader {
     }
 
     void uploadThumbnail(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
-        Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+        filename = "photo_5a4bdd6fe8a7928d52b31b2e1519367720155.jpg";
+        filepath = "/storage/emulated/0/RxPaparazzo/SAVED-20180223_0834_27722.jpg";
+        File image = new File(filepath);
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
+        bitmap = ExifUtil.rotateBitmap(filepath, bitmap);
+        final int maxSize = 640;
+        int outWidth;
+        int outHeight;
+        int inWidth = bitmap.getWidth();
+        int inHeight = bitmap.getHeight();
+        if (inWidth > inHeight) {
+            outWidth = maxSize;
+            outHeight = (inHeight * maxSize) / inWidth;
+        } else {
+            outHeight = maxSize;
+            outWidth = (inWidth * maxSize) / inHeight;
+        }
+
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmThumbnail.compress(Bitmap.CompressFormat.JPEG, COMPRESSED_IMAGE_QUALITY, bos);
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, COMPRESSED_IMAGE_QUALITY, bos);
         try {
             File file = new File(filesDir, "temp_thumbnail_video.jpg");
             bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
