@@ -233,10 +233,11 @@
         <ImageButton
             android:id="@+id/chat_menu_dots"
             android:layout_width="@dimen/standard_button_height"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/height_1"
+            android:layout_marginTop="1dp"
             android:background="@null"
             android:src="@drawable/ic_more_horiz_black_24dp" />
 
@@ -246,6 +247,7 @@
             android:layout_height="match_parent"
             android:layout_toStartOf="@+id/chat_menu_dots"
             android:background="@color/colorGrayLight"
+            android:layout_marginTop="1dp"
             android:clickable="true"
             android:gravity="center"
             android:padding="@dimen/half_margin"
