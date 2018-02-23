@@ -362,7 +362,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                 .send(consumer);
     }
 
-    public void deleteComment(final PostComment comment, int postType) {
+    public void deleteComment(final PostComment comment, int postTypeIndex) {
         final TaskCompletionSource<Void> source = new TaskCompletionSource<>();
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -378,6 +378,14 @@ public class WallModel extends GSMessageHandlerAbstract {
         });
         GSData data = new GSData(map);
         data.getBaseData().put("_id", comment.getId().getOid());
+        String postType;
+        if (postTypeIndex == WallBase.PostType.newsOfficial.ordinal() + 1
+                || postTypeIndex == WallBase.PostType.newsUnOfficial.ordinal() + 1
+                || postTypeIndex == WallBase.PostType.social.ordinal() + 1) {
+            postType = "news";
+        } else {
+            postType = "wallPost";
+        }
         createRequest("wallDeletePostComment")
                 .setEventAttribute(GSConstants.COMMENT, data)
                 .setEventAttribute("type", postType)

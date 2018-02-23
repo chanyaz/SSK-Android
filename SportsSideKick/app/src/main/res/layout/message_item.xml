@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:maxHeight="@dimen/height_80"
-            android:scaleType="centerInside" />
+            android:scaleType="centerCrop" />
 
         <ImageButton
             style="@style/Widget.AppCompat.Button.Borderless"
