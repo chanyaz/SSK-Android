@@ -83,7 +83,7 @@ dependencies {
     // Json parsing
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
-    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.2'
 
     // Facebook
     implementation 'com.facebook.android:facebook-android-sdk:4.24.0'
