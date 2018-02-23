@@ -364,6 +364,13 @@ public class ChatFragment extends BaseFragment {
         description.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
         ImageLoader.displayImage(R.drawable.background_sporting, loginBackgroundImage);
 
+        view.findViewById(R.id.clickOutsideContainer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.hideKeyboard(getContext());
+            }
+        });
+
         return view;
     }
 

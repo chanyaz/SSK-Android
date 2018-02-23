@@ -398,6 +398,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 index = position;
             }
             WallBase item = values.get(index);
+            if (item == null) return;
             switch (item.getType()) {
                 case post:
                     WallPost post = (WallPost) item;
