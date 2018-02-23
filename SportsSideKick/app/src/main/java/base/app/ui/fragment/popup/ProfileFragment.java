@@ -125,10 +125,10 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
         ButterKnife.bind(this, view);
         autoTranslateToggle.setChecked(isAutoTranslateEnabled());
-        wallNotificationsToggle.setChecked(!isWallNotificationsEnabled());
-        newsNotificationsToggle.setChecked(!isNewsNotificationsEnabled());
-        rumoursNotificationsToggle.setChecked(!isRumoursNotificationsEnabled());
-        socialNotificationsToggle.setChecked(!isSocialNotificationsEnabled());
+        wallNotificationsToggle.setChecked(isWallNotificationsEnabled());
+        newsNotificationsToggle.setChecked(isNewsNotificationsEnabled());
+        rumoursNotificationsToggle.setChecked(isRumoursNotificationsEnabled());
+        socialNotificationsToggle.setChecked(isSocialNotificationsEnabled());
         setClickListeners();
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);

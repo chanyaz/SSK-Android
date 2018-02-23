@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,43 +75,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         this.translationView = translationView;
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        View view;
-        @BindView(R.id.text) TextView textView;
-        @BindView(R.id.timestamp) TextView timeTextView;
-        @BindView(R.id.sender) TextView senderTextView;
-        @Nullable @BindView(R.id.profileImage) ImageView senderImageView;
-        @BindView(R.id.contentImage) ImageView contentImage;
-        @BindView(R.id.play_button) ImageView playButton;
-        @BindView(R.id.content_container) View contentContainer;
-        @Nullable @BindView(R.id.progressBar) View progressBar;
-        ViewHolder(View view) {
-            super(view);
-            this.view = view;
-            ButterKnife.bind(this, view);
-        }
-    }
-
-    public MessageAdapter(Context context) {
-        translatedMessages = new ArrayList<>();
-        audioPlayer = new MediaPlayer();
-        if (context != null) {
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
-        if (viewType == VIEW_TYPE_MESSAGE_THIS_USER) {
-            view = inflater.inflate(R.layout.message_item_user, parent, false);
-        } else {
-            view = inflater.inflate(R.layout.message_item, parent, false);
-        }
-        return new ViewHolder(view);
-    }
-
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
@@ -170,11 +134,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.textView.setVisibility(View.GONE);
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.contentImage.setVisibility(View.GONE);
-                    final ImageView contentView = holder.playButton;
-                    holder.view.setOnClickListener(new View.OnClickListener() {
+                    holder.contentImage.setOnClickListener(null);
+                    holder.view.setOnClickListener(null);
+                    holder.playButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            setupAudioPlayButton(imageUrl,contentView);
+                            setupAudioPlayButton(imageUrl, holder.playButton);
                         }
                     });
                     holder.contentContainer.setBackgroundResource(R.drawable.chat_message_left);
@@ -263,27 +228,26 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    private void setupAvatarFromRemoteUser(ImsMessage message,final ViewHolder holder){
-        holder.senderTextView.setText("New User");
-        Model.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<UserInfo>() {
-            @Override
-            public void onSuccess(UserInfo userInfo) {
-                String senderImageUrl=null;
-                String nicName="New User";
-                if(userInfo!=null){
-                    senderImageUrl = userInfo.getCircularAvatarUrl();
-                    nicName = userInfo.getNicName();
-                }
-                if (holder.senderImageView != null) {
-                    ImageLoader.displayRoundImage(senderImageUrl,holder.senderImageView);
-                }
-                holder.senderTextView.setText(nicName);
-            }
-        });
+    public MessageAdapter(Context context) {
+        translatedMessages = new ArrayList<>();
+        audioPlayer = new MediaPlayer();
+        if (context != null) {
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
     }
 
-    private MediaPlayer audioPlayer;
-    private void setupAudioPlayButton(String url, final ImageView button){
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        if (viewType == VIEW_TYPE_MESSAGE_THIS_USER) {
+            view = inflater.inflate(R.layout.message_item_user, parent, false);
+        } else {
+            view = inflater.inflate(R.layout.message_item, parent, false);
+        }
+        return new ViewHolder(view);
+    }
+
+    private void setupAudioPlayButton(String url, final ImageButton button) {
         try {
             if(audioPlayer!=null){
                 if(audioPlayer.isPlaying()){
@@ -298,7 +262,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     @Override
                     public void onPrepared(MediaPlayer mp) {
                         audioPlayer.start();
-                        button.setClickable(false);
                     }
                 });
                 button.setImageResource(R.drawable.pause_button_icon);
@@ -306,13 +269,63 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         button.setImageResource(R.drawable.play_button_icon);
-                        button.setClickable(true);
                     }
                 });
             }
 
         } catch (Exception e) {
-           Log.e(TAG,"Audio file can't be played!");
+            Log.e(TAG,"Audio file can't be played!");
+            e.printStackTrace();
+        }
+    }
+
+    private void setupAvatarFromRemoteUser(ImsMessage message, final ViewHolder holder) {
+        holder.senderTextView.setText("New User");
+        Model.getInstance().getUserInfoById(message.getSenderId()).addOnSuccessListener(new OnSuccessListener<UserInfo>() {
+            @Override
+            public void onSuccess(UserInfo userInfo) {
+                String senderImageUrl = null;
+                String nicName = "New User";
+                if (userInfo != null) {
+                    senderImageUrl = userInfo.getCircularAvatarUrl();
+                    nicName = userInfo.getNicName();
+                }
+                if (holder.senderImageView != null) {
+                    ImageLoader.displayRoundImage(senderImageUrl, holder.senderImageView);
+                }
+                holder.senderTextView.setText(nicName);
+            }
+        });
+    }
+
+    private MediaPlayer audioPlayer;
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+
+        View view;
+        @BindView(R.id.text)
+        TextView textView;
+        @BindView(R.id.timestamp)
+        TextView timeTextView;
+        @BindView(R.id.sender)
+        TextView senderTextView;
+        @Nullable
+        @BindView(R.id.profileImage)
+        ImageView senderImageView;
+        @BindView(R.id.contentImage)
+        ImageView contentImage;
+        @BindView(R.id.play_button)
+        ImageButton playButton;
+        @BindView(R.id.content_container)
+        View contentContainer;
+        @Nullable
+        @BindView(R.id.progressBar)
+        View progressBar;
+
+        ViewHolder(View view) {
+            super(view);
+            this.view = view;
+            ButterKnife.bind(this, view);
         }
     }
 
