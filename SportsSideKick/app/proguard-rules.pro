@@ -568,3 +568,7 @@ public void xxxxxx(**);
 
  -keep class com.crashlytics.** { *; }
  -keepattributes SourceFile,LineNumberTable
+
+
+ -keep public class kotlin.reflect.jvm.internal.impl.builtins.* { public *; }
+ -keep class kotlin.Metadata { *; }
