@@ -802,7 +802,7 @@ public class Model {
 
     public void uploadChatVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename = "video_thumb_" + currentUserInfo.getUserId() + System.currentTimeMillis() + ".jpg";
-        FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
+        FileUploader.getInstance().uploadThumbnail(filepath, filesDir, completion);
     }
 
     public void uploadImageForWallPost(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
@@ -860,7 +860,7 @@ public class Model {
 
     public void uploadWallPostVideoRecordingThumbnail(String filepath, File filesDir, final TaskCompletionSource<String> completion) {
         String filename = "post_video_thumb_" + currentUserInfo.getUserId() + System.currentTimeMillis() + ".jpg";
-        FileUploader.getInstance().uploadThumbnail(filename, filepath, filesDir, completion);
+        FileUploader.getInstance().uploadThumbnail(filepath, filesDir, completion);
     }
 
     public void uploadImageForChatMessage(String filepath, File filesDir, final TaskCompletionSource<String> completion) {

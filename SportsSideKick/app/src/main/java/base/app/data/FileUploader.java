@@ -146,15 +146,17 @@ public class FileUploader {
         }
     }
 
-    void uploadThumbnail(String videofilename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
-        Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(filepath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
+    void uploadThumbnail(String videofilepath, File filesDir, final TaskCompletionSource<String> completion) {
+        Bitmap bmThumbnail = ThumbnailUtils.createVideoThumbnail(videofilepath, MediaStore.Video.Thumbnails.FULL_SCREEN_KIND);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bmThumbnail.compress(Bitmap.CompressFormat.JPEG, COMPRESSED_IMAGE_QUALITY, bos);
         try {
-            String filename = "temp_thumbnail_video.jpg";
+            String filename = "temp_thumbnail_video_" + FileUploader.generateRandName(10) + ".jpg";
             File file = new File(filesDir, filename);
-            bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
+            bos.writeTo(new BufferedOutputStream(new FileOutputStream(file, false)));
             upload(filename, file.getPath(), completion);
+            bos.flush();
+            bos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
