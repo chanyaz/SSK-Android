@@ -88,10 +88,6 @@ public class WallNews extends WallBase {
 
     @Override
     public SharingManager.ItemType getItemType() {
-        if (getSharedComment() != null
-                && !getSharedComment().replaceAll(" ", "").isEmpty()) {
-            return SharingManager.ItemType.NewsShare;
-        }
         return SharingManager.ItemType.News;
     }
 }

@@ -63,12 +63,29 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
         other
     }
 
-    // As more types of object become sharable, expand this type enum to account for this.
-    // These are used to match types on Cloud Code so we can pull from the correct collection.
-    public enum ItemType {
-        WallPost,
-        News,
-        NewsShare
+    public Task<Map<String, Object>> getUrl(Map<String, Object> item, ItemType type) {
+        final TaskCompletionSource<Map<String, Object>> source = new TaskCompletionSource<>();
+        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
+            @Override
+            public void onEvent(GSResponseBuilder.LogEventResponse response) {
+                if (!response.hasErrors()) {
+                    Map<String, Object> data = response.getScriptData().getBaseData();
+                    source.setResult(data);
+                } else {
+                    source.setException(new Exception("There was an error while trying to get a share url."));
+                }
+            }
+        };
+        GSData data = new GSData(item);
+        if (item.containsKey("strap")) {
+            type = ItemType.Social;
+        }
+        createRequest("sharingGetUrl")
+                .setEventAttribute("itemType", type.name())
+                .setEventAttribute("item", data)
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .send(consumer);
+        return source.getTask();
     }
 
     Shareable itemToShare;
@@ -89,26 +106,12 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
 
     }
 
-    public Task<Map<String, Object>> getUrl(Map<String, Object> item, ItemType type) {
-        final TaskCompletionSource<Map<String, Object>> source = new TaskCompletionSource<>();
-        GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
-            @Override
-            public void onEvent(GSResponseBuilder.LogEventResponse response) {
-                if (!response.hasErrors()) {
-                    Map<String, Object> data = response.getScriptData().getBaseData();
-                    source.setResult(data);
-                } else {
-                    source.setException(new Exception("There was an error while trying to get a share url."));
-                }
-            }
-        };
-        GSData data = new GSData(item);
-        createRequest("sharingGetUrl")
-                .setEventAttribute("itemType", type.name())
-                .setEventAttribute("item", data)
-                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
-                .send(consumer);
-        return source.getTask();
+    // As more types of object become sharable, expand this type enum to account for this.
+    // These are used to match types on Cloud Code so we can pull from the correct collection.
+    public enum ItemType {
+        WallPost,
+        News,
+        Social
     }
 
     public void share(final Shareable item) {
