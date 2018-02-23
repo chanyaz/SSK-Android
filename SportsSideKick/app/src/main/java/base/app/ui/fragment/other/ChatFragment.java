@@ -347,9 +347,9 @@ public class ChatFragment extends BaseFragment {
         updateAllViews();
 
         if (Utility.isPhone(getActivity())) {
-            if (Model.getInstance().isRealUser()) {
+            if (!Model.getInstance().isRealUser()) {
                 if (inactiveContainer != null) {
-                    inactiveContainer.setVisibility(View.GONE);
+                    inactiveContainer.setVisibility(View.VISIBLE);
                 }
             }
         }
