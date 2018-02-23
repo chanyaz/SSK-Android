@@ -137,6 +137,7 @@ abstract class AbstractFragmentOrganizer {
             return "";
         }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
         // this is for containers without back stack
         if (containersWithoutBackStack.contains(containerId)) {
