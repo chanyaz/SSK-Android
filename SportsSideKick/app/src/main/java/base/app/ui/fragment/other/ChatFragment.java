@@ -673,11 +673,13 @@ public class ChatFragment extends BaseFragment {
             currentlyActiveChat.updateMessage(messageForEdit, null);
             messageForEdit = null;
         } else {
-            ImsMessage message = ImsMessage.getDefaultMessage();
-            message.setType(GSConstants.UPLOAD_TYPE_TEXT);
-            message.setText(text);
-            currentlyActiveChat.sendMessage(message);
-            currentlyActiveChat.setUserIsTyping(false);
+            if (!text.isEmpty()) {
+                ImsMessage message = ImsMessage.getDefaultMessage();
+                message.setType(GSConstants.UPLOAD_TYPE_TEXT);
+                message.setText(text);
+                currentlyActiveChat.sendMessage(message);
+                currentlyActiveChat.setUserIsTyping(false);
+            }
         }
     }
 
