@@ -62,6 +62,7 @@ import java.io.File;
 import java.util.List;
 import java.util.TimerTask;
 
+import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.AlertDialogManager;
 import base.app.data.GSConstants;
@@ -1004,7 +1005,11 @@ public class ChatFragment extends BaseFragment {
         if (ImsManager.getInstance().getUserChatsList() != null) {
             List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
             if (chats != null && chats.size() > 0) {
-                setCurrentlyActiveChat(chats.get(0));
+                if (BuildConfig.DEBUG) {
+                    setCurrentlyActiveChat(chats.get(1));
+                } else {
+                    setCurrentlyActiveChat(chats.get(0));
+                }
             }
         }
     }
@@ -1086,7 +1091,7 @@ public class ChatFragment extends BaseFragment {
             public void onClick(DialogInterface dialog, int which) {
                 RxPaparazzo.single(ChatFragment.this)
                         .usingCamera()
-                        .map(new Function<Response<ChatFragment,FileData>, Object>() {
+                        .map(new Function<Response<ChatFragment, FileData>, Object>() {
                             @Override
                             public Object apply(Response<ChatFragment, FileData> fileData) throws Exception {
                                 return fileData.data().getFile();
