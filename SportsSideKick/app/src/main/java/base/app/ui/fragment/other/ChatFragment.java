@@ -268,10 +268,6 @@ public class ChatFragment extends BaseFragment {
                                         refreshingChat.addReceivedMessage(messages);
                                         if (currentlyActiveChat != null) {
                                             if (currentlyActiveChat.equals(refreshingChat)) {
-                                                List<ImsMessage> filteredMessages = FilterHelperKt.filterMessages(
-                                                        currentlyActiveChat.getMessages());
-                                                currentlyActiveChat.getMessages().clear();
-                                                currentlyActiveChat.getMessages().addAll(filteredMessages);
                                                 messageAdapter.notifyDataSetChanged();
                                             }
                                         }
@@ -442,7 +438,15 @@ public class ChatFragment extends BaseFragment {
     public void updateAllViews() {
         updateTopChatsView();
         updateChatTitleText();
-        messageAdapter.notifyDataSetChanged();
+
+        if (currentlyActiveChat != null) {
+            List<ImsMessage> filteredMessages = FilterHelperKt.filterMessages(
+                    currentlyActiveChat.getMessages());
+            currentlyActiveChat.getMessages().clear();
+            currentlyActiveChat.getMessages().addAll(filteredMessages);
+            messageAdapter.notifyDataSetChanged();
+        }
+
         setupEditChatButton();
         swipeRefreshLayout.setRefreshing(false);
         progressBar.setVisibility(View.GONE);
