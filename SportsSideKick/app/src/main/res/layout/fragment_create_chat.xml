@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:background="@color/colorPrimaryMediumLight"
     android:clickable="true"
@@ -19,9 +19,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_below="@id/topSpacer"
-        android:background="@drawable/phone_background"
+        android:background="@color/colorPrimary"
         android:clickable="true"
-        android:tileMode="repeat">
+        android:tileMode="repeat"
+        android:visibility="gone">
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/chat_headline_close_fragment"
@@ -50,20 +51,21 @@
         android:id="@+id/chat_top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@id/chat_headline_container"
-        android:layout_alignParentStart="true">
+        android:clickable="true">
 
         <RelativeLayout
             android:id="@+id/top_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:id="@+id/center_split"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
-                android:layout_below="@id/top_buttons_container"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="48dp"
                 android:background="@color/colorPrimaryVeryLight">
 
                 <View
@@ -83,9 +85,9 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_2"
-                    android:visibility="gone"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimaryVeryLight" />
+                    android:background="@color/colorPrimaryVeryLight"
+                    android:visibility="gone" />
             </LinearLayout>
             <!-- TOP BUTTONS CONTAINER -->
             <LinearLayout
@@ -93,8 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_alignParentStart="true"
-                android:layout_below="@id/center_split"
-                android:background="@color/colorPrimaryDark"
+                android:layout_below="@id/top_buttons_container"
+                android:background="?chatSlideButtonBackgroundPhoneColorRef"
                 android:orientation="horizontal">
 
                 <TextView
@@ -103,10 +105,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="?chatSlideButtonBackgroundPhoneColorRef"
                     android:gravity="center"
                     android:text="@string/chat_create"
-                    android:textColor="?chatSlideButtonTextPhoneColorRef" />
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#38000000" />
 
                 <TextView
                     android:id="@+id/join_a_chat"
@@ -114,18 +120,19 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="?chatSlideSecondButtonBackgroundPhoneColorRef"
                     android:gravity="center"
                     android:text="@string/join_chat"
-                    android:textColor="?chatSlideSecondButtonTextPhoneColorRef" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </RelativeLayout>
+
         <View
             android:id="@+id/top_split_line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_1"
             android:layout_below="@id/top_container"
             android:background="@color/colorPrimaryDark" />
+
         <View
             android:id="@+id/top_vertical_spliter_helper"
             android:layout_width="@dimen/space_0"
@@ -160,12 +167,12 @@
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/chat_image_view"
+            android:layout_alignEnd="@+id/chat_image_view"
             android:layout_alignStart="@+id/chat_image_view"
             android:layout_alignTop="@+id/chat_image_view"
-            android:layout_alignEnd="@+id/chat_image_view"
-            android:layout_alignBottom="@+id/chat_image_view"
             android:padding="@dimen/margin_10"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/chat_name_edit_text"
@@ -224,7 +231,6 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/standard_button_height"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/margin_10"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_toEndOf="@+id/chat_search_friends_container_mid_line"
             android:gravity="center_vertical" />
@@ -233,7 +239,7 @@
             android:id="@+id/private_chat_label"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/standard_button_height"
-            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@+id/private_chat_switch"
             android:gravity="center_vertical"
             android:text="@string/chat_public"
@@ -285,11 +291,11 @@
             android:id="@+id/chat_friends_in_chat_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_height="80dp"
-            tools:paddingStart="16dp"
             android:layout_below="@id/chat_friends_in_chat_headline"
             android:layout_marginBottom="@dimen/padding_16"
-            android:minHeight="@dimen/row_chat_bubble_user_size">
+            android:minHeight="@dimen/row_chat_bubble_user_size"
+            tools:layout_height="80dp"
+            tools:paddingStart="16dp">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -301,10 +307,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentBottom="true"
-        android:foreground="?selectableItemBackground"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:background="@color/colorAccentLight"
+        android:foreground="?selectableItemBackground"
         android:scaleType="centerInside"
         android:text="@string/chat_create"
         android:textAllCaps="false"
