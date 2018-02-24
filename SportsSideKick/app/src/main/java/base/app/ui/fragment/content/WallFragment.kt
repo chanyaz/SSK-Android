@@ -27,6 +27,7 @@ import base.app.util.events.post.ItemUpdateEvent
 import base.app.util.events.post.PostDeletedEvent
 import base.app.util.events.post.WallLikeUpdateEvent
 import base.app.util.ui.LinearItemDecoration
+import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.gms.tasks.TaskCompletionSource
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -51,6 +52,7 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        ButterKnife.bind(view) // for on click listeners to work
         loginStateReceiver = LoginStateReceiver(this)
 
         recyclerView.adapter = adapter
