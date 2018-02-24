@@ -573,3 +573,6 @@ public void xxxxxx(**);
 
 -keep class kotlin.** { *; }
 -keep class org.jetbrains.** { *; }
+
+
+-keep class base.app.** { *; }
