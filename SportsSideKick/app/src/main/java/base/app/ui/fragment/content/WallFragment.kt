@@ -21,6 +21,7 @@ import base.app.ui.fragment.base.FragmentEvent
 import base.app.ui.fragment.base.IgnoreBackHandling
 import base.app.ui.fragment.popup.SignUpLoginFragment
 import base.app.ui.fragment.popup.post.PostCreateFragment
+import base.app.util.commons.Utility
 import base.app.util.events.comment.CommentReceiveEvent
 import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.events.post.ItemUpdateEvent
@@ -59,6 +60,8 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
         val space = resources.getDimension(R.dimen.item_spacing_wall).toInt()
         recyclerView.addItemDecoration(LinearItemDecoration(space))
+
+        swipeRefreshLayout.setProgressViewOffset(false, 0, Utility.dpToPixels(248f))
 
         wallItems.addAll(WallBase.getCache().values)
         refreshAdapter(false)
@@ -130,8 +133,10 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
     }
 
     private fun refreshAdapter(animateRefresh: Boolean = true) {
-        if (wallItems.isEmpty()) return
-
+        if (wallItems.isEmpty()) {
+            swipeRefreshLayout.isRefreshing = false
+            return
+        }
         if (animateRefresh) {
             val removedItemCount = adapter.itemCount
             adapter.clear()

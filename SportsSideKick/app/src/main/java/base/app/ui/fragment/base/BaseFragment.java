@@ -45,11 +45,6 @@ public abstract class BaseFragment extends Fragment {
 
     Object data;
 
-    @Subscribe
-    public void onEvent(BusEvent event) {
-        // Log.d(TAG, "Base Fragment - onEvent triggered with id : " + event.getId());
-    }
-
     protected boolean hasPrimaryArgument() {
         return null != getArguments().getString(PRIMARY_ARG_TAG);
     }
@@ -117,5 +112,11 @@ public abstract class BaseFragment extends Fragment {
             EventBus.getDefault().unregister(this);
         }
         super.onDestroy();
+    }
+
+    @Subscribe
+    public void onEvent(BusEvent event) {
+        // This empty method is needed for child fragments that doesn't subscribe to anything
+        // Event bus would throw an exception without this
     }
 }
