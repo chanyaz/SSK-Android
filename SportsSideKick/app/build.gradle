@@ -164,7 +164,8 @@ dependencies {
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
 
     // Event bus
-    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    kapt 'org.greenrobot:eventbus-annotation-processor:3.1.1'
 
     // Picker used for translation popup to select language
     implementation 'com.shawnlin:number-picker:2.4.4'
