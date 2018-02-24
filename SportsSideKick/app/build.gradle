@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
+apply plugin: 'idea'
 
 android {
     compileSdkVersion 27
@@ -50,7 +51,15 @@ kotlin {
     }
     kapt {
         useBuildCache = true
+        arguments {
+            arg('eventBusIndex', 'tv.sportssidekick.MyEventBusIndex')
+        }
     }
+}
+
+idea.module {
+    // Excluding build files from file search
+    excludeDirs += file('build/')
 }
 
 dependencies {
