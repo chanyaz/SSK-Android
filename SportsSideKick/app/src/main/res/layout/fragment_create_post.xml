@@ -46,10 +46,11 @@
             android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
             android:tint="@color/colorPrimaryVeryLight" />
 
-        <TextView
+        <Button
             android:id="@+id/postButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textAllCaps="false"
             android:layout_alignParentEnd="true"
             android:background="@color/colorPrimaryVeryLight"
             android:gravity="center_vertical|center_horizontal"
