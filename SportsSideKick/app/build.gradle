@@ -60,6 +60,7 @@ kotlin {
 idea.module {
     // Excluding build files from file search
     excludeDirs += file('build/')
+    excludeDirs += file('app/build/')
 }
 
 dependencies {
