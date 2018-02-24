@@ -161,7 +161,7 @@ dependencies {
 
     // Permission handling library used around the project for easier handling of permissions
     implementation 'com.github.hotchemi:permissionsdispatcher:3.0.1'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
+    kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.0.1'
 
     // Event bus
     implementation 'org.greenrobot:eventbus:3.1.1'
