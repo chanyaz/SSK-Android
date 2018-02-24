@@ -1,5 +1,6 @@
 package base.app.ui.fragment.content;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +43,7 @@ import base.app.R;
 import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.Translator;
+import base.app.data.sharing.NativeShareEvent;
 import base.app.data.sharing.SharingManager;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
@@ -313,9 +315,9 @@ public class WallItemFragment extends BaseFragment {
                     content.setVisibility(View.GONE);
                 }
                 String time = "" + DateUtils.getRelativeTimeSpanString(
-                    (long) (post.getTimestamp() * 1000),
-                    Utility.getCurrentTime(),
-                    DateUtils.MINUTE_IN_MILLIS
+                        (long) (post.getTimestamp() * 1000),
+                        Utility.getCurrentTime(),
+                        DateUtils.MINUTE_IN_MILLIS
                 );
                 dateLabel.setText(time);
 
@@ -619,7 +621,15 @@ public class WallItemFragment extends BaseFragment {
     @OnClick(R.id.share_container)
     public void sharePost() {
         if (Model.getInstance().isRealUser()) {
-            SharingManager.getInstance().share(getContext(), mPost);
+            if (mPost instanceof WallStoreItem) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ((WallStoreItem) mPost).getUrl());
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, mPost.getTitle());
+                EventBus.getDefault().post(new NativeShareEvent(sharingIntent));
+            } else {
+                SharingManager.getInstance().share(getContext(), mPost);
+            }
         } else {
             Toast.makeText(getContext(),
                     "Please login to share posts",

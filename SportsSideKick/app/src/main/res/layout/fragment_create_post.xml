@@ -53,6 +53,7 @@
             android:textAllCaps="false"
             android:layout_alignParentEnd="true"
             android:background="@color/colorPrimaryVeryLight"
+            android:foreground="?selectableItemBackground"
             android:gravity="center_vertical|center_horizontal"
             android:paddingEnd="@dimen/margin_20"
             android:paddingStart="@dimen/margin_20"

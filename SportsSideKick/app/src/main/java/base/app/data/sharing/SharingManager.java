@@ -103,7 +103,6 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, title);
         }
         EventBus.getDefault().post(new NativeShareEvent(sharingIntent));
-
     }
 
     // As more types of object become sharable, expand this type enum to account for this.
