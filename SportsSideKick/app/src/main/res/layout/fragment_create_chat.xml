@@ -11,8 +11,8 @@
     <View
         android:id="@+id/topSpacer"
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
         android:layout_height="24dp"
+        android:background="@color/colorPrimary"
         tools:visibility="gone" />
 
     <RelativeLayout
@@ -100,6 +100,16 @@
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
+                <ImageButton
+                    android:id="@+id/backButton"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="@dimen/standard_button_height"
+                    android:layout_height="@dimen/standard_button_height"
+                    android:layout_alignParentBottom="true"
+                    android:alpha="0.75"
+                    android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="@dimen/space_0"
@@ -113,7 +123,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="#38000000" />
+                    android:background="#19000000" />
 
                 <TextView
                     android:id="@+id/join_a_chat"
@@ -210,13 +220,20 @@
 
     </RelativeLayout>
 
+    <View
+        android:id="@+id/chat_top_buttons_container_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/chat_top_buttons_container"
+        android:background="#1c000000" />
+
     <TextView
         android:id="@+id/caption_label"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_35"
-        android:layout_below="@id/chat_top_buttons_container"
-        android:gravity="center"
+        android:layout_below="@id/chat_top_buttons_container_divider"
         android:alpha="0.7"
+        android:gravity="center"
         android:text="@string/chat_friends_add"
         android:textColor="@color/black" />
 
@@ -247,9 +264,10 @@
             fontPath="fonts/TitilliumWeb-Light.ttf"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/standard_button_height"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_toEndOf="@+id/private_chat_switch"
             android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/private_chat_switch"
             android:gravity="end|center_vertical"
             android:text="@string/chat_public"
             android:textColor="@color/black"
@@ -257,6 +275,7 @@
 
         <EditText
             android:id="@+id/search_edit_text"
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -278,7 +297,8 @@
             android:paddingStart="@dimen/padding_8"
             android:textColor="@color/black"
             android:textColorHint="@color/black_alpha_70"
-            android:textSize="@dimen/font_size_12" />
+            android:textSize="@dimen/font_size_12"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -315,10 +335,9 @@
 
     <Button
         android:id="@+id/confirm_button"
-        c
         fontPath="fonts/TitilliumWeb-SemiBold.ttf"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_button_height"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"

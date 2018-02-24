@@ -239,11 +239,11 @@ public class CreateChatFragment extends BaseFragment {
 
     @OnClick(R.id.chat_headline_close_fragment)
     public void closeFragment() {
-     //   if ((getActivity() instanceof LoungeActivity)) {
-     //       ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
-    //    } else {
-            getActivity().onBackPressed();
-     //   }
+        //   if ((getActivity() instanceof LoungeActivity)) {
+        //       ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();
+        //    } else {
+        getActivity().onBackPressed();
+        //   }
     }
 
     public void performSearch() {
@@ -251,14 +251,13 @@ public class CreateChatFragment extends BaseFragment {
             @Override
             public void run() {
                 if (chatFriendsAdapter != null) {
-                    final List<UserInfo> filteredModelList =Utility.filter(userInfoList, searchEditText.getText().toString());
+                    final List<UserInfo> filteredModelList = Utility.filter(userInfoList, searchEditText.getText().toString());
                     chatFriendsAdapter.replaceAll(filteredModelList);
                     friendsRecyclerView.scrollToPosition(0);
                 }
             }
         });
     }
-
 
     TextWatcher textWatcher = new TextWatcher() {
         private static final long DELAY = 500; // milliseconds
@@ -287,8 +286,6 @@ public class CreateChatFragment extends BaseFragment {
             );
         }
     };
-
-
 
     public void createNewChat() {
         if (chatFriendsAdapter != null) {
@@ -322,7 +319,6 @@ public class CreateChatFragment extends BaseFragment {
      * * ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **
      **/
 
-
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection() {
         Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -341,10 +337,10 @@ public class CreateChatFragment extends BaseFragment {
                 // Error occurred while creating the File
             }
             if (photoFile != null) {
-                if(Utility.isKitKat()){
+                if (Utility.isKitKat()) {
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                 }
-                if(Utility.isLollipopAndUp()){
+                if (Utility.isLollipopAndUp()) {
                     Uri photoURI = FileProvider.getUriForFile(getActivity(), BuildConfig.APPLICATION_ID + ".fileprovider", photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 }
@@ -381,9 +377,9 @@ public class CreateChatFragment extends BaseFragment {
         }
     }
 
-    private void uploadImage(String path){
+    private void uploadImage(String path) {
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-        Model.getInstance().uploadImageForCreateChat(path,getActivity().getFilesDir(),source);
+        Model.getInstance().uploadImageForCreateChat(path, getActivity().getFilesDir(), source);
         source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(final @NonNull Task<String> task) {
@@ -397,6 +393,7 @@ public class CreateChatFragment extends BaseFragment {
             }
         });
     }
+
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void showDeniedForCamera() {
         Toast.makeText(getContext(), "You need to enable camera in settings to take image.", Toast.LENGTH_SHORT).show();
@@ -426,4 +423,8 @@ public class CreateChatFragment extends BaseFragment {
                 .show();
     }
 
+    @OnClick(R.id.backButton)
+    public void onBackPressed() {
+        getActivity().onBackPressed();
+    }
 }
