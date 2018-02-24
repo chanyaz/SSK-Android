@@ -569,9 +569,7 @@ public void xxxxxx(**);
  -keep class com.crashlytics.** { *; }
  -keepattributes SourceFile,LineNumberTable
 
+-keepattributes *Annotation*
 
- -keepclasseswithmembers class kotlin.reflect.jvm.internal.impl.** { *; }
- -keepclasseswithmembers class kotlin.Metadata { *; }
- -keepclassmembers class kotlin.Metadata {
-     public <methods>;
- }
+-keep class kotlin.** { *; }
+-keep class org.jetbrains.** { *; }
