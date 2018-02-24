@@ -570,8 +570,8 @@ public void xxxxxx(**);
  -keepattributes SourceFile,LineNumberTable
 
 
- -keep public class kotlin.reflect.jvm.internal.impl.** { *; }
- -keep class kotlin.Metadata { *; }
+ -keepclasseswithmembers class kotlin.reflect.jvm.internal.impl.** { *; }
+ -keepclasseswithmembers class kotlin.Metadata { *; }
  -keepclassmembers class kotlin.Metadata {
      public <methods>;
  }
