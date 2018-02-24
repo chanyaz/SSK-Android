@@ -13,6 +13,8 @@ public class TicketsFragment extends StoreFragment {
     @NonNull
     @Override
     protected String getUrl() {
+        if (!isAdded()) return "";
+
         String urlTemplate = getResources().getString(R.string.tickets_url);
         String userLanguage = Prefs.getString(CHOSEN_LANGUAGE, "en");
         if (userLanguage.equals("pt")) {
