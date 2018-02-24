@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/colorPrimaryMediumLight"
+    android:background="?white"
     android:clickable="true"
     android:orientation="vertical">
 
     <View
         android:id="@+id/topSpacer"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
         android:layout_height="24dp"
         tools:visibility="gone" />
 
@@ -70,21 +71,21 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_2"
+                    android:layout_height="4dp"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
                     android:background="?colorAccent" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_2"
+                    android:layout_height="4dp"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
                     android:background="@color/colorPrimaryVeryLight" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_2"
+                    android:layout_height="4dp"
                     android:layout_weight="1"
                     android:background="@color/colorPrimaryVeryLight"
                     android:visibility="gone" />
@@ -96,7 +97,7 @@
                 android:layout_height="@dimen/standard_button_height"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/top_buttons_container"
-                android:background="?chatSlideButtonBackgroundPhoneColorRef"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
                 <TextView
@@ -176,21 +177,23 @@
 
         <EditText
             android:id="@+id/chat_name_edit_text"
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_55"
             android:layout_below="@id/top_container"
             android:layout_toEndOf="@id/chat_image_view"
             android:layout_toStartOf="@+id/chat_popup_image_button"
-            android:background="@color/colorPrimaryMediumDark"
+            android:background="@color/chatBackground"
             android:gravity="start|center_vertical"
             android:hint="@string/chat_give_name"
             android:imeOptions="flagNoExtractUi"
             android:inputType="textCapSentences"
             android:maxLines="1"
             android:padding="@dimen/margin_15"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white_alpha_70"
-            android:textSize="@dimen/font_size_14" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/black_alpha_70"
+            android:textSize="16sp"
+            tools:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/chat_popup_image_button"
@@ -198,9 +201,12 @@
             android:layout_height="@dimen/height_55"
             android:layout_alignParentEnd="true"
             android:layout_below="@id/top_container"
-            android:background="@color/colorPrimaryVeryLight"
+            android:background="@color/colorGrayLight"
             android:clickable="true"
-            android:src="@drawable/chat_camera_button" />
+            android:padding="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat_camera_button"
+            android:tint="@color/black" />
 
     </RelativeLayout>
 
@@ -210,8 +216,9 @@
         android:layout_height="@dimen/height_35"
         android:layout_below="@id/chat_top_buttons_container"
         android:gravity="center"
+        android:alpha="0.7"
         android:text="@string/chat_friends_add"
-        android:textColor="?chatDescriptionTextPhoneColorRef" />
+        android:textColor="@color/black" />
 
     <RelativeLayout
         android:id="@+id/chat_search_friends_container"
@@ -237,13 +244,16 @@
 
         <TextView
             android:id="@+id/private_chat_label"
+            fontPath="fonts/TitilliumWeb-Light.ttf"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/standard_button_height"
             android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@+id/private_chat_switch"
-            android:gravity="center_vertical"
+            android:layout_alignParentEnd="true"
+            android:gravity="end|center_vertical"
             android:text="@string/chat_public"
-            android:textColor="?chatPrivateTextColorPhoneRef" />
+            android:textColor="@color/black"
+            tools:fontFamily="sans-serif-light" />
 
         <EditText
             android:id="@+id/search_edit_text"
@@ -254,9 +264,10 @@
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginStart="@dimen/margin_15"
             android:layout_toStartOf="@+id/chat_search_friends_container_mid_line"
-            android:background="@drawable/textview_dark_round"
+            android:background="@drawable/textview_light_round"
             android:drawablePadding="@dimen/padding_8"
             android:drawableStart="@drawable/popup_search_icon"
+            android:drawableTint="@color/black"
             android:gravity="center_vertical"
             android:hint="@string/friends_search"
             android:imeOptions="flagNoExtractUi|actionSearch"
@@ -265,8 +276,8 @@
             android:maxLines="1"
             android:padding="@dimen/padding_8"
             android:paddingStart="@dimen/padding_8"
-            android:textColor="@color/white"
-            android:textColorHint="?white_semitransparent"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black_alpha_70"
             android:textSize="@dimen/font_size_12" />
 
     </RelativeLayout>
@@ -285,7 +296,7 @@
             android:layout_centerHorizontal="true"
             android:padding="@dimen/padding_8"
             android:text="@string/friends_in_chat"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/chat_friends_in_chat_recycler_view"
@@ -304,6 +315,8 @@
 
     <Button
         android:id="@+id/confirm_button"
+        c
+        fontPath="fonts/TitilliumWeb-SemiBold.ttf"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentBottom="true"
@@ -313,8 +326,10 @@
         android:foreground="?selectableItemBackground"
         android:scaleType="centerInside"
         android:text="@string/chat_create"
-        android:textAllCaps="false"
-        android:textColor="?chatCreateButtonTextPhoneColorRef" />
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        tools:textStyle="bold" />
 
     <base.app.util.ui.AutofitRecyclerView
         android:id="@+id/friends_recycler_view"
