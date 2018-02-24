@@ -190,6 +190,7 @@ public class StoreFragment extends BaseFragment {
 
     @NonNull
     protected String getUrl() {
+        if (!isAdded()) return "";
         return getResources().getString(R.string.store_url);
     }
 

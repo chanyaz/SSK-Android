@@ -155,7 +155,7 @@
     <string name="chat_confirm_leave">Выйти из чата?</string>
     <string name="chat_confirm_delete">Это навсегда удалит чат; вы уверены?</string>
     <string name="photo_or_video">Сделать фото или записать видео?</string>
-    <string name="chat_image">Образ</string>
+    <string name="chat_image">Фото</string>
     <string name="from_library">Выбрать из библиотеки</string>
     <string name="use_camera">Использовать камеру</string>
     <string name="record_video">Запись видео</string>

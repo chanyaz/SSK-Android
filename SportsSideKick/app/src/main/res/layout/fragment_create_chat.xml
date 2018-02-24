@@ -182,7 +182,7 @@
             android:maxLines="1"
             android:padding="@dimen/margin_15"
             android:textColor="@color/white"
-            android:textColorHint="?white"
+            android:textColorHint="@color/white_alpha_70"
             android:textSize="@dimen/font_size_14" />
 
         <ImageButton
@@ -254,7 +254,7 @@
             android:gravity="center_vertical"
             android:hint="@string/friends_search"
             android:imeOptions="flagNoExtractUi|actionSearch"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:lines="1"
             android:maxLines="1"
             android:padding="@dimen/padding_8"
@@ -285,6 +285,8 @@
             android:id="@+id/chat_friends_in_chat_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            tools:layout_height="80dp"
+            tools:paddingStart="16dp"
             android:layout_below="@id/chat_friends_in_chat_headline"
             android:layout_marginBottom="@dimen/padding_16"
             android:minHeight="@dimen/row_chat_bubble_user_size">
@@ -299,6 +301,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentBottom="true"
+        android:foreground="?selectableItemBackground"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:background="@color/colorAccentLight"

@@ -222,7 +222,7 @@
                 android:privateImeOptions=""
                 android:textColor="@color/black"
                 android:textColorHint="#7e000000"
-                android:textSize="@dimen/font_size_16" />
+                android:textSize="16sp" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/lockIcon"
