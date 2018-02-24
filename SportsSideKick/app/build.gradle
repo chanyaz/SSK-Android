@@ -1,9 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'io.fabric'
-apply plugin: 'idea'
+apply plugin: 'com.android.application' // Default Android plugin
+apply plugin: 'kotlin-android-extensions' // Bind views directly without findViewById
+apply plugin: 'kotlin-android' // Required plugin for Kotlin language to work
+apply plugin: 'kotlin-kapt' // Explicit dependency for Event Bus annotation processor
+apply plugin: 'io.fabric' // Crash reporting and delivering APKs for testing
+apply plugin: 'idea' // Excluding build files from search
 
 android {
     compileSdkVersion 27
@@ -92,8 +92,8 @@ dependencies {
     implementation 'com.gamesparks.sdk:gamesparks-android-client-sdk:0.4.5'
 
     // Json parsing
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.0'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.2'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.2'
 
     // Facebook
