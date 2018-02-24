@@ -180,7 +180,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    protected void handleNotificationEvent(ExternalNotificationEvent event) {
+    public void handleNotificationEvent(ExternalNotificationEvent event) {
         Map<String, String> notificationData = event.getData();
         if (event.isFromBackground()) {
             if (notificationData.containsKey("chatId")) {
