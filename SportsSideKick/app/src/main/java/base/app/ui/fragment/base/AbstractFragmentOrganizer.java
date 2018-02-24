@@ -24,7 +24,7 @@ import base.app.util.commons.Utility;
  * Abstract fragment organizer
  */
 
-abstract class AbstractFragmentOrganizer {
+public abstract class AbstractFragmentOrganizer {
 
     FragmentManager fragmentManager;
     List<Integer> containersWithoutBackStack;
@@ -47,7 +47,7 @@ abstract class AbstractFragmentOrganizer {
     }
 
     @Subscribe
-    protected abstract void onEvent(FragmentEvent event);
+    public abstract void onEvent(FragmentEvent event);
 
     public abstract boolean handleBackNavigation();
 
