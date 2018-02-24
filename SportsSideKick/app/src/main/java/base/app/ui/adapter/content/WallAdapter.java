@@ -341,7 +341,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 });
             }
         } else if (getItemViewType(position) == ITEM_TYPE_NEXT_MATCH) {
-            ImageView wallTopImage = holder.view.findViewById(R.id.wall_top_image);
+            ImageView wallTopImage = holder.view.findViewById(R.id.wallTopImage);
             Glide.with(context).load(R.drawable.image_wall_background).into(wallTopImage);
 
             Button buttonTickets = holder.view.findViewById(R.id.buttonTickets);
@@ -353,11 +353,11 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
             });
 
             if (NextMatchModel.getInstance().isNextMatchUpcoming()) {
-                ImageView wallLeftTeamImage = holder.view.findViewById(R.id.wall_team_left_image);
-                ImageView wallRightTeamImage = holder.view.findViewById(R.id.wall_team_right_image);
-                TextView wallLeftTeamName = holder.view.findViewById(R.id.wall_team_left_name);
-                TextView wallRightTeamName = holder.view.findViewById(R.id.wall_team_right_name);
-                TextView wallTeamTime = holder.view.findViewById(R.id.wall_team_time);
+                ImageView wallLeftTeamImage = holder.view.findViewById(R.id.wallLeftTeamImage);
+                ImageView wallRightTeamImage = holder.view.findViewById(R.id.wallRightTeamImage);
+                TextView wallLeftTeamName = holder.view.findViewById(R.id.wallLeftTeamName);
+                TextView wallRightTeamName = holder.view.findViewById(R.id.wallRightTeamName);
+                TextView wallTeamTime = holder.view.findViewById(R.id.wallTeamTime);
 
                 NewsTickerInfo newsTickerInfo = NextMatchModel.getInstance().getTickerInfo();
                 ImageLoader.displayImage(newsTickerInfo.getFirstClubUrl(), wallLeftTeamImage);
@@ -368,7 +368,7 @@ public class WallAdapter extends RecyclerView.Adapter<WallAdapter.ViewHolder> {
                 wallTeamTime.setText(NextMatchCountdown.getTextValue(context, timestamp, false));
             } else {
                 TextView topCaption = holder.view.findViewById(R.id.topCaption);
-                View wallTopInfoContainer = holder.view.findViewById(R.id.wall_top_info_container);
+                View wallTopInfoContainer = holder.view.findViewById(R.id.wallTopInfoContainer);
 
                 wallTopInfoContainer.setVisibility(View.GONE);
                 topCaption.setVisibility(View.VISIBLE);

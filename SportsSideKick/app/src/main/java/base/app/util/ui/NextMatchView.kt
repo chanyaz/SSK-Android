@@ -68,9 +68,9 @@ class NextMatchView(context: Context, attrs: AttributeSet)
                         }
                     })
 
-            nextMatchContainer.visible()
+            nextMatchSplashContainer.visible()
         } else {
-            nextMatchContainer.hide()
+            nextMatchSplashContainer.hide()
         }
         showSloganText()
     }

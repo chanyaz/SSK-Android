@@ -1,16 +1,10 @@
 package base.app.ui.fragment.content
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import base.app.R
 import base.app.data.Model
 import base.app.data.friendship.FriendsListChangedEvent
@@ -27,92 +21,49 @@ import base.app.ui.fragment.base.FragmentEvent
 import base.app.ui.fragment.base.IgnoreBackHandling
 import base.app.ui.fragment.popup.SignUpLoginFragment
 import base.app.ui.fragment.popup.post.PostCreateFragment
-import base.app.util.commons.Utility
 import base.app.util.events.comment.CommentReceiveEvent
 import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.events.post.ItemUpdateEvent
 import base.app.util.events.post.PostDeletedEvent
 import base.app.util.events.post.WallLikeUpdateEvent
 import base.app.util.ui.LinearItemDecoration
-import butterknife.BindView
-import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.gms.tasks.TaskCompletionSource
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+import kotlinx.android.synthetic.main.fragment_wall.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.util.*
 
 @IgnoreBackHandling
-class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
+open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
 
-    internal val adapter: WallAdapter by lazy { WallAdapter(context) }
+    private var wallItems: MutableList<WallBase> = ArrayList()
+    private val adapter by lazy { WallAdapter(context) }
+    private lateinit var loginStateReceiver: LoginStateReceiver
 
-    @BindView(R.id.fragment_wall_recycler_view)
-    lateinit var recyclerView: RecyclerView
-    @BindView(R.id.wall_top_image_container)
-    lateinit var nextMatchContainer: RelativeLayout
-    @BindView(R.id.wall_top_image)
-    lateinit var wallTopImage: ImageView
-    @BindView(R.id.wall_team_left_name)
-    lateinit var wallLeftTeamName: TextView
-    @BindView(R.id.wall_team_left_image)
-    lateinit var wallLeftTeamImage: ImageView
-    @BindView(R.id.wall_team_right_image)
-    lateinit var wallRightTeamImage: ImageView
-    @BindView(R.id.wall_team_right_name)
-    lateinit var wallRightTeamName: TextView
-    @BindView(R.id.wall_team_time)
-    lateinit var wallTeamTime: TextView
-    @BindView(R.id.topCaption)
-    lateinit var topCaption: View
-    @BindView(R.id.wall_top_info_container)
-    lateinit var wallTopInfoContainer: View
-    @BindView(R.id.swipeRefreshLayout)
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private var offset = 0
+    private var pageSize = 100
+    private var fetchingPageOfPosts = false
 
-    internal var wallItems: MutableList<WallBase> = ArrayList()
-    private var loginStateReceiver: LoginStateReceiver? = null
-
-    internal var offset = 0
-    internal var pageSize = 100
-    internal var fetchingPageOfPosts = false
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_wall, container, false)
-        ButterKnife.bind(this, view)
-
-        loginStateReceiver = LoginStateReceiver(this)
-
-        wallItems.addAll(WallBase.getCache().values)
-
-        if (recyclerView != null) {
-            recyclerView!!.adapter = adapter
-            recyclerView!!.layoutManager = LinearLayoutManager(context)
-            recyclerView!!.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
-            val space = resources.getDimension(R.dimen.item_spacing_wall).toInt()
-            recyclerView!!.addItemDecoration(LinearItemDecoration(space))
-
-            refreshAdapter(false)
-        }
-        swipeRefreshLayout!!.setOnRefreshListener {
-            if (!fetchingPageOfPosts) {
-                fetchingPageOfPosts = true
-                val competition = TaskCompletionSource<List<WallBase>>()
-                competition.task.addOnCompleteListener { fetchingPageOfPosts = false }
-                loadWallItemsPage(false, competition)
-            }
-        }
-        swipeRefreshLayout!!.setProgressViewOffset(false, 0, Utility.dpToPixels(248f))
-        if (wallItems.size > 0) {
-            swipeRefreshLayout!!.isRefreshing = false
-        }
-
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_wall, container, false)
     }
 
-    protected fun scrollUp() {
-        recyclerView!!.smoothScrollToPosition(0)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        loginStateReceiver = LoginStateReceiver(this)
+
+        recyclerView.adapter = adapter
+        recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
+        val space = resources.getDimension(R.dimen.item_spacing_wall).toInt()
+        recyclerView.addItemDecoration(LinearItemDecoration(space))
+
+        wallItems.addAll(WallBase.getCache().values)
+        refreshAdapter(false)
+    }
+
+    private fun scrollUp() {
+        recyclerView.smoothScrollToPosition(0)
     }
 
     @OnClick(R.id.fab)
@@ -147,7 +98,7 @@ class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
             wallItems.add(post)
             refreshAdapter()
         }
-        swipeRefreshLayout!!.isRefreshing = false
+        swipeRefreshLayout.isRefreshing = false
     }
 
     @Subscribe
@@ -176,8 +127,7 @@ class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
         }
     }
 
-    @JvmOverloads
-    fun refreshAdapter(animateRefresh: Boolean = true) {
+    private fun refreshAdapter(animateRefresh: Boolean = true) {
         if (wallItems.isEmpty()) return
 
         if (animateRefresh) {
@@ -185,12 +135,12 @@ class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
             adapter.clear()
             adapter.notifyItemRangeRemoved(0, removedItemCount)
 
-            Collections.sort(wallItems) { t1, t2 -> if (t1 == null || t2 == null) 0 else t2.timestamp!!.compareTo(t1.timestamp) }
+            wallItems.sortWith(Comparator { t1, t2 -> if (t1 == null || t2 == null) 0 else t2.timestamp.compareTo(t1.timestamp) })
             adapter.addAll(wallItems)
             adapter.notifyItemRangeChanged(0, wallItems.size)
         } else {
             adapter.clear()
-            Collections.sort(wallItems) { t1, t2 -> if (t1 == null || t2 == null) 0 else t2.timestamp!!.compareTo(t1.timestamp) }
+            wallItems.sortWith(Comparator { t1, t2 -> if (t1 == null || t2 == null) 0 else t2.timestamp.compareTo(t1.timestamp) })
             adapter.addAll(wallItems)
             adapter.notifyDataSetChanged()
         }
@@ -199,12 +149,8 @@ class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
     @Subscribe
     fun onPostDeleted(event: PostDeletedEvent) {
         val deletedItem = event.post
-        var itemToDelete: WallBase? = null
-        for (post in wallItems) {
-            if (post.postId == deletedItem.postId) {
-                itemToDelete = post
-            }
-        }
+        val itemToDelete: WallBase? = wallItems
+                .lastOrNull { it.postId == deletedItem.postId }
         if (itemToDelete != null) {
             wallItems.remove(itemToDelete)
             refreshAdapter()
@@ -226,19 +172,19 @@ class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
 
     private fun loadWallItemsPage(withSpinner: Boolean, completion: TaskCompletionSource<List<WallBase>>) {
         if (withSpinner || adapter.itemCount == 0) {
-            swipeRefreshLayout!!.isRefreshing = true
+            swipeRefreshLayout.isRefreshing = true
         }
         val getWallPostCompletion = TaskCompletionSource<List<WallBase>>()
         getWallPostCompletion.task.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val items = task.result
-                if (items.size > 0) {
+                if (items.isNotEmpty()) {
                     wallItems.clear()
                     wallItems.addAll(items)
                     refreshAdapter(withSpinner)
                 }
                 completion.setResult(items)
-                swipeRefreshLayout!!.isRefreshing = false
+                swipeRefreshLayout.isRefreshing = false
                 offset += pageSize
             }
             if (withSpinner) {
@@ -268,7 +214,7 @@ class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
     override fun onLogin(user: UserInfo) {
         reset()
         reloadWallFromModel(false)
-        swipeRefreshLayout!!.isRefreshing = true
+        swipeRefreshLayout.isRefreshing = true
     }
 
     override fun onLoginAnonymously() {

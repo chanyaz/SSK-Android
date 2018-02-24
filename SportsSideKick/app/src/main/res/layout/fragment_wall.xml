@@ -31,9 +31,10 @@
             <!--tools:visibility="visible" />-->
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/fragment_wall_recycler_view"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:scrollbars="vertical"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:layout_height="match_parent"
                 tools:layout_below="@id/login_holder"
                 android:clipToPadding="false"
