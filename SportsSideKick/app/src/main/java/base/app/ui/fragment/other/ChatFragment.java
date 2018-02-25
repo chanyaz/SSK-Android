@@ -63,8 +63,6 @@ import java.util.List;
 import java.util.TimerTask;
 
 import base.app.R;
-import base.app.util.AlertDialogManager;
-import base.app.util.GSConstants;
 import base.app.data.Model;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
@@ -85,6 +83,8 @@ import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LoginFragment;
 import base.app.ui.fragment.popup.SignUpFragment;
+import base.app.util.AlertDialogManager;
+import base.app.util.GSConstants;
 import base.app.util.commons.FilenameUtils;
 import base.app.util.commons.FilterHelperKt;
 import base.app.util.commons.Utility;
@@ -1126,6 +1126,7 @@ public class ChatFragment extends BaseFragment {
                                 File imageFile = (File) o;
                                 currentPath = imageFile.getAbsolutePath();
                                 resultFromPicker = REQUEST_CODE_CHAT_IMAGE_CAPTURE;
+                                sendImageMessage(currentPath);
                             }
 
                             @Override
@@ -1247,10 +1248,6 @@ public class ChatFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         switch (resultFromPicker) {
-            case REQUEST_CODE_CHAT_IMAGE_CAPTURE:
-            case REQUEST_CODE_CHAT_IMAGE_PICK:
-                sendImageMessage(currentPath);
-                break;
             case REQUEST_CODE_CHAT_VIDEO_CAPTURE:
                 break;
         }

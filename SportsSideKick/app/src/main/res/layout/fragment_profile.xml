@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:paddingEnd="24dp"
             android:layout_marginBottom="16dp"
             android:text="@string/profile"
             android:textColor="?popupsCaptionColor"
