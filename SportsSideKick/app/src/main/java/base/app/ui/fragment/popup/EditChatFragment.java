@@ -45,11 +45,11 @@ import java.util.TimerTask;
 import base.app.BuildConfig;
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
 import base.app.data.user.AddFriendsEvent;
 import base.app.data.user.UserInfo;
+import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.AddFriendsAdapter;
 import base.app.ui.adapter.friends.SelectableFriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -215,7 +215,7 @@ public class EditChatFragment extends BaseFragment {
         if (friendCount == 0) {
             headlineFriendsInChat.setText(friendsInChat);
         } else if (friendCount == 1) {
-            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.chat_friend_in_chat));
+            headlineFriendsInChat.setText(getContext().getResources().getString(R.string.friend_in_chat));
         } else {
             String friendsTotal = friendCount + " " + friendsInChat;
             headlineFriendsInChat.setText(friendsTotal);

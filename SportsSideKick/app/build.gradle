@@ -28,9 +28,6 @@ android {
     }
     lintOptions {
         abortOnError false
-        checkReleaseBuilds false
-        ignoreWarnings true
-        quiet true
         lintOptions {
             disable 'ContentDescription',
                     'KeyboardInaccessibleWidget',

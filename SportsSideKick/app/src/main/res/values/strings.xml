@@ -186,7 +186,7 @@
     <string name="alerts_off">Alerts-OFF</string>
     <string name="chat_with_friends_login">Chat with friends</string>
     <string name="friends_in_chat">Friends in Chat</string>
-    <string name="chat_friend_in_chat">1 Friend in Chat</string>
+    <string name="friend_in_chat">1 Friend in Chat</string>
     <string name="chats">Chats</string>
     <string name="chats_public">Public chats</string>
     <string name="chats_public_search">Search</string>
