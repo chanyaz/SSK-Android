@@ -122,6 +122,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="vertical"
         android:layout_below="@id/top_buttons_container">
 
         <RelativeLayout
@@ -413,6 +414,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginBottom="@dimen/margin_negative_8"
                         android:layout_marginStart="@dimen/margin_negative_15"
+                        android:layout_marginEnd="12dp"
                         android:background="@null"
                         android:scaleType="centerInside"
                         android:src="@drawable/edit_button" />
