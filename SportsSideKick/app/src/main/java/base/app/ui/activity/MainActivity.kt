@@ -276,9 +276,17 @@ class MainActivity : BaseActivityWithPush(),
         val currentFragment = fragmentOrganizer.currentFragment
 
         if (currentFragment!!.javaClass == NewsItemFragment::class.java
-                || currentFragment!!.javaClass == WallItemFragment::class.java) {
+                || currentFragment.javaClass == WallItemFragment::class.java) {
             val fragment = fragmentOrganizer.currentFragment
             val overlay = fragment!!.view!!.findViewById<View>(R.id.commentInputOverlay)
+            if (overlay.visibility == View.VISIBLE) {
+                overlay.visibility = View.GONE
+                return
+            }
+        }
+        if (currentFragment.javaClass == ChatFragment::class.java) {
+            val fragment = fragmentOrganizer.currentFragment
+            val overlay = fragment!!.view!!.findViewById<View>(R.id.full_screen_container)
             if (overlay.visibility == View.VISIBLE) {
                 overlay.visibility = View.GONE
                 return
