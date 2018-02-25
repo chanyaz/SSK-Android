@@ -180,14 +180,6 @@ public class Utility {
         }
     }
 
-    public static void hideKeyboard(Context context) {
-        InputMethodManager imm = (InputMethodManager)
-                context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        if(imm != null){
-            imm.toggleSoftInput(0, 0);
-        }
-    }
-
     public static void hideKeyboard(Fragment fragment) {
         InputMethodManager imm = (InputMethodManager)
                 fragment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);

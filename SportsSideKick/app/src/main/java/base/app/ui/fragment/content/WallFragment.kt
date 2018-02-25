@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import base.app.R
 import base.app.data.Model
-import base.app.data.user.friends.FriendsListChangedEvent
-import base.app.data.wall.news.NewsModel
-import base.app.data.wall.news.NewsModel.NewsType
 import base.app.data.user.LoginStateReceiver
 import base.app.data.user.UserInfo
+import base.app.data.user.friends.FriendsListChangedEvent
 import base.app.data.wall.WallBase
 import base.app.data.wall.WallModel
 import base.app.data.wall.WallPost
+import base.app.data.wall.news.NewsModel
+import base.app.data.wall.news.NewsModel.NewsType
 import base.app.ui.adapter.content.WallAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.ui.fragment.base.FragmentEvent
@@ -61,7 +61,7 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
         val space = resources.getDimension(R.dimen.item_spacing_wall).toInt()
         recyclerView.addItemDecoration(LinearItemDecoration(space))
 
-        swipeRefreshLayout.setProgressViewOffset(false, 0, Utility.dpToPixels(248f))
+        swipeRefreshLayout.setProgressViewOffset(false, 0, Utility.dpToPixels(200f))
 
         wallItems.addAll(WallBase.getCache().values)
         refreshAdapter(false)

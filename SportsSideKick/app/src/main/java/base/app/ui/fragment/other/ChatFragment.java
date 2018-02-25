@@ -200,6 +200,8 @@ public class ChatFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.login_container)
     LinearLayout loginContainer;
+    @BindView(R.id.logoFanchatImage)
+    ImageView logoFanchatImage;
 
     @Nullable
     @BindView(R.id.inactive_container)
@@ -365,13 +367,13 @@ public class ChatFragment extends BaseFragment {
         description.setText(Html.fromHtml(getString(R.string.login_slider_chat)));
         ImageLoader.displayImage(R.drawable.background_sporting, loginBackgroundImage);
 
-        view.findViewById(R.id.clickOutsideContainer).setOnClickListener(new View.OnClickListener() {
+        ImageLoader.displayImage(R.drawable.logo_fc, logoFanchatImage);
+        logoFanchatImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.hideKeyboard(getContext());
+                Utility.hideKeyboard(ChatFragment.this);
             }
         });
-
         return view;
     }
 

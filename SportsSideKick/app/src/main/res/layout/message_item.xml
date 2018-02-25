@@ -17,6 +17,7 @@
     <RelativeLayout
         android:id="@+id/content_container"
         android:layout_width="wrap_content"
+        android:foreground="?selectableItemBackground"
         android:padding="6dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_5"
@@ -36,6 +37,7 @@
             android:id="@+id/contentImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:foreground="?selectableItemBackground"
             android:adjustViewBounds="true"
             android:maxHeight="@dimen/height_80"
             android:scaleType="centerCrop" />

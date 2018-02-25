@@ -100,6 +100,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.contentImage.setVisibility(View.VISIBLE);
                     ImageLoader.displayImage(imageUrl,holder.contentImage, null);
                     holder.playButton.setVisibility(View.GONE);
+                    holder.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EventBus.getDefault().post(new HideKeyboardEvent());
+                        }
+                    });
                     holder.contentImage.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -115,6 +121,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.contentImage.setVisibility(View.VISIBLE);
                     ImageLoader.displayImage(imageUrl,holder.contentImage);
                     holder.playButton.setVisibility(View.VISIBLE);
+                    holder.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EventBus.getDefault().post(new HideKeyboardEvent());
+                        }
+                    });
                     holder.contentImage.setOnClickListener(
                             new View.OnClickListener() {
                                 @Override
@@ -138,7 +150,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.contentImage.setVisibility(View.GONE);
                     holder.contentImage.setOnClickListener(null);
-                    holder.view.setOnClickListener(null);
+                    holder.view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EventBus.getDefault().post(new HideKeyboardEvent());
+                        }
+                    });
                     holder.playButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -152,20 +169,25 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.view.setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view) {
+                            EventBus.getDefault().post(new HideKeyboardEvent());
+                        }
+                    });
+                    holder.contentContainer.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             String messageId = (String) view.getTag();
 
                             TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
                             source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
                                 @Override
                                 public void onComplete(@NonNull Task<ImsMessage> task) {
-                                if(task.isSuccessful()){
-                                    ImsMessage translatedMessage = task.getResult();
-                                    updateWithTranslatedMessage(translatedMessage,holder.getAdapterPosition());
-                                }
+                                    if (task.isSuccessful()) {
+                                        ImsMessage translatedMessage = task.getResult();
+                                        updateWithTranslatedMessage(translatedMessage, holder.getAdapterPosition());
+                                    }
                                 }
                             });
                             translationView.showTranslationPopup(holder.contentContainer,messageId, source, TranslationView.TranslationType.TRANSLATE_IMS);
-                            EventBus.getDefault().post(new HideKeyboardEvent());
                         }
                     });
 

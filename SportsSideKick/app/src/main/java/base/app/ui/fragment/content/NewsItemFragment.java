@@ -41,13 +41,13 @@ import base.app.R;
 import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.Translator;
-import base.app.data.wall.news.NewsModel;
-import base.app.data.wall.sharing.SharingManager;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNews;
+import base.app.data.wall.news.NewsModel;
+import base.app.data.wall.sharing.SharingManager;
 import base.app.ui.activity.MainActivity;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -791,7 +791,7 @@ public class NewsItemFragment extends BaseFragment {
     public void hideSharedCommentOverlay() {
         commentInputOverlay.setVisibility(View.GONE);
 
-        hideKeyboard(getContext());
+        hideKeyboard(this);
 
         // Disable background blur
         MainActivity activity = (MainActivity) getActivity();
