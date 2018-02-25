@@ -191,7 +191,9 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
                     refreshAdapter(withSpinner)
                 }
                 completion.setResult(items)
-                swipeRefreshLayout.isRefreshing = false
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.isRefreshing = false
+                }
                 offset += pageSize
             }
             if (withSpinner) {
