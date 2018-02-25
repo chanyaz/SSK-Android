@@ -29,10 +29,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import base.app.Application;
 import base.app.Keys;
 import base.app.R;
-import base.app.data.club.ClubModel;
+import base.app.data.tvradio.ClubModel;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;

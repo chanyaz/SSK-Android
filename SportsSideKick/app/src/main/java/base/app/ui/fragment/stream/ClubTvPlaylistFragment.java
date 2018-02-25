@@ -19,7 +19,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import base.app.R;
-import base.app.data.club.ClubModel;
+import base.app.data.tvradio.ClubModel;
 import base.app.ui.adapter.stream.ClubTVPlaylistAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;

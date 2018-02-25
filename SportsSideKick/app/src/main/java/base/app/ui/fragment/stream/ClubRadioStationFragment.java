@@ -19,8 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.data.club.ClubModel;
-import base.app.data.club.Station;
+import base.app.data.tvradio.ClubModel;
+import base.app.data.tvradio.Station;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Constant;

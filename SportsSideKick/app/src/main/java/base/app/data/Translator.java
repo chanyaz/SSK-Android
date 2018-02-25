@@ -15,18 +15,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.app.R;
-import base.app.data.im.ImsMessage;
+import base.app.data.chat.ImsMessage;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallNews;
 import base.app.data.wall.WallSocial;
+import base.app.util.GSAndroidPlatform;
 import base.app.util.commons.XmlLanguageMapParser;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
-import static base.app.data.GSConstants.ID_SHORT;
-import static base.app.data.GSConstants.POST_ID;
-import static base.app.data.GSConstants.TO_LANGUAGE;
+import static base.app.util.GSConstants.CLUB_ID_TAG;
+import static base.app.util.GSConstants.ID_SHORT;
+import static base.app.util.GSConstants.POST_ID;
+import static base.app.util.GSConstants.TO_LANGUAGE;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
 /**

@@ -13,7 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import base.app.R
 import base.app.data.Model
-import base.app.data.tutorial.TutorialModel
+import base.app.data._unused.tutorial.TutorialModel
 import base.app.data.user.LoginStateReceiver
 import base.app.data.user.UserEvent
 import base.app.data.user.UserInfo

@@ -9,9 +9,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Map;
 
 import base.app.util.events.notify.NotificationEvent;
-import base.app.data.GSConstants;
+import base.app.util.GSConstants;
 import base.app.data.Model;
-import base.app.data.friendship.FriendsListChangedEvent;
+import base.app.data.user.friends.FriendsListChangedEvent;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallBase;

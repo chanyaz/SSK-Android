@@ -50,7 +50,7 @@ import java.util.Locale;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.data.GSConstants;
+import base.app.util.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.RegistrationStateReceiver;
 import base.app.ui.activity.BaseActivity;

@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 import base.app.R;
 import base.app.data.Translator;
-import base.app.data.im.ImsMessage;
+import base.app.data.chat.ImsMessage;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallNews;

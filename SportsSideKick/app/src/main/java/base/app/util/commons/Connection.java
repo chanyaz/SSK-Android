@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 import android.view.View;
 
 import base.app.R;
-import base.app.data.AlertDialogManager;
+import base.app.util.AlertDialogManager;
 
 /**
  * Created by Filip on 5/9/2017.

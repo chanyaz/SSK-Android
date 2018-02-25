@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.app.R;
-import base.app.data.GSConstants;
+import base.app.util.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallModel;

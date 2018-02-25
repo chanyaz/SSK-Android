@@ -1,7 +1,7 @@
 package base.app.util.events.chat;
 
 import base.app.util.events.BusEvent;
-import base.app.data.im.ChatInfo;
+import base.app.data.chat.ChatInfo;
 
 /**
  * Created by Nemanja Jovanovic on 14/06/2017.

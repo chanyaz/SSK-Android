@@ -16,7 +16,7 @@ import java.util.List;
 import base.app.R;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.stream.ClubRadioStationFragment;
-import base.app.data.club.Station;
+import base.app.data.tvradio.Station;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;

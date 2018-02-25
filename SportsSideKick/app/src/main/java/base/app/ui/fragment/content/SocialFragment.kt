@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import base.app.R
 import base.app.R.dimen
-import base.app.data.news.NewsModel.NewsType
-import base.app.data.news.NewsModel.getInstance
-import base.app.data.news.NewsPageEvent
+import base.app.data.wall.news.NewsModel.NewsType
+import base.app.data.wall.news.NewsModel.getInstance
+import base.app.data.wall.news.NewsPageEvent
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.events.post.AutoTranslateEvent

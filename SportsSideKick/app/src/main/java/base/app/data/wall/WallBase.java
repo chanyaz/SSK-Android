@@ -15,9 +15,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-import base.app.data.news.NewsModel;
-import base.app.data.sharing.Shareable;
-import base.app.data.sharing.SharingManager;
+import base.app.data.wall.news.NewsModel;
+import base.app.data.wall.sharing.Shareable;
+import base.app.data.wall.sharing.SharingManager;
 import base.app.data.user.UserInfo;
 
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;

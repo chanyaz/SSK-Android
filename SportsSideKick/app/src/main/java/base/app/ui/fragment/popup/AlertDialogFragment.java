@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import base.app.R;
-import base.app.data.AlertDialogManager;
+import base.app.util.AlertDialogManager;
 import base.app.ui.fragment.base.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;

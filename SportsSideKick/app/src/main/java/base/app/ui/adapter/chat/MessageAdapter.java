@@ -27,12 +27,12 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.R;
-import base.app.data.DateUtils;
-import base.app.data.GSConstants;
+import base.app.util.commons.DateUtils;
+import base.app.util.GSConstants;
 import base.app.data.Model;
 import base.app.data.Translator;
-import base.app.data.im.ChatInfo;
-import base.app.data.im.ImsMessage;
+import base.app.data.chat.ChatInfo;
+import base.app.data.chat.ImsMessage;
 import base.app.data.user.UserInfo;
 import base.app.util.events.chat.FullScreenImageEvent;
 import base.app.util.events.chat.MessageSelectedEvent;
@@ -42,7 +42,7 @@ import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static base.app.data.GSConstants.UPLOADING;
+import static base.app.util.GSConstants.UPLOADING;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 
 /**

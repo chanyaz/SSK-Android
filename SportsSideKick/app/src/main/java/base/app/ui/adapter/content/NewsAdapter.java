@@ -21,7 +21,7 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Translator;
-import base.app.data.news.NewsModel;
+import base.app.data.wall.news.NewsModel;
 import base.app.data.wall.WallNews;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.NewsItemFragment;

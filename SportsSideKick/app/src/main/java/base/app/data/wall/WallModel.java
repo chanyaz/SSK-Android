@@ -22,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import base.app.data.DateUtils;
+import base.app.util.commons.DateUtils;
 import base.app.data.FileUploader;
-import base.app.data.GSConstants;
+import base.app.util.GSConstants;
 import base.app.data.Id;
 import base.app.data.Model;
-import base.app.data.sharing.SharingManager;
+import base.app.data.wall.sharing.SharingManager;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
 import base.app.util.events.comment.CommentDeleteEvent;
@@ -44,7 +44,7 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
+import static base.app.util.GSConstants.CLUB_ID_TAG;
 import static base.app.data.Model.createRequest;
 
 /**

@@ -22,7 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.data.AlertDialogManager;
+import base.app.util.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallStats;

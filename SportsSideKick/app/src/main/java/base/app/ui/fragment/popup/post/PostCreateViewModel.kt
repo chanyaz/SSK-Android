@@ -1,7 +1,7 @@
 package base.app.ui.fragment.popup.post
 
 import android.arch.lifecycle.ViewModel
-import base.app.data.news.PostsRepository
+import base.app.data.wall.news.PostsRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.disposables.CompositeDisposable

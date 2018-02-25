@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.purchases.PurchaseModel;
+import base.app.data._unused.purchases.PurchaseModel;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import butterknife.BindView;

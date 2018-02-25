@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import base.app.BuildConfig.DEBUG
 import base.app.R
 import base.app.data.Model
-import base.app.data.news.PostsRepository
+import base.app.data.wall.news.PostsRepository
 import base.app.util.commons.Utility.hideKeyboard
 import base.app.util.ui.hide
 import base.app.util.ui.inflate

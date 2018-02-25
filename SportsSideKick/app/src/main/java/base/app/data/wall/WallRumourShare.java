@@ -2,7 +2,7 @@ package base.app.data.wall;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import base.app.data.sharing.SharingManager;
+import base.app.data.wall.sharing.SharingManager;
 
 /**
  * Created by Filip on 4/6/2017.

@@ -16,8 +16,8 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.im.ChatInfo;
-import base.app.data.im.event.ChatNotificationsEvent;
+import base.app.data.chat.ChatInfo;
+import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.popup.CreateChatFragment;
 import base.app.util.ui.ImageLoader;

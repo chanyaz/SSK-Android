@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import base.app.R
-import base.app.data.news.NewsModel
-import base.app.data.news.NewsModel.NewsType.OFFICIAL
-import base.app.data.news.NewsPageEvent
+import base.app.data.wall.news.NewsModel
+import base.app.data.wall.news.NewsModel.NewsType.OFFICIAL
+import base.app.data.wall.news.NewsPageEvent
 import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment

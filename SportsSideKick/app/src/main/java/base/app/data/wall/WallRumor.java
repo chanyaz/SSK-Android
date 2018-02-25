@@ -3,7 +3,7 @@ package base.app.data.wall;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import base.app.data.sharing.SharingManager;
+import base.app.data.wall.sharing.SharingManager;
 
 /**
  * Created by Filip on 1/10/2017.

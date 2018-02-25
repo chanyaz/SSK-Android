@@ -27,9 +27,9 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.friendship.FriendRequest;
-import base.app.data.friendship.FriendsListChangedEvent;
-import base.app.data.friendship.FriendsManager;
+import base.app.data.user.friends.FriendRequest;
+import base.app.data.user.friends.FriendsListChangedEvent;
+import base.app.data.user.friends.FriendsManager;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;

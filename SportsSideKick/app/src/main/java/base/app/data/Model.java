@@ -43,17 +43,19 @@ import java.util.Locale;
 import java.util.Map;
 
 import base.app.Keys;
-import base.app.data.facebook.FacebookModel;
+import base.app.data.login.FacebookLogin;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.MessageHandler;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
+import base.app.util.GSAndroidPlatform;
+import base.app.util.GSConstants;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.data.GSConstants.CLUB_ID_TAG;
+import static base.app.util.GSConstants.CLUB_ID_TAG;
 import static base.app.data.Model.LoggedInUserType.NONE;
 import static base.app.data.Model.LoggedInUserType.REAL;
 
@@ -522,7 +524,7 @@ public class Model {
     }
 
     public void logout() {
-        FacebookModel.getInstance().logout(); // Facebook logout
+        FacebookLogin.getInstance().logout(); // Facebook logout
 
         GSAndroidPlatform.gs().getRequestBuilder().createLogEventRequest()
                 .setEventKey("logoutUser")

@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import base.app.R
 import base.app.data.Model
-import base.app.data.friendship.FriendsListChangedEvent
-import base.app.data.news.NewsModel
-import base.app.data.news.NewsModel.NewsType
+import base.app.data.user.friends.FriendsListChangedEvent
+import base.app.data.wall.news.NewsModel
+import base.app.data.wall.news.NewsModel.NewsType
 import base.app.data.user.LoginStateReceiver
 import base.app.data.user.UserInfo
 import base.app.data.wall.WallBase

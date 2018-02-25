@@ -18,7 +18,7 @@ import com.pixplicity.easyprefs.library.Prefs;
 import base.app.data.FileUploader;
 import base.app.data.TranslateManager;
 import base.app.data.purchases.PurchaseModel;
-import base.app.data.ticker.NextMatchModel;
+import base.app.data.wall.ticker.NextMatchModel;
 import base.app.util.SoundEffects;
 import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;

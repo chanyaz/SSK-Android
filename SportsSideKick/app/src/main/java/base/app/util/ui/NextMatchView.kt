@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import base.app.R
 import base.app.R.string
-import base.app.data.ticker.NextMatchModel
+import base.app.data.wall.ticker.NextMatchModel
 import base.app.util.commons.NextMatchCountdown
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread

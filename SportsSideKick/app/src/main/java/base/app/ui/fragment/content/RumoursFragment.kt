@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
-import base.app.data.news.NewsModel.NewsType.UNOFFICIAL
-import base.app.data.news.NewsModel.getInstance
-import base.app.data.news.NewsPageEvent
+import base.app.data.wall.news.NewsModel.NewsType.UNOFFICIAL
+import base.app.data.wall.news.NewsModel.getInstance
+import base.app.data.wall.news.NewsPageEvent
 import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.RumoursAdapter
 import base.app.ui.fragment.base.BaseFragment
