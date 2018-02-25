@@ -5,8 +5,7 @@
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?selectableItemBackground"
-    tools:layout_editor_absoluteY="25dp">
+    android:foreground="?selectableItemBackground">
 
     <View
         android:id="@+id/strip"
@@ -21,6 +20,7 @@
         android:id="@+id/image"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginEnd="12dp"
         android:scaleType="centerCrop"
         android:visibility="visible"
         app:layout_constraintDimensionRatio="1:1"
@@ -33,38 +33,42 @@
         android:id="@+id/authorImage"
         android:layout_width="@dimen/width_26"
         android:layout_height="@dimen/height_26"
-        android:layout_marginStart="6dp"
-        tools:src="?profileImageIcon"
         android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toTopOf="@+id/guideline13" />
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
+        tools:src="?profileImageIcon" />
 
     <TextView
         android:id="@+id/authorName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:ellipsize="end"
         android:gravity="center_vertical|start"
+        android:maxLines="1"
         android:textColor="@color/colorPrimaryVeryLight"
-        tools:layout_editor_absoluteX="89dp"
-        tools:layout_editor_absoluteY="234dp"
+        app:layout_constraintBottom_toBottomOf="@+id/authorImage"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toEndOf="@+id/authorImage"
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
         tools:text="Karen Smith" />
 
     <TextView
         android:id="@+id/text_content"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:breakStrategy="high_quality"
         android:ellipsize="end"
         android:lineSpacingMultiplier="0.9"
         android:maxLines="2"
         android:paddingBottom="8dp"
-        android:paddingEnd="12dp"
-        android:paddingStart="12dp"
         android:textColor="#1b1c1a"
         android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintTop_toBottomOf="@+id/authorImage"
         tools:ellipsize="none"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="325dp"
         tools:targetApi="m"
         tools:text="@string/lorem_ipsum" />
 
@@ -75,8 +79,8 @@
         android:layout_height="wrap_content"
         android:textColor="#40000000"
         android:textSize="12sp"
-        tools:layout_editor_absoluteX="186dp"
-        tools:layout_editor_absoluteY="234dp"
+        tools:layout_editor_absoluteX="187dp"
+        tools:layout_editor_absoluteY="103dp"
         tools:text="Yesterday" />
 
 
@@ -90,11 +94,11 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/likes_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/wall_item_icon_size"
+        android:layout_height="@dimen/wall_item_icon_size"
         android:background="@drawable/ic_like"
-        tools:layout_editor_absoluteX="278dp"
-        tools:layout_editor_absoluteY="223dp" />
+        tools:layout_editor_absoluteX="242dp"
+        tools:layout_editor_absoluteY="104dp" />
 
 
     <TextView
@@ -102,28 +106,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/font_size_10"
-        tools:layout_editor_absoluteX="256dp"
-        tools:layout_editor_absoluteY="277dp"
+        tools:layout_editor_absoluteX="257dp"
+        tools:layout_editor_absoluteY="106dp"
         tools:text="6901" />
 
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/comments_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_comments_count"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="268dp" />
-
-    <TextView
+    <CheckedTextView
         android:id="@+id/comments_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_comment_count_selector"
+        android:textColor="@color/checkable_text_selector"
         android:textSize="@dimen/font_size_10"
-        tools:layout_editor_absoluteX="326dp"
-        tools:layout_editor_absoluteY="277dp"
+        app:layout_constraintBottom_toBottomOf="@+id/image"
+        app:layout_constraintEnd_toStartOf="@+id/guideline16"
         tools:text="204" />
-
 
     <View
         android:id="@+id/view3"
@@ -144,6 +140,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.43" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="6dp" />
 
 </android.support.constraint.ConstraintLayout>
