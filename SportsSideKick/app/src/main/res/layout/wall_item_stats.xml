@@ -47,7 +47,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/news_holder_image"
+        tools:src="@drawable/news_holder_image"
         android:visibility="visible" />
 
     <TextView

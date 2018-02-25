@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/margin_15"
             android:adjustViewBounds="true"
             android:scaleType="fitStart"
-            android:src="@drawable/news_holder_image"
+            tools:src="@drawable/news_holder_image"
             android:visibility="visible"/>
 
         <ImageView

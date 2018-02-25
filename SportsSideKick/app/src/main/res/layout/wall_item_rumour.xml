@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/news_holder_image" />
+        tools:src="@drawable/news_holder_image" />
 
     <TextView
         android:id="@+id/text_content"
