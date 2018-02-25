@@ -425,7 +425,7 @@ public class NewsItemFragment extends BaseFragment {
         commentInputOverlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                commentInputOverlay.setVisibility(View.GONE);
+                hideSharedCommentOverlay();
             }
         });
         contentTextWrapper.setOnClickListener(new View.OnClickListener() {
@@ -790,7 +790,6 @@ public class NewsItemFragment extends BaseFragment {
 
     public void hideSharedCommentOverlay() {
         commentInputOverlay.setVisibility(View.GONE);
-
         hideKeyboard(this);
 
         // Disable background blur

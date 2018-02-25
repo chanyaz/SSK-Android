@@ -291,6 +291,11 @@ class MainActivity : BaseActivityWithPush(),
                 overlay.visibility = View.GONE
                 return
             }
+            val videoViewContainer = fragment.view!!.findViewById<View>(R.id.video_view_container)
+            if (videoViewContainer.visibility == View.VISIBLE) {
+                videoViewContainer.visibility = View.GONE
+                return
+            }
         }
 
         toggleBlur(false, null) // hide blurred view;
