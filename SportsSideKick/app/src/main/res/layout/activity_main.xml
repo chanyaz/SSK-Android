@@ -329,7 +329,7 @@
                             android:layout_marginStart="@dimen/padding_8"
                             android:adjustViewBounds="true"
                             android:padding="@dimen/padding_2"
-                            android:src="?profileImageIcon" />
+                            tools:src="?profileImageIcon" />
 
                         <RelativeLayout
                             android:id="@+id/holder_progress_bar"

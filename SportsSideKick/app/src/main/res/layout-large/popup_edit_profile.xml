@@ -74,7 +74,7 @@
                 android:layout_marginBottom="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/coin_lateral_margin"
                 android:layout_marginTop="@dimen/margin_8"
-                android:src="?profileImageIcon" />
+                tools:src="?profileImageIcon" />
 
             <Button
                 android:id="@+id/camera_button"

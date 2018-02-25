@@ -59,7 +59,7 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_10"
-            android:src="?profileImageIcon"
+            tools:src="?profileImageIcon"
             android:visibility="visible" />
 
         <LinearLayout
@@ -157,7 +157,7 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_toRightOf="@id/strip_bottom"
-            android:src="?profileImageIcon"
+            tools:src="?profileImageIcon"
             android:layout_toEndOf="@id/strip_bottom" />
 
         <TextView

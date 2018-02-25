@@ -34,7 +34,7 @@
         android:layout_width="@dimen/width_26"
         android:layout_height="@dimen/height_26"
         android:layout_marginStart="6dp"
-        android:src="?profileImageIcon"
+        tools:src="?profileImageIcon"
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />

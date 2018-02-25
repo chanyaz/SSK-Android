@@ -15,7 +15,7 @@
         android:paddingStart="@dimen/space_0"
         android:paddingTop="@dimen/margin_10"
         android:scaleType="centerCrop"
-        android:src="?profileImageIcon" />
+        tools:src="?profileImageIcon" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/image_shadow"

@@ -14,7 +14,7 @@
         android:layout_marginEnd="@dimen/margin_10"
         android:layout_marginStart="@dimen/margin_15"
         android:layout_marginTop="@dimen/margin_5"
-        android:src="?profileImageIcon" />
+        tools:src="?profileImageIcon" />
 
     <RelativeLayout
         android:layout_width="match_parent"

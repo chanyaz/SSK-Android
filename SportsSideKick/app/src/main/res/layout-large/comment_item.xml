@@ -13,7 +13,7 @@
         android:layout_gravity="top"
         android:layout_marginEnd="@dimen/margin_5"
         android:layout_marginStart="@dimen/margin_15"
-        android:src="?profileImageIcon" />
+        tools:src="?profileImageIcon" />
 
     <RelativeLayout
         android:layout_width="match_parent"

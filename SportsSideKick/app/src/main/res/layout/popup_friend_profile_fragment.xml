@@ -90,7 +90,7 @@
                     android:layout_height="@dimen/popup_friend_profil_profile_image_size"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="?profileImageIcon" />
+                    tools:src="?profileImageIcon" />
             </RelativeLayout>
 
             <ImageView

@@ -49,7 +49,7 @@
         android:layout_marginStart="@dimen/margin_10"
         android:layout_toEndOf="@+id/image"
         android:paddingBottom="@dimen/margin_5"
-        android:src="?profileImageIcon" />
+        tools:src="?profileImageIcon" />
 
     <RelativeLayout
         android:id="@+id/likes_and_comments"

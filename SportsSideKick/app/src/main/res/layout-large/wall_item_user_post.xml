@@ -36,7 +36,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_10"
-            android:src="?profileImageIcon"/>
+            tools:src="?profileImageIcon" />
 
         <ImageView
             android:id="@+id/play_button"
