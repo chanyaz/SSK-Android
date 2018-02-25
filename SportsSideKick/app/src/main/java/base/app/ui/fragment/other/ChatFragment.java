@@ -74,6 +74,7 @@ import base.app.data.chat.event.UserIsTypingEvent;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
 import base.app.ui.adapter.chat.ChatHeadsAdapter;
+import base.app.ui.adapter.chat.HideKeyboardEvent;
 import base.app.ui.adapter.chat.MessageAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -1301,6 +1302,11 @@ public class ChatFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         translationView.setVisibility(View.GONE);
+    }
+
+    @Subscribe
+    public void onHideKeyboard(HideKeyboardEvent event) {
+        Utility.hideKeyboard(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -27,13 +27,13 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.R;
-import base.app.util.commons.DateUtils;
-import base.app.util.GSConstants;
 import base.app.data.Model;
 import base.app.data.Translator;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsMessage;
 import base.app.data.user.UserInfo;
+import base.app.util.GSConstants;
+import base.app.util.commons.DateUtils;
 import base.app.util.events.chat.FullScreenImageEvent;
 import base.app.util.events.chat.MessageSelectedEvent;
 import base.app.util.events.stream.PlayVideoEvent;
@@ -42,8 +42,8 @@ import base.app.util.ui.TranslationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static base.app.util.GSConstants.UPLOADING;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
+import static base.app.util.GSConstants.UPLOADING;
 
 /**
  * Created by Filip on 12/14/2016.
@@ -104,6 +104,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         @Override
                         public void onClick(View view) {
                             EventBus.getDefault().post(new FullScreenImageEvent(imageUrl));
+                            EventBus.getDefault().post(new HideKeyboardEvent());
                         }
                     });
                     if (imageUrl == null) holder.progressBar.setVisibility(View.GONE);
@@ -119,6 +120,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                 @Override
                                 public void onClick(View view) {
                                     EventBus.getDefault().post(new PlayVideoEvent(videoUrl));
+                                    EventBus.getDefault().post(new HideKeyboardEvent());
                                 }
                             });
                     holder.playButton.setOnClickListener(
@@ -126,6 +128,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                 @Override
                                 public void onClick(View view) {
                                     EventBus.getDefault().post(new PlayVideoEvent(videoUrl));
+                                    EventBus.getDefault().post(new HideKeyboardEvent());
                                 }
                             });
                     holder.contentContainer.setBackgroundResource(R.drawable.chat_message_right);
@@ -140,6 +143,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                         @Override
                         public void onClick(View view) {
                             setupAudioPlayButton(imageUrl, holder.playButton);
+                            EventBus.getDefault().post(new HideKeyboardEvent());
                         }
                     });
                     holder.contentContainer.setBackgroundResource(R.drawable.chat_message_left);
@@ -161,6 +165,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                 }
                             });
                             translationView.showTranslationPopup(holder.contentContainer,messageId, source, TranslationView.TranslationType.TRANSLATE_IMS);
+                            EventBus.getDefault().post(new HideKeyboardEvent());
                         }
                     });
 
