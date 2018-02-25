@@ -4,8 +4,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -65,16 +63,13 @@ public class SskFirebaseMessagingService extends FirebaseMessagingService {
         intent.putExtra(NOTIFICATION_DATA,new Gson().toJson(messageData));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        //Extract data for display!
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
         // TODO - Starting from Android O (API 26) there are channel_ids for notifications - implement it
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo_fc)
-                .setContentTitle("Fanschat")
+                .setContentTitle(getString(R.string.app_name))
                 .setContentText(alert)
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri)
+                .setGroup("UPDATE_NOTIFICATIONS")
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
