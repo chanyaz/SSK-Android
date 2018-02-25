@@ -61,9 +61,8 @@ kotlin {
 }
 
 idea.module {
-    // Excluding build files from file search
-    excludeDirs += file('build/')
-    excludeDirs += file('app/build/')
+    excludeDirs -= file(buildDir)
+    buildDir.listFiles().each {excludeDirs += it}
 }
 
 apply from: "dependencies.gradle"
