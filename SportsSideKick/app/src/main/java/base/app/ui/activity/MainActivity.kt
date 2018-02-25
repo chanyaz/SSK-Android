@@ -275,14 +275,13 @@ class MainActivity : BaseActivityWithPush(),
         val penultimateFragment = fragmentOrganizer.penultimateFragment!!.javaClass
         val currentFragment = fragmentOrganizer.currentFragment
 
-        if (currentFragment!!.javaClass == NewsItemFragment::class.java) {
-            if (previousFragment == ClubRadioFragment::class.java) {
-                val fragment = fragmentOrganizer.currentFragment
-                val overlay = fragment!!.view!!.findViewById<View>(R.id.commentInputOverlay)
-                if (overlay.visibility == View.VISIBLE) {
-                    overlay.visibility = View.GONE
-                    return
-                }
+        if (currentFragment!!.javaClass == NewsItemFragment::class.java
+                || currentFragment!!.javaClass == WallItemFragment::class.java) {
+            val fragment = fragmentOrganizer.currentFragment
+            val overlay = fragment!!.view!!.findViewById<View>(R.id.commentInputOverlay)
+            if (overlay.visibility == View.VISIBLE) {
+                overlay.visibility = View.GONE
+                return
             }
         }
 
