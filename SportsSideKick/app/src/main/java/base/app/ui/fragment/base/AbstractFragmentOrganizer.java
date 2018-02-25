@@ -137,7 +137,6 @@ public abstract class AbstractFragmentOrganizer {
             return "";
         }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
         // this is for containers without back stack
         if (containersWithoutBackStack.contains(containerId)) {
@@ -156,6 +155,9 @@ public abstract class AbstractFragmentOrganizer {
         }
 
         String fragmentTag = createFragmentTag(fragment, true);
+        transaction.setCustomAnimations(
+                android.R.anim.fade_in, android.R.anim.fade_out,
+                android.R.anim.fade_out, android.R.anim.fade_in);
         transaction.addToBackStack(fragmentTag);
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.commitAllowingStateLoss();

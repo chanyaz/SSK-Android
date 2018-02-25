@@ -261,6 +261,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                     @Override
                     public void onClick(View v) {
                         Model.getInstance().logout();
+                        getActivity().onBackPressed();
                         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
                     }
                 });
