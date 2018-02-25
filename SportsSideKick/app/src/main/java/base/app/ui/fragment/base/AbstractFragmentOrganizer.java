@@ -155,9 +155,6 @@ public abstract class AbstractFragmentOrganizer {
         }
 
         String fragmentTag = createFragmentTag(fragment, true);
-        transaction.setCustomAnimations(
-                android.R.anim.fade_in, android.R.anim.fade_out,
-                android.R.anim.fade_out, android.R.anim.fade_in);
         transaction.addToBackStack(fragmentTag);
         transaction.replace(containerId, fragment, fragmentTag);
         transaction.commitAllowingStateLoss();
