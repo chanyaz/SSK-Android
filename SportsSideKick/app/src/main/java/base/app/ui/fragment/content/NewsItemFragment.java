@@ -272,9 +272,9 @@ public class NewsItemFragment extends BaseFragment {
         }
         if (item.getType() == WallBase.PostType.newsOfficial
                 || item.getType() == WallBase.PostType.newsUnOfficial) {
-            trackNewsItemOpened();
+            trackNewsItemOpened(item.getPostId());
         } else if (item.getType() == WallBase.PostType.social) {
-            trackSocialItemOpened();
+            trackSocialItemOpened(item.getPostId());
         }
     }
 

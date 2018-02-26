@@ -179,25 +179,25 @@ fun trackVideoEnded(videoId: String) {
 
 fun trackNewsSectionOpened() {
     sendEventWithSession("NewsSelected", mapOf(
-
+            "FeatureID" to "News"
     ))
 }
 
-fun trackNewsItemOpened() {
+fun trackNewsItemOpened(postId: String) {
     sendEventWithSession("NewsItemSelected", mapOf(
-
+            "ItemID" to postId
     ))
 }
 
 fun trackNewsCommentSubmitted(postId: String) {
     sendEventWithSession("NewsItemComment", mapOf(
-
+            "ItemID" to postId
     ))
 }
 
 fun trackNewsShared(postId: String) {
     sendEventWithSession("NewsItemShared", mapOf(
-
+            "ItemID" to postId
     ))
 }
 
@@ -208,7 +208,7 @@ fun trackSocialSectionOpened() {
     ))
 }
 
-fun trackSocialItemOpened() {
+fun trackSocialItemOpened(itemId: String) {
     sendEvent("SocialPostOpen")
 }
 
