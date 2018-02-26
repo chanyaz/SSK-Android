@@ -25,6 +25,9 @@ import java.util.Map;
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.Model.createRequest;
 import static base.app.util.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.AnalyticsTrackerKt.trackNewsShared;
+import static base.app.util.commons.AnalyticsTrackerKt.trackPostShared;
+import static base.app.util.commons.AnalyticsTrackerKt.trackSocialShared;
 
 /**
  * Created by Filip on 4/4/2017.
@@ -114,6 +117,14 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                     itemToShare = item;
 
                     presentNative(response);
+
+                    if (item.getItemType() == ItemType.WallPost) {
+                        trackPostShared();
+                    } else if (item.getItemType() == ItemType.News) {
+                        trackNewsShared();
+                    } else if (item.getItemType() == ItemType.Social) {
+                        trackSocialShared();
+                    }
                 } else {
                     Toast.makeText(context, "Failed to share item", Toast.LENGTH_SHORT).show();
                 }

@@ -10,7 +10,7 @@ import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.TicketsFragment;
 import base.app.ui.fragment.content.WallFragment;
 import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.other.StatisticsFragment;
+import base.app.ui.fragment.other.StatsFragment;
 import base.app.ui.fragment.stream.ClubTVFragment;
 
 /**
@@ -51,7 +51,7 @@ public class Constant {
             add(ChatFragment.class);
             add(NewsFragment.class);
             add(SocialFragment.class);
-            add(StatisticsFragment.class);
+            add(StatsFragment.class);
 //            add(RumoursFragment.class);
 //            add(ClubRadioFragment.class);
             add(StoreFragment.class);

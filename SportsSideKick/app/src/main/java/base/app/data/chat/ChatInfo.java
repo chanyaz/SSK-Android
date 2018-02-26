@@ -30,6 +30,7 @@ import base.app.data.chat.event.UserIsTypingEvent;
 import base.app.data.user.UserInfo;
 
 import static base.app.ClubConfig.CLUB_ID;
+import static base.app.util.commons.AnalyticsTrackerKt.trackChatJoined;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -410,6 +411,7 @@ public class ChatInfo {
                                 }
                             }
                         });
+                        trackChatJoined();
                     }
 
                 }

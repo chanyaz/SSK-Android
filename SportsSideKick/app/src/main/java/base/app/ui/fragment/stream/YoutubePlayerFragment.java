@@ -40,6 +40,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static base.app.util.commons.AnalyticsTrackerKt.trackTvShowEnded;
+import static base.app.util.commons.AnalyticsTrackerKt.trackTvShowStarted;
+
 /**
  * Created by Filip on 1/25/2017.
  * Copyright by Hypercube d.o.o.
@@ -265,6 +268,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
         if (Utility.isTablet(getActivity())) {
             player.play();
         }
+        trackTvShowStarted();
     }
 
 
@@ -273,6 +277,8 @@ public class YoutubePlayerFragment extends BaseFragment implements
         player.seekToMillis(0);
         player.pause();
         playButton.setSelected(false);
+
+        trackTvShowEnded();
     }
 
     @Override

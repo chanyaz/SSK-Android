@@ -63,9 +63,9 @@ fun trackSocialItemOpened() {}
 
 fun trackSocialItemPinned() {}
 
-fun trackSocialItemLiked() {}
+fun trackSocialLiked() {}
 
-fun trackSocialItemShared() {}
+fun trackSocialShared() {}
 
 
 fun trackShopOpened() {}
@@ -77,9 +77,9 @@ fun trackStatsOpened() {}
 
 fun trackFriendsViewed() {}
 
-fun trackFriendAdded() {}
+fun trackFriendRequestSent() {}
 
-fun trackFriendRequestApproved() {}
+fun trackFriendRequestAccepted() {}
 
 fun trackFriendRequestRejected() {}
 

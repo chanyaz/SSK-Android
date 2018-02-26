@@ -2,6 +2,7 @@ package base.app.ui.fragment.popup.post
 
 import android.arch.lifecycle.ViewModel
 import base.app.data.wall.news.PostsRepository
+import base.app.util.commons.trackPostSubmitted
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.disposables.CompositeDisposable
@@ -32,6 +33,7 @@ class PostCreateViewModel : ViewModel() {
                 .flatMap { postsRepo.savePost(it) }
                 .subscribeOn(io())
                 .observeOn(mainThread())
+                .doOnNext { trackPostSubmitted() }
                 .subscribe { view.exit() })
     }
 

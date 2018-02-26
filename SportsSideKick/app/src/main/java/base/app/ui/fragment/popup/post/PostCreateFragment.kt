@@ -13,6 +13,7 @@ import base.app.R
 import base.app.data.Model
 import base.app.data.wall.news.PostsRepository
 import base.app.util.commons.Utility.hideKeyboard
+import base.app.util.commons.trackPostComposing
 import base.app.util.ui.hide
 import base.app.util.ui.inflate
 import base.app.util.ui.show
@@ -48,6 +49,8 @@ class PostCreateFragment : Fragment(), IPostCreateView {
         contentImage.show(R.drawable.background_post_create)
         setClickListeners()
         if (DEBUG) showDummyInfo()
+
+        trackPostComposing()
     }
 
     private fun showDummyInfo() {

@@ -25,7 +25,7 @@ import base.app.ui.fragment.base.FragmentEvent
 import base.app.ui.fragment.base.FragmentOrganizer
 import base.app.ui.fragment.content.*
 import base.app.ui.fragment.other.ChatFragment
-import base.app.ui.fragment.other.StatisticsFragment
+import base.app.ui.fragment.other.StatsFragment
 import base.app.ui.fragment.popup.*
 import base.app.ui.fragment.popup.post.PostCreateFragment
 import base.app.ui.fragment.stream.*
@@ -77,6 +77,11 @@ class MainActivity : BaseActivityWithPush(),
         splashBackgroundImage.show(R.drawable.video_chat_background)
 
         trackAppOpened()
+
+        val intent = intent
+        if (intent.data != null) {
+            trackDeepLinkOpened()
+        }
     }
 
     override fun onDestroy() {
@@ -144,7 +149,7 @@ class MainActivity : BaseActivityWithPush(),
                 ChatFragment::class.java,
                 NewsFragment::class.java,
                 SocialFragment::class.java,
-                StatisticsFragment::class.java,
+                StatsFragment::class.java,
                 RumoursFragment::class.java,
                 StoreFragment::class.java,
                 VideoChatFragment::class.java,

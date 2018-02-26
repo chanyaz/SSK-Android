@@ -22,14 +22,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import base.app.util.commons.DateUtils;
 import base.app.data.FileUploader;
-import base.app.util.GSConstants;
 import base.app.data.Id;
 import base.app.data.Model;
-import base.app.data.wall.sharing.SharingManager;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
+import base.app.data.wall.sharing.SharingManager;
+import base.app.util.GSConstants;
+import base.app.util.commons.DateUtils;
 import base.app.util.events.comment.CommentDeleteEvent;
 import base.app.util.events.comment.CommentReceiveEvent;
 import base.app.util.events.comment.CommentUpdatedEvent;
@@ -44,8 +44,13 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.util.GSConstants.CLUB_ID_TAG;
 import static base.app.data.Model.createRequest;
+import static base.app.util.GSConstants.CLUB_ID_TAG;
+import static base.app.util.commons.AnalyticsTrackerKt.trackNewsCommentSubmitted;
+import static base.app.util.commons.AnalyticsTrackerKt.trackPostCommentSubmitted;
+import static base.app.util.commons.AnalyticsTrackerKt.trackPostLiked;
+import static base.app.util.commons.AnalyticsTrackerKt.trackSocialItemPinned;
+import static base.app.util.commons.AnalyticsTrackerKt.trackSocialLiked;
 
 /**
  * Created by Filip on 1/6/2017.
@@ -141,6 +146,8 @@ public class WallModel extends GSMessageHandlerAbstract {
                         referencedItem.setContent(bodyText);
 
                         postFromServer.setReferencedItem((WallNews) referencedItem);
+
+                        trackSocialItemPinned();
                     }
 
                     EventBus.getDefault().post(new ItemUpdateEvent(postFromServer));
@@ -152,8 +159,8 @@ public class WallModel extends GSMessageHandlerAbstract {
         map.put("type", post.getTypeAsInt());
         GSData data = new GSData(map);
         GSRequestBuilder.LogEventRequest request = createRequest("wallPostToWall")
-                    .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
-                    .setEventAttribute(GSConstants.POST, data);
+                .setEventAttribute(CLUB_ID_TAG, CLUB_ID)
+                .setEventAttribute(GSConstants.POST, data);
         request.send(consumer);
     }
 
@@ -272,6 +279,12 @@ public class WallModel extends GSMessageHandlerAbstract {
                     Object object = response.getScriptData().getBaseData().get(GSConstants.POST);
                     WallBase.postFactory(object, mapper, true);
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
+
+                    if (post.getType() == WallBase.PostType.post) {
+                        trackPostLiked();
+                    } else if (post.getType() == WallBase.PostType.social) {
+                        trackSocialLiked();
+                    }
                 } else {
                     Log.e("WallModel", response.getBaseData().get("error").toString());
                 }
@@ -329,7 +342,7 @@ public class WallModel extends GSMessageHandlerAbstract {
      * post the comment on the given post, once the comment is successfully stored in DB
      * the post comments count will be increased by 1
      */
-    public void postComment(PostComment comment, WallBase post) {
+    public void postComment(PostComment comment, final WallBase post) {
         comment.setId(new Id(DateUtils.currentTimeToFirebaseDate() + FileUploader.generateRandName(10)));
         GSEventConsumer<GSResponseBuilder.LogEventResponse> consumer = new GSEventConsumer<GSResponseBuilder.LogEventResponse>() {
             @Override
@@ -343,6 +356,12 @@ public class WallModel extends GSMessageHandlerAbstract {
 
                     EventBus.getDefault().post(new PostCommentCompleteEvent(commentFromServer, postFromServer));
                     EventBus.getDefault().post(new ItemUpdateEvent(postFromServer));
+
+                    if (post instanceof WallPost) {
+                        trackPostCommentSubmitted();
+                    } else if (post instanceof WallNews) {
+                        trackNewsCommentSubmitted();
+                    }
                 } else {
                     Log.e("WallModel", "Posting of comment failed!");
                 }
@@ -402,7 +421,8 @@ public class WallModel extends GSMessageHandlerAbstract {
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     Object objectComment = response.getScriptData().getBaseData().get(GSConstants.COMMENT);
-                    PostComment commentFromServer = mapper.convertValue(objectComment, new TypeReference<PostComment>(){});
+                    PostComment commentFromServer = mapper.convertValue(objectComment, new TypeReference<PostComment>() {
+                    });
                     EventBus.getDefault().post(new CommentUpdatedEvent(commentFromServer));
                 }
             }

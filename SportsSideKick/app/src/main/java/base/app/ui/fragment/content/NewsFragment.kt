@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import base.app.R
+import base.app.data.wall.WallNews
 import base.app.data.wall.news.NewsModel
 import base.app.data.wall.news.NewsModel.NewsType.OFFICIAL
 import base.app.data.wall.news.NewsPageEvent
-import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
+import base.app.util.commons.trackNewsSectionOpened
 import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.events.post.ItemUpdateEvent
 import base.app.util.ui.LinearItemDecoration
@@ -40,6 +41,8 @@ open class NewsFragment : BaseFragment() {
         recyclerView.addItemDecoration(LinearItemDecoration(resources.getDimension(R.dimen.item_spacing_news).toInt()))
 
         showItems()
+
+        trackNewsSectionOpened()
     }
 
     private fun showItems() {

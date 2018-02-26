@@ -52,6 +52,8 @@ import static base.app.util.GSConstants.OPERATION_DELETE_MESSAGE;
 import static base.app.util.GSConstants.OPERATION_NEW;
 import static base.app.util.GSConstants.OPERATION_UPDATE;
 import static base.app.util.GSConstants.USER_ID;
+import static base.app.util.commons.AnalyticsTrackerKt.trackChatCreated;
+import static base.app.util.commons.AnalyticsTrackerKt.trackMessageSent;
 
 /**
  * Created by Filip on 12/7/2016.
@@ -282,6 +284,8 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
 
                     EventBus.getDefault().post(new ChatsInfoUpdatesEvent(getUserChatsList()));
                     EventBus.getDefault().post(new CreateNewChatSuccessEvent(chatInfo));
+
+                    trackChatCreated();
                 } else {
                     source.setException(new Exception("There was an error while trying to create a new chat."));
                 }
@@ -420,6 +424,8 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                             message.updateFrom(messageInfo.getBaseData());
                         }
                         source.setResult(chatInfo);
+
+                        trackMessageSent();
                         // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
                     }
                 });

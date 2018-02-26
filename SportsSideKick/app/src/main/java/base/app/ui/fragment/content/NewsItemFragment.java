@@ -72,6 +72,8 @@ import static base.app.data.wall.WallBase.PostType.rumourShare;
 import static base.app.data.wall.WallBase.PostType.social;
 import static base.app.data.wall.WallBase.PostType.socialShare;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
+import static base.app.util.commons.AnalyticsTrackerKt.trackNewsItemOpened;
+import static base.app.util.commons.AnalyticsTrackerKt.trackSocialItemOpened;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.getCurrentTime;
 import static base.app.util.commons.Utility.hideKeyboard;
@@ -265,6 +267,12 @@ public class NewsItemFragment extends BaseFragment {
 
         if (BuildConfig.DEBUG) {
             showDummyInfo();
+        }
+        if (item.getType() == WallBase.PostType.newsOfficial
+                || item.getType() == WallBase.PostType.newsUnOfficial) {
+            trackNewsItemOpened();
+        } else if (item.getType() == WallBase.PostType.social) {
+            trackSocialItemOpened();
         }
     }
 

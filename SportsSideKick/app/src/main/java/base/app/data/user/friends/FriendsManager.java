@@ -42,6 +42,9 @@ import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.Model.createRequest;
 import static base.app.util.GSConstants.CLUB_ID_TAG;
 import static base.app.util.GSConstants.OPERATION_UPDATE;
+import static base.app.util.commons.AnalyticsTrackerKt.trackFriendRequestSent;
+import static base.app.util.commons.AnalyticsTrackerKt.trackUnfollowed;
+import static base.app.util.commons.AnalyticsTrackerKt.trackUnfriended;
 
 public class FriendsManager extends GSMessageHandlerAbstract {
 
@@ -184,6 +187,8 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                         }
                     }
                     source.setResult(null);
+
+                    trackFriendRequestSent();
                 } else {
                     source.setException(new Exception("There was an error while trying to send a friend request."));
                 }
@@ -309,6 +314,8 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     FriendsListChangedEvent event = new FriendsListChangedEvent();
                     EventBus.getDefault().post(event);
                     source.setResult(user);
+
+                    trackUnfriended();
                 } else {
                     source.setException(new Exception("There was an error while trying to delete a friend."));
                 }
@@ -442,6 +449,8 @@ public class FriendsManager extends GSMessageHandlerAbstract {
                     UserInfo user = mapper.convertValue(object, new TypeReference<UserInfo>() {
                     });
                     source.setResult(user);
+
+                    trackUnfollowed();
                 } else {
                     source.setException(new Exception("There was an error while trying to un-follow a user."));
                 }

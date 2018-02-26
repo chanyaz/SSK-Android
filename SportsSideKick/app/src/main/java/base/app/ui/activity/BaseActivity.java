@@ -37,18 +37,17 @@ import java.util.concurrent.TimeUnit;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.util.GSAndroidPlatform;
 import base.app.data.Model;
-import base.app.data.notifications.ExternalNotificationEvent;
 import base.app.data._unused.purchases.PurchaseModel;
+import base.app.data._unused.videoChat.VideoChatEvent;
+import base.app.data._unused.videoChat.VideoChatModel;
+import base.app.data.notifications.ExternalNotificationEvent;
+import base.app.data.user.LoginStateReceiver;
 import base.app.data.wall.sharing.NativeShareEvent;
 import base.app.data.wall.sharing.SharingManager;
 import base.app.data.wall.ticker.NewsTickerInfo;
 import base.app.data.wall.ticker.NextMatchModel;
 import base.app.data.wall.ticker.NextMatchUpdateEvent;
-import base.app.data.user.LoginStateReceiver;
-import base.app.data._unused.videoChat.VideoChatEvent;
-import base.app.data._unused.videoChat.VideoChatModel;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.NewsFragment;
@@ -56,10 +55,11 @@ import base.app.ui.fragment.content.NewsItemFragment;
 import base.app.ui.fragment.content.RumoursFragment;
 import base.app.ui.fragment.content.WallItemFragment;
 import base.app.ui.fragment.other.ChatFragment;
-import base.app.ui.fragment.other.StatisticsFragment;
+import base.app.ui.fragment.other.StatsFragment;
 import base.app.ui.fragment.popup.FollowersFragment;
 import base.app.ui.fragment.popup.FriendsFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
+import base.app.util.GSAndroidPlatform;
 import base.app.util.commons.Constant;
 import base.app.util.commons.ContextWrapper;
 import base.app.util.commons.Utility;
@@ -208,7 +208,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }
 
             } else if (notificationData.containsKey("statsItem")) {
-                EventBus.getDefault().post(StatisticsFragment.class);
+                EventBus.getDefault().post(StatsFragment.class);
             } else if (notificationData.containsKey("conferenceId")) {
                 String conferenceId = notificationData.get("conferenceId");
                 FragmentEvent fe = new FragmentEvent(VideoChatFragment.class);

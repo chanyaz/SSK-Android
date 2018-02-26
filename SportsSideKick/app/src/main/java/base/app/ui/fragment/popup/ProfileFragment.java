@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.util.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserInfo;
@@ -36,6 +35,7 @@ import base.app.ui.adapter.profile.UserStatsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.content.WallFragment;
+import base.app.util.AlertDialogManager;
 import base.app.util.commons.Utility;
 import base.app.util.events.post.AutoTranslateEvent;
 import base.app.util.ui.ImageLoader;
@@ -46,6 +46,7 @@ import butterknife.Optional;
 
 import static base.app.ui.adapter.menu.LanguageAdapter.languageIcons;
 import static base.app.ui.adapter.menu.LanguageAdapter.languageShortName;
+import static base.app.util.commons.AnalyticsTrackerKt.trackSettingsChanged;
 import static base.app.util.commons.Utility.AUTO_TRANSLATE;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.NEWS_NOTIFICATIOINS;
@@ -159,6 +160,8 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
             public void onCheckedChanged(CompoundButton toggle, boolean isEnabled) {
                 saveGlobalAutoTranslate(isEnabled);
                 EventBus.getDefault().post(new AutoTranslateEvent(isEnabled));
+
+                trackSettingsChanged();
             }
         });
         wallNotificationsToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -169,6 +172,8 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                 saveWallNotificationsEnabled(isEnabled);
 
                 WallModel.getInstance().wallSetMuteValue(isEnabled ? "true" : "false");
+
+                trackSettingsChanged();
             }
         });
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
@@ -191,6 +196,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                         saveSocialNotificationsEnabled(!isChecked);
                         break;
                 }
+                trackSettingsChanged();
             }
         };
         newsNotificationsToggle.setOnCheckedChangeListener(listener);

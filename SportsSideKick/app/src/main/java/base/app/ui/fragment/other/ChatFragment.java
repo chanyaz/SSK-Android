@@ -110,6 +110,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
+import static base.app.util.commons.AnalyticsTrackerKt.trackChatOpened;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
@@ -373,6 +374,8 @@ public class ChatFragment extends BaseFragment {
                 Utility.hideKeyboard(ChatFragment.this);
             }
         });
+        trackChatOpened();
+
         return view;
     }
 

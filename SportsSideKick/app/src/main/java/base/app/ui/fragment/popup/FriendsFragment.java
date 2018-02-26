@@ -27,10 +27,10 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Model;
+import base.app.data.user.UserInfo;
 import base.app.data.user.friends.FriendRequest;
 import base.app.data.user.friends.FriendsListChangedEvent;
 import base.app.data.user.friends.FriendsManager;
-import base.app.data.user.UserInfo;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
@@ -41,6 +41,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+
+import static base.app.util.commons.AnalyticsTrackerKt.trackFriendsViewed;
 
 /**
  * Created by Djordje on 1/21/2017.
@@ -174,6 +176,8 @@ public class FriendsFragment extends BaseFragment {
                 }
             }
         });
+        trackFriendsViewed();
+        
         return view;
     }
 

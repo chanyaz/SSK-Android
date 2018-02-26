@@ -12,6 +12,7 @@ import base.app.data.wall.news.NewsModel.getInstance
 import base.app.data.wall.news.NewsPageEvent
 import base.app.ui.adapter.content.NewsAdapter
 import base.app.ui.fragment.base.BaseFragment
+import base.app.util.commons.trackSocialSectionOpened
 import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.ui.LinearItemDecoration
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -30,6 +31,8 @@ class SocialFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         showItems()
+
+        trackSocialSectionOpened()
     }
 
     private fun showItems() {

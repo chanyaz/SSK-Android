@@ -8,13 +8,16 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-import base.app.util.events.notify.NotificationEvent;
-import base.app.util.GSConstants;
 import base.app.data.Model;
-import base.app.data.user.friends.FriendsListChangedEvent;
 import base.app.data.user.GSMessageHandlerAbstract;
 import base.app.data.user.UserInfo;
+import base.app.data.user.friends.FriendsListChangedEvent;
 import base.app.data.wall.WallBase;
+import base.app.util.GSConstants;
+import base.app.util.events.notify.NotificationEvent;
+
+import static base.app.util.commons.AnalyticsTrackerKt.trackFriendRequestAccepted;
+import static base.app.util.commons.AnalyticsTrackerKt.trackFriendRequestRejected;
 
 /**
  * Created by Filip on 4/19/2017.
@@ -48,6 +51,11 @@ public class InternalNotificationManager extends GSMessageHandlerAbstract {
                 case "FriendRequestAcceptedMessage":
                     event = new NotificationEvent(4, "Accepted Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);
                     EventBus.getDefault().post(event);
+
+                    trackFriendRequestAccepted();
+                    break;
+                case "FriendRequestRejectedMessage":
+                    trackFriendRequestRejected();
                     break;
                 case "FriendRequestMessage":
                     event = new NotificationEvent(4, "New Friend Request", "", NotificationEvent.Type.FRIEND_REQUESTS);

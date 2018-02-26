@@ -18,6 +18,8 @@ import base.app.util.ui.NavigationDrawerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static base.app.util.commons.AnalyticsTrackerKt.trackSectionOpened;
+
 /**
  * Created by Aleksandar Marinkovic on 18/04/2017.
  * Copyright by Hypercube d.o.o.
@@ -68,6 +70,8 @@ public class BottomMenuAdapter extends RecyclerView.Adapter<BottomMenuAdapter.Vi
                     viewHolder.itemView.setSelected(true);
                     EventBus.getDefault().post(new FragmentEvent(
                             Constant.PHONE_MENU_OPTIONS.get(position)));
+
+                    trackSectionOpened();
                 } else {
                     iDrawerCloseSideMenu.closeDrawerSideMenu(position, true);
                 }

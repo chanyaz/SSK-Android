@@ -25,9 +25,8 @@ import base.app.util.events.stream.ClubTVEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
+import static base.app.util.commons.AnalyticsTrackerKt.trackTvOpened;
 
- */
 @IgnoreBackHandling
 public class ClubTVFragment extends BaseFragment {
 
@@ -57,14 +56,14 @@ public class ClubTVFragment extends BaseFragment {
             GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
             recyclerView.setLayoutManager(layoutManager);
         }
-
-
         adapter = new ClubTVAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
         if (backButton != null) {
             backButton.setVisibility(View.GONE);
         }
+
+        trackTvOpened();
         return view;
     }
 

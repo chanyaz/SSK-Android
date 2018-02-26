@@ -22,11 +22,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.util.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallStats;
 import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.AlertDialogManager;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
@@ -37,11 +37,15 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
+import static base.app.util.commons.AnalyticsTrackerKt.trackStatsOpened;
+import static base.app.util.commons.AnalyticsTrackerKt.trackWebviewDisplayed;
+import static base.app.util.commons.AnalyticsTrackerKt.trackWebviewPageSelected;
+
 /**
 
  */
 @RuntimePermissions
-public class StatisticsFragment extends BaseFragment {
+public class StatsFragment extends BaseFragment {
 
     Bitmap bitmap = null;
     WebView webView;
@@ -57,7 +61,7 @@ public class StatisticsFragment extends BaseFragment {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+        View view = inflater.inflate(R.layout.fragment_stats, container, false);
         ButterKnife.bind(this, view);
 
         webView = view.findViewById(R.id.web_view);
@@ -83,9 +87,14 @@ public class StatisticsFragment extends BaseFragment {
                 webView.loadUrl("javascript:(function() { document.getElementsByClassName('shsR_grid')[0].remove(); })()");
                 webView.loadUrl("javascript:(function() { document.getElementsByClassName('shs_sportNavList')[0].remove(); })()");
                 webView.loadUrl("javascript:(function() { document.getElementsByClassName('footer')[0].remove(); })()");
+
+                trackWebviewPageSelected();
             }
         });
         webView.loadUrl(url);
+
+        trackStatsOpened();
+        trackWebviewDisplayed();
         return view;
     }
 
@@ -101,7 +110,7 @@ public class StatisticsFragment extends BaseFragment {
                     }, new View.OnClickListener() { // Confirm
                         @Override
                         public void onClick(View v) {
-                            StatisticsFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(StatisticsFragment.this);
+                            StatisticsFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(StatsFragment.this);
                             getActivity().onBackPressed();
                         }
                     });

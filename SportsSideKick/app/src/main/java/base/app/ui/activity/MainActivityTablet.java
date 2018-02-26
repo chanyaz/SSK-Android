@@ -21,14 +21,14 @@ import java.util.ArrayList;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.wall.ticker.NewsTickerInfo;
-import base.app.data.wall.ticker.NextMatchModel;
-import base.app.data.wall.ticker.NextMatchUpdateEvent;
 import base.app.data._unused.tutorial.TutorialModel;
+import base.app.data._unused.videoChat.VideoChatEvent;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.UserEvent;
 import base.app.data.user.UserInfo;
-import base.app.data._unused.videoChat.VideoChatEvent;
+import base.app.data.wall.ticker.NewsTickerInfo;
+import base.app.data.wall.ticker.NextMatchModel;
+import base.app.data.wall.ticker.NextMatchUpdateEvent;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.FragmentOrganizer;
 import base.app.ui.fragment.content.NewsFragment;
@@ -40,7 +40,7 @@ import base.app.ui.fragment.content.WallFragment;
 import base.app.ui.fragment.content.WallItemFragment;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.other.FantasyFragment;
-import base.app.ui.fragment.other.StatisticsFragment;
+import base.app.ui.fragment.other.StatsFragment;
 import base.app.ui.fragment.popup.AddFriendFragment;
 import base.app.ui.fragment.popup.AlertDialogFragment;
 import base.app.ui.fragment.popup.CreateChatFragment;
@@ -182,7 +182,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
 
         ArrayList<Class> topRightContainerFragments = new ArrayList<>();
         topRightContainerFragments.add(ChatFragment.class);
-        topRightContainerFragments.add(StatisticsFragment.class);
+        topRightContainerFragments.add(StatsFragment.class);
         topRightContainerFragments.add(FantasyFragment.class);
         topRightContainerFragments.add(QuizFragment.class);
         topRightContainerFragments.add(SignUpLoginPopupRightFragment.class);
@@ -232,7 +232,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         radioButtonsFragmentMap.put(R.id.news_radio_button, NewsFragment.class);
         radioButtonsFragmentMap.put(R.id.roumors_radio_button, RumoursFragment.class);
         radioButtonsFragmentMap.put(R.id.chat_radio_button, ChatFragment.class);
-        radioButtonsFragmentMap.put(R.id.stats_radio_button, StatisticsFragment.class);
+        radioButtonsFragmentMap.put(R.id.stats_radio_button, StatsFragment.class);
         radioButtonsFragmentMap.put(R.id.fantasy_radio_button, FantasyFragment.class);
         radioButtonsFragmentMap.put(R.id.quiz_radio_button, QuizFragment.class);
         radioButtonsFragmentMap.put(R.id.club_tv_radio_button, ClubTVFragment.class);

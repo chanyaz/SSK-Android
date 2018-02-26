@@ -43,8 +43,6 @@ import base.app.R;
 import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.Translator;
-import base.app.data.wall.sharing.NativeShareEvent;
-import base.app.data.wall.sharing.SharingManager;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.PostComment;
 import base.app.data.wall.WallBase;
@@ -52,6 +50,8 @@ import base.app.data.wall.WallModel;
 import base.app.data.wall.WallNewsShare;
 import base.app.data.wall.WallPost;
 import base.app.data.wall.WallStoreItem;
+import base.app.data.wall.sharing.NativeShareEvent;
+import base.app.data.wall.sharing.SharingManager;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.commons.SoundEffects;
@@ -72,6 +72,7 @@ import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
+import static base.app.util.commons.AnalyticsTrackerKt.trackPostViewed;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.ui.TranslationView.TranslationType;
 
@@ -259,6 +260,7 @@ public class WallItemFragment extends BaseFragment {
         if (BuildConfig.DEBUG) {
             showDummyInfo();
         }
+        trackPostViewed();
 
         return view;
     }

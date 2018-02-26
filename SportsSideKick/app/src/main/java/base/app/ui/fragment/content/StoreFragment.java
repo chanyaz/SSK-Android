@@ -30,6 +30,11 @@ import base.app.ui.fragment.base.BaseFragment;
 import base.app.util.AlertDialogManager;
 import base.app.util.commons.Utility;
 
+import static base.app.util.commons.AnalyticsTrackerKt.trackProductViewed;
+import static base.app.util.commons.AnalyticsTrackerKt.trackShopOpened;
+import static base.app.util.commons.AnalyticsTrackerKt.trackWebviewDisplayed;
+import static base.app.util.commons.AnalyticsTrackerKt.trackWebviewPageSelected;
+
 /**
  * Created by Filip on 12/5/2016.
  * Copyright by Hypercube d.o.o.
@@ -98,6 +103,9 @@ public class StoreFragment extends BaseFragment {
         homeButton.setOnClickListener(closeButtonOnClickListener);
 
         setupFragment();
+
+        trackShopOpened();
+        trackWebviewDisplayed();
 
         return view;
     }
@@ -214,10 +222,14 @@ public class StoreFragment extends BaseFragment {
                             || url.toLowerCase().contains(getResources().getString(R.string.store_url_item9).toLowerCase())
                             ) {
                         setViewEnabled(true, shareToWallButton);
+
+                        trackProductViewed();
                     } else {
                         setViewEnabled(false, shareToWallButton);
                     }
                     extractDataForWallItem(webView);
+
+                    trackWebviewPageSelected();
                 }
                 Log.d("WEB VIEW", "Loaded successfully!");
             }
