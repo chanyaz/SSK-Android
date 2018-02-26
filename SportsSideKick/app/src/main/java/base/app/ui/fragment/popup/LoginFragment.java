@@ -45,7 +45,6 @@ import java.util.HashMap;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.util.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.user.LoginStateReceiver;
 import base.app.data.user.LoginStateReceiver.LoginStateListener;
@@ -56,6 +55,7 @@ import base.app.ui.activity.BaseActivity;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.AlertDialogManager;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
 import butterknife.BindView;
@@ -83,7 +83,7 @@ public class LoginFragment extends BaseFragment
     View progressBar;
     @BindView(R.id.reset_progress_bar)
     View resetProgressBar;
-    @BindView(R.id.forgot_password_container)
+    @BindView(R.id.forgotPasswordContainer)
     RelativeLayout forgotPasswordContainer;
     @BindView(R.id.content_container)
     RelativeLayout loginContainer;
@@ -162,7 +162,7 @@ public class LoginFragment extends BaseFragment
         return view;
     }
 
-    private void closeForgotView() {
+    public void closeForgotView() {
         loginContainer.setVisibility(View.VISIBLE);
         if (loginButton != null) {
             loginButton.setVisibility(View.VISIBLE);

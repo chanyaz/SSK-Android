@@ -297,6 +297,13 @@ class MainActivity : BaseActivityWithPush(),
                 return
             }
         }
+        if (currentFragment is LoginFragment) {
+            val forgotPasswordContainer = currentFragment.view!!.findViewById<View>(R.id.forgotPasswordContainer)
+            if (forgotPasswordContainer.visibility == View.VISIBLE) {
+                currentFragment.closeForgotView()
+                return
+            }
+        }
 
         toggleBlur(false, null) // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER)

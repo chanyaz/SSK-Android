@@ -82,7 +82,7 @@
                             android:orientation="vertical">
 
                             <RelativeLayout
-                                android:id="@+id/forgot_password_container"
+                                android:id="@+id/forgotPasswordContainer"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
 
