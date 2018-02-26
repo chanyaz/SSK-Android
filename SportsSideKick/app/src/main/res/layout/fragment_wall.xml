@@ -56,6 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_more_horiz_white_24dp"
         app:backgroundTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -29,12 +29,12 @@ import base.app.util.events.post.PostDeletedEvent
 import base.app.util.events.post.WallLikeUpdateEvent
 import base.app.util.ui.LinearItemDecoration
 import butterknife.ButterKnife
-import butterknife.OnClick
 import com.google.android.gms.tasks.TaskCompletionSource
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import kotlinx.android.synthetic.main.fragment_wall.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import org.jetbrains.anko.sdk25.coroutines.onClick
 import java.util.*
 
 @IgnoreBackHandling
@@ -56,6 +56,8 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
         ButterKnife.bind(view) // for on click listeners to work
         loginStateReceiver = LoginStateReceiver(this)
 
+        setClickListeners()
+
         recyclerView.adapter = adapter
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
         val space = resources.getDimension(R.dimen.item_spacing_wall).toInt()
@@ -67,17 +69,18 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
         refreshAdapter(false)
     }
 
-    private fun scrollUp() {
-        recyclerView.smoothScrollToPosition(0)
+    private fun setClickListeners() {
+        fab.onClick {
+            if (Model.getInstance().isRealUser) {
+                EventBus.getDefault().post(FragmentEvent(PostCreateFragment::class.java))
+            } else {
+                EventBus.getDefault().post(FragmentEvent(SignUpLoginFragment::class.java))
+            }
+        }
     }
 
-    @OnClick(R.id.fab)
-    fun fabOnClick() {
-        if (Model.getInstance().isRealUser) {
-            EventBus.getDefault().post(FragmentEvent(PostCreateFragment::class.java))
-        } else {
-            EventBus.getDefault().post(FragmentEvent(SignUpLoginFragment::class.java))
-        }
+    private fun scrollUp() {
+        recyclerView.smoothScrollToPosition(0)
     }
 
     @Subscribe

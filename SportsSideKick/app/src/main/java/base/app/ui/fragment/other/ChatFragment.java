@@ -1076,7 +1076,7 @@ public class ChatFragment extends BaseFragment {
         }
         urlInFullscreen = event.getId();
         if (imageViewFullScreen != null) {
-            ImageLoader.displayImage(urlInFullscreen, imageViewFullScreen, null);
+            ImageLoader.displayImage(urlInFullscreen, imageViewFullScreen);
         }
     }
 
