@@ -1,5 +1,36 @@
 package base.app.util.commons
 
+import base.app.Application.getDefaultTracker
+import base.app.data.Model
+import com.google.android.gms.analytics.HitBuilders
+import java.util.*
+
+/**
+ * Implementation of analytics
+ */
+
+fun sendSessionEvent(action: String) {
+    Model.getInstance().userInfo
+    Date()
+
+    sendEventWithParams(action)
+}
+
+fun sendGenericEvent(action: String) {
+    sendEventWithParams(action)
+}
+
+private fun sendEventWithParams(action: String) {
+    getDefaultTracker()
+            .send(HitBuilders.EventBuilder()
+                    .setAction(action)
+                    .build())
+}
+
+/**
+ * Interface for analytics
+ * */
+
 fun trackAppOpened() {}
 
 fun trackDeepLinkOpened() {}

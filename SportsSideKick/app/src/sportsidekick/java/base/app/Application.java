@@ -4,6 +4,8 @@ import android.content.ContextWrapper;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.leakcanary.LeakCanary;
@@ -19,6 +21,34 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * www.hypercubesoft.com
  */
 public class Application extends MultiDexApplication {
+
+    private static GoogleAnalytics sAnalytics;
+    private static Tracker sTracker;
+
+    /**
+     * Gets the default {@link Tracker} for this {@link Application}.
+     *
+     * @return tracker
+     */
+    synchronized public static Tracker getDefaultTracker() {
+        // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+        if (sTracker == null) {
+            sTracker = sAnalytics.newTracker(R.xml.global_tracker);
+        }
+        return sTracker;
+    }
+
+    protected void enableStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .permitDiskReads()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
+    }
 
     @Override
     public void onCreate() {
@@ -43,8 +73,7 @@ public class Application extends MultiDexApplication {
         // Custom fonts
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/TitilliumWeb-Regular.ttf")
-                .build()
-        );
+                .build());
 
         FileUploader.getInstance().initialize(getApplicationContext());
         SoundEffects.getDefault().initialize(this);
@@ -52,17 +81,8 @@ public class Application extends MultiDexApplication {
         Translator.getInstance().initialize(this);
 
         RxPaparazzo.register(this);
-    }
 
-    protected void enableStrictMode() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .permitDiskReads()
-                .penaltyLog()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .build());
+        sAnalytics = GoogleAnalytics.getInstance(this);
+        if (BuildConfig.DEBUG) sAnalytics.setDryRun(true);
     }
 }

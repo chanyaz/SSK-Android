@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--TODO: Add real tracking id-->
+    <string
+        name="ga_trackingId"
+        translatable="false">${YOUR_TRACKING_ID}
+    </string>
+    <!--Additional data protection, anonymizing device IP address-->
+    <string name="ga_anonymizeIp">true</string>
+</resources>
