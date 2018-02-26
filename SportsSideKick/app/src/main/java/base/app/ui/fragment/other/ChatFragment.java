@@ -111,7 +111,6 @@ import permissions.dispatcher.RuntimePermissions;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_CAPTURE;
-import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_IMAGE_PICK;
 import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_VIDEO_CAPTURE;
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 import static io.reactivex.schedulers.Schedulers.io;
@@ -1089,8 +1088,37 @@ public class ChatFragment extends BaseFragment {
 
     @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void invokeImageSelection() {
-        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto, REQUEST_CODE_CHAT_IMAGE_PICK);//one can be replaced with any action code
+        RxPaparazzo.single(ChatFragment.this)
+                .usingGallery()
+                .map(new Function<Response<ChatFragment, FileData>, Object>() {
+                    @Override
+                    public Object apply(Response<ChatFragment, FileData> fileData) throws Exception {
+                        return fileData.data().getFile();
+                    }
+                })
+                .subscribeOn(io())
+                .observeOn(mainThread())
+                .subscribe(new Observer<Object>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(Object o) {
+                        File imageFile = (File) o;
+                        currentPath = imageFile.getAbsolutePath();
+                        resultFromPicker = REQUEST_CODE_CHAT_IMAGE_CAPTURE;
+                        sendImageMessage(currentPath);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
