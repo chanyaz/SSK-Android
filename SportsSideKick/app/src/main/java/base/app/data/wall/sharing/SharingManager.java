@@ -24,7 +24,6 @@ import java.util.Map;
 
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallNews;
-import base.app.data.wall.WallSocial;
 
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.Model.createRequest;
@@ -127,7 +126,7 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                     } else if (item.getItemType() == ItemType.News) {
                         trackNewsShared(((WallNews) item).getPostId());
                     } else if (item.getItemType() == ItemType.Social) {
-                        trackSocialShared(((WallSocial) item).getPostId());
+                        trackSocialShared();
                     }
                 } else {
                     Toast.makeText(context, "Failed to share item", Toast.LENGTH_SHORT).show();

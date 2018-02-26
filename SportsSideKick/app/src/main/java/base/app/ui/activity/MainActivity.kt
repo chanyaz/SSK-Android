@@ -75,14 +75,6 @@ class MainActivity : BaseActivityWithPush(),
 
         logoImageView.show(R.drawable.logo_toolbar)
         splashBackgroundImage.show(R.drawable.video_chat_background)
-
-        trackAppOpened()
-        trackHomeScreenDisplayed()
-
-        val intent = intent
-        if (intent.data != null) {
-            trackDeepLinkOpened()
-        }
     }
 
     override fun onDestroy() {
@@ -514,6 +506,14 @@ class MainActivity : BaseActivityWithPush(),
         resetUserDetails()
         updateTopBar()
         splash.visibility = View.GONE
+
+        trackSessionStarted()
+        trackHomeScreenDisplayed()
+
+        val intent = intent
+        if (intent.data != null) {
+            trackDeepLinkOpened()
+        }
     }
 
     override fun onLogin(user: UserInfo) {
@@ -536,6 +536,13 @@ class MainActivity : BaseActivityWithPush(),
         splash.visibility = View.GONE
 
         trackUserLoggedIn()
+        trackSessionStarted()
+        trackHomeScreenDisplayed()
+
+        val intent = intent
+        if (intent.data != null) {
+            trackDeepLinkOpened()
+        }
     }
 
     private fun resetUserDetails() {

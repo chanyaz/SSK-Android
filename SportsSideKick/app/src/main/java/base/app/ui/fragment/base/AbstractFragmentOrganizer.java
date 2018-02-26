@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -153,6 +154,9 @@ public abstract class AbstractFragmentOrganizer {
                 }
             }
         }
+
+        Log.d("Fragment manager",
+                fragmentManager.getBackStackEntryCount() + " entries in back stack");
 
         String fragmentTag = createFragmentTag(fragment, true);
         transaction.addToBackStack(fragmentTag);

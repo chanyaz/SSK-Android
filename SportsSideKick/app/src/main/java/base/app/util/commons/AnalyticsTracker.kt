@@ -41,7 +41,7 @@ fun sendEventWithSession(action: String,
  */
 @SuppressLint("HardwareIds")
 @Suppress("DEPRECATION")
-fun trackAppOpened() {
+fun trackSessionStarted() {
     sendEventWithSession("AppStart", mapOf(
             "BuildID" to Build.SERIAL,
             "DeviceID" to Model.getInstance().deviceId))
@@ -204,11 +204,11 @@ fun trackNewsShared(postId: String) {
 
 fun trackSocialSectionOpened() {
     sendEvent("SocialSelected", mapOf(
-
+            "FeatureID" to "Social"
     ))
 }
 
-fun trackSocialItemOpened(itemId: String) {
+fun trackSocialItemOpened() {
     sendEvent("SocialPostOpen")
 }
 
@@ -216,11 +216,11 @@ fun trackSocialItemPinned() {
     sendEvent("SocialPostSent")
 }
 
-fun trackSocialLiked(postId: String) {
+fun trackSocialLiked() {
     sendEvent("SocialPostLiked")
 }
 
-fun trackSocialShared(postId: String) {
+fun trackSocialShared() {
     sendEvent("SocialPostShared")
 }
 
@@ -231,7 +231,7 @@ fun trackSocialCommentSubmitted() {
 
 fun trackStoreOpened() {
     sendEventWithSession("ShopSelected", mapOf(
-
+            "FeatureID" to "Shop"
     ))
 }
 
@@ -241,19 +241,23 @@ fun trackProductViewed() {
 
 fun trackStatsOpened() {
     sendEventWithSession("StatsSelected", mapOf(
-
+            "FeatureID" to "Stats"
     ))
 }
 
 
 fun trackFriendsViewed() {
     sendEventWithSession("FriendSelected", mapOf(
-
+            "FeatureID" to "Friends"
     ))
 }
 
 fun trackFriendRequestSent() {
-    sendEventWithSession("FriendAdded")
+    sendEventWithSession("FriendAdded", mapOf(
+            "WhereFromID" to "", // TODO: Supply
+            "newfriendType" to "",  // TODO: Supply
+            "numFriends" to ""  // TODO: Supply
+    ))
 }
 
 fun trackFriendRequestAccepted() {

@@ -110,7 +110,7 @@ public class StatsFragment extends BaseFragment {
                     }, new View.OnClickListener() { // Confirm
                         @Override
                         public void onClick(View v) {
-                            StatisticsFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(StatsFragment.this);
+                            StatsFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(StatsFragment.this);
                             getActivity().onBackPressed();
                         }
                     });
@@ -158,7 +158,7 @@ public class StatsFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        StatisticsFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        StatsFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     private String saveToInternalStorage(Bitmap bitmapImage) {

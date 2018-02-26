@@ -274,7 +274,7 @@ public class NewsItemFragment extends BaseFragment {
                 || item.getType() == WallBase.PostType.newsUnOfficial) {
             trackNewsItemOpened(item.getPostId());
         } else if (item.getType() == WallBase.PostType.social) {
-            trackSocialItemOpened(item.getPostId());
+            trackSocialItemOpened();
         }
     }
 

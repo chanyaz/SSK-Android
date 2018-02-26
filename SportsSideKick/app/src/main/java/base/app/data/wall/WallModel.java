@@ -283,7 +283,7 @@ public class WallModel extends GSMessageHandlerAbstract {
                     if (post.getType() == WallBase.PostType.post) {
                         trackPostLiked(post.getPostId());
                     } else if (post.getType() == WallBase.PostType.social) {
-                        trackSocialLiked(post.getPostId());
+                        trackSocialLiked();
                     }
                 } else {
                     Log.e("WallModel", response.getBaseData().get("error").toString());

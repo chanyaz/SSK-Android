@@ -68,8 +68,6 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
 
         wallItems.addAll(WallBase.getCache().values)
         refreshAdapter(false)
-
-        trackWallDisplayed()
     }
 
     private fun setClickListeners() {
@@ -230,11 +228,15 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
         reset()
         reloadWallFromModel(false)
         swipeRefreshLayout.isRefreshing = true
+
+        trackWallDisplayed()
     }
 
     override fun onLoginAnonymously() {
         reset()
         reloadWallFromModel()
+
+        trackWallDisplayed()
     }
 
     override fun onLoginError(error: Error) {
