@@ -22,6 +22,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
+import base.app.data.wall.WallBase;
+import base.app.data.wall.WallNews;
+import base.app.data.wall.WallSocial;
+
 import static base.app.ClubConfig.CLUB_ID;
 import static base.app.data.Model.createRequest;
 import static base.app.util.GSConstants.CLUB_ID_TAG;
@@ -119,11 +123,11 @@ public class SharingManager implements FacebookCallback<Sharer.Result> {
                     presentNative(response);
 
                     if (item.getItemType() == ItemType.WallPost) {
-                        trackPostShared();
+                        trackPostShared(((WallBase) item).getPostId());
                     } else if (item.getItemType() == ItemType.News) {
-                        trackNewsShared();
+                        trackNewsShared(((WallNews) item).getPostId());
                     } else if (item.getItemType() == ItemType.Social) {
-                        trackSocialShared();
+                        trackSocialShared(((WallSocial) item).getPostId());
                     }
                 } else {
                     Toast.makeText(context, "Failed to share item", Toast.LENGTH_SHORT).show();

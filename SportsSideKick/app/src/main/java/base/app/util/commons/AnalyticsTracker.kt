@@ -119,15 +119,15 @@ fun trackPostCommentSubmitted(postId: String) {
     ))
 }
 
-fun trackPostLiked() {
+fun trackPostLiked(postId: String) {
     sendEventWithSession("WallPostLiked", mapOf(
-
+            "PostID" to postId
     ))
 }
 
-fun trackPostShared() {
+fun trackPostShared(postId: String) {
     sendEventWithSession("WallPostShared", mapOf(
-
+            "PostID" to postId
     ))
 }
 
@@ -194,7 +194,7 @@ fun trackNewsCommentSubmitted(postId: String) {
     ))
 }
 
-fun trackNewsShared() {
+fun trackNewsShared(postId: String) {
     sendEventWithSession("NewsItemShared", mapOf(
 
     ))
@@ -215,11 +215,11 @@ fun trackSocialItemPinned() {
     sendEvent("SocialPostSent")
 }
 
-fun trackSocialLiked() {
+fun trackSocialLiked(postId: String) {
     sendEvent("SocialPostLiked")
 }
 
-fun trackSocialShared() {
+fun trackSocialShared(postId: String) {
     sendEvent("SocialPostShared")
 }
 

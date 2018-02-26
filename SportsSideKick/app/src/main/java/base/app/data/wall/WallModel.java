@@ -281,9 +281,9 @@ public class WallModel extends GSMessageHandlerAbstract {
                     EventBus.getDefault().post(new ItemUpdateEvent(post));
 
                     if (post.getType() == WallBase.PostType.post) {
-                        trackPostLiked();
+                        trackPostLiked(post.getPostId());
                     } else if (post.getType() == WallBase.PostType.social) {
-                        trackSocialLiked();
+                        trackSocialLiked(post.getPostId());
                     }
                 } else {
                     Log.e("WallModel", response.getBaseData().get("error").toString());
