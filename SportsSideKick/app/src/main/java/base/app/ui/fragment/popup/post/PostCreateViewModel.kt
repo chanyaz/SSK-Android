@@ -33,7 +33,7 @@ class PostCreateViewModel : ViewModel() {
                 .flatMap { postsRepo.savePost(it) }
                 .subscribeOn(io())
                 .observeOn(mainThread())
-                .doOnNext { trackPostSubmitted() }
+                .doOnNext { trackPostSubmitted("Creating new post") }
                 .subscribe { view.exit() })
     }
 

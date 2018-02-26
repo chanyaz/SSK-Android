@@ -74,6 +74,7 @@ import static base.app.data.wall.WallBase.PostType.social;
 import static base.app.data.wall.WallBase.PostType.socialShare;
 import static base.app.ui.fragment.popup.ProfileFragment.isAutoTranslateEnabled;
 import static base.app.util.commons.AnalyticsTrackerKt.trackNewsItemOpened;
+import static base.app.util.commons.AnalyticsTrackerKt.trackPostSubmitted;
 import static base.app.util.commons.AnalyticsTrackerKt.trackSocialItemOpened;
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 import static base.app.util.commons.Utility.getCurrentTime;
@@ -778,6 +779,8 @@ public class NewsItemFragment extends BaseFragment {
         WallModel.getInstance().createPost(itemToPost);
 
         EventBus.getDefault().post(new FragmentEvent(WallFragment.class));
+
+        trackPostSubmitted("Sharing");
     }
 
     @OnClick(R.id.pin_container)

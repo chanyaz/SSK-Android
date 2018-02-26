@@ -103,19 +103,19 @@ fun trackPostViewed(postId: String) {
 
 fun trackPostComposing() {
     sendEventWithSession("WallPostStarted", mapOf(
-
+            "TypeID" to "Creating new post"
     ))
 }
 
-fun trackPostSubmitted() {
+fun trackPostSubmitted(source: String) {
     sendEventWithSession("WallPostSent", mapOf(
-
+            "TypeID" to source
     ))
 }
 
-fun trackPostCommentSubmitted() {
+fun trackPostCommentSubmitted(postId: String) {
     sendEventWithSession("WallComment", mapOf(
-
+            "PostID" to postId
     ))
 }
 
@@ -188,7 +188,7 @@ fun trackNewsItemOpened() {
     ))
 }
 
-fun trackNewsCommentSubmitted() {
+fun trackNewsCommentSubmitted(postId: String) {
     sendEventWithSession("NewsItemComment", mapOf(
 
     ))

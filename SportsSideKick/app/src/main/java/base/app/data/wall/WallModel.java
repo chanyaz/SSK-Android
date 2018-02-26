@@ -358,9 +358,9 @@ public class WallModel extends GSMessageHandlerAbstract {
                     EventBus.getDefault().post(new ItemUpdateEvent(postFromServer));
 
                     if (post instanceof WallPost) {
-                        trackPostCommentSubmitted();
+                        trackPostCommentSubmitted(post.getPostId());
                     } else if (post instanceof WallNews) {
-                        trackNewsCommentSubmitted();
+                        trackNewsCommentSubmitted(post.getPostId());
                     }
                 } else {
                     Log.e("WallModel", "Posting of comment failed!");
