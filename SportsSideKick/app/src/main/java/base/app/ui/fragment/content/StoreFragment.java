@@ -22,12 +22,12 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 import base.app.R;
-import base.app.util.AlertDialogManager;
 import base.app.data.Model;
 import base.app.data.wall.WallBase;
 import base.app.data.wall.WallModel;
 import base.app.data.wall.WallStoreItem;
 import base.app.ui.fragment.base.BaseFragment;
+import base.app.util.AlertDialogManager;
 import base.app.util.commons.Utility;
 
 /**
@@ -56,6 +56,31 @@ public class StoreFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    View.OnClickListener shareToWallOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (!Model.getInstance().isRealUser()) {
+                Toast.makeText(getContext(), "You have to be logged in in order to pin to wall", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (item != null) {
+                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.pin_title), getContext().getResources().getString(R.string.pin_confirm),
+                        new View.OnClickListener() {// Cancel
+                            @Override
+                            public void onClick(View v) {
+                                getActivity().onBackPressed();
+                            }
+                        }, new View.OnClickListener() { // Confirm
+                            @Override
+                            public void onClick(View v) {
+                                WallModel.getInstance().createPost(item);
+                                getActivity().onBackPressed();
+                            }
+                        });
+            }
+        }
+    };
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_with_web_view, container, false);
@@ -66,7 +91,7 @@ public class StoreFragment extends BaseFragment {
         backButton = view.findViewById(R.id.back_button);
         forwardButton = view.findViewById(R.id.forward_button);
         shareToWallButton = view.findViewById(R.id.share_to_wall_button);
-        homeButton =  view.findViewById(R.id.home_button);
+        homeButton = view.findViewById(R.id.home_button);
         backButton.setOnClickListener(goBackClickListener);
         forwardButton.setOnClickListener(goForwardClickListener);
         shareToWallButton.setOnClickListener(shareToWallOnClickListener);
@@ -77,8 +102,8 @@ public class StoreFragment extends BaseFragment {
         return view;
     }
 
-    private void setViewEnabled(boolean isEnabled, View view){
-        if(isEnabled){
+    private void setViewEnabled(boolean isEnabled, View view) {
+        if (isEnabled) {
             view.setAlpha(1.0f);
             view.setEnabled(true);
         } else {
@@ -87,7 +112,7 @@ public class StoreFragment extends BaseFragment {
         }
     }
 
-    private void extractDataForWallItem(WebView webView){
+    private void extractDataForWallItem(WebView webView) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Elements imageDiv;
@@ -130,6 +155,25 @@ public class StoreFragment extends BaseFragment {
         }
     }
 
+    @NonNull
+    protected String getUrl() {
+        if (!isAdded()) return "";
+        return getResources().getString(R.string.store_url);
+    }
+
+    View.OnClickListener goBackClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            webView.goBack();
+        }
+    };
+    View.OnClickListener goForwardClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            webView.goForward();
+        }
+    };
+
     @SuppressLint("SetJavaScriptEnabled")
     protected void setupFragment() {
         WebViewClient webViewClient = new WebViewClient() {
@@ -158,16 +202,16 @@ public class StoreFragment extends BaseFragment {
                 } else {
                     Log.d("WEB VIEW", "Product page!");
                     setViewEnabled(true, homeButton);
-                    if (
-                            url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item2).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item3).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item4).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item5).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item6).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item7).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item8).toLowerCase())
-                                    || url.toLowerCase().contains(getResources().getString(R.string.store_url_item9).toLowerCase())
+                    if (!isAdded()) return; // prevents crash from getString if screen was closed
+                    if (url.toLowerCase().contains(getResources().getString(R.string.store_url_item).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item2).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item3).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item4).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item5).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item6).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item7).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item8).toLowerCase())
+                            || url.toLowerCase().contains(getResources().getString(R.string.store_url_item9).toLowerCase())
                             ) {
                         setViewEnabled(true, shareToWallButton);
                     } else {
@@ -187,50 +231,6 @@ public class StoreFragment extends BaseFragment {
         withNavigation = true;
         webView.loadUrl(mUrl);
     }
-
-    @NonNull
-    protected String getUrl() {
-        if (!isAdded()) return "";
-        return getResources().getString(R.string.store_url);
-    }
-
-    View.OnClickListener goBackClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            webView.goBack();
-        }
-    };
-    View.OnClickListener goForwardClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            webView.goForward();
-        }
-    };
-
-    View.OnClickListener shareToWallOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if(!Model.getInstance().isRealUser()) {
-                Toast.makeText(getContext(),"You have to be logged in in order to pin to wall",Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (item != null) {
-                AlertDialogManager.getInstance().showAlertDialog(getContext().getResources().getString(R.string.pin_title), getContext().getResources().getString(R.string.pin_confirm),
-                        new View.OnClickListener() {// Cancel
-                            @Override
-                            public void onClick(View v) {
-                                getActivity().onBackPressed();
-                            }
-                        }, new View.OnClickListener() { // Confirm
-                            @Override
-                            public void onClick(View v) {
-                                WallModel.getInstance().createPost(item);
-                                getActivity().onBackPressed();
-                            }
-                        });
-            }
-        }
-    };
 
     View.OnClickListener closeButtonOnClickListener = new View.OnClickListener() {
         @Override

@@ -13,7 +13,7 @@ public class TicketsFragment extends StoreFragment {
     @NonNull
     @Override
     protected String getUrl() {
-        if (!isAdded()) return "";
+        if (!isAdded()) return ""; // prevents crash from getString if screen was closed
 
         String urlTemplate = getResources().getString(R.string.tickets_url);
         String userLanguage = Prefs.getString(CHOSEN_LANGUAGE, "en");
