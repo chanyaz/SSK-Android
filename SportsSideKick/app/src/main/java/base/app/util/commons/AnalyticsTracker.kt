@@ -82,9 +82,9 @@ fun trackHomeScreenDisplayed() {
     sendEventWithSession("MainScreenDisplay")
 }
 
-fun trackSettingsChanged() {
+fun trackSettingsChanged(settingName: String) {
     sendEventWithSession("SettingsChange", mapOf(
-
+            "SettingID" to settingName
     ))
 }
 

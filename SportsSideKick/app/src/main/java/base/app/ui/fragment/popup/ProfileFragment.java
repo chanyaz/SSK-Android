@@ -161,7 +161,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                 saveGlobalAutoTranslate(isEnabled);
                 EventBus.getDefault().post(new AutoTranslateEvent(isEnabled));
 
-                trackSettingsChanged();
+                trackSettingsChanged("Auto Translation");
             }
         });
         wallNotificationsToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -173,7 +173,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
 
                 WallModel.getInstance().wallSetMuteValue(isEnabled ? "true" : "false");
 
-                trackSettingsChanged();
+                trackSettingsChanged("Wall Notifications");
             }
         });
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
@@ -196,7 +196,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
                         saveSocialNotificationsEnabled(!isChecked);
                         break;
                 }
-                trackSettingsChanged();
+                trackSettingsChanged("$type Notifications");
             }
         };
         newsNotificationsToggle.setOnCheckedChangeListener(listener);
