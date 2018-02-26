@@ -54,6 +54,8 @@ import base.app.data.wall.sharing.NativeShareEvent;
 import base.app.data.wall.sharing.SharingManager;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
 import base.app.util.events.comment.CommentDeleteEvent;
@@ -277,7 +279,7 @@ public class WallItemFragment extends BaseFragment {
                     post.requestFocus();
                     Utility.showKeyboard(getContext());
                 } else {
-                    Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
+                    EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
                 }
             }
         });
@@ -434,7 +436,7 @@ public class WallItemFragment extends BaseFragment {
             postCommentProgressBar.setVisibility(View.VISIBLE);
             post.getText().clear();
         } else {
-            Toast.makeText(getActivity(), "Please login to post comments", Toast.LENGTH_LONG).show();
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
     }
 
