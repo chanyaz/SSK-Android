@@ -22,6 +22,7 @@ import base.app.ui.fragment.base.IgnoreBackHandling
 import base.app.ui.fragment.popup.SignUpLoginFragment
 import base.app.ui.fragment.popup.post.PostCreateFragment
 import base.app.util.commons.Utility
+import base.app.util.commons.trackWallDisplayed
 import base.app.util.events.comment.CommentReceiveEvent
 import base.app.util.events.post.AutoTranslateEvent
 import base.app.util.events.post.ItemUpdateEvent
@@ -67,6 +68,8 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
 
         wallItems.addAll(WallBase.getCache().values)
         refreshAdapter(false)
+
+        trackWallDisplayed()
     }
 
     private fun setClickListeners() {

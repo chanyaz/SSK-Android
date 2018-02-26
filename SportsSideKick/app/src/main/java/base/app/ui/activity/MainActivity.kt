@@ -528,6 +528,8 @@ class MainActivity : BaseActivityWithPush(),
         }
         updateTopBar()
         splash.visibility = View.GONE
+
+        trackUserLoggedIn()
     }
 
     private fun resetUserDetails() {

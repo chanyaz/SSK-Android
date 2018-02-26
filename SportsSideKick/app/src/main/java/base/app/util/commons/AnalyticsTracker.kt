@@ -1,22 +1,23 @@
 package base.app.util.commons
 
-import java.util.*
-
-fun trackAppOpened(time: Date?) {}
+fun trackAppOpened() {}
 
 fun trackDeepLinkOpened() {}
 
 fun trackAppClosed() {}
 
+
 fun trackUserRegistered() {}
 
 fun trackUserLoggedIn() {}
+
 
 fun trackWallDisplayed() {}
 
 fun trackSettingsChanged() {}
 
 fun trackSectionOpened() {}
+
 
 fun trackPostViewed() {}
 
@@ -30,6 +31,7 @@ fun trackPostLiked() {}
 
 fun trackPostShared() {}
 
+
 fun trackChatOpened() {}
 
 fun trackChatCreated() {}
@@ -38,11 +40,13 @@ fun trackChatJoined() {}
 
 fun trackMessageSent() {}
 
+
 fun trackTvOpened() {}
 
 fun trackTvShowStarted() {}
 
 fun trackTvShowEnded() {}
+
 
 fun trackNewsSectionOpened() {}
 
@@ -51,6 +55,7 @@ fun trackNewsItemOpened() {}
 fun trackNewsCommentSubmitted() {}
 
 fun trackNewsShared() {}
+
 
 fun trackSocialSectionOpened() {}
 
@@ -62,11 +67,13 @@ fun trackSocialItemLiked() {}
 
 fun trackSocialItemShared() {}
 
+
 fun trackShopOpened() {}
 
 fun trackProductViewed() {}
 
 fun trackStatsOpened() {}
+
 
 fun trackFriendsViewed() {}
 
@@ -79,6 +86,7 @@ fun trackFriendRequestRejected() {}
 fun trackUnfriended() {}
 
 fun trackUnfollowed() {}
+
 
 fun trackWebviewDisplayed() {}
 

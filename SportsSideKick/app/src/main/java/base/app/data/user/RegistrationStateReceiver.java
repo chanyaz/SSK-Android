@@ -4,6 +4,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static base.app.util.commons.AnalyticsTrackerKt.trackUserRegistered;
+
 /**
  * Created by Filip on 4/25/2017.
  * Copyright by Hypercube d.o.o.
@@ -30,6 +32,7 @@ public class RegistrationStateReceiver {
         switch (event.getType()){
             case onRegister:
                 listener.onRegister();
+                trackUserRegistered();
                 break;
             case onRegisterError:
                 listener.onRegisterError(event.getError());

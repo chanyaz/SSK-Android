@@ -50,13 +50,13 @@ import java.util.Locale;
 
 import base.app.BuildConfig;
 import base.app.R;
-import base.app.util.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.RegistrationStateReceiver;
 import base.app.ui.activity.BaseActivity;
 import base.app.ui.adapter.profile.AccountCreatingAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.GSConstants;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
@@ -71,7 +71,8 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 
-public class SignUpFragment extends BaseFragment implements RegistrationStateReceiver.RegistrationStateListener {
+public class SignUpFragment extends BaseFragment
+        implements RegistrationStateReceiver.RegistrationStateListener {
 
     String url;
     @BindView(R.id.web_view)
