@@ -75,88 +75,128 @@ fun trackHomeScreenDisplayed() {
 }
 
 fun trackSettingsChanged() {
-    sendEventWithSession("SettingsChange")
+    sendEventWithSession("SettingsChange", mapOf(
+
+    ))
 }
 
 fun trackWallDisplayed() {
-    sendEventWithSession("WallSelected")
+    sendEventWithSession("WallSelected", mapOf(
+
+    ))
 }
 
 
 fun trackPostViewed() {
-    sendEventWithSession("WallPostOpen")
+    sendEventWithSession("WallPostOpen", mapOf(
+
+    ))
 }
 
 fun trackPostComposing() {
-    sendEventWithSession("WallPostStarted")
+    sendEventWithSession("WallPostStarted", mapOf(
+
+    ))
 }
 
 fun trackPostSubmitted() {
-    sendEventWithSession("WallPostSent")
+    sendEventWithSession("WallPostSent", mapOf(
+
+    ))
 }
 
 fun trackPostCommentSubmitted() {
-    sendEventWithSession("WallComment")
+    sendEventWithSession("WallComment", mapOf(
+
+    ))
 }
 
 fun trackPostLiked() {
-    sendEventWithSession("WallPostLiked")
+    sendEventWithSession("WallPostLiked", mapOf(
+
+    ))
 }
 
 fun trackPostShared() {
-    sendEventWithSession("WallPostShared")
+    sendEventWithSession("WallPostShared", mapOf(
+
+    ))
 }
 
 
 fun trackChatOpened() {
-    sendEventWithSession("IMSSelected")
+    sendEventWithSession("IMSSelected", mapOf(
+
+    ))
 }
 
 fun trackChatCreated() {
-    sendEventWithSession("IMSChatCreated")
+    sendEventWithSession("IMSChatCreated", mapOf(
+
+    ))
 }
 
 fun trackChatJoined() {
-    sendEventWithSession("IMSChatJoined")
+    sendEventWithSession("IMSChatJoined", mapOf(
+
+    ))
 }
 
 fun trackMessageSent() {
-    sendEventWithSession("IMSmessage")
+    sendEventWithSession("IMSmessage", mapOf(
+
+    ))
 }
 
 
 fun trackTvOpened() {
-    sendEventWithSession("TVSelected")
+    sendEventWithSession("TVSelected", mapOf(
+
+    ))
 }
 
 fun trackTvShowStarted() {
-    sendEventWithSession("TVShowStarted")
+    sendEventWithSession("TVShowStarted", mapOf(
+
+    ))
 }
 
 fun trackTvShowEnded() {
-    sendEventWithSession("TVShowEnds")
+    sendEventWithSession("TVShowEnds", mapOf(
+
+    ))
 }
 
 
 fun trackNewsSectionOpened() {
-    sendEventWithSession("NewsSelected")
+    sendEventWithSession("NewsSelected", mapOf(
+
+    ))
 }
 
 fun trackNewsItemOpened() {
-    sendEventWithSession("NewsItemSelected")
+    sendEventWithSession("NewsItemSelected", mapOf(
+
+    ))
 }
 
 fun trackNewsCommentSubmitted() {
-    sendEventWithSession("NewsItemComment")
+    sendEventWithSession("NewsItemComment", mapOf(
+
+    ))
 }
 
 fun trackNewsShared() {
-    sendEventWithSession("NewsItemShared")
+    sendEventWithSession("NewsItemShared", mapOf(
+
+    ))
 }
 
 
 fun trackSocialSectionOpened() {
-    sendEvent("SocialSelected")
+    sendEvent("SocialSelected", mapOf(
+
+    ))
 }
 
 fun trackSocialItemOpened() {
@@ -175,9 +215,15 @@ fun trackSocialShared() {
     sendEvent("SocialPostShared")
 }
 
+fun trackSocialCommentSubmitted() {
+    sendEvent("SocialPostComment")
+}
 
-fun trackShopOpened() {
-    sendEventWithSession("ShopSelected")
+
+fun trackStoreOpened() {
+    sendEventWithSession("ShopSelected", mapOf(
+
+    ))
 }
 
 fun trackProductViewed() {
@@ -185,12 +231,16 @@ fun trackProductViewed() {
 }
 
 fun trackStatsOpened() {
-    sendEventWithSession("StatsSelected")
+    sendEventWithSession("StatsSelected", mapOf(
+
+    ))
 }
 
 
 fun trackFriendsViewed() {
-    sendEventWithSession("FriendSelected")
+    sendEventWithSession("FriendSelected", mapOf(
+
+    ))
 }
 
 fun trackFriendRequestSent() {

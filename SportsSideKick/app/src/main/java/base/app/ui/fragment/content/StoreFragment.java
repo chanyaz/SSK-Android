@@ -31,7 +31,7 @@ import base.app.util.AlertDialogManager;
 import base.app.util.commons.Utility;
 
 import static base.app.util.commons.AnalyticsTrackerKt.trackProductViewed;
-import static base.app.util.commons.AnalyticsTrackerKt.trackShopOpened;
+import static base.app.util.commons.AnalyticsTrackerKt.trackStoreOpened;
 import static base.app.util.commons.AnalyticsTrackerKt.trackWebviewDisplayed;
 import static base.app.util.commons.AnalyticsTrackerKt.trackWebviewPageSelected;
 
@@ -104,7 +104,7 @@ public class StoreFragment extends BaseFragment {
 
         setupFragment();
 
-        trackShopOpened();
+        trackStoreOpened();
         trackWebviewDisplayed();
 
         return view;
