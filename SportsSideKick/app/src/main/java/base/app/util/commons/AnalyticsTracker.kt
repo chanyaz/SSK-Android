@@ -90,14 +90,14 @@ fun trackSettingsChanged(settingName: String) {
 
 fun trackWallDisplayed() {
     sendEventWithSession("WallSelected", mapOf(
-
+            "FeatureID" to "Wall"
     ))
 }
 
 
-fun trackPostViewed() {
+fun trackPostViewed(postId: String) {
     sendEventWithSession("WallPostOpen", mapOf(
-
+            "PostID" to postId
     ))
 }
 

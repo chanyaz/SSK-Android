@@ -262,7 +262,7 @@ public class WallItemFragment extends BaseFragment {
         if (BuildConfig.DEBUG) {
             showDummyInfo();
         }
-        trackPostViewed();
+        trackPostViewed(mPost.getPostId());
 
         return view;
     }
