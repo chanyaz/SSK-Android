@@ -2,6 +2,7 @@ package base.app.util.commons
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.os.SystemClock
 import base.app.Application.getDefaultTracker
 import base.app.data.Model
 import com.google.android.gms.analytics.HitBuilders.EventBuilder
@@ -44,7 +45,10 @@ fun trackAppOpened() {
     sendEventWithSession("AppStart", mapOf(
             "BuildID" to Build.SERIAL,
             "DeviceID" to Model.getInstance().deviceId))
+    launchTime = SystemClock.elapsedRealtime()
 }
+
+var launchTime: Long = 0
 
 fun trackDeepLinkOpened() {
     sendEventWithSession("OpenedFromLink", mapOf(
@@ -53,8 +57,12 @@ fun trackDeepLinkOpened() {
 }
 
 fun trackAppClosed() {
+    val exitTime = SystemClock.elapsedRealtime()
+    val delta = exitTime - launchTime
+    val sessionDuration = delta / 1000
+
     sendEventWithSession("LeaveApp", mapOf(
-            // TODO: Supply 'TimeID', time spent in app
+            "TimeID" to sessionDuration.toString()
     ))
 }
 
