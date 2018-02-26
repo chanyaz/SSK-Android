@@ -12,10 +12,10 @@ import java.util.*
  */
 
 private fun sendEvent(action: String,
-                      sessionData: Map<String, String> = emptyMap()) {
+                      params: Map<String, String> = emptyMap()) {
     val eventBuilder = EventBuilder().apply {
         setAction(action)
-        sessionData.forEach { set(it.key, it.value) }
+        setAll(params)
     }
     getDefaultTracker().send(eventBuilder.build())
 }
@@ -41,13 +41,18 @@ fun sendEventWithSession(action: String,
  */
 
 @SuppressLint("HardwareIds")
+@Suppress("DEPRECATION")
 fun trackAppOpened() {
     sendEventWithSession("AppStart", mapOf(
             "BuildID" to Build.SERIAL,
             "DeviceID" to Model.getInstance().deviceId))
 }
 
-fun trackDeepLinkOpened() {}
+fun trackDeepLinkOpened() {
+    sendEventWithSession("OpenedFromLink", mapOf(
+            // TODO: Supply 'SocialPostID'
+    ))
+}
 
 fun trackAppClosed() {}
 
