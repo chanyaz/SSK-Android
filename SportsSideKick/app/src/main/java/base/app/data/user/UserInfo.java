@@ -77,6 +77,9 @@ public class UserInfo {
 
     List<String> messagingTokens;
 
+    @JsonProperty("requestId")
+    private String sessionId;
+
     public void setUserState(Model.UserState newState){
         this.userState = newState;
     }
@@ -486,6 +489,14 @@ public class UserInfo {
         if (fantasyUUID != null ? !fantasyUUID.equals(userInfo.fantasyUUID) : userInfo.fantasyUUID != null)
             return false;
         return fantasyToken != null ? fantasyToken.equals(userInfo.fantasyToken) : userInfo.fantasyToken == null;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     @Override

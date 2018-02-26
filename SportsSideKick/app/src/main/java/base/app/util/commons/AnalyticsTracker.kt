@@ -2,36 +2,41 @@ package base.app.util.commons
 
 import base.app.Application.getDefaultTracker
 import base.app.data.Model
-import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.HitBuilders.EventBuilder
 import java.util.*
 
 /**
- * Implementation of analytics
+ * Implementation of analytics interface
  */
 
-fun sendSessionEvent(action: String) {
-    Model.getInstance().userInfo
-    Date()
-
-    sendEventWithParams(action)
+private fun sendEvent(action: String,
+                      params: Map<String, String> = emptyMap()) {
+    val builder = EventBuilder().apply {
+        setAction(action)
+        params.forEach { set(it.key, it.value) }
+    }
+    getDefaultTracker().send(builder.build())
 }
 
-fun sendGenericEvent(action: String) {
-    sendEventWithParams(action)
-}
+fun sendEventWithSession(action: String) {
+    val user = Model.getInstance().userInfo
 
-private fun sendEventWithParams(action: String) {
-    getDefaultTracker()
-            .send(HitBuilders.EventBuilder()
-                    .setAction(action)
-                    .build())
+    val params = mapOf(
+            "Date/Time" to Date().toString(),
+            "anonymousUserID" to user.userId,
+            "SessionID" to user.sessionId
+    )
+
+    sendEvent(action, params)
 }
 
 /**
  * Interface for analytics
  * */
 
-fun trackAppOpened() {}
+fun trackAppOpened() {
+    sendEventWithSession("AppStart")
+}
 
 fun trackDeepLinkOpened() {}
 
