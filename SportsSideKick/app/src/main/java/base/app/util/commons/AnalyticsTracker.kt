@@ -150,28 +150,29 @@ fun trackChatJoined() {
     ))
 }
 
-fun trackMessageSent() {
+fun trackMessageSent(chatId: String) {
     sendEventWithSession("IMSmessage", mapOf(
-
+            "TypeID" to "Private group", // Only private chats are currently allowed
+            "chatID" to chatId
     ))
 }
 
 
 fun trackTvOpened() {
     sendEventWithSession("TVSelected", mapOf(
-
+            "FeatureID" to "TV"
     ))
 }
 
-fun trackTvShowStarted() {
+fun trackVideoStarted(videoId: String) {
     sendEventWithSession("TVShowStarted", mapOf(
-
+            "showID" to videoId
     ))
 }
 
-fun trackTvShowEnded() {
+fun trackVideoEnded(videoId: String) {
     sendEventWithSession("TVShowEnds", mapOf(
-
+            "showID" to videoId
     ))
 }
 

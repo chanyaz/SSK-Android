@@ -425,7 +425,7 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                         }
                         source.setResult(chatInfo);
 
-                        trackMessageSent();
+                        trackMessageSent(chatInfo.getChatId());
                         // TODO @Filip returns both message & chat objects at once - completion?(chatInfo, message)
                     }
                 });

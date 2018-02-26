@@ -40,8 +40,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static base.app.util.commons.AnalyticsTrackerKt.trackTvShowEnded;
-import static base.app.util.commons.AnalyticsTrackerKt.trackTvShowStarted;
+import static base.app.util.commons.AnalyticsTrackerKt.trackVideoEnded;
+import static base.app.util.commons.AnalyticsTrackerKt.trackVideoStarted;
 
 /**
  * Created by Filip on 1/25/2017.
@@ -268,7 +268,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
         if (Utility.isTablet(getActivity())) {
             player.play();
         }
-        trackTvShowStarted();
+        trackVideoStarted(video.getId());
     }
 
 
@@ -278,7 +278,7 @@ public class YoutubePlayerFragment extends BaseFragment implements
         player.pause();
         playButton.setSelected(false);
 
-        trackTvShowEnded();
+        trackVideoEnded(video.getId());
     }
 
     @Override
