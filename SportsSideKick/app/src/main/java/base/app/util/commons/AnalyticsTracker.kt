@@ -134,19 +134,19 @@ fun trackPostShared(postId: String) {
 
 fun trackChatOpened() {
     sendEventWithSession("IMSSelected", mapOf(
-
+            "FeatureID" to "IMS"
     ))
 }
 
 fun trackChatCreated() {
     sendEventWithSession("IMSChatCreated", mapOf(
-
+            "TypeID" to "Private group" // Only private chats are currently allowed
     ))
 }
 
 fun trackChatJoined() {
     sendEventWithSession("IMSChatJoined", mapOf(
-
+            "TypeID" to "Private group" // Only private chats are currently allowed
     ))
 }
 
