@@ -29,10 +29,8 @@ import base.app.ui.fragment.other.StatisticsFragment
 import base.app.ui.fragment.popup.*
 import base.app.ui.fragment.popup.post.PostCreateFragment
 import base.app.ui.fragment.stream.*
-import base.app.util.commons.Constant
+import base.app.util.commons.*
 import base.app.util.commons.Constant.REQUEST_CODE_CHAT_AUDIO_CAPTURE
-import base.app.util.commons.SoundEffects
-import base.app.util.commons.Utility
 import base.app.util.events.chat.AudioRecordedEvent
 import base.app.util.ui.ImageLoader
 import base.app.util.ui.LinearItemDecoration
@@ -77,6 +75,13 @@ class MainActivity : BaseActivityWithPush(),
 
         logoImageView.show(R.drawable.logo_toolbar)
         splashBackgroundImage.show(R.drawable.video_chat_background)
+
+        trackAppOpened()
+    }
+
+    override fun onDestroy() {
+        trackAppClosed()
+        super.onDestroy()
     }
 
     private fun setClickListeners() {
