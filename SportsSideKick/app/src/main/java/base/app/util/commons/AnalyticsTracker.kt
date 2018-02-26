@@ -10,7 +10,6 @@ import java.util.*
 /**
  * Implementation of analytics interface
  */
-
 private fun sendEvent(action: String,
                       params: Map<String, String> = emptyMap()) {
     val eventBuilder = EventBuilder().apply {
@@ -39,7 +38,6 @@ fun sendEventWithSession(action: String,
 /**
  * Interface for analytics
  */
-
 @SuppressLint("HardwareIds")
 @Suppress("DEPRECATION")
 fun trackAppOpened() {
@@ -54,90 +52,172 @@ fun trackDeepLinkOpened() {
     ))
 }
 
-fun trackAppClosed() {}
+fun trackAppClosed() {
+    sendEventWithSession("LeaveApp", mapOf(
+            // TODO: Supply 'TimeID', time spent in app
+    ))
+}
 
 
-fun trackUserRegistered() {}
+fun trackUserRegistered() {
+    sendEventWithSession("RegistrationConfirm", mapOf(
+            // TODO: Supply 'typeID' - user registers using email, or fb etc
+    ))
+}
 
-fun trackUserLoggedIn() {}
-
-
-fun trackWallDisplayed() {}
-
-fun trackSettingsChanged() {}
-
-fun trackSectionOpened() {}
-
-
-fun trackPostViewed() {}
-
-fun trackPostComposing() {}
-
-fun trackPostSubmitted() {}
-
-fun trackPostCommentSubmitted() {}
-
-fun trackPostLiked() {}
-
-fun trackPostShared() {}
+fun trackUserLoggedIn() {
+    sendEventWithSession("LoginConfirm")
+}
 
 
-fun trackChatOpened() {}
+fun trackHomeScreenDisplayed() {
+    sendEventWithSession("MainScreenDisplay")
+}
 
-fun trackChatCreated() {}
+fun trackSettingsChanged() {
+    sendEventWithSession("SettingsChange")
+}
 
-fun trackChatJoined() {}
-
-fun trackMessageSent() {}
-
-
-fun trackTvOpened() {}
-
-fun trackTvShowStarted() {}
-
-fun trackTvShowEnded() {}
+fun trackWallDisplayed() {
+    sendEventWithSession("WallSelected")
+}
 
 
-fun trackNewsSectionOpened() {}
+fun trackPostViewed() {
+    sendEventWithSession("WallPostOpen")
+}
 
-fun trackNewsItemOpened() {}
+fun trackPostComposing() {
+    sendEventWithSession("WallPostStarted")
+}
 
-fun trackNewsCommentSubmitted() {}
+fun trackPostSubmitted() {
+    sendEventWithSession("WallPostSent")
+}
 
-fun trackNewsShared() {}
+fun trackPostCommentSubmitted() {
+    sendEventWithSession("WallComment")
+}
 
+fun trackPostLiked() {
+    sendEventWithSession("WallPostLiked")
+}
 
-fun trackSocialSectionOpened() {}
-
-fun trackSocialItemOpened() {}
-
-fun trackSocialItemPinned() {}
-
-fun trackSocialLiked() {}
-
-fun trackSocialShared() {}
-
-
-fun trackShopOpened() {}
-
-fun trackProductViewed() {}
-
-fun trackStatsOpened() {}
+fun trackPostShared() {
+    sendEventWithSession("WallPostShared")
+}
 
 
-fun trackFriendsViewed() {}
+fun trackChatOpened() {
+    sendEventWithSession("IMSSelected")
+}
 
-fun trackFriendRequestSent() {}
+fun trackChatCreated() {
+    sendEventWithSession("IMSChatCreated")
+}
 
-fun trackFriendRequestAccepted() {}
+fun trackChatJoined() {
+    sendEventWithSession("IMSChatJoined")
+}
 
-fun trackFriendRequestRejected() {}
-
-fun trackUnfriended() {}
-
-fun trackUnfollowed() {}
+fun trackMessageSent() {
+    sendEventWithSession("IMSmessage")
+}
 
 
-fun trackWebviewDisplayed() {}
+fun trackTvOpened() {
+    sendEventWithSession("TVSelected")
+}
 
-fun trackWebviewPageSelected() {}
+fun trackTvShowStarted() {
+    sendEventWithSession("TVShowStarted")
+}
+
+fun trackTvShowEnded() {
+    sendEventWithSession("TVShowEnds")
+}
+
+
+fun trackNewsSectionOpened() {
+    sendEventWithSession("NewsSelected")
+}
+
+fun trackNewsItemOpened() {
+    sendEventWithSession("NewsItemSelected")
+}
+
+fun trackNewsCommentSubmitted() {
+    sendEventWithSession("NewsItemComment")
+}
+
+fun trackNewsShared() {
+    sendEventWithSession("NewsItemShared")
+}
+
+
+fun trackSocialSectionOpened() {
+    sendEvent("SocialSelected")
+}
+
+fun trackSocialItemOpened() {
+    sendEvent("SocialPostOpen")
+}
+
+fun trackSocialItemPinned() {
+    sendEvent("SocialPostSent")
+}
+
+fun trackSocialLiked() {
+    sendEvent("SocialPostLiked")
+}
+
+fun trackSocialShared() {
+    sendEvent("SocialPostShared")
+}
+
+
+fun trackShopOpened() {
+    sendEventWithSession("ShopSelected")
+}
+
+fun trackProductViewed() {
+    sendEvent("ShopPageSelected")
+}
+
+fun trackStatsOpened() {
+    sendEventWithSession("StatsSelected")
+}
+
+
+fun trackFriendsViewed() {
+    sendEventWithSession("FriendSelected")
+}
+
+fun trackFriendRequestSent() {
+    sendEventWithSession("FriendAdded")
+}
+
+fun trackFriendRequestAccepted() {
+    sendEvent("FriendApproved")
+}
+
+fun trackFriendRequestRejected() {
+    sendEvent("FriendRejected")
+}
+
+fun trackUnfollowed() {
+    sendEvent("FriendUnfollow")
+}
+
+fun trackUnfriended() {
+    sendEvent("FriendRemoved")
+}
+
+
+fun trackWebviewDisplayed() {
+    sendEvent("<WebView>Selected")
+}
+
+fun trackWebviewPageSelected() {
+    sendEvent("<WebView>PageSelected")
+}

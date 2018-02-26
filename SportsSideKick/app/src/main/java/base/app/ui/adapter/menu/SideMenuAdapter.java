@@ -24,8 +24,6 @@ import base.app.util.ui.NavigationDrawerItems;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static base.app.util.commons.AnalyticsTrackerKt.trackSectionOpened;
-
 /**
  * Created by Aleksandar Marinkovic on 18/04/2017.
  * Copyright by Hypercube d.o.o.
@@ -96,8 +94,6 @@ public class SideMenuAdapter extends RecyclerView.Adapter<SideMenuAdapter.ViewHo
                         public void run() {
                             Class fragmentToStart = Constant.PHONE_MENU_OPTIONS.get(viewHolder.getAdapterPosition());
                             EventBus.getDefault().post(new FragmentEvent(fragmentToStart));
-
-                            trackSectionOpened();
                         }
                     }, 200);
                 } else {

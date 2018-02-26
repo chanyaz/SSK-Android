@@ -77,6 +77,7 @@ class MainActivity : BaseActivityWithPush(),
         splashBackgroundImage.show(R.drawable.video_chat_background)
 
         trackAppOpened()
+        trackHomeScreenDisplayed()
 
         val intent = intent
         if (intent.data != null) {
