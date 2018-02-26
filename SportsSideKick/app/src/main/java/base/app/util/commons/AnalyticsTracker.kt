@@ -1,5 +1,7 @@
 package base.app.util.commons
 
+import android.annotation.SuppressLint
+import android.os.Build
 import base.app.Application.getDefaultTracker
 import base.app.data.Model
 import com.google.android.gms.analytics.HitBuilders.EventBuilder
@@ -10,32 +12,39 @@ import java.util.*
  */
 
 private fun sendEvent(action: String,
-                      params: Map<String, String> = emptyMap()) {
-    val builder = EventBuilder().apply {
+                      sessionData: Map<String, String> = emptyMap()) {
+    val eventBuilder = EventBuilder().apply {
         setAction(action)
-        params.forEach { set(it.key, it.value) }
+        sessionData.forEach { set(it.key, it.value) }
     }
-    getDefaultTracker().send(builder.build())
+    getDefaultTracker().send(eventBuilder.build())
 }
 
-fun sendEventWithSession(action: String) {
+fun sendEventWithSession(action: String,
+                         eventDetails: Map<String, String> = emptyMap()) {
     val user = Model.getInstance().userInfo
 
-    val params = mapOf(
+    val sessionData = mutableMapOf(
             "Date/Time" to Date().toString(),
             "anonymousUserID" to user.userId,
             "SessionID" to user.sessionId
     )
+    val params = mutableMapOf<String, String>()
+    params.putAll(sessionData)
+    params.putAll(eventDetails)
 
     sendEvent(action, params)
 }
 
 /**
  * Interface for analytics
- * */
+ */
 
+@SuppressLint("HardwareIds")
 fun trackAppOpened() {
-    sendEventWithSession("AppStart")
+    sendEventWithSession("AppStart", mapOf(
+            "BuildID" to Build.SERIAL,
+            "DeviceID" to Model.getInstance().deviceId))
 }
 
 fun trackDeepLinkOpened() {}

@@ -55,9 +55,9 @@ import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 
 import static base.app.ClubConfig.CLUB_ID;
-import static base.app.util.GSConstants.CLUB_ID_TAG;
 import static base.app.data.Model.LoggedInUserType.NONE;
 import static base.app.data.Model.LoggedInUserType.REAL;
+import static base.app.util.GSConstants.CLUB_ID_TAG;
 
 public class Model {
 
@@ -208,10 +208,14 @@ public class Model {
         });
     }
 
-    private String androidId;
+    private String deviceId;
+
+    public String getDeviceId() {
+        return deviceId;
+    }
 
     public void initialize(final Context context) {
-        androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         GSAndroidPlatform.initialise(context, Keys.GS_API_KEY, Keys.GS_API_SECRET);
         GSAndroidPlatform.gs().setOnAvailable(new GSEventConsumer<Boolean>() {
             @Override
@@ -492,7 +496,7 @@ public class Model {
         HashMap<String, Object> scriptData = new HashMap<>();
         scriptData.put(CLUB_ID_TAG, CLUB_ID);
         request.getBaseData().put("scriptData", scriptData);
-        request.setDeviceId(androidId);
+        request.setDeviceId(deviceId);
         request.setDeviceModel(Build.MANUFACTURER);
         request.setDeviceName(Build.MODEL);
         request.setDeviceOS("ANDROID");
