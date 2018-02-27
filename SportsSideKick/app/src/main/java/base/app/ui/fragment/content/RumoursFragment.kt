@@ -1,15 +1,14 @@
 package base.app.ui.fragment.content
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import base.app.R
+import base.app.data.wall.WallNews
 import base.app.data.wall.news.NewsModel.NewsType.UNOFFICIAL
 import base.app.data.wall.news.NewsModel.getInstance
 import base.app.data.wall.news.NewsPageEvent
-import base.app.data.wall.WallNews
 import base.app.ui.adapter.content.RumoursAdapter
 import base.app.ui.fragment.base.BaseFragment
 import base.app.util.events.post.ItemUpdateEvent
@@ -37,8 +36,8 @@ class RumoursFragment : BaseFragment() {
 
     private fun showRumours() {
         swipeRefreshLayout.isRefreshing = true
-        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
 
         if (getInstance().getAllCachedItems(type).size > 0) {
             val event = NewsPageEvent(getInstance().getAllCachedItems(type))

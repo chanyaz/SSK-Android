@@ -37,6 +37,7 @@ open class NewsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
         recyclerView.addItemDecoration(LinearItemDecoration(resources.getDimension(R.dimen.item_spacing_news).toInt()))
 
