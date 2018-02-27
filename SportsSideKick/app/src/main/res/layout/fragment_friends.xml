@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,12 +7,11 @@
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_60"
-    android:background="@color/colorPrimaryMediumLight"
+    android:background="@color/white"
     android:clickable="true">
 
     <View
         android:id="@+id/topSpacer"
-        android:background="@drawable/phone_background"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         tools:visibility="gone" />
@@ -24,9 +22,21 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_below="@id/topSpacer"
-        android:background="@drawable/phone_background"
         android:orientation="horizontal"
         android:tileMode="repeat">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentBottom="true"
+            android:adjustViewBounds="true"
+            android:alpha="0.7"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:tint="@color/colorPrimary" />
 
         <TextView
             style="@style/boldText"
@@ -36,19 +46,8 @@
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
             android:text="@string/friends"
-            android:textColor="?popupsCaptionColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/font_size_18" />
-
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/backButton"
-            android:layout_width="@dimen/standard_button_height"
-            android:layout_height="@dimen/standard_button_height"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
-            android:tint="@color/colorPrimaryVeryLight"
-            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -64,21 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
-            android:layout_weight="1"
-            android:background="?colorAccent" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_2"
-            android:layout_marginEnd="@dimen/margin_1"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryVeryLight" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_2"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryVeryLight" />
+            android:background="#e7eaef" />
     </LinearLayout>
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
@@ -87,7 +72,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
         android:layout_below="@id/center_split"
-        android:background="@color/colorPrimaryDark"
+        android:background="#e7eaef"
         android:orientation="horizontal">
 
         <TextView
@@ -107,20 +92,20 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?popupNonSelectedCaptionBackgroundColorRef"
+            android:background="@color/white"
             android:gravity="center"
             android:text="@string/find"
-            android:textColor="?popupNonSelectedCaptionTextColorRef" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/friend_requests"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?popupNonSelectedCaptionBackgroundColorRef"
+            android:background="@color/white"
             android:gravity="center"
             android:text="@string/requests"
-            android:textColor="?popupNonSelectedCaptionTextColorRef" />
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
     <View
@@ -128,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_2"
         android:layout_below="@id/top_container"
-        android:background="@color/colorPrimaryVeryDark" />
+        android:background="#e7eaef" />
 
     <RelativeLayout
         android:id="@+id/search_container"
@@ -136,23 +121,21 @@
         android:layout_height="@dimen/height_48"
         android:layout_alignParentStart="true"
         android:layout_below="@id/spliter_profile"
-        android:background="@color/colorPrimaryMediumDark">
-
+        android:background="#e9eaee">
 
         <EditText
             android:id="@+id/search_edit_text"
-            android:layout_width="match_parent"
+            android:layout_width="257dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/margin_20"
-            android:layout_toStartOf="@+id/search_icon"
-            android:background="@color/colorPrimaryMediumDark"
+            android:layout_marginStart="16dp"
+            android:background="@null"
             android:hint="@string/friends_search"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="?white"
-            android:textColorHint="?white"
+            android:textColor="@color/black"
+            android:textColorHint="#686868"
             android:textSize="@dimen/font_size_12" />
 
         <ImageView
@@ -161,7 +144,7 @@
             android:layout_height="@dimen/height_48"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="@color/colorPrimaryVeryLight"
+            android:tint="@color/colorPrimary"
             android:scaleType="centerInside"
             android:src="@drawable/icon_search" />
     </RelativeLayout>
@@ -197,13 +180,11 @@
     <RelativeLayout
         android:id="@+id/bottom_buttons_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="@dimen/margin_negative_10"
-        android:background="@color/colorPrimary"
-        android:clickable="true"
-        app:layout_heightPercent="19%">
+        android:background="#e9eaee"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/official_account"
@@ -214,7 +195,7 @@
             android:layout_marginTop="@dimen/margin_4"
             android:gravity="center"
             android:text="@string/official_accounts"
-            android:textColor="?white" />
+            android:textColor="@color/colorPrimary" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -224,7 +205,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/official_account_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp">
 
             </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
