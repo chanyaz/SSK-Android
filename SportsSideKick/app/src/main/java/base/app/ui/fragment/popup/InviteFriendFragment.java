@@ -12,8 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 import org.greenrobot.eventbus.EventBus;
 
 import base.app.R;
@@ -67,6 +65,6 @@ public class InviteFriendFragment extends BaseFragment {
 
     @OnClick(R.id.add_friend_button)
     public void onClickAddFriend() {
-        EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(FriendsSearchFragment.class));
     }
 }

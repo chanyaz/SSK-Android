@@ -10,6 +10,13 @@
     android:background="@color/white"
     android:clickable="true">
 
+    <!--Status bar background-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/gradient_black_to_transparent"
+        tools:visibility="gone" />
+
     <View
         android:id="@+id/topSpacer"
         android:layout_width="match_parent"

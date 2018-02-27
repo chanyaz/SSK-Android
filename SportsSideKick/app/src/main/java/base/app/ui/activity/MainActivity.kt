@@ -164,7 +164,7 @@ class MainActivity : BaseActivityWithPush(),
                 FriendFragment::class.java,
                 FollowersFragment::class.java,
                 FollowingFragment::class.java,
-                AddFriendFragment::class.java,
+                FriendsSearchFragment::class.java,
                 InviteFriendFragment::class.java,
                 SignUpLoginFragment::class.java,
                 CreateChatFragment::class.java))

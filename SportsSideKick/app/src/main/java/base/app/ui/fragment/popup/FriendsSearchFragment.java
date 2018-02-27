@@ -25,8 +25,8 @@ import java.util.List;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.user.friends.PeopleSearchManager;
 import base.app.data.user.UserInfo;
+import base.app.data.user.friends.PeopleSearchManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.adapter.stream.FindOfficialAdapter;
 import base.app.ui.fragment.base.BaseFragment;
@@ -38,12 +38,13 @@ import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
+
 /**
  * Created by Djordje Krutil on 29.3.2017..
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
  */
-public class AddFriendFragment extends BaseFragment {
+public class FriendsSearchFragment extends BaseFragment {
 
     @BindView(R.id.top_buttons_container)
     View topBarContainer;
@@ -71,12 +72,13 @@ public class AddFriendFragment extends BaseFragment {
 
     @Nullable
     FindOfficialAdapter officialAccountsAdapter;
-
+    int defaultTopMargin;
+    boolean isSearchPeopleTaskCanceled;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.popup_add_friend, container, false);
+        View view = inflater.inflate(R.layout.fragment_friends_search, container, false);
         ButterKnife.bind(this, view);
         adapter = new FriendsAdapter(this.getClass());
         if (Utility.isTablet(getActivity())) {
@@ -103,20 +105,12 @@ public class AddFriendFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(InviteFriendFragment.class));
     }
 
-    int defaultTopMargin;
-
-
-
-
-
-
-
     private void setupOfficialAccounts() {
-        if(Utility.isPhone(getContext())){
+        if (Utility.isPhone(getContext())) {
             peopleRecyclerView.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-            if(officialAccountsRecyclerView !=null){
+            if (officialAccountsRecyclerView != null) {
                 officialAccountsRecyclerView.setLayoutManager(gridLayoutManager);
                 officialAccountsAdapter = new FindOfficialAdapter(getActivity(), this.getClass());
                 officialAccountsRecyclerView.setAdapter(officialAccountsAdapter);
@@ -139,45 +133,42 @@ public class AddFriendFragment extends BaseFragment {
         }
     }
 
-
     private void setupEditTextListeners() {
-            if(Utility.isTablet(getContext())){
-                View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
-                friendName.setOnFocusChangeListener(focusChangeListener);
+        if (Utility.isTablet(getContext())) {
+            View.OnFocusChangeListener focusChangeListener = Utility.getAdjustResizeFocusListener(getActivity());
+            friendName.setOnFocusChangeListener(focusChangeListener);
+        }
+        friendName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-            friendName.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(count == 0){
-                        isSearchPeopleTaskCanceled = true;
-                        toggleOfficialUsersVisibility(true);
-                        if(Utility.isTablet(getContext())){
-                            onPeopleListChanged(false);
-                        }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count == 0) {
+                    isSearchPeopleTaskCanceled = true;
+                    toggleOfficialUsersVisibility(true);
+                    if (Utility.isTablet(getContext())) {
+                        onPeopleListChanged(false);
                     }
                 }
+            }
 
-                @Override
-                public void afterTextChanged(Editable s) {
-                    String text = s.toString();
-                    if(!TextUtils.isEmpty(text)){
-                        if(adapter!=null){
-                            adapter.getValues().clear();
-                            adapter.notifyDataSetChanged();
-                        }
-                        searchForPeople(text);
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text = s.toString();
+                if (!TextUtils.isEmpty(text)) {
+                    if (adapter != null) {
+                        adapter.getValues().clear();
+                        adapter.notifyDataSetChanged();
                     }
+                    searchForPeople(text);
                 }
+            }
         });
     }
 
-    boolean isSearchPeopleTaskCanceled;
-
-
-    private void searchForPeople(String text){
+    private void searchForPeople(String text) {
         toggleOfficialUsersVisibility(false);
         noResultCaption.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
@@ -187,10 +178,10 @@ public class AddFriendFragment extends BaseFragment {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
                 progressBar.setVisibility(View.GONE);
-                if(!isSearchPeopleTaskCanceled){
+                if (!isSearchPeopleTaskCanceled) {
                     if (task.isSuccessful() && task.getResult().size() != 0) {
                         onPeopleListChanged(true);
-                        if(adapter!=null){
+                        if (adapter != null) {
                             adapter.setValues(task.getResult());
                             adapter.notifyDataSetChanged();
                         }
@@ -206,9 +197,9 @@ public class AddFriendFragment extends BaseFragment {
     private void onPeopleListChanged(boolean hasMembers) {
         if (Utility.isTablet(getActivity())) {
             topBarContainer.setVisibility(hasMembers ? View.GONE : View.VISIBLE);
-            RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams)view.getLayoutParams();
+            RelativeLayout.LayoutParams relativeParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
             int desiredMargin;
-            if(hasMembers){
+            if (hasMembers) {
                 defaultTopMargin = relativeParams.topMargin;
                 desiredMargin = 0;
             } else {
@@ -223,12 +214,12 @@ public class AddFriendFragment extends BaseFragment {
     }
 
     private void toggleOfficialUsersVisibility(boolean visible) {
-        if(visible){
+        if (visible) {
             peopleRecyclerView.setVisibility(View.GONE);
             noResultCaption.setVisibility(View.GONE);
             peopleRecyclerView.setVisibility(View.GONE);
         }
-        if (officialAccountsRecyclerView != null){
+        if (officialAccountsRecyclerView != null) {
             officialAccountsRecyclerView.setVisibility(visible ? View.VISIBLE : View.GONE);
         }
     }
@@ -239,12 +230,10 @@ public class AddFriendFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(FriendsFragment.class));
     }
 
-
     @Optional
     @OnClick(R.id.friend_requests)
     public void profileOnClick() {
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
     }
-
 
 }

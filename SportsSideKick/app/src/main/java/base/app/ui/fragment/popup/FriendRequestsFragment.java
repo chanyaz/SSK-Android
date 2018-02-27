@@ -12,17 +12,16 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 import base.app.R;
+import base.app.data.user.friends.FriendRequest;
+import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.FriendRequestsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.data.user.friends.FriendRequest;
-import base.app.data.user.friends.FriendsManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -108,7 +107,7 @@ public class FriendRequestsFragment extends BaseFragment {
     @Optional
     @OnClick(R.id.add_friend)
     public void profileOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(AddFriendFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(FriendsSearchFragment.class));
     }
 
 }

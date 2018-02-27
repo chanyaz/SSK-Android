@@ -10,6 +10,13 @@
     android:background="@color/white"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
+    <!--Status bar background-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/gradient_black_to_transparent"
+        tools:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
