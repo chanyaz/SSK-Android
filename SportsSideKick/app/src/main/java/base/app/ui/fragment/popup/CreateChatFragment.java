@@ -119,7 +119,7 @@ public class CreateChatFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_create_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat_create, container, false);
         ButterKnife.bind(this, view);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -237,7 +237,7 @@ public class CreateChatFragment extends BaseFragment {
         chooseDialog.show();
     }
 
-    @OnClick(R.id.chat_headline_close_fragment)
+    @OnClick(R.id.backButton)
     public void closeFragment() {
         //   if ((getActivity() instanceof LoungeActivity)) {
         //       ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();

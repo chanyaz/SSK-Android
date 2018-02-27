@@ -98,6 +98,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:text="@string/friends"
+            android:foreground="?selectableItemBackground"
             android:gravity="center"
             android:textColor="@color/colorPrimary" />
 
@@ -107,20 +108,21 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
+            android:foreground="?selectableItemBackground"
             android:gravity="center"
             android:text="@string/find"
-            android:textColor="?popupNonSelectedCaptionTextColorRef" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/friend_requests"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="@color/colorPrimary"
             android:text="@string/requests"
             android:gravity="center"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="?popupNonSelectedCaptionTextColorRef" />
     </LinearLayout>
 
     <View

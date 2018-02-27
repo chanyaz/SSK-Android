@@ -12,15 +12,10 @@
 
     <!--Status bar background-->
     <View
+        android:id="@+id/statusBarBackground"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         android:background="@drawable/gradient_black_to_transparent"
-        tools:visibility="gone" />
-
-    <View
-        android:id="@+id/topSpacer"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
         tools:visibility="gone" />
 
     <!-- TOP BUTTONS CONTAINER -->
@@ -28,7 +23,7 @@
         android:id="@+id/top_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
-        android:layout_below="@id/topSpacer"
+        android:layout_below="@id/statusBarBackground"
         android:orientation="horizontal"
         android:tileMode="repeat">
 
@@ -136,6 +131,8 @@
             android:id="@+id/search_edit_text"
             android:layout_width="257dp"
             android:layout_height="wrap_content"
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+            android:textSize="14sp"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:background="@null"
@@ -145,7 +142,7 @@
             android:maxLines="1"
             android:textColor="@color/black"
             android:textColorHint="#686868"
-            android:textSize="@dimen/font_size_12" />
+            tools:textStyle="bold" />
 
         <ImageView
             android:id="@+id/search_icon"

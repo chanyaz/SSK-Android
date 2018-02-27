@@ -27,15 +27,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.app.R;
-import base.app.ui.adapter.chat.ChatSearchExpandableAdapter;
-import base.app.ui.adapter.friends.FriendsInChatAdapter;
-import base.app.ui.adapter.chat.OfficialChatsAdapter;
-import base.app.ui.fragment.base.BaseFragment;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
 import base.app.data.user.UserInfo;
+import base.app.data.user.friends.FriendsManager;
+import base.app.ui.adapter.chat.ChatSearchExpandableAdapter;
+import base.app.ui.adapter.chat.OfficialChatsAdapter;
+import base.app.ui.adapter.friends.FriendsInChatAdapter;
+import base.app.ui.fragment.base.BaseFragment;
+import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
 import base.app.util.ui.AnimatedExpandableListView;
 import butterknife.BindView;
@@ -185,7 +185,7 @@ public class JoinChatFragment extends BaseFragment {
         recyclerViewSearchResult.setVisibility(View.VISIBLE);
     }
 
-    @OnClick(R.id.chat_join_headline_close_fragment)
+    @OnClick(R.id.backButton)
     public void closeFragment() {
     //    if(Utility.isTablet(getActivity())){
     //        ((LoungeActivity) getActivity()).hideSlidePopupFragmentContainer();

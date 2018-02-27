@@ -28,7 +28,7 @@
             android:clickable="true">
 
             <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/chat_join_headline_close_fragment"
+                android:id="@+id/backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

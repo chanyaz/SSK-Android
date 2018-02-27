@@ -4,26 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/gray"
+    android:background="@color/white"
     android:orientation="vertical">
+
+    <!--Status bar background-->
+    <View
+        android:id="@+id/statusBarBackground"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/gradient_black_to_transparent"
+        tools:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/chat_headline_container"
         android:layout_width="match_parent"
+        android:layout_below="@id/statusBarBackground"
         android:layout_height="@dimen/standard_button_height"
-        android:background="@drawable/phone_background"
         android:clickable="true">
 
-        <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/chat_join_headline_close_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:src="?closeIcon"
-            android:tint="@color/colorPrimaryVeryLight"
-            android:visibility="gone" />
+        <ImageButton
+            android:id="@+id/backButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentBottom="true"
+            android:adjustViewBounds="true"
+            android:alpha="0.7"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:tint="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +43,7 @@
             android:gravity="center"
             android:padding="@dimen/padding_8"
             android:text="@string/chat"
-            android:textColor="?popupsCaptionColor" />
+            android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>
 
@@ -49,7 +59,7 @@
         <View
             android:id="@+id/top_vertical_spliter"
             android:layout_width="@dimen/space_0"
-            android:layout_height="@dimen/standard_button_height"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true" />
 
         <RelativeLayout
@@ -63,30 +73,24 @@
                 android:layout_height="@dimen/height_1"
                 android:layout_below="@id/top_buttons_container"
                 android:layout_centerHorizontal="true"
-                android:background="@color/colorPrimaryVeryLight">
+                android:background="#e7eaef">
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_2"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimaryVeryLight" />
+                    android:background="#19000000" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_2"
-                    android:layout_marginEnd="@dimen/margin_1"
-                    android:layout_weight="1"
-                    android:background="?colorAccent" />
             </LinearLayout>
             <!-- TOP BUTTONS CONTAINER -->
             <LinearLayout
                 android:id="@+id/top_container_linear"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/standard_button_height"
+                android:layout_height="40dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/center_split"
-                android:background="@color/colorPrimaryDark"
+                android:background="#19000000"
                 android:orientation="horizontal">
 
                 <TextView
@@ -95,18 +99,18 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="?chatSlideSecondButtonBackgroundColorRef"
+                    android:background="@color/white"
+                    android:foreground="?selectableItemBackground"
                     android:gravity="center"
                     android:text="@string/chat_create"
-                    android:textColor="?chatSlideSecondButtonTextColorRef" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/join_a_chat"
                     android:layout_width="@dimen/space_0"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/margin_1"
                     android:layout_weight="1"
-                    android:background="?chatSlideButtonBackgroundColorRef"
+                    android:background="@color/colorPrimary"
                     android:gravity="center"
                     android:text="@string/join_chat"
                     android:textColor="?chatSlideButtonTextColorRef" />
@@ -136,17 +140,19 @@
         <EditText
             android:id="@+id/chat_name_edit_text"
             android:layout_width="match_parent"
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+            android:background="#e9eaee"
             android:layout_height="@dimen/height_50"
             android:layout_below="@id/top_vertical_spliter"
             android:layout_toStartOf="@+id/chat_join_search_button"
-            android:background="@color/colorPrimaryMediumDark"
+            android:textColor="@color/black"
             android:gravity="start|center_vertical"
             android:hint="@string/chats_public_search"
             android:imeOptions="flagNoExtractUi"
             android:maxLines="1"
             android:padding="@dimen/margin_14"
-            android:textColor="?chatJoinSearchTextColorRef"
-            android:textColorHint="?white"
+            android:textColorHint="#686868"
+            tools:textStyle="bold"
             android:textSize="@dimen/font_size_14" />
 
         <ImageButton
@@ -188,7 +194,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?chatJoinBackgroundColorRef"
+        android:background="#e9eaee"
         tools:layout_height="100dp">
 
         <TextView
@@ -199,7 +205,7 @@
             android:gravity="center"
             android:padding="@dimen/padding_8"
             android:text="@string/friend_chats"
-            android:textColor="?chatJoinChatsHeadlineColorRef"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/font_size_12" />
 
         <RelativeLayout
