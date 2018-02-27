@@ -183,6 +183,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:scaleType="fitXY"
+                            android:foreground="?selectableItemBackground"
                             tools:src="?profileImageIcon" />
 
                     </RelativeLayout>

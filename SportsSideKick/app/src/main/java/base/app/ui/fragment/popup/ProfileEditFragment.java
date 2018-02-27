@@ -30,12 +30,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import base.app.R;
-import base.app.util.GSConstants;
 import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.wall.WallModel;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
+import base.app.util.GSConstants;
 import base.app.util.commons.Connection;
 import base.app.util.commons.Utility;
 import base.app.util.ui.ImageLoader;
@@ -60,11 +60,11 @@ import static io.reactivex.schedulers.Schedulers.io;
  */
 
 @RuntimePermissions
-public class EditProfileFragment extends BaseFragment {
+public class ProfileEditFragment extends BaseFragment {
 
+    private static final String TAG = "Edit Profile Fragment";
     UserInfo user;
     boolean isMuted;
-
     @BindView(R.id.profileImage)
     ImageView profileImage;
     @BindView(R.id.camera_button)
@@ -90,14 +90,11 @@ public class EditProfileFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.language_image)
     ImageView languageImage;
-
     @BindView(R.id.wall_notifications)
     TextView wallNotifications;
-
-    private static final String TAG = "Edit Profile Fragment";
     String currentPath;
 
-    public EditProfileFragment() {
+    public ProfileEditFragment() {
         // Required empty public constructor
     }
 
@@ -167,11 +164,11 @@ public class EditProfileFragment extends BaseFragment {
     @OnClick(R.id.camera_button)
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     public void cameraButtonOnClick() {
-        RxPaparazzo.single(EditProfileFragment.this)
+        RxPaparazzo.single(ProfileEditFragment.this)
                 .usingCamera()
-                .map(new Function<Response<EditProfileFragment,FileData>, Object>() {
+                .map(new Function<Response<ProfileEditFragment, FileData>, Object>() {
                     @Override
-                    public Object apply(Response<EditProfileFragment, FileData> fileData) throws Exception {
+                    public Object apply(Response<ProfileEditFragment, FileData> fileData) throws Exception {
                         return fileData.data().getFile();
                     }
                 })
@@ -201,11 +198,11 @@ public class EditProfileFragment extends BaseFragment {
 
     @OnClick(R.id.picture_button)
     public void selectImageOnClick() {
-        RxPaparazzo.single(EditProfileFragment.this)
+        RxPaparazzo.single(ProfileEditFragment.this)
                 .usingGallery()
-                .map(new Function<Response<EditProfileFragment,FileData>, Object>() {
+                .map(new Function<Response<ProfileEditFragment, FileData>, Object>() {
                     @Override
-                    public Object apply(Response<EditProfileFragment, FileData> fileData) throws Exception {
+                    public Object apply(Response<ProfileEditFragment, FileData> fileData) throws Exception {
                         return fileData.data().getFile();
                     }
                 })
@@ -271,7 +268,6 @@ public class EditProfileFragment extends BaseFragment {
         }
     }
 
-
     private void uploadImage(String path) {
         final TaskCompletionSource<String> source = new TaskCompletionSource<>();
         Model.getInstance().uploadImage(path, getContext().getFilesDir(), source);
@@ -288,7 +284,6 @@ public class EditProfileFragment extends BaseFragment {
             }
         });
     }
-
 
     private Drawable getDrawable(String name) {
         try {
