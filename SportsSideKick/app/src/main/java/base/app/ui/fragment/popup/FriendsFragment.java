@@ -187,9 +187,8 @@ public class FriendsFragment extends BaseFragment {
         getActivity().onBackPressed();
     }
 
-    @Optional
     @OnClick(R.id.backButton)
-    public void closeDialog() {
+    public void onBackPressed() {
         getActivity().onBackPressed();
     }
 

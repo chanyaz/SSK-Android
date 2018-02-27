@@ -38,7 +38,6 @@ import butterknife.OnClick;
 import butterknife.Optional;
 
 import static base.app.ui.fragment.popup.FriendsFragment.GRID_PERCENT_CELL_WIDTH;
-
 /**
  * Created by Djordje Krutil on 29.3.2017..
  * Copyright by Hypercube d.o.o.
@@ -72,8 +71,7 @@ public class FriendsSearchFragment extends BaseFragment {
 
     @Nullable
     FindOfficialAdapter officialAccountsAdapter;
-    int defaultTopMargin;
-    boolean isSearchPeopleTaskCanceled;
+
 
     @Nullable
     @Override
@@ -104,6 +102,9 @@ public class FriendsSearchFragment extends BaseFragment {
     public void onClickInviteFriend() {
         EventBus.getDefault().post(new FragmentEvent(InviteFriendFragment.class));
     }
+
+    int defaultTopMargin;
+    boolean isSearchPeopleTaskCanceled;
 
     private void setupOfficialAccounts() {
         if (Utility.isPhone(getContext())) {
@@ -236,4 +237,8 @@ public class FriendsSearchFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(FriendRequestsFragment.class));
     }
 
+    @OnClick(R.id.backButton)
+    public void onBackPressed() {
+        getActivity().onBackPressed();
+    }
 }
