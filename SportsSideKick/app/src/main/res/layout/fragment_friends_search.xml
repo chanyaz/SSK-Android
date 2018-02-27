@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools"
     android:clickable="true">
 
     <!--Status bar background-->
@@ -84,11 +84,12 @@
             android:id="@+id/your_friends_open_button"
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
+            android:foreground="?selectableItemBackground"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
             android:background="@color/white"
-            android:gravity="center"
             android:text="@string/friends"
+            android:gravity="center"
             android:textColor="@color/colorPrimary" />
 
         <TextView
@@ -107,6 +108,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:foreground="?selectableItemBackground"
             android:background="@color/white"
             android:gravity="center"
             android:text="@string/requests"
@@ -158,6 +160,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/people_recycler_view"
         android:layout_width="match_parent"
+        tools:padding="16dp"
         android:layout_height="match_parent"
         android:layout_below="@id/search_container"
         android:visibility="visible" />
@@ -166,6 +169,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/official_accounts_recycler_view"
         android:layout_width="match_parent"
+        tools:padding="16dp"
         android:layout_height="match_parent"
         android:layout_below="@id/search_container" />
 

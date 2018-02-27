@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimaryMediumLight"
+    android:background="@color/white"
     android:clickable="true"
     android:orientation="vertical">
+
+    <!--Status bar background-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:background="@drawable/gradient_black_to_transparent"
+        tools:visibility="gone" />
 
     <View
         android:id="@+id/topSpacer"
         android:layout_width="match_parent"
-        android:background="@drawable/phone_background"
         android:layout_height="24dp"
         tools:visibility="gone" />
 
@@ -20,9 +25,21 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_button_height"
         android:layout_below="@id/topSpacer"
-        android:background="@drawable/phone_background"
         android:orientation="horizontal"
         android:tileMode="repeat">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/standard_button_height"
+            android:layout_height="@dimen/standard_button_height"
+            android:layout_alignParentBottom="true"
+            android:adjustViewBounds="true"
+            android:alpha="0.7"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
+            android:tint="@color/colorPrimary" />
 
         <TextView
             style="@style/boldText"
@@ -32,7 +49,7 @@
             android:layout_marginEnd="1dp"
             android:gravity="center_vertical"
             android:text="@string/friends"
-            android:textColor="?popupsCaptionColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/font_size_18" />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -41,10 +58,10 @@
             android:layout_height="@dimen/standard_button_height"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:visibility="gone"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_keyboard_arrow_left_white_24dp"
-            android:tint="@color/colorPrimaryVeryLight" />
+            android:tint="@color/colorPrimaryVeryLight"
+            android:visibility="gone" />
     </RelativeLayout>
 
 
@@ -60,21 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_2"
             android:layout_marginEnd="@dimen/margin_1"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryVeryLight" />
+            android:background="#e7eaef" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_2"
-            android:layout_marginEnd="@dimen/margin_1"
-            android:layout_weight="1"
-            android:background="@color/colorPrimaryVeryLight" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_2"
-            android:layout_weight="1"
-            android:background="?colorAccent" />
     </LinearLayout>
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
@@ -83,7 +87,7 @@
         android:layout_height="@dimen/standard_button_height"
         android:layout_alignParentStart="true"
         android:layout_below="@id/center_split"
-        android:background="@color/colorPrimaryDark"
+        android:background="#e7eaef"
         android:orientation="horizontal">
 
         <TextView
@@ -92,10 +96,10 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?popupNonSelectedCaptionBackgroundColorRef"
-            android:gravity="center"
+            android:background="@color/white"
             android:text="@string/friends"
-            android:textColor="?popupNonSelectedCaptionTextColorRef" />
+            android:gravity="center"
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/add_friend"
@@ -103,7 +107,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/margin_1"
             android:layout_weight="1"
-            android:background="?popupNonSelectedCaptionBackgroundColorRef"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/find"
             android:textColor="?popupNonSelectedCaptionTextColorRef" />
@@ -113,10 +117,10 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="?popupSelectedCaptionBackgroundColorRef"
-            android:gravity="center"
+            android:background="@color/white"
             android:text="@string/requests"
-            android:textColor="?popupSelectedCaptionTextColorRef" />
+            android:gravity="center"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 
     <View
@@ -124,28 +128,27 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_1"
         android:layout_below="@id/top_container"
-        android:background="@color/colorPrimaryDark" />
+        android:background="#e7eaef" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_split_line">
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/requests_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            />
+            tools:padding="16dp" />
 
         <ProgressBar
-        style="?android:attr/progressBarStyle"
             android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="@dimen/prodgres_bar"
             android:layout_height="@dimen/prodgres_bar"
             android:layout_centerInParent="true"
             android:elevation="@dimen/elevation_2" />
+
         <TextView
             android:id="@+id/no_result"
             android:layout_width="wrap_content"

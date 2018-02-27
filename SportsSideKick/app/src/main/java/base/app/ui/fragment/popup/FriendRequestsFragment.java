@@ -55,7 +55,7 @@ public class FriendRequestsFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.popup_friend_requests, container, false);
+        View view = inflater.inflate(R.layout.fragment_friend_requests, container, false);
         ButterKnife.bind(this, view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -110,4 +110,8 @@ public class FriendRequestsFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(FriendsSearchFragment.class));
     }
 
+    @OnClick(R.id.backButton)
+    public void onBackPressed() {
+        getActivity().onBackPressed();
+    }
 }

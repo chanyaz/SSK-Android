@@ -101,6 +101,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center"
+            android:foreground="?selectableItemBackground"
             android:text="@string/find"
             android:textColor="@color/colorPrimary" />
 
@@ -109,6 +110,7 @@
             android:layout_width="@dimen/space_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:foreground="?selectableItemBackground"
             android:background="@color/white"
             android:gravity="center"
             android:text="@string/requests"
