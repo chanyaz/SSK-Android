@@ -23,6 +23,7 @@ private fun sendEvent(action: String,
 fun sendEventWithSession(action: String,
                          eventDetails: Map<String, String> = emptyMap()) {
     val user = Model.getInstance().userInfo
+    if (user == null) return
 
     val sessionData = mutableMapOf(
             "Date/Time" to Date().toString(),

@@ -155,8 +155,11 @@ public abstract class AbstractFragmentOrganizer {
             }
         }
 
-        Log.d("Fragment manager",
-                fragmentManager.getBackStackEntryCount() + " entries in back stack");
+        Log.d("Fragment manager", "***");
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(i);
+            Log.d("Fragment manager", "entry " + i + ": " + entry.getName().split("-")[0]);
+        }
 
         String fragmentTag = createFragmentTag(fragment, true);
         transaction.addToBackStack(fragmentTag);

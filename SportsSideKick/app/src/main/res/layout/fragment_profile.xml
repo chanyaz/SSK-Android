@@ -7,14 +7,13 @@
     android:layout_marginEnd="@dimen/margin_base_size_90"
     android:layout_marginStart="@dimen/margin_base_size_90"
     android:layout_marginTop="@dimen/margin_base_size_90"
-    android:background="@color/colorPrimaryMediumLight"
+    android:background="@color/white"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <RelativeLayout
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:background="@drawable/phone_background"
         android:orientation="horizontal"
         android:tileMode="repeat">
 
@@ -26,7 +25,7 @@
             android:paddingEnd="24dp"
             android:layout_marginBottom="16dp"
             android:text="@string/profile"
-            android:textColor="?popupsCaptionColor"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -39,6 +38,7 @@
                 android:adjustViewBounds="true"
                 android:padding="8dp"
                 android:scaleType="centerInside"
+                android:tint="@color/colorPrimary"
                 android:alpha="0.7"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:src="@drawable/ic_keyboard_arrow_left_white_24dp" />
@@ -136,8 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="@dimen/margin_20"
-                android:layout_marginTop="@dimen/margin_20"
-                android:background="@color/colorPrimaryMediumLight">
+                android:layout_marginTop="@dimen/margin_20">
 
                 <!-- VIEW IN MIDDLE TO SPLIT EASIER -->
                 <View
@@ -199,7 +198,7 @@
                         android:layout_below="@id/profile_image_container"
                         android:layout_marginTop="@dimen/margin_negative_15"
                         android:gravity="center"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="#686868"
                         android:textStyle="bold"
                         tools:text="0" />
 
@@ -212,7 +211,7 @@
                         android:layout_below="@id/profile_image_container"
                         android:layout_marginTop="@dimen/margin_10"
                         android:gravity="center"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_size_14"
                         android:textStyle="bold"
                         tools:text="Test User" />
@@ -246,7 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
                     android:layout_alignParentTop="true"
-                    android:background="#2f000000" />
+                    android:background="#14000000" />
 
                 <RelativeLayout
                     android:id="@+id/profile_data_container"
@@ -273,7 +272,7 @@
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_10"
                         android:text="@string/contact_info"
-                        android:textColor="?colorAccent"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_size_12" />
 
                     <TextView
@@ -287,7 +286,7 @@
                         android:ellipsize="end"
                         android:paddingEnd="16dp"
                         android:singleLine="true"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="#686868"
                         android:textSize="@dimen/font_size_12"
                         tools:text="test.very.long.address@test.com"
                         android:layout_toStartOf="@id/location_value" />
@@ -299,7 +298,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_below="@id/contact_info_email"
                         android:layout_marginStart="@dimen/margin_20"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="#686868"
                         android:textSize="@dimen/font_size_12"
                         tools:text="+1234567890" />
 
@@ -311,7 +310,7 @@
                         android:layout_marginEnd="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_10"
                         android:text="@string/subscribed_since"
-                        android:textColor="?colorAccent"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_size_12" />
 
                     <TextView
@@ -320,7 +319,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/subscribed_since_caption"
                         android:layout_below="@id/subscribed_since_caption"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="#686868"
                         android:textSize="@dimen/font_size_12"
                         tools:text="1 Dec, 2020" />
 
@@ -331,7 +330,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/margin_10"
                         android:text="@string/location"
-                        android:textColor="?colorAccent"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_size_12" />
 
                     <TextView
@@ -345,7 +344,7 @@
                         android:layout_below="@id/location_caption"
                         android:layout_centerHorizontal="true"
                         android:layout_toLeftOf="@id/subscribed_since_value"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="#686868"
                         android:textSize="@dimen/font_size_12"
                         tools:text="SportsSideKick"
                         android:layout_toStartOf="@id/subscribed_since_value" />
@@ -357,7 +356,7 @@
                         android:layout_alignBaseline="@+id/chosen_language_caption"
                         android:layout_centerHorizontal="true"
                         android:text="@string/password"
-                        android:textColor="?colorAccent"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_size_12"
 
                         />
@@ -370,7 +369,7 @@
                         android:layout_alignTop="@+id/chosen_language_value"
                         android:layout_below="@id/password_caption"
                         android:text="***********"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="#686868"
                         android:textSize="@dimen/font_size_12"
                         tools:ignore="HardcodedText" />
 
@@ -383,7 +382,7 @@
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_10"
                         android:text="@string/chosen_language"
-                        android:textColor="?colorAccent"
+                        android:textColor="@color/black"
                         android:textSize="@dimen/font_size_12" />
 
                     <ImageView
@@ -404,7 +403,7 @@
                         android:layout_marginBottom="@dimen/margin_10"
                         android:layout_marginStart="@dimen/margin_20"
                         android:text="@string/language_current"
-                        android:textColor="?popupsCaptionColor"
+                        android:textColor="#686868"
                         android:textSize="@dimen/font_size_12" />
 
                     <ImageButton
@@ -426,7 +425,7 @@
                         android:layout_height="@dimen/height_1"
                         android:layout_below="@id/chosen_language_value"
                         android:layout_marginTop="8dp"
-                        android:background="#2f000000" />
+                        android:background="#14000000" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/autoTranslateToggle"
@@ -446,7 +445,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/autoTranslateToggle"
                         android:text="@string/auto_translation"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/wallNotificationsToggle"
@@ -465,7 +464,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/wallNotificationsToggle"
                         android:text="@string/notify_wall"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/newsNotificationsToggle"
@@ -485,7 +484,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/newsNotificationsToggle"
                         android:text="@string/notify_news"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/rumoursNotificationsToggle"
@@ -505,7 +504,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/rumoursNotificationsToggle"
                         android:text="@string/notify_rumours"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/socialNotificationsToggle"
@@ -525,7 +524,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/socialNotificationsToggle"
                         android:text="@string/notify_social"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/black" />
 
                 </RelativeLayout>
 
@@ -542,7 +541,7 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
-                    android:background="#2f000000" />
+                    android:background="#14000000" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -576,7 +575,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:textColor="?popupsCaptionColor"
+                                android:textColor="#686868"
                                 android:textSize="@dimen/font_size_25"
                                 android:textStyle="bold"
                                 tools:text="0" />
@@ -646,7 +645,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
                 android:layout_below="@id/holder_progress_bar"
-                android:background="#2f000000" />
+                android:background="#14000000" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/profile_stats_recycler_view"
@@ -672,7 +671,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_1"
-                android:background="#2f000000" />
+                android:background="#14000000" />
 
             <RelativeLayout
                 android:id="@+id/layout_button_holder"
@@ -685,13 +684,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
                     android:layout_alignParentBottom="true"
-                    android:background="#2f000000" />
+                    android:background="#14000000" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_1"
                     android:layout_alignParentTop="true"
-                    android:background="#2f000000" />
+                    android:background="#14000000" />
 
 
                 <ImageButton

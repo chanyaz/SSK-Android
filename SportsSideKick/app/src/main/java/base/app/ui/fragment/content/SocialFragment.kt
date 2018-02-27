@@ -39,7 +39,6 @@ class SocialFragment : BaseFragment() {
         swipeRefreshLayout.isRefreshing = true
 
         recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
         recyclerView.itemAnimator = SlideInUpAnimator(OvershootInterpolator(1f))
         recyclerView.addItemDecoration(LinearItemDecoration(resources.getDimension(dimen.item_spacing_news).toInt()))
 
