@@ -18,7 +18,7 @@
         <item name="white">@color/white</item>
         <item name="white_semitransparent">@color/white_semitransparent</item>
         <item name="black_transparent_154">@color/black_transparent_154</item>
-        <item name="colorGray">@color/colorGray</item>
+        <item name="colorGray">@color/gray</item>
         <item name="colorGrayMediumLight">@color/colorGrayMediumLight</item>
 
         <!-- App items colors -->
@@ -41,9 +41,9 @@
         <item name="rumourSmallSeparatorColor">@color/colorPrimary</item>
         <item name="channelItemCaption">@color/white</item>
         <item name="channelItemBackground">@color/colorPrimary</item>
-        <item name="channelItemDate">@color/colorGray</item>
+        <item name="channelItemDate">@color/gray</item>
         <item name="postCommentContainerColor">@color/colorPrimarySemiDarkSemiTransparent</item>
-        <item name="postCommentHintColor">@color/colorGray</item>
+        <item name="postCommentHintColor">@color/gray</item>
         <item name="postCommentTextColor">@color/white</item>
         <item name="newsLikeIcon">@color/white</item>
         <item name="newsLikedIcon">@color/colorAccent</item>
@@ -290,13 +290,13 @@
         <item name="android:maxLines">1</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColorHint">@color/colorGray</item>
+        <item name="android:textColorHint">@color/gray</item>
     </style>
 
     <style name="sign_up_edit_text">
         <item name="android:textAlignment">center</item>
         <item name="android:maxLines">1</item>
-        <item name="android:textColorHint">@color/colorGray</item>
+        <item name="android:textColorHint">@color/gray</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

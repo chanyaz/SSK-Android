@@ -17,6 +17,6 @@
         android:text="@string/error"
         android:layout_below="@id/errorImage"
         android:gravity="center"
-        android:textColor="@color/colorGray"/>
+        android:textColor="@color/gray"/>
 
 </RelativeLayout>

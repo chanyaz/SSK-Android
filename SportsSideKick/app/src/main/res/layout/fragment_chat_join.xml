@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/colorPrimaryMediumLight"
+    android:background="@color/gray"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -178,25 +179,28 @@
         android:id="@+id/friends_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_public_chats_container"
         android:layout_below="@id/chat_top_container"
-        android:layout_above="@id/bottom_public_chats_container"/>
+        tools:padding="16dp" />
+
     <RelativeLayout
         android:id="@+id/bottom_public_chats_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?chatJoinBackgroundColorRef">
+        android:background="?chatJoinBackgroundColorRef"
+        tools:layout_height="100dp">
 
         <TextView
             android:id="@+id/bottom_public_chats_headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textSize="@dimen/font_size_12"
             android:gravity="center"
             android:padding="@dimen/padding_8"
             android:text="@string/friend_chats"
-            android:textColor="?chatJoinChatsHeadlineColorRef" />
+            android:textColor="?chatJoinChatsHeadlineColorRef"
+            android:textSize="@dimen/font_size_12" />
 
         <RelativeLayout
             android:id="@+id/bottom_public_chats_recycler_container"
@@ -218,7 +222,9 @@
                 android:id="@+id/bottom_public_chats_friends_in_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="@dimen/row_chat_bubble_user_size" />
+                android:minHeight="@dimen/row_chat_bubble_user_size"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp" />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

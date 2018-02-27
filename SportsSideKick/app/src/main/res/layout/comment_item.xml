@@ -38,7 +38,7 @@
             android:layout_below="@id/post_text"
             tools:text="Demo comment text"
             android:layout_marginTop="@dimen/margin_5"
-            android:textColor="@color/colorGray"
+            android:textColor="@color/gray"
             android:textSize="@dimen/font_size_10" />
 
         <TextView

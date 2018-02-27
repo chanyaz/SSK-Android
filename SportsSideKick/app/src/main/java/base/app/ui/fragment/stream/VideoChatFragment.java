@@ -211,7 +211,7 @@ public class VideoChatFragment extends BaseFragment implements Room.Listener {
         Slot slot = getNextFreeSlot();
         if (slot == null) {
             Toast.makeText(getContext(), getContext().getResources().getString(R.string.video_chat_max), Toast.LENGTH_LONG).show();
-            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorGray), PorterDuff.Mode.MULTIPLY);
+            addUserButton.setColorFilter(ContextCompat.getColor(getActivity(), R.color.gray), PorterDuff.Mode.MULTIPLY);
             return;
         }
         if (nickNameUsers != null) {

@@ -162,7 +162,7 @@
                 android:layout_toEndOf="@+id/authorImage"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:textColor="@color/colorGray"
+                android:textColor="@color/gray"
                 android:textSize="@dimen/font_size_12"
                 tools:text="Chris Reeves" />
 

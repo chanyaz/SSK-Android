@@ -386,7 +386,7 @@
             android:inputType="textCapSentences"
             android:paddingStart="@dimen/margin_15"
             android:textColor="@color/colorGrayDark"
-            android:textColorHint="@color/colorGray"
+            android:textColorHint="@color/gray"
             android:textSize="16sp"
             app:backgroundTint="?white" />
 
