@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/image"
         android:scaleType="centerCrop"
         app:layout_aspectRatio="178%"
+        tools:src="@drawable/wall_detail_header_placeholder"
         app:layout_widthPercent="100%" />
 
     <ImageView
@@ -25,12 +26,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
-        android:background="?channelItemBackground"
+        android:background="#f4f4f4"
         android:bufferType="spannable"
-        android:lines="2"
+        android:maxLines="2"
         android:padding="@dimen/padding_8"
-        android:textColor="?channelItemCaption"
-        android:textSize="@dimen/font_size_11" />
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_size_11"
+        tools:text="Passatempos - Sporting SP" />
 
     <TextView
         android:id="@+id/date"
@@ -39,6 +41,7 @@
         android:layout_below="@id/caption"
         android:background="?channelItemBackground"
         android:bufferType="spannable"
+        android:visibility="gone"
         android:lines="1"
         android:paddingBottom="@dimen/padding_8"
         android:paddingEnd="@dimen/space_0"

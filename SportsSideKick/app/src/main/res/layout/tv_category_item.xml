@@ -10,6 +10,7 @@
 
         <ImageView
             app:layout_aspectRatio="180%"
+            tools:src="@drawable/wall_detail_header_placeholder"
             app:layout_widthPercent="100%"
             android:id="@+id/image"
             android:scaleType="centerCrop" />
@@ -20,11 +21,11 @@
             android:layout_height="match_parent"
             tools:layout_height="wrap_content"
             android:layout_below="@id/image"
-            android:background="?tvCategoryBackground"
+            android:background="#f4f4f4"
             android:bufferType="spannable"
             android:maxLines="3"
             android:padding="@dimen/padding_8"
-            android:textColor="?channelItemCaption"
+            android:textColor="@color/black"
             android:textSize="@dimen/font_size_11"
             tools:text="Some caption" />
 
