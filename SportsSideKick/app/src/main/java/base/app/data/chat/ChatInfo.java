@@ -300,12 +300,14 @@ public class ChatInfo {
             return -1;
         }
         String uid = Model.getInstance().getUserInfo().getUserId();
-        if (messages == null) {
+        if (messages == null || uid == null) {
             Log.e(TAG, "*** error need to load chat messages before asking for unreadMessageCount");
             return -1;
         }
         for (ImsMessage message : messages) {
-            if (!message.getSenderId().equals(uid) && !message.getReadFlag()) {
+            if (message.getSenderId() != null
+                    && !message.getSenderId().equals(uid)
+                    && !message.getReadFlag()) {
                 count += 1;
             }
         }
