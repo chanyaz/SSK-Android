@@ -391,8 +391,6 @@ public class LoginFragment extends BaseFragment
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getActivity().onBackPressed();
-                        EventBus.getDefault().post(new FragmentEvent(LoginFragment.class));
                     }
                 }
         );
