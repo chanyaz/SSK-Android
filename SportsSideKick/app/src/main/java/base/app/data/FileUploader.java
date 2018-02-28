@@ -28,9 +28,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 import base.app.util.commons.Utility;
 import base.app.util.ui.ExifUtil;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Filip on 3/17/2017.
@@ -94,14 +100,15 @@ public class FileUploader {
                 @Override
                 public void onStateChanged(int id, TransferState state) {
                     if (TransferState.COMPLETED.equals(state)) {
-                        if(completion!=null){
+                        if (completion != null) {
                             completion.setResult(baseUrl + filename);
                         }
                     }
                 }
 
                 @Override
-                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {}
+                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+                }
 
                 @Override
                 public void onError(int id, Exception ex) {
@@ -126,14 +133,15 @@ public class FileUploader {
                 @Override
                 public void onStateChanged(int id, TransferState state) {
                     if (TransferState.COMPLETED.equals(state)) {
-                        if(completion!=null){
+                        if (completion != null) {
                             completion.setResult(baseUrl + filename);
                         }
                     }
                 }
 
                 @Override
-                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {}
+                public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+                }
 
                 @Override
                 public void onError(int id, Exception ex) {
@@ -162,37 +170,65 @@ public class FileUploader {
         }
     }
 
-    public void uploadCompressedImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion){
-        File image = new File(filepath);
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
-        bitmap = ExifUtil.rotateBitmap(filepath, bitmap);
-        final int maxSize = 640;
-        int outWidth;
-        int outHeight;
-        int inWidth = bitmap.getWidth();
-        int inHeight = bitmap.getHeight();
-        if(inWidth > inHeight){
-            outWidth = maxSize;
-            outHeight = (inHeight * maxSize) / inWidth;
-        } else {
-            outHeight = maxSize;
-            outWidth = (inWidth * maxSize) / inHeight;
-        }
+    public void uploadCompressedImage(final String filename, final String filepath, final File filesDir, final TaskCompletionSource<String> completion) {
+        Observable.fromCallable(new Callable<File>() {
+            @Override
+            public File call() {
+                File image = new File(filepath);
+                BitmapFactory.Options bmOptions = new BitmapFactory.Options();
 
-        Bitmap resizedBitmap  = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, COMPRESSED_IMAGE_QUALITY, bos);
-        try {
-            File file = new File(filesDir, filename);
-            bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
-            upload(filename, file.getPath(), completion);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
+                bitmap = ExifUtil.rotateBitmap(filepath, bitmap);
+
+                final int maxSize = 640;
+                int outWidth;
+                int outHeight;
+                int inWidth = bitmap.getWidth();
+                int inHeight = bitmap.getHeight();
+                if (inWidth > inHeight) {
+                    outWidth = maxSize;
+                    outHeight = (inHeight * maxSize) / inWidth;
+                } else {
+                    outHeight = maxSize;
+                    outWidth = (inWidth * maxSize) / inHeight;
+                }
+
+                Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, outWidth, outHeight, true);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                resizedBitmap.compress(Bitmap.CompressFormat.JPEG, COMPRESSED_IMAGE_QUALITY, bos);
+                try {
+                    File file = new File(filesDir, filename);
+                    bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
+                    return file;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<File>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(File file) {
+                        upload(filename, file.getPath(), completion);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
-    void uploadImage(File image, String filename, final TaskCompletionSource<String> completion){
+    void uploadImage(File image, String filename, final TaskCompletionSource<String> completion) {
         upload(image, filename, completion);
     }
 
