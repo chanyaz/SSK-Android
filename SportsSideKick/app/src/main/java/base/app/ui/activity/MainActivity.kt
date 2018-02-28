@@ -554,7 +554,7 @@ class MainActivity : BaseActivityWithPush(),
         ImageLoader.displayImage(imgUri, profileImage, R.drawable.blank_profile_rounded)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_CHAT_AUDIO_CAPTURE) {
             EventBus.getDefault().post(AudioRecordedEvent())

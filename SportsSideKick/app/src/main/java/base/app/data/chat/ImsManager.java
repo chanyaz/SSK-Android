@@ -13,9 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,7 +64,8 @@ import static base.app.util.commons.AnalyticsTrackerKt.trackMessageSent;
  * www.hypercubesoft.com
  */
 
-public class ImsManager extends GSMessageHandlerAbstract implements LoginStateReceiver.LoginStateListener {
+public class ImsManager extends GSMessageHandlerAbstract
+        implements LoginStateReceiver.LoginStateListener {
 
     public static final String TAG = "ImsManager";
 
@@ -444,19 +444,17 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
                 if (!response.hasErrors()) {
                     // Parse response
                     JSONArray messagesJson = (JSONArray) response.getScriptData().getBaseData().get(MESSAGES);
-                    try {
-                        List<ImsMessage> messagesList = new ArrayList<>();
-                        for (int i = 0; i < messagesJson.size(); i++) {
-                            JSONObject messageJson = (JSONObject) messagesJson.get(i);
-                            messageJson.put("_id", ((Id) messageJson.get("_id")).getOid());
-                            ImsMessage message = mapper.convertValue(messageJson, new TypeReference<ImsMessage>() {
-                            });
-                            messagesList.add(message);
-                        }
-                        chatInfo.addReceivedMessage(messagesList);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    List<ImsMessage> messagesList = new ArrayList<>();
+                    for (int i = 0; i < messagesJson.size(); i++) {
+                        JSONObject messageJson = (JSONObject) messagesJson.get(i);
+                        Id idObject = mapper.convertValue(messageJson.get("_id"), new TypeReference<Id>() {
+                        });
+                        messageJson.put("_id", idObject.getOid());
+                        ImsMessage message = mapper.convertValue(messageJson, new TypeReference<ImsMessage>() {
+                        });
+                        messagesList.add(message);
                     }
+                    chatInfo.addReceivedMessage(messagesList);
                 }
             }
         };
