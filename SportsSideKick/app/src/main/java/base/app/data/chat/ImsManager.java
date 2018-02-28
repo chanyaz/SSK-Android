@@ -13,6 +13,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import base.app.data.FileUploader;
+import base.app.data.Id;
 import base.app.data.Model;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.data.chat.event.ChatsInfoUpdatesEvent;
@@ -439,10 +443,20 @@ public class ImsManager extends GSMessageHandlerAbstract implements LoginStateRe
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
-                    Object object = response.getScriptData().getBaseData().get(MESSAGES);
-                    List<ImsMessage> messages = mapper.convertValue(object, new TypeReference<List<ImsMessage>>() {
-                    });
-                    chatInfo.addReceivedMessage(messages);
+                    JSONArray messagesJson = (JSONArray) response.getScriptData().getBaseData().get(MESSAGES);
+                    try {
+                        List<ImsMessage> messagesList = new ArrayList<>();
+                        for (int i = 0; i < messagesJson.size(); i++) {
+                            JSONObject messageJson = (JSONObject) messagesJson.get(i);
+                            messageJson.put("_id", ((Id) messageJson.get("_id")).getOid());
+                            ImsMessage message = mapper.convertValue(messageJson, new TypeReference<ImsMessage>() {
+                            });
+                            messagesList.add(message);
+                        }
+                        chatInfo.addReceivedMessage(messagesList);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         };
