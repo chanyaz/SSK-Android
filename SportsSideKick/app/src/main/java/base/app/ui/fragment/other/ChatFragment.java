@@ -834,7 +834,6 @@ public class ChatFragment extends BaseFragment {
                                 preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
                                 preppingImsObject.setLocalPath(null);
                                 currentlyActiveChat.updateMessage(preppingImsObject, null);
-                                // TODO @Filip Update UI with image
                             } else {
                                 preppingImsObject.setImageUrl("");
                                 preppingImsObject.setUploadStatus(GSConstants.FAILED);
@@ -933,6 +932,7 @@ public class ChatFragment extends BaseFragment {
                 if (currentlyActiveChat != null) {
                     List<ImsMessage> messages = currentlyActiveChat.getMessages();
                     ImsMessage updatedMessage = event.getMessage();
+                    handleUpdatedChatMessages(currentlyActiveChat.getChatId());
                     if (messages != null && updatedMessage != null) {
                         for (int i = 0; i < messages.size(); i++) {
                             ImsMessage messageInAdapter = messages.get(i);

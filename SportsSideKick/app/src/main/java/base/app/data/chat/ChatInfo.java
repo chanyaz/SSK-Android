@@ -277,7 +277,8 @@ public class ChatInfo {
                     if (completion != null) {
                         completion.setResult(ChatInfo.this);
                     }
-                    EventBus.getDefault().post(new ChatNotificationsEvent(message, ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
+                    EventBus.getDefault().post(new ChatNotificationsEvent(task.getResult(),
+                            ChatNotificationsEvent.Key.CHANGED_CHAT_MESSAGE));
                 } else {
                     if (completion != null && task.getException() != null) {
                         completion.setException(task.getException());
