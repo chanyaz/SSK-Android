@@ -348,7 +348,6 @@ public class ChatFragment extends BaseFragment {
                 }
             }
         });
-        updateAllViews();
 
         if (Utility.isPhone(getActivity())) {
             if (!Model.getInstance().isRealUser()) {
@@ -415,8 +414,6 @@ public class ChatFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         //! Update active chat first
         findActiveChat();
-        //! Update UI
-        updateAllViews();
     }
 
     public void onResume() {
