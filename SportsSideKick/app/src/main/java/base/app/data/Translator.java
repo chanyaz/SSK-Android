@@ -171,7 +171,7 @@ public class Translator {
                             GSData messageInfo = response.getScriptData().getObject("item");
                             ImsMessage message = null;
                             if (messageInfo != null) {
-                                message = ImsMessage.getDefaultMessage();
+                                message = ImsMessage.createMessage();
                                 message.updateFrom(messageInfo.getBaseData());
                             }
                             if (completion != null) {

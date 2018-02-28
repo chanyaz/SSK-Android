@@ -15,10 +15,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
+import base.app.data.user.UserInfo;
 import base.app.data.wall.news.NewsModel;
 import base.app.data.wall.sharing.Shareable;
 import base.app.data.wall.sharing.SharingManager;
-import base.app.data.user.UserInfo;
 
 import static base.app.util.commons.Utility.CHOSEN_LANGUAGE;
 
@@ -184,6 +184,7 @@ public abstract class WallBase implements Shareable, Serializable {
                     break;
                 default:
                     Log.e(TAG, "ERROR ----- unsupported post type " + node.get("type").textValue() + "\n\n" + node);
+                    return null;
             }
 
             WallBase item = mapper.convertValue(wallItem, typeReference);

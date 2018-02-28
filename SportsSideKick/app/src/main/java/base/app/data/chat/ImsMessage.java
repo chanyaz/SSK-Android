@@ -71,7 +71,7 @@ public class ImsMessage {
         this.imageUrl = imageUrl;
     }
 
-    public static ImsMessage getDefaultMessage() {
+    public static ImsMessage createMessage() {
         ImsMessage message = new ImsMessage();
         message.setImageAspectRatio(ASPECT_RATIO_DEFAULT);
         message.setTimestamp(DateUtils.currentTimeToFirebaseDate());

@@ -684,7 +684,7 @@ public class ChatFragment extends BaseFragment {
             messageForEdit = null;
         } else {
             if (!text.isEmpty()) {
-                ImsMessage message = ImsMessage.getDefaultMessage();
+                ImsMessage message = ImsMessage.createMessage();
                 message.setType(GSConstants.UPLOAD_TYPE_TEXT);
                 message.setText(text);
                 currentlyActiveChat.sendMessage(message);
@@ -781,7 +781,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void sendAudioMessage(final String path) {
-        final ImsMessage messageAudio = ImsMessage.getDefaultMessage();
+        final ImsMessage messageAudio = ImsMessage.createMessage();
         messageAudio.setType(GSConstants.UPLOAD_TYPE_AUDIO);
         messageAudio.setUploadStatus(GSConstants.UPLOADING);
         messageAudio.setImageUrl("");
@@ -814,43 +814,27 @@ public class ChatFragment extends BaseFragment {
     }
 
     private void sendImageMessage(final String path) {
-        final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
-        preppingImsObject.setType(GSConstants.UPLOAD_TYPE_IMAGE);
-        preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
-        preppingImsObject.setText(null);
-        preppingImsObject.setImageUrl(null);
-        preppingImsObject.setLocalPath(path);
-
-        currentlyActiveChat.sendMessage(preppingImsObject).addOnCompleteListener(new OnCompleteListener<ChatInfo>() {
+        final TaskCompletionSource<String> source = new TaskCompletionSource<>();
+        source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
-            public void onComplete(@NonNull Task<ChatInfo> task) {
+            public void onComplete(@NonNull Task<String> task) {
+                final ImsMessage preppingImsObject = ImsMessage.createMessage();
+                preppingImsObject.setType(GSConstants.UPLOAD_TYPE_IMAGE);
                 if (task.isSuccessful()) {
-                    final TaskCompletionSource<String> source = new TaskCompletionSource<>();
-                    source.getTask().addOnCompleteListener(new OnCompleteListener<String>() {
-                        @Override
-                        public void onComplete(@NonNull Task<String> task) {
-                            if (task.isSuccessful()) {
-                                preppingImsObject.setImageUrl(task.getResult());
-                                preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
-                                preppingImsObject.setLocalPath(null);
-                                currentlyActiveChat.updateMessage(preppingImsObject, null);
-                            } else {
-                                preppingImsObject.setImageUrl("");
-                                preppingImsObject.setUploadStatus(GSConstants.FAILED);
-                                currentlyActiveChat.updateMessage(preppingImsObject, null);
-                                // TODO @Filip Hide waiting dialog ? - show error?
-                            }
-                        }
-                    });
-                    Model.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(), source);
+                    preppingImsObject.setImageUrl(task.getResult());
+                    preppingImsObject.setUploadStatus(GSConstants.UPLOADED);
+                    currentlyActiveChat.sendMessage(preppingImsObject);
+                } else {
+                    Toast.makeText(getContext(), "Failed to upload photo", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        Model.getInstance().uploadImageForChatMessage(path, getActivity().getFilesDir(), source);
     }
 
     private void sendVideoMessage(final String path) {
 
-        final ImsMessage preppingImsObject = ImsMessage.getDefaultMessage();
+        final ImsMessage preppingImsObject = ImsMessage.createMessage();
         preppingImsObject.setType(GSConstants.UPLOAD_TYPE_VIDEO);
         preppingImsObject.setUploadStatus(GSConstants.UPLOADING);
         preppingImsObject.setText(null);
