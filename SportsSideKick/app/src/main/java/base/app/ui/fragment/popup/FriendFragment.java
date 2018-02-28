@@ -19,24 +19,23 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import base.app.R;
-import base.app.util.AlertDialogManager;
 import base.app.data.Model;
-import base.app.data.user.friends.FriendsManager;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsManager;
 import base.app.data.user.UserInfo;
+import base.app.data.user.friends.FriendsManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.stream.VideoChatFragment;
+import base.app.util.AlertDialogManager;
 import base.app.util.commons.Utility;
 import base.app.util.events.call.StartCallEvent;
 import base.app.util.events.chat.OpenChatEvent;
@@ -206,6 +205,8 @@ public class FriendFragment extends BaseFragment {
     };
 
     private void setupUIWithUserInfo(UserInfo user) {
+        if (!isAdded()) return; // fixed crash when accessing strings in detached mode
+
         profileName.setText(user.getFirstName() + " " + user.getLastName());
         //TODO @Filip refactoring Put this in a  string file
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
