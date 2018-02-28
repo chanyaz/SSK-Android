@@ -1,5 +1,6 @@
 package base.app.data.chat;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -243,11 +244,10 @@ public class ImsManager extends GSMessageHandlerAbstract
                 if (!response.hasErrors()) {
                     // Parse response
                     chatInfoCache.clear();
-                    Object object = response.getScriptData().getBaseData().get(CHATS_INFO);
-                    List<ChatInfo> chats = mapper.convertValue(object, new TypeReference<List<ChatInfo>>() {
-                    });
+
+                    List<ChatInfo> chatsList = getChatsReplacingIds(response);
                     // Go trough all ChatInfo objects and load users and messages
-                    for (ChatInfo chat : chats) {
+                    for (ChatInfo chat : chatsList) {
                         if (chat != null) {
                             addChatInfoToCache(chat);
                             chat.loadChatUsers();
@@ -261,6 +261,21 @@ public class ImsManager extends GSMessageHandlerAbstract
             }
         };
         createRequest("imsGetUserChatGroupsList").send(consumer);
+    }
+
+    private List<ChatInfo> getChatsReplacingIds(GSResponseBuilder.LogEventResponse response) {
+        List<ChatInfo> chatsList = new ArrayList<>();
+        JSONArray chatsJson = (JSONArray) response.getScriptData().getBaseData().get(CHATS_INFO);
+        for (int i = 0; i < chatsJson.size(); i++) {
+            JSONObject chatJson = (JSONObject) chatsJson.get(i);
+            Id idObject = mapper.convertValue(chatJson.get("_id"), new TypeReference<Id>() {
+            });
+            chatJson.put("_id", idObject.getOid());
+            ChatInfo message = mapper.convertValue(chatJson, new TypeReference<ChatInfo>() {
+            });
+            chatsList.add(message);
+        }
+        return chatsList;
     }
 
     /**
@@ -278,8 +293,7 @@ public class ImsManager extends GSMessageHandlerAbstract
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
-                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
-                    ChatInfo chat = mapper.convertValue(object, ChatInfo.class);
+                    ChatInfo chat = getChatInfoReplacingId(response);
                     chatInfo.setEqualTo(chat);
                     addChatInfoToCache(chatInfo);
                     chatInfo.loadChatUsers();
@@ -443,17 +457,7 @@ public class ImsManager extends GSMessageHandlerAbstract
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
-                    JSONArray messagesJson = (JSONArray) response.getScriptData().getBaseData().get(MESSAGES);
-                    List<ImsMessage> messagesList = new ArrayList<>();
-                    for (int i = 0; i < messagesJson.size(); i++) {
-                        JSONObject messageJson = (JSONObject) messagesJson.get(i);
-                        Id idObject = mapper.convertValue(messageJson.get("_id"), new TypeReference<Id>() {
-                        });
-                        messageJson.put("_id", idObject.getOid());
-                        ImsMessage message = mapper.convertValue(messageJson, new TypeReference<ImsMessage>() {
-                        });
-                        messagesList.add(message);
-                    }
+                    List<ImsMessage> messagesList = getMessagesReplacingIds(response);
                     chatInfo.addReceivedMessage(messagesList);
                 }
             }
@@ -463,6 +467,26 @@ public class ImsManager extends GSMessageHandlerAbstract
                 .setEventAttribute(ENTRY_COUNT, MESSAGE_PAGE_SIZE)
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .send(consumer);
+    }
+
+    @NonNull
+    private List<ImsMessage> getMessagesReplacingIds(GSResponseBuilder.LogEventResponse response) {
+        List<ImsMessage> messagesList = new ArrayList<>();
+        if (!response.hasErrors() && response.getScriptData() != null) {
+            JSONArray messagesJson = (JSONArray) response.getScriptData().getBaseData().get(MESSAGES);
+            if (messagesJson != null) {
+                for (int i = 0; i < messagesJson.size(); i++) {
+                    JSONObject messageJson = (JSONObject) messagesJson.get(i);
+                    Id idObject = mapper.convertValue(messageJson.get("_id"), new TypeReference<Id>() {
+                    });
+                    messageJson.put("_id", idObject.getOid());
+                    ImsMessage message = mapper.convertValue(messageJson, new TypeReference<ImsMessage>() {
+                    });
+                    messagesList.add(message);
+                }
+            }
+        }
+        return messagesList;
     }
 
     // load next page of messages
@@ -504,9 +528,7 @@ public class ImsManager extends GSMessageHandlerAbstract
             public void onEvent(GSResponseBuilder.LogEventResponse response) {
                 if (!response.hasErrors()) {
                     // Parse response
-                    Object object = response.getScriptData().getBaseData().get(CHAT_INFO);
-                    ChatInfo updatedChatInfo = mapper.convertValue(object, ChatInfo.class);
-                    chatInfo.setEqualTo(updatedChatInfo);
+                    chatInfo.setEqualTo(getChatInfoReplacingId(response));
                 }
             }
         };
@@ -514,6 +536,14 @@ public class ImsManager extends GSMessageHandlerAbstract
                 .setEventAttribute(GROUP_ID, chatInfo.getChatId())
                 .setEventAttribute("messageId", message.getId())
                 .send(consumer);
+    }
+
+    private ChatInfo getChatInfoReplacingId(GSResponseBuilder.LogEventResponse response) {
+        JSONObject object = (JSONObject) response.getScriptData().getBaseData().get(CHAT_INFO);
+        Id idObject = mapper.convertValue(object.get("_id"), new TypeReference<Id>() {
+        });
+        object.put("_id", idObject.getOid());
+        return mapper.convertValue(object, ChatInfo.class);
     }
 
     // do not use this function, call the chat info one!
@@ -585,11 +615,12 @@ public class ImsManager extends GSMessageHandlerAbstract
         String chatId;
         switch (type) {
             case "ImsUpdateChatInfo":
-//              TODO @Filip check implementation on iOS
-                chatId = (String) data.get(CHAT_ID);
-                if (chatId == null) {
+                if (data.get(CHAT_ID) == null) {
                     reload();
                 } else {
+                    Id idObject = mapper.convertValue(data.get(CHAT_ID), new TypeReference<Id>() {
+                    });
+                    chatId = idObject.getOid();
                     reload(); // TODO @Filip - Implement loading of single chat! Check implementation on iOS
                     EventBus.getDefault().post(new ChatNotificationsEvent(chatId, ChatNotificationsEvent.Key.SET_CURRENT_CHAT));
                 }
