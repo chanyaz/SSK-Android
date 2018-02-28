@@ -281,7 +281,7 @@
                     android:textSize="12sp"
                     tools:text="Yesterday" />
 
-                <TextView
+                <android.support.text.emoji.widget.EmojiTextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -310,7 +310,7 @@
                     android:clickable="true"
                     android:focusable="false">
 
-                    <TextView
+                    <android.support.text.emoji.widget.EmojiTextView
                         android:id="@+id/content_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

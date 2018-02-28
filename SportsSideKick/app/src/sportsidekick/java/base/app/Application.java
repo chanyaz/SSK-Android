@@ -3,6 +3,8 @@ package base.app;
 import android.content.ContextWrapper;
 import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
+import android.support.text.emoji.EmojiCompat;
+import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -84,5 +86,8 @@ public class Application extends MultiDexApplication {
 
         sAnalytics = GoogleAnalytics.getInstance(this);
         if (BuildConfig.DEBUG) sAnalytics.setDryRun(true);
+
+        EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
+        EmojiCompat.init(config);
     }
 }
