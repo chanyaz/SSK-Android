@@ -25,7 +25,6 @@ public class ExifUtil {
                     matrix.setRotate(180);
                     break;
                 case ExifInterface.ORIENTATION_ROTATE_90:
-                case 0: // on emulator
                     matrix.setRotate(90);
                     break;
                 case ExifInterface.ORIENTATION_ROTATE_270:

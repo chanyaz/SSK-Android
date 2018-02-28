@@ -3,12 +3,6 @@ package base.app.data;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.media.ThumbnailUtils;
 import android.provider.MediaStore;
 
@@ -48,7 +42,6 @@ public class FileUploader {
 
     public static final int COMPRESSED_IMAGE_QUALITY = 70;
     public static final long MILLIS_IN_SECOND = 1000L;
-    public static final int IMAGE_DIAMETER = 250;
     public static final int NUM_BITS = 256;
     public static final int BEGIN_INDEX = 0;
     public static final int END_INDEX = 8;
@@ -230,53 +223,6 @@ public class FileUploader {
 
     void uploadImage(File image, String filename, final TaskCompletionSource<String> completion) {
         upload(image, filename, completion);
-    }
-
-    public void uploadCircularProfileImage(String filename, String filepath, File filesDir, final TaskCompletionSource<String> completion) {
-        File image = new File(filepath);
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
-        bitmap = ExifUtil.rotateBitmap(filepath, bitmap);
-        Bitmap outputBitmap;
-        if (bitmap.getWidth() >= bitmap.getHeight()) {
-            outputBitmap = Bitmap.createBitmap(bitmap, bitmap.getWidth() / 2 - bitmap.getHeight() / 2, 0, bitmap.getHeight(), bitmap.getHeight());
-        } else {
-            outputBitmap = Bitmap.createBitmap(bitmap, 0, bitmap.getHeight() / 2 - bitmap.getWidth() / 2, bitmap.getWidth(), bitmap.getWidth());
-        }
-        outputBitmap = Bitmap.createScaledBitmap(outputBitmap, IMAGE_DIAMETER, IMAGE_DIAMETER, true);
-        outputBitmap = getCircleBitmap(outputBitmap);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        outputBitmap.compress(Bitmap.CompressFormat.PNG, COMPRESSED_IMAGE_QUALITY, bos);
-        try {
-            File file = new File(filesDir, "temp_profile_circled.jpg");
-            bos.writeTo(new BufferedOutputStream(new FileOutputStream(file)));
-            upload(filename, file.getPath(), completion);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static Bitmap getCircleBitmap(Bitmap bm) {
-        int size = Math.min((bm.getWidth()), (bm.getHeight()));
-        Bitmap bitmap = ThumbnailUtils.extractThumbnail(bm, size, size);
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xffff0000;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-
-        paint.setAntiAlias(true);
-        paint.setDither(true);
-        paint.setFilterBitmap(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawOval(rectF, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-        bitmap.recycle();
-        return output;
     }
 
     public static String generateRandName(int length) {

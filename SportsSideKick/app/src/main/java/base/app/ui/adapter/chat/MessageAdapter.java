@@ -98,7 +98,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_IMAGE:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.displayImage(imageUrl,holder.contentImage, null);
+                    holder.contentImage.setImageDrawable(null);
+                    ImageLoader.displayImage(imageUrl, holder.contentImage);
                     holder.playButton.setVisibility(View.GONE);
                     holder.view.setOnClickListener(new View.OnClickListener() {
                         @Override
