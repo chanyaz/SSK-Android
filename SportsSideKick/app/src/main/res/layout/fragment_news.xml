@@ -28,7 +28,7 @@
             android:clipToPadding="false"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
-
+            android:paddingTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_height="500dp"
             tools:paddingLeft="8dp"
