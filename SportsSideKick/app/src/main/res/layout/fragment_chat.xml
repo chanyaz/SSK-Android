@@ -106,8 +106,9 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:theme="@style/AppTheme.BlackAccent"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
         android:visibility="gone" />
