@@ -273,6 +273,7 @@ public class LoginFragment extends BaseFragment
                 @Override
                 public void onError(FacebookException error) {
                     Log.d(TAG, "Facebook login error - error is:" + error.getLocalizedMessage());
+                    throw error; // todo delete this line
                 }
             });
         }
