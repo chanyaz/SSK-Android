@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:padding="6dp"
+        android:layout_marginStart="48dp"
         android:layout_marginEnd="@dimen/margin_5"
         android:background="@drawable/chat_message_right">
 
@@ -26,7 +27,7 @@
             tools:textStyle="bold"
             android:lineSpacingMultiplier="0.9"
             android:layout_marginStart="4dp"
-            tools:text="Demo content."
+            tools:text="Hello there! This is just an example of a long chat message to test side margin and line spacing"
             android:textColor="#313230" />
 
         <ImageView
