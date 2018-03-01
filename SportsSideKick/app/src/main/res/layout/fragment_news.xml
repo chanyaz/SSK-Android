@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:enabled="false"
-    tools:context=".ui.fragment.content.WallFragment"
+    tools:context=".ui.fragment.content.wall.WallFragment"
     tools:ignore="ContentDescription,MissingPrefix,RtlHardcoded,RtlSymmetry">
 
     <LinearLayout

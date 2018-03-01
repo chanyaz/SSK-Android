@@ -24,6 +24,7 @@ import base.app.ui.fragment.base.BaseFragment
 import base.app.ui.fragment.base.FragmentEvent
 import base.app.ui.fragment.base.FragmentOrganizer
 import base.app.ui.fragment.content.*
+import base.app.ui.fragment.content.wall.WallFragment
 import base.app.ui.fragment.other.ChatFragment
 import base.app.ui.fragment.other.StatsFragment
 import base.app.ui.fragment.popup.*

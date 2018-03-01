@@ -8,7 +8,7 @@ import base.app.ui.fragment.content.NewsFragment;
 import base.app.ui.fragment.content.SocialFragment;
 import base.app.ui.fragment.content.StoreFragment;
 import base.app.ui.fragment.content.TicketsFragment;
-import base.app.ui.fragment.content.WallFragment;
+import base.app.ui.fragment.content.wall.WallFragment;
 import base.app.ui.fragment.other.ChatFragment;
 import base.app.ui.fragment.other.StatsFragment;
 import base.app.ui.fragment.stream.ClubTVFragment;

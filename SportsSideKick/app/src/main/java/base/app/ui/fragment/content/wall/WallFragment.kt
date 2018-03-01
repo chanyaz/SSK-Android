@@ -1,5 +1,7 @@
-package base.app.ui.fragment.content
+package base.app.ui.fragment.content.wall
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +38,6 @@ import kotlinx.android.synthetic.main.fragment_wall.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.jetbrains.anko.sdk25.coroutines.onClick
-import java.util.*
 
 @IgnoreBackHandling
 open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener {
@@ -68,6 +69,12 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
 
         wallItems.addAll(WallBase.getCache().values)
         refreshAdapter(false)
+
+        val viewModel = ViewModelProviders.of(this)
+                .get(WallViewModel::class.java)
+        viewModel.feed.observe(this, Observer {
+
+        })
     }
 
     private fun setClickListeners() {

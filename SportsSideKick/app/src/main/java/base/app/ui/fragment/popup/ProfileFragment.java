@@ -34,7 +34,7 @@ import base.app.data.wall.WallModel;
 import base.app.ui.adapter.profile.UserStatsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.content.WallFragment;
+import base.app.ui.fragment.content.wall.WallFragment;
 import base.app.util.AlertDialogManager;
 import base.app.util.commons.Utility;
 import base.app.util.events.post.AutoTranslateEvent;

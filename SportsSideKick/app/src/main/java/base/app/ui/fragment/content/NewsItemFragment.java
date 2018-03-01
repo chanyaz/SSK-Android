@@ -52,6 +52,7 @@ import base.app.ui.activity.MainActivity;
 import base.app.ui.adapter.content.CommentsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.content.wall.WallFragment;
 import base.app.ui.fragment.popup.SignUpLoginFragment;
 import base.app.util.commons.SoundEffects;
 import base.app.util.commons.Utility;
