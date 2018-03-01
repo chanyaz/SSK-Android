@@ -167,7 +167,7 @@ class MainActivity : BaseActivityWithPush(),
                 FriendsSearchFragment::class.java,
                 InviteFriendFragment::class.java,
                 SignUpLoginFragment::class.java,
-                CreateChatFragment::class.java))
+                ChatCreateFragment::class.java))
         fragmentOrganizer.setUpContainer(R.id.popupFragmentHolder, popupContainerFragments, true)
 
         popupDialogFragments.add(AlertDialogFragment::class.java)

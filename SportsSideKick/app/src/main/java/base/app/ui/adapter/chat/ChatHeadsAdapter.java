@@ -19,7 +19,7 @@ import base.app.data.Model;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.event.ChatNotificationsEvent;
 import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.popup.CreateChatFragment;
+import base.app.ui.fragment.popup.ChatCreateFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,7 +113,7 @@ public class ChatHeadsAdapter extends RecyclerView.Adapter<ChatHeadsAdapter.View
                         @Override
                         public void onClick(View view) {
                             if (Model.getInstance().isRealUser()) {
-                                EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+                                EventBus.getDefault().post(new FragmentEvent(ChatCreateFragment.class));
                             }
                         }
                     });

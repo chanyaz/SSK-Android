@@ -80,7 +80,7 @@ import base.app.ui.adapter.chat.MessageAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.ui.fragment.base.IgnoreBackHandling;
-import base.app.ui.fragment.popup.CreateChatFragment;
+import base.app.ui.fragment.popup.ChatCreateFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.JoinChatFragment;
 import base.app.ui.fragment.popup.LoginFragment;
@@ -712,7 +712,7 @@ public class ChatFragment extends BaseFragment {
     @OnClick(R.id.chat_menu_create)
     public void chatMenuCreateOnClick() {
         if (Model.getInstance().isRealUser()) {
-            EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+            EventBus.getDefault().post(new FragmentEvent(ChatCreateFragment.class));
         } else {
             if (inactiveContainer != null) {
                 inactiveContainer.setVisibility(View.VISIBLE);

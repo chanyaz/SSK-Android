@@ -80,7 +80,7 @@ import static base.app.util.commons.Constant.REQUEST_CODE_CHAT_CREATE_IMAGE_PICK
  * www.hypercubesoft.com
  */
 @RuntimePermissions
-public class CreateChatFragment extends BaseFragment {
+public class ChatCreateFragment extends BaseFragment {
 
     @BindView(R.id.progressBar)
     View progressBar;
@@ -112,7 +112,7 @@ public class CreateChatFragment extends BaseFragment {
     String currentPath;
     String uploadedImageUrl;
 
-    public CreateChatFragment() {
+    public ChatCreateFragment() {
         // Required empty public constructor
     }
 
@@ -225,13 +225,13 @@ public class CreateChatFragment extends BaseFragment {
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                CreateChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(CreateChatFragment.this);
+                CreateChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(ChatCreateFragment.this);
             }
         });
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                CreateChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(CreateChatFragment.this);
+                CreateChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(ChatCreateFragment.this);
             }
         });
         chooseDialog.show();

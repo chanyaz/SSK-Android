@@ -177,7 +177,7 @@ public class JoinChatFragment extends BaseFragment {
 
     @OnClick(R.id.create_a_chat)
     public void createChatTextViewOnClick() {
-        EventBus.getDefault().post(new FragmentEvent(CreateChatFragment.class));
+        EventBus.getDefault().post(new FragmentEvent(ChatCreateFragment.class));
     }
 
     @OnClick(R.id.chat_join_search_button)
