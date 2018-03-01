@@ -80,10 +80,6 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
         }
     }
 
-    private fun scrollUp() {
-        recyclerView.smoothScrollToPosition(0)
-    }
-
     @Subscribe
     fun onItemUpdate(event: ItemUpdateEvent) {
         val post = event.post
@@ -175,7 +171,7 @@ open class WallFragment : BaseFragment(), LoginStateReceiver.LoginStateListener 
         source.task.addOnCompleteListener {
             fetchingPageOfPosts = false
             if (withSpinner) {
-                scrollUp()
+                recyclerView.smoothScrollToPosition(0)
             }
         }
         loadWallItemsPage(withSpinner, source)
