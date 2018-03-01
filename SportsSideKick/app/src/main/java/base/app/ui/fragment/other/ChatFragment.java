@@ -133,8 +133,12 @@ public class ChatFragment extends BaseFragment {
     @BindView(R.id.progressBar)
     View progressBar;
 
-    @BindView(R.id.info_message)
-    TextView infoMessage;
+    @BindView(R.id.emptyTextView)
+    TextView emptyTextView;
+    @BindView(R.id.emptyViewContainer)
+    ViewGroup emptyViewContainer;
+    @BindView(R.id.emptyImageView)
+    ImageView emptyImageView;
     @BindView(R.id.chat_info_line)
     View chatInfoLine;
     @BindView(R.id.chat_info_line_text)
@@ -239,7 +243,6 @@ public class ChatFragment extends BaseFragment {
         chatHeadsView.setAdapter(chatHeadsAdapter);
 
         progressBar.setVisibility(View.VISIBLE);
-        infoMessage.setVisibility(View.GONE);
 
         LayoutTransition layoutTransition = new LayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
@@ -468,8 +471,21 @@ public class ChatFragment extends BaseFragment {
         if (currentlyActiveChat != null) {
             messageAdapter.setChatInfo(currentlyActiveChat);
             messagesRecyclerView.scrollToPosition(messageAdapter.getItemCount() - 1); // Scroll to bottom!
+
+            showEmptyIfNeeded();
         } else {
             messageAdapter.setChatInfo(null);
+        }
+    }
+
+    private void showEmptyIfNeeded() {
+        if (messageAdapter.getItemCount() == 0) {
+            emptyViewContainer.setVisibility(View.VISIBLE);
+            ImageLoader.displayImage(R.drawable.empty_chat, emptyImageView);
+            emptyViewContainer.setVisibility(View.VISIBLE);
+        } else {
+            emptyViewContainer.setVisibility(View.GONE);
+            emptyImageView.setImageDrawable(null);
         }
     }
 
@@ -944,6 +960,7 @@ public class ChatFragment extends BaseFragment {
                 setCurrentChatNotification(chatInfo);
                 break;
         }
+        showEmptyIfNeeded();
     }
 
     private void handleUpdatedChatUsers(ChatInfo chatInfo) {

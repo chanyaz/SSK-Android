@@ -11,16 +11,36 @@
     tools:context=".ui.fragment.other.ChatFragment"
     tools:paddingTop="0dp">
 
-    <!-- Empty chat info text -->
-    <TextView
-        android:id="@+id/info_message"
-        android:layout_width="wrap_content"
+    <!-- Empty chat indicator -->
+    <LinearLayout
+        android:id="@+id/emptyViewContainer"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="@string/no_message_text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/font_size_10" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingEnd="32dp"
+        android:paddingStart="32dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/emptyImageView"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            tools:adjustViewBounds="true"
+            tools:src="@drawable/empty_chat" />
+
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_message_text"
+            android:textColor="@color/gray" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:id="@+id/chat_info_line_wrapper"
@@ -108,9 +128,9 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:theme="@style/AppTheme.BlackAccent"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2"
+        android:theme="@style/AppTheme.BlackAccent"
         android:visibility="gone" />
 
 
@@ -267,15 +287,9 @@
             tools:visibility="visible">
 
             <TextView
-                android:layout_height="match_parent"
-                android:paddingBottom="4dp"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                app:autoSizeMaxTextSize="@dimen/font_size_10"
-                app:autoSizeMinTextSize="4sp"
                 android:id="@+id/chat_menu_create"
                 android:layout_width="match_parent"
-                app:autoSizeTextType="uniform"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
@@ -283,82 +297,20 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:lineSpacingMultiplier="0.8"
+                android:paddingBottom="4dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
                 android:text="@string/chat_create"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
-
-            <TextView
-                android:layout_height="match_parent"
-                android:paddingBottom="4dp"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
+                android:textSize="@dimen/font_size_10"
                 app:autoSizeMaxTextSize="@dimen/font_size_10"
                 app:autoSizeMinTextSize="4sp"
-                android:id="@+id/chat_menu_edit"
-                android:layout_width="match_parent"
-                app:autoSizeTextType="uniform"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/margin_5"
-                android:layout_marginStart="@dimen/margin_5"
-                android:layout_weight="0.25"
-                android:background="?textViewRoundBorderShape"
-                android:gravity="center"
-                android:lineSpacingMultiplier="0.8"
-                android:text="@string/edit"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
-
-            <TextView
-                android:layout_height="match_parent"
-                android:paddingBottom="4dp"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                app:autoSizeMaxTextSize="@dimen/font_size_10"
-                app:autoSizeMinTextSize="4sp"
-                android:id="@+id/chat_menu_delete"
-                android:layout_width="match_parent"
-                app:autoSizeTextType="uniform"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/margin_5"
-                android:layout_marginStart="@dimen/margin_5"
-                android:layout_weight="0.25"
-                android:background="?textViewRoundBorderShape"
-                android:gravity="center"
-                android:lineSpacingMultiplier="0.8"
-                android:text="@string/delete"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
-
-            <TextView
-                android:layout_height="match_parent"
-                android:paddingBottom="4dp"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                android:textColor="@color/white"
-                app:autoSizeMaxTextSize="@dimen/font_size_10"
-                android:id="@+id/chat_menu_search"
-                android:layout_width="match_parent"
-                app:autoSizeMinTextSize="4sp"
-                android:layout_gravity="center"
-                android:layout_marginEnd="@dimen/margin_5"
-                android:layout_marginStart="@dimen/margin_5"
-                android:layout_weight="0.25"
-                android:background="?textViewRoundBorderShape"
-                android:gravity="center"
-                android:lineSpacingMultiplier="0.8"
-                android:text="@string/chats_public_search"
                 app:autoSizeTextType="uniform" />
 
             <TextView
-                android:layout_height="match_parent"
-                android:paddingBottom="4dp"
-                android:paddingEnd="4dp"
-                android:paddingStart="4dp"
-                app:autoSizeMaxTextSize="@dimen/font_size_10"
-                app:autoSizeMinTextSize="4sp"
-                android:id="@+id/chat_menu_alerts"
+                android:id="@+id/chat_menu_edit"
                 android:layout_width="match_parent"
-                app:autoSizeTextType="uniform"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_marginStart="@dimen/margin_5"
@@ -366,9 +318,77 @@
                 android:background="?textViewRoundBorderShape"
                 android:gravity="center"
                 android:lineSpacingMultiplier="0.8"
+                android:paddingBottom="4dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
+                android:text="@string/edit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10"
+                app:autoSizeMaxTextSize="@dimen/font_size_10"
+                app:autoSizeMinTextSize="4sp"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/chat_menu_delete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_5"
+                android:layout_marginStart="@dimen/margin_5"
+                android:layout_weight="0.25"
+                android:background="?textViewRoundBorderShape"
+                android:gravity="center"
+                android:lineSpacingMultiplier="0.8"
+                android:paddingBottom="4dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
+                android:text="@string/delete"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_10"
+                app:autoSizeMaxTextSize="@dimen/font_size_10"
+                app:autoSizeMinTextSize="4sp"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/chat_menu_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_5"
+                android:layout_marginStart="@dimen/margin_5"
+                android:layout_weight="0.25"
+                android:background="?textViewRoundBorderShape"
+                android:gravity="center"
+                android:lineSpacingMultiplier="0.8"
+                android:paddingBottom="4dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
+                android:text="@string/chats_public_search"
+                android:textColor="@color/white"
+                app:autoSizeMaxTextSize="@dimen/font_size_10"
+                app:autoSizeMinTextSize="4sp"
+                app:autoSizeTextType="uniform" />
+
+            <TextView
+                android:id="@+id/chat_menu_alerts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_5"
+                android:layout_marginStart="@dimen/margin_5"
+                android:layout_weight="0.25"
+                android:background="?textViewRoundBorderShape"
+                android:gravity="center"
+                android:lineSpacingMultiplier="0.8"
+                android:paddingBottom="4dp"
+                android:paddingEnd="4dp"
+                android:paddingStart="4dp"
                 android:text="@string/alerts_on"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_10" />
+                android:textSize="@dimen/font_size_10"
+                app:autoSizeMaxTextSize="@dimen/font_size_10"
+                app:autoSizeMinTextSize="4sp"
+                app:autoSizeTextType="uniform" />
         </LinearLayout>
     </RelativeLayout>
 
