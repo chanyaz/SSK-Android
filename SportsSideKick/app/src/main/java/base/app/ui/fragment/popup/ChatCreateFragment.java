@@ -225,13 +225,13 @@ public class ChatCreateFragment extends BaseFragment {
         chooseDialog.setNegativeButton(getContext().getResources().getString(R.string.from_library), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                CreateChatFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(ChatCreateFragment.this);
+                ChatCreateFragmentPermissionsDispatcher.invokeImageSelectionWithPermissionCheck(ChatCreateFragment.this);
             }
         });
         chooseDialog.setPositiveButton(getContext().getResources().getString(R.string.use_camera), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                CreateChatFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(ChatCreateFragment.this);
+                ChatCreateFragmentPermissionsDispatcher.invokeCameraCaptureWithPermissionCheck(ChatCreateFragment.this);
             }
         });
         chooseDialog.show();
@@ -352,7 +352,7 @@ public class ChatCreateFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        CreateChatFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+        ChatCreateFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
