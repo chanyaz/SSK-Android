@@ -19,6 +19,7 @@ android {
             applicationId "tv.sportssidekick.sportssidekick"
             versionCode 6
             versionName "6.0.0.0"
+            ext.betaDistributionNotifications=false
         }
         brugge {
             applicationId "tv.sportssidekick.brugge"
