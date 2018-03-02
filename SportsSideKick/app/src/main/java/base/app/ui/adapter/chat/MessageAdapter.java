@@ -239,13 +239,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     break;
             }
             if (holder.getItemViewType() == VIEW_TYPE_MESSAGE_THIS_USER) {
-                holder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                View.OnLongClickListener messageSelectListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
                         EventBus.getDefault().post(new MessageSelectedEvent(message));
                         return true;
                     }
-                });
+                };
+                holder.view.setOnLongClickListener(messageSelectListener);
+                holder.contentContainer.setOnLongClickListener(messageSelectListener);
             }
         } else {
             Log.e(TAG, "Message type is null: " + message.getId());
