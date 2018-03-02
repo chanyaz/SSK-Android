@@ -345,13 +345,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/download_image_button"
-            android:layout_below="@id/close_image_button"
+            android:layout_below="@id/exit_fullscreen_icon"
             android:layout_centerInParent="true"
             android:background="@color/colorPrimarySemiDarkSemiTransparent"
             android:scaleType="fitCenter" />
 
         <ImageView
-            android:id="@+id/close_image_button"
+            android:id="@+id/exit_fullscreen_icon"
             android:layout_width="@dimen/chat_button_size"
             android:layout_height="@dimen/chat_button_size"
             android:layout_alignParentEnd="true"

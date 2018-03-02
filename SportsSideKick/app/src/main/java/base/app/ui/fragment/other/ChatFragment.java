@@ -623,7 +623,7 @@ public class ChatFragment extends BaseFragment {
     }
 
     @Optional
-    @OnClick(R.id.close_image_button)
+    @OnClick(R.id.image_fullscreen)
     public void imageCloseButtonOnClick() {
         if (fullScreenContainer != null) {
             fullScreenContainer.setVisibility(View.GONE);
@@ -1028,7 +1028,7 @@ public class ChatFragment extends BaseFragment {
             List<ChatInfo> chats = ImsManager.getInstance().getUserChatsList();
             if (chats != null && chats.size() > 0) {
                 if (BuildConfig.DEBUG) {
-                    setCurrentlyActiveChat(chats.get(1));
+                    setCurrentlyActiveChat(chats.get(3));
                 } else {
                     setCurrentlyActiveChat(chats.get(0));
                 }
