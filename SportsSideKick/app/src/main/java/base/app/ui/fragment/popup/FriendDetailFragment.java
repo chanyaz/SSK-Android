@@ -59,7 +59,7 @@ public class FriendDetailFragment extends BaseFragment {
     @BindView(R.id.profileImage)
     ImageView profileImage;
     @Nullable
-    @BindView(R.id.profile_name)
+    @BindView(R.id.nameTextView)
     TextView profileName;
     @Nullable
     @BindView(R.id.progressBar)
@@ -129,7 +129,7 @@ public class FriendDetailFragment extends BaseFragment {
     @BindView(R.id.friends_text)
     TextView friendsCountText;
     @Nullable
-    @BindView(R.id.profile_nick)
+    @BindView(R.id.nickTextView)
     TextView profileNickText;
 
     @Nullable
@@ -208,7 +208,7 @@ public class FriendDetailFragment extends BaseFragment {
 
             // setup buttons depending on friendship state
             if (user.isaFriend()) {
-                videoButton.setVisibility(View.VISIBLE);
+                // videoButton.setVisibility(View.VISIBLE); Disabled for now
                 moreButton.setVisibility(View.VISIBLE);
                 chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.chat));
                 changeViewClickable(true, chatButtonPhoneImage);
@@ -341,7 +341,7 @@ public class FriendDetailFragment extends BaseFragment {
                             commonFriendsContainer.setVisibility(View.VISIBLE);
                         }
                         if (friendsCommunityText != null) {
-                            friendsCommunityText.setText(getString(R.string.friend_you_and) + user.getFirstName() + getString(R.string.have_in_common));
+                            friendsCommunityText.setText(getString(R.string.friend_you_and) + " " + user.getFirstName() + " " + getString(R.string.have_in_common));
                             friendsInCommonAdapter.getValues().clear();
                             friendsInCommonAdapter.getValues().addAll(task.getResult());
                             friendsInCommonAdapter.notifyDataSetChanged();
@@ -541,5 +541,10 @@ public class FriendDetailFragment extends BaseFragment {
 
     private void reportAbuse() {
         //TODO @Filip add this api call
+    }
+
+    @OnClick(R.id.backButton)
+    public void onBackPressed() {
+        getActivity().onBackPressed();
     }
 }

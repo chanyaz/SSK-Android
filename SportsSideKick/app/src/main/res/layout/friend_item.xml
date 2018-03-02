@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:layout_width="70dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/margin_10">
 
@@ -31,7 +33,9 @@
         android:gravity="center_horizontal"
         android:maxLines="2"
         android:textColor="@color/black"
-        tools:text="Test User"
+        android:lineSpacingMultiplier="0.8"
+        android:paddingTop="4dp"
+        tools:text="Test User With Long Name"
         android:textSize="@dimen/font_size_11"
         android:textStyle="bold" />
 

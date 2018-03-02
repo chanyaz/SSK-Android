@@ -21,8 +21,7 @@
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:orientation="horizontal"
-        android:tileMode="repeat">
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,8 +32,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/profile"
             android:textColor="@color/colorPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/backButton"
@@ -136,7 +134,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <!-- CONTENT CONTAINER -->
+
+            <!-- Header -->
             <RelativeLayout
                 android:id="@+id/content_container"
                 android:layout_width="match_parent"
@@ -177,7 +176,7 @@
                             android:progressDrawable="@drawable/circular_progress_bar" />
 
                         <ImageView
-                            android:id="@+id/your_profile_image"
+                            android:id="@+id/profileImage"
                             android:layout_width="@dimen/popup_friend_profil_profile_image_size"
                             android:layout_height="@dimen/popup_friend_profil_profile_image_size"
                             android:layout_centerHorizontal="true"
@@ -211,7 +210,7 @@
                         tools:text="0" />
 
                     <TextView
-                        android:id="@+id/your_profile_name"
+                        android:id="@+id/nameTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@id/profile_image_container"
@@ -230,7 +229,7 @@
                         android:layout_below="@id/profile_image_container"
                         android:layout_marginStart="@dimen/margin_15"
                         android:layout_marginTop="@dimen/margin_10"
-                        android:layout_toEndOf="@+id/your_profile_name">
+                        android:layout_toEndOf="@+id/nameTextView">
 
                         <ImageView
                             android:id="@+id/blue_shield"
@@ -243,6 +242,7 @@
 
             </RelativeLayout>
 
+            <!-- Body -->
             <RelativeLayout
                 android:id="@+id/info_container"
                 android:layout_width="match_parent"

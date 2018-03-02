@@ -71,10 +71,10 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     @BindView(R.id.language_icon)
     ImageView languageIcon;
 
-    @BindView(R.id.your_profile_image)
+    @BindView(R.id.profileImage)
     ImageView profileImage;
 
-    @BindView(R.id.your_profile_name)
+    @BindView(R.id.nameTextView)
     TextView profileName;
 
     @BindView(R.id.contact_info_email)
@@ -409,7 +409,7 @@ public class ProfileFragment extends BaseFragment implements LoginStateReceiver.
     public void onLoginError(Error error) {
     }
 
-    @OnClick(R.id.your_profile_image)
+    @OnClick(R.id.profileImage)
     public void onAvatarClick() {
         EventBus.getDefault().post(new FragmentEvent(ProfileEditFragment.class));
     }
