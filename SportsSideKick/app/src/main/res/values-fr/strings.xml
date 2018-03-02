@@ -146,7 +146,7 @@
     <string name="more">Plus</string>
     <string name="friend_you_and">Amis que vous et</string>
     <string name="have_in_common"> avez en commun :</string>
-    <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
+    <string name="what_would_you_like_to_do" />
 
     <!--Chat-->
     <string name="members">Membres</string>

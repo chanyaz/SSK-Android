@@ -146,7 +146,7 @@
     <string name="more">Lebih Banyak Lagi</string>
     <string name="friend_you_and">Teman Anda dan</string>
     <string name="have_in_common"> yang sama:</string>
-    <string name="what_would_you_like_to_do">Che cosa vuoi fare?</string>
+    <string name="what_would_you_like_to_do" />
 
     <!--Chat-->
     <string name="members">Anggota</string>
