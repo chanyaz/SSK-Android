@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
+            android:paddingBottom="2dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             fontPath="fonts/TitilliumWeb-SemiBold.ttf"
