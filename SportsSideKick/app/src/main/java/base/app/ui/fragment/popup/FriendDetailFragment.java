@@ -512,7 +512,6 @@ public class FriendDetailFragment extends BaseFragment {
             report.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AlertDialog);
-            builder.setTitle(getString(R.string.what_would_you_like_to_do));
             builder.setItems(new CharSequence[]
                             {getString(R.string.report_abuse), follow, friend, getString(R.string.cancel)},
                     new DialogInterface.OnClickListener() {
