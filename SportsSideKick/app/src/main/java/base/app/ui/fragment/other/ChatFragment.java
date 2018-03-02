@@ -21,6 +21,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -162,7 +163,7 @@ public class ChatFragment extends BaseFragment {
     ImageView imageViewFullScreen;
     @BindView(R.id.full_screen_container)
     @Nullable
-    RelativeLayout fullScreenContainer;
+    CardView fullScreenContainer;
     @BindView(R.id.input_edit_text)
     EditText inputEditText;
     @BindView(R.id.lockIcon)
