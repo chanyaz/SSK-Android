@@ -162,7 +162,7 @@ class MainActivity : BaseActivityWithPush(),
                 ProfileEditFragment::class.java,
                 LoginFragment::class.java,
                 SignUpFragment::class.java,
-                FriendFragment::class.java,
+                FriendDetailFragment::class.java,
                 FollowersFragment::class.java,
                 FollowingFragment::class.java,
                 FriendsSearchFragment::class.java,
@@ -312,7 +312,7 @@ class MainActivity : BaseActivityWithPush(),
         toggleBlur(false, null) // hide blurred view;
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER)
 
-        if (currentFragment is FriendFragment) {
+        if (currentFragment is FriendDetailFragment) {
             val initiator = (currentFragment as BaseFragment).initiator
             EventBus.getDefault().post(FragmentEvent(initiator, true))
             return

@@ -21,11 +21,11 @@ import java.util.List;
 import java.util.Locale;
 
 import base.app.R;
-import base.app.ui.fragment.base.FragmentEvent;
-import base.app.ui.fragment.popup.FriendFragment;
+import base.app.data.user.UserInfo;
 import base.app.data.user.friends.FriendRequest;
 import base.app.data.user.friends.FriendsManager;
-import base.app.data.user.UserInfo;
+import base.app.ui.fragment.base.FragmentEvent;
+import base.app.ui.fragment.popup.FriendDetailFragment;
 import base.app.util.ui.ImageLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -129,7 +129,7 @@ public class FriendRequestsAdapter extends RecyclerView.Adapter<FriendRequestsAd
             @Override
             public void onClick(View view) {
                 values.get(viewHolder.getLayoutPosition());
-                FragmentEvent fragmentEvent = new FragmentEvent(FriendFragment.class);
+                FragmentEvent fragmentEvent = new FragmentEvent(FriendDetailFragment.class);
                 fragmentEvent.setInitiatorFragment(initiatorFragment);
                 int position = viewHolder.getLayoutPosition();
                 fragmentEvent.setId(values.get(position).getSender().getUserId());

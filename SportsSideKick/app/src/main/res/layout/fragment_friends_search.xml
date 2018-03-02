@@ -158,11 +158,12 @@
             android:src="@drawable/icon_search" />
     </RelativeLayout>
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/people_recycler_view"
         android:layout_width="match_parent"
-        tools:padding="16dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="@dimen/margin_10"
         android:layout_height="match_parent"
         android:layout_below="@id/search_container"
         android:visibility="visible" />
@@ -171,7 +172,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/official_accounts_recycler_view"
         android:layout_width="match_parent"
-        tools:padding="16dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="@dimen/margin_10"
         android:layout_height="match_parent"
         android:layout_below="@id/search_container" />
 

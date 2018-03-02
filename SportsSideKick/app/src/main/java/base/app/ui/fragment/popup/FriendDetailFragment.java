@@ -51,7 +51,7 @@ import butterknife.Optional;
  * www.hypercubesoft.com
  */
 
-public class FriendFragment extends BaseFragment {
+public class FriendDetailFragment extends BaseFragment {
 
     public static final double GRID_PERCENT_CELL_WIDTH_PHONE = 0.18;
 
@@ -85,9 +85,6 @@ public class FriendFragment extends BaseFragment {
     @BindView(R.id.chat_button_phone_image)
     ImageView chatButtonPhoneImage;
 
-
-
-
     @Nullable
     @BindView(R.id.follow_button_image)
     ImageView followButtonImage;
@@ -109,7 +106,6 @@ public class FriendFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.friend_button_text)
     TextView friendButtonText;
-
 
     @Nullable
     @BindView(R.id.chat_room_progress_bar)
@@ -150,22 +146,27 @@ public class FriendFragment extends BaseFragment {
     @Nullable
     @BindView(R.id.common_friends_container)
     View commonFriendsContainer;
-
-
-    private Class initiatorFragment;
-
     FriendsAdapter friendsInCommonAdapter;
     FriendsAdapter allFriendsAdapter;
+    UserInfo user;
+    private Class initiatorFragment;
+    private OnCompleteListener<UserInfo> onUserDataLoadedListener = new OnCompleteListener<UserInfo>() {
+        @Override
+        public void onComplete(@NonNull Task<UserInfo> task) {
+            if (task.isSuccessful()) {
+                user = task.getResult();
+                setupUIWithUserInfo(user);
+            }
+        }
+    };
 
-    public FriendFragment() {
+    public FriendDetailFragment() {
         // Required empty public constructor
     }
 
-    UserInfo user;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_friend, container, false);
+        View view = inflater.inflate(R.layout.fragment_friend_detail, container, false);
         initiatorFragment = getInitiator();
         if (initiatorFragment == null) {
             initiatorFragment = FriendsFragment.class; // Resolve to default parent!
@@ -186,23 +187,12 @@ public class FriendFragment extends BaseFragment {
             allFriendsRecyclerView.setAdapter(allFriendsAdapter);
             inCommonRecyclerView.setAdapter(friendsInCommonAdapter);
 
-
         }
 
         Task<UserInfo> getUserTask = Model.getInstance().refreshUserInfo(getPrimaryArgument());
         getUserTask.addOnCompleteListener(onUserDataLoadedListener);
         return view;
     }
-
-    private OnCompleteListener<UserInfo> onUserDataLoadedListener = new OnCompleteListener<UserInfo>() {
-        @Override
-        public void onComplete(@NonNull Task<UserInfo> task) {
-            if (task.isSuccessful()) {
-                user = task.getResult();
-                setupUIWithUserInfo(user);
-            }
-        }
-    };
 
     private void setupUIWithUserInfo(UserInfo user) {
         if (!isAdded()) return; // fixed crash when accessing strings in detached mode
@@ -212,26 +202,25 @@ public class FriendFragment extends BaseFragment {
         onlineStatus.setText(user.isOnline() ? "online" : "offline");
         ImageLoader.displayRoundImage(user.getCircularAvatarUrl(), profileImage);
         progressBarCircle.setProgress((int) (user.getProgress() * progressBarCircle.getMax()));
-        profileImageLevel.setText(String.valueOf((int)user.getProgress()));
+        profileImageLevel.setText(String.valueOf((int) user.getProgress()));
 
         if (Utility.isPhone(getActivity())) {
 
             // setup buttons depending on friendship state
-            if(user.isaFriend()){
+            if (user.isaFriend()) {
                 videoButton.setVisibility(View.VISIBLE);
                 moreButton.setVisibility(View.VISIBLE);
                 chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.chat));
-                changeViewClickable(true,chatButtonPhoneImage);
+                changeViewClickable(true, chatButtonPhoneImage);
             } else {
-                if(user.isFriendPendingRequest()){
+                if (user.isFriendPendingRequest()) {
                     chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_pending));
-                    changeViewClickable(false,chatButtonPhoneImage);
+                    changeViewClickable(false, chatButtonPhoneImage);
                 } else {
                     chatButtonPhoneCaption.setText(getContext().getResources().getString(R.string.friend_request_send));
-                    changeViewClickable(true,chatButtonPhoneImage);
+                    changeViewClickable(true, chatButtonPhoneImage);
                 }
             }
-
 
             if (user.getUserId() != null) {
                 friendsCountText.setText(String.valueOf(user.getRequestedUserFriendsCount()));
@@ -308,7 +297,7 @@ public class FriendFragment extends BaseFragment {
     }
 
     private void getAllUserChats(final UserInfo user) {
-        Task<List<UserInfo>> taskAllChats = FriendsManager.getInstance().getFriendsForUser(user.getUserId(), 0,30);
+        Task<List<UserInfo>> taskAllChats = FriendsManager.getInstance().getFriendsForUser(user.getUserId(), 0, 30);
         taskAllChats.addOnCompleteListener(new OnCompleteListener<List<UserInfo>>() {
             @Override
             public void onComplete(@NonNull Task<List<UserInfo>> task) {
@@ -375,7 +364,6 @@ public class FriendFragment extends BaseFragment {
         EventBus.getDefault().post(new FragmentEvent(initiatorFragment, true));
     }
 
-
     @Optional
     @OnClick(R.id.chat_button_image)
     public void click() {
@@ -388,7 +376,7 @@ public class FriendFragment extends BaseFragment {
         // TODO @Filip Check if chat exists?
 
         // on phone, change this button's behaviour to send friend request if this is not a friend
-        if(Utility.isPhone(getActivity()) && !user.isaFriend()){
+        if (Utility.isPhone(getActivity()) && !user.isaFriend()) {
             friendOnClick();
             return;
         }
@@ -414,7 +402,7 @@ public class FriendFragment extends BaseFragment {
 
         EventBus.getDefault().post(new OpenChatEvent(newChatInfo));
 
-        if(Utility.isPhone(getActivity())){
+        if (Utility.isPhone(getActivity())) {
             EventBus.getDefault().post(new FragmentEvent(ChatFragment.class));
         }
     }
@@ -453,7 +441,7 @@ public class FriendFragment extends BaseFragment {
 
     }
 
-    private void removeUser(){
+    private void removeUser() {
         FriendsManager.getInstance().deleteFriend(user.getUserId()).addOnCompleteListener(new OnCompleteListener<UserInfo>() {
             @Override
             public void onComplete(@NonNull Task<UserInfo> task) {
@@ -483,7 +471,6 @@ public class FriendFragment extends BaseFragment {
     public void moreButtonOnClick() {
         startAlterDialog();
     }
-
 
     @Optional
     @OnClick(R.id.follow_button_image)

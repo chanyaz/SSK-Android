@@ -46,7 +46,7 @@ import base.app.ui.fragment.popup.ChatCreateFragment;
 import base.app.ui.fragment.popup.EditChatFragment;
 import base.app.ui.fragment.popup.FollowersFragment;
 import base.app.ui.fragment.popup.FollowingFragment;
-import base.app.ui.fragment.popup.FriendFragment;
+import base.app.ui.fragment.popup.FriendDetailFragment;
 import base.app.ui.fragment.popup.FriendRequestsFragment;
 import base.app.ui.fragment.popup.FriendsFragment;
 import base.app.ui.fragment.popup.FriendsSearchFragment;
@@ -206,7 +206,7 @@ public class MainActivityTablet extends BaseActivity implements LoginStateReceiv
         popupContainerFragments.add(FriendRequestsFragment.class);
         popupContainerFragments.add(StartingNewCallFragment.class);
         popupContainerFragments.add(ProfileEditFragment.class);
-        popupContainerFragments.add(FriendFragment.class);
+        popupContainerFragments.add(FriendDetailFragment.class);
         popupContainerFragments.add(FollowersFragment.class);
         popupContainerFragments.add(FollowingFragment.class);
         popupContainerFragments.add(FriendsSearchFragment.class);

@@ -28,7 +28,6 @@ import base.app.data.Model;
 import base.app.data.user.UserInfo;
 import base.app.data.user.friends.PeopleSearchManager;
 import base.app.ui.adapter.friends.FriendsAdapter;
-import base.app.ui.adapter.stream.FindOfficialAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
@@ -70,7 +69,7 @@ public class FriendsSearchFragment extends BaseFragment {
     FriendsAdapter adapter;
 
     @Nullable
-    FindOfficialAdapter officialAccountsAdapter;
+    FriendsAdapter officialAccountsAdapter;
 
 
     @Nullable
@@ -110,10 +109,10 @@ public class FriendsSearchFragment extends BaseFragment {
         if (Utility.isPhone(getContext())) {
             peopleRecyclerView.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
             if (officialAccountsRecyclerView != null) {
                 officialAccountsRecyclerView.setLayoutManager(gridLayoutManager);
-                officialAccountsAdapter = new FindOfficialAdapter(getActivity(), this.getClass());
+                officialAccountsAdapter = new FriendsAdapter(this.getClass());
                 officialAccountsRecyclerView.setAdapter(officialAccountsAdapter);
             }
             Task<List<UserInfo>> fetchOfficialAccountsTask = Model.getInstance().getOfficialAccounts(0);
