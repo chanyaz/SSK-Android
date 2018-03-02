@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -682,7 +681,7 @@ public class NewsItemFragment extends BaseFragment {
     @OnClick({R.id.likes_container})
     public void togglePostLike() {
         if (!Model.getInstance().isRealUser()) {
-            Utility.toast(getActivity(), "Please sign in to like posts");
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
             return;
         }
         if (item != null) {
@@ -749,9 +748,7 @@ public class NewsItemFragment extends BaseFragment {
         if (Model.getInstance().isRealUser()) {
             SharingManager.getInstance().share(getContext(), item);
         } else {
-            Toast.makeText(getContext(),
-                    "Please login to share news",
-                    Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
     }
 
@@ -794,9 +791,7 @@ public class NewsItemFragment extends BaseFragment {
             EditText sharedMessageField = commentInputOverlay.findViewById(R.id.post_text);
             sharedMessageField.requestFocus();
         } else {
-            Toast.makeText(getContext(),
-                    "Please login to pin articles",
-                    Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
         SoundEffects.getDefault().playSound(SoundEffects.ROLL_OVER);
     }
