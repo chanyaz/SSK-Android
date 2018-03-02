@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -35,7 +35,6 @@ import base.app.ui.adapter.friends.FriendsAdapter;
 import base.app.ui.fragment.base.BaseFragment;
 import base.app.ui.fragment.base.FragmentEvent;
 import base.app.util.commons.Utility;
-import base.app.util.ui.AutofitDecoration;
 import base.app.util.ui.AutofitRecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,14 +92,6 @@ public class FriendsFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
         ButterKnife.bind(this, view);
         officialAccounts = new ArrayList<>();
-        int screenWidth = Utility.getDisplayWidth(getActivity());
-        if (Utility.isTablet(getActivity())) {
-            friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH));
-        } else {
-            friendsRecyclerView.setCellWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
-        }
-
-        friendsRecyclerView.addItemDecoration(new AutofitDecoration(getActivity()));
         friendsRecyclerView.setHasFixedSize(true);
 
 
@@ -113,8 +104,7 @@ public class FriendsFragment extends BaseFragment {
         officialAccountAdapter = new FriendsAdapter(this.getClass());
         if (officialAccountRecyclerView != null) {
             officialAccountRecyclerView.setAdapter(officialAccountAdapter);
-            officialAccountRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            officialAccountAdapter.screenWidth((int) (screenWidth * GRID_PERCENT_CELL_WIDTH_PHONE));
+            officialAccountRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         }
 
         Task<List<UserInfo>> officialTask = Model.getInstance().getOfficialAccounts(0);

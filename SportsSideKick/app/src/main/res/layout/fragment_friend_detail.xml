@@ -23,7 +23,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:text="@string/user_profile"
-        android:paddingTop="12dp"
+        android:paddingTop="24dp"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
@@ -224,9 +224,9 @@
             android:id="@+id/online_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="101dp"
+            android:layout_marginStart="-42dp"
+            android:layout_toEndOf="@id/imageInfoContainer"
             android:layout_marginTop="32dp"
             android:background="@drawable/user_status_backgraound"
             android:padding="@dimen/padding_4"
@@ -277,9 +277,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.61"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="316dp" />
+                app:layout_constraintGuide_begin="23dp" />
 
             <TextView
                 android:id="@+id/chat_button_phone_caption"
@@ -386,9 +384,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.48"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="316dp" />
+        app:layout_constraintGuide_begin="283dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"

@@ -145,7 +145,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:textSize="14sp"
-            android:textColorHint="#686868"
+            android:textColorHint="#878787"
             tools:textStyle="bold" />
 
         <ImageView

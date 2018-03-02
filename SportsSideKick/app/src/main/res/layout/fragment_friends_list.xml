@@ -142,7 +142,7 @@
             android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textColorHint="#686868"
+            android:textColorHint="#878787"
             android:layout_toStartOf="@id/search_icon"
             tools:textStyle="bold" />
 
@@ -202,6 +202,8 @@
             android:layout_marginBottom="@dimen/margin_4"
             android:layout_marginTop="@dimen/margin_4"
             android:gravity="center"
+            fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+            tools:textStyle="bold"
             android:text="@string/official_accounts"
             android:textColor="@color/colorPrimary" />
 
