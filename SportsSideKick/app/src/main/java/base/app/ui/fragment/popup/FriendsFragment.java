@@ -90,7 +90,7 @@ public class FriendsFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_friends, container, false);
+        View view = inflater.inflate(R.layout.fragment_friends_list, container, false);
         ButterKnife.bind(this, view);
         officialAccounts = new ArrayList<>();
         int screenWidth = Utility.getDisplayWidth(getActivity());

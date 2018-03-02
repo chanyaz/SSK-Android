@@ -129,9 +129,10 @@
 
         <EditText
             android:id="@+id/search_edit_text"
-            android:layout_width="257dp"
-            android:layout_height="wrap_content"
             fontPath="fonts/TitilliumWeb-SemiBold.ttf"
+            android:layout_width="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content"
             android:textSize="14sp"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
@@ -142,6 +143,7 @@
             android:maxLines="1"
             android:textColor="@color/black"
             android:textColorHint="#686868"
+            android:layout_toStartOf="@id/search_icon"
             tools:textStyle="bold" />
 
         <ImageView
