@@ -114,7 +114,7 @@
     <string name="friends_title">Ваши друзья</string>
     <string name="friends_search">Искать друзей</string>
     <string name="offline">Не в сети</string>
-    <string name="friend_request_pending">Есть запрос на дружбу</string>
+    <string name="friend_request_pending">Послан запрос на дружбу</string>
     <string name="enter_friend_name_invite">Чтобы пригласить друзей, укажите их адреса эл. почты.</string>
     <string name="remove_friend">Удалить из друзей</string>
     <string name="friend_request_send">Отправить запрос на дружбу?</string>
