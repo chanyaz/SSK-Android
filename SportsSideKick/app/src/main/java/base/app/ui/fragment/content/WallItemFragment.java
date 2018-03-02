@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -591,6 +590,8 @@ public class WallItemFragment extends BaseFragment {
                 }
                 SoundEffects.getDefault().playSound(mPost.isLikedByUser() ? SoundEffects.ROLL_OVER : SoundEffects.SOFT);
             }
+        } else {
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
     }
 
@@ -635,9 +636,7 @@ public class WallItemFragment extends BaseFragment {
                 SharingManager.getInstance().share(getContext(), mPost);
             }
         } else {
-            Toast.makeText(getContext(),
-                    "Please login to share posts",
-                    Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new FragmentEvent(SignUpLoginFragment.class));
         }
     }
 
