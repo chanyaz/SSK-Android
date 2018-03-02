@@ -28,7 +28,6 @@ import java.util.Map;
 
 import base.app.R;
 import base.app.data.Model;
-import base.app.data.Translator;
 import base.app.data.chat.ChatInfo;
 import base.app.data.chat.ImsMessage;
 import base.app.data.user.UserInfo;
@@ -49,7 +48,7 @@ import static base.app.util.GSConstants.UPLOADING;
  * Created by Filip on 12/14/2016.
  * Copyright by Hypercube d.o.o.
  * www.hypercubesoft.com
- *
+ * <p>
  * Message Adapter for use in chat fragment
  */
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
@@ -70,7 +69,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private static final int VIEW_TYPE_MESSAGE_THIS_USER = 0;
     private static final int VIEW_TYPE_MESSAGE_OTHER_USERS = 1;
 
-
     public void setTranslationView(TranslationView translationView) {
         this.translationView = translationView;
     }
@@ -78,11 +76,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final ImsMessage message = chatInfo.getMessages().get(holder.getAdapterPosition());
-        if(!message.getReadFlag()){
+        if (!message.getReadFlag()) {
             chatInfo.markMessageAsRead(message);
         }
 
-        if(holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS) {
+        if (holder.getItemViewType() == VIEW_TYPE_MESSAGE_OTHER_USERS) {
             setupAvatarFromRemoteUser(message, holder);
         }
 
@@ -91,10 +89,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         final String imageUrl = message.getImageUrl();
         final String videoUrl = message.getVidUrl();
 
-        holder.view.setTag(message.getId());
+        final String messageId = message.getId();
 
-        if(message.getType()!=null){
-            switch (message.getType()){
+        if (message.getType() != null) {
+            switch (message.getType()) {
                 case GSConstants.UPLOAD_TYPE_IMAGE:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
@@ -120,7 +118,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 case GSConstants.UPLOAD_TYPE_VIDEO:
                     holder.textView.setVisibility(View.GONE);
                     holder.contentImage.setVisibility(View.VISIBLE);
-                    ImageLoader.displayImage(imageUrl,holder.contentImage);
+                    ImageLoader.displayImage(imageUrl, holder.contentImage);
                     holder.playButton.setVisibility(View.VISIBLE);
                     holder.view.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -167,7 +165,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.contentContainer.setBackgroundResource(R.drawable.chat_message_left);
                     break;
                 case GSConstants.UPLOAD_TYPE_TEXT:
-                    holder.view.setOnClickListener(new View.OnClickListener(){
+                    holder.view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             EventBus.getDefault().post(new HideKeyboardEvent());
@@ -176,7 +174,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.contentContainer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            String messageId = (String) view.getTag();
 
                             TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
                             source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
@@ -188,7 +185,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                                     }
                                 }
                             });
-                            translationView.showTranslationPopup(holder.contentContainer,messageId, source, TranslationView.TranslationType.TRANSLATE_IMS);
+                            translationView.showTranslationPopup(
+                                    holder.contentContainer,
+                                    messageId,
+                                    source,
+                                    TranslationView.
+                                            TranslationType.TRANSLATE_IMS);
                         }
                     });
 
@@ -197,33 +199,36 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                     holder.textView.setVisibility(View.VISIBLE);
 
                     String translatedValue = null;
-                    for(ImsMessage translated : translatedMessages){
-                        if(message.getId().equals(translated.getId())){
+                    for (ImsMessage translated : translatedMessages) {
+                        if (message.getId().equals(translated.getId())) {
                             translatedValue = translated.getText();
                         }
                     }
-                    if(translatedValue!=null){
+                    if (translatedValue != null) {
                         holder.textView.setText(translatedValue);
                     } else {
                         holder.textView.setText(message.getText());
                     }
 
                     if (isAutoTranslateEnabled() && translatedValue == null) {
-                        String messageId = (String) holder.view.getTag();
-
                         TaskCompletionSource<ImsMessage> source = new TaskCompletionSource<>();
                         source.getTask().addOnCompleteListener(new OnCompleteListener<ImsMessage>() {
                             @Override
                             public void onComplete(@NonNull Task<ImsMessage> task) {
-                                if(task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     int position = holder.getAdapterPosition();
                                     ImsMessage translatedMessage = task.getResult();
                                     translatedMap.put(translatedMessage, true);
-                                    updateWithTranslatedMessage(translatedMessage,position);
+                                    updateWithTranslatedMessage(translatedMessage, position);
                                 }
                             }
                         });
-                        Translator.getInstance().translateMessage(messageId,source);
+                        translationView.showTranslationPopup(
+                                holder.contentContainer,
+                                messageId,
+                                source,
+                                TranslationView.
+                                        TranslationType.TRANSLATE_IMS);
                     }
 
                     if (getItemViewType(position) == VIEW_TYPE_MESSAGE_THIS_USER) {
@@ -243,11 +248,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 });
             }
         } else {
-            Log.e(TAG,"Message type is null: " + message.getId());
+            Log.e(TAG, "Message type is null: " + message.getId());
         }
 
         if (holder.progressBar != null) {
-            if(UPLOADING.equals(message.getUploadStatus())){
+            if (UPLOADING.equals(message.getUploadStatus())) {
                 holder.progressBar.setVisibility(View.VISIBLE);
                 holder.playButton.setVisibility(View.GONE);
             } else {
@@ -277,8 +282,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     private void setupAudioPlayButton(String url, final ImageButton button) {
         try {
-            if(audioPlayer!=null){
-                if(audioPlayer.isPlaying()){
+            if (audioPlayer != null) {
+                if (audioPlayer.isPlaying()) {
                     audioPlayer.stop();
                     audioPlayer.release();
                 }
@@ -302,7 +307,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             }
 
         } catch (Exception e) {
-            Log.e(TAG,"Audio file can't be played!");
+            Log.e(TAG, "Audio file can't be played!");
             e.printStackTrace();
         }
     }
@@ -359,7 +364,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public long getItemId(int i) {
-        if(chatInfo!=null) {
+        if (chatInfo != null) {
             return chatInfo.getMessages().get(i).getTimestampEpoch();
         } else {
             return 0;
@@ -368,9 +373,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        if(chatInfo!=null){
+        if (chatInfo != null) {
             List messages = chatInfo.getMessages();
-            if(messages!=null){
+            if (messages != null) {
                 return messages.size();
             } else {
                 Log.d(TAG, "List of messages is null for chat: " + chatInfo.getChatId());
@@ -384,11 +389,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public int getItemViewType(int position) {
         UserInfo info = Model.getInstance().getUserInfo();
-        if(chatInfo!=null && info!=null){
+        if (chatInfo != null && info != null) {
             ImsMessage message = chatInfo.getMessages().get(position);
             String userId = info.getUserId();
-            if(userId!=null){
-                if(info.getUserId().equals(message.getSenderId())) {
+            if (userId != null) {
+                if (info.getUserId().equals(message.getSenderId())) {
                     return VIEW_TYPE_MESSAGE_THIS_USER;
                 }
             }
@@ -396,7 +401,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return VIEW_TYPE_MESSAGE_OTHER_USERS;
     }
 
-    public void updateWithTranslatedMessage(ImsMessage message, int position){
+    public void updateWithTranslatedMessage(ImsMessage message, int position) {
         translatedMessages.add(message);
         notifyItemChanged(position);
     }

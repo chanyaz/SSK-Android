@@ -186,7 +186,7 @@ public class TranslationView extends RelativeLayout {
 
             }
         });
-        Translator.getInstance().translateMessage(itemId, source);
+        Translator.getInstance().translateMessage(itemId, getSelectedLanguageCode(), source);
     }
 
     private void translateWallItem() {
