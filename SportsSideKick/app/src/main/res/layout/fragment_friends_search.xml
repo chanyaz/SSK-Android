@@ -190,8 +190,8 @@
     <ProgressBar
         style="?android:attr/progressBarStyle"
         android:id="@+id/progressBar"
-        android:layout_width="@dimen/prodgres_bar"
-        android:layout_height="@dimen/prodgres_bar"
+        android:layout_width="@dimen/progress_bar"
+        android:layout_height="@dimen/progress_bar"
         android:layout_centerInParent="true"
         android:elevation="@dimen/elevation_2" />
 
