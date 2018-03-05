@@ -28,8 +28,8 @@ abstract public class BaseActivityWithPush extends BaseActivity
         EGoiPushFramework.sharedInstance().applicationId = this.appID;
         EGoiPushFramework.sharedInstance().delegate = this;
 
-        /**
-         * Register the device in the GCM servers
+        /*
+          Register the device in the GCM servers
          */
         GCMDeviceRegister deviceRegister = new GCMDeviceRegister();
         deviceRegister.delegate = this;
