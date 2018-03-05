@@ -83,9 +83,6 @@ dependencies {
     // List animations
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
 
-    // Analytics
-    implementation 'com.google.android.gms:play-services-analytics:11.8.0'
-
 
     // *** Dev tools *** \\
 

@@ -102,6 +102,11 @@
                 tools:replace="android:resource" />
         </provider>
 
+        <!--Disable automatic event logging to Facebook analytics-->
+        <meta-data
+            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+            android:value="false" />
+
     </application>
 
 </manifest>

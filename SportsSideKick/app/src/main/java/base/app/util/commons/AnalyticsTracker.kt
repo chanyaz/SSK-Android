@@ -2,28 +2,27 @@ package base.app.util.commons
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.os.Bundle
 import android.os.SystemClock
 import base.app.Application.getDefaultTracker
 import base.app.data.Model
-import com.google.android.gms.analytics.HitBuilders.EventBuilder
 import java.util.*
+
 
 /**
  * Implementation of analytics interface
  */
 private fun sendEvent(action: String,
                       params: Map<String, String> = emptyMap()) {
-    val eventBuilder = EventBuilder().apply {
-        setAction(action)
-        setAll(params)
-    }
-    getDefaultTracker().send(eventBuilder.build())
+    val bundle = Bundle()
+    params.forEach { key, value -> bundle.putString(key, value) }
+
+    getDefaultTracker().logEvent(action, bundle)
 }
 
 fun sendEventWithSession(action: String,
                          eventDetails: Map<String, String> = emptyMap()) {
-    val user = Model.getInstance().userInfo
-    if (user == null) return
+    val user = Model.getInstance().userInfo ?: return
 
     val sessionData = mutableMapOf(
             "Date/Time" to Date().toString(),

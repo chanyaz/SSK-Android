@@ -6,7 +6,7 @@ import android.support.multidex.MultiDexApplication;
 import android.support.text.emoji.EmojiCompat;
 import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.analytics.Tracker;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -24,32 +24,13 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 public class Application extends MultiDexApplication {
 
-    private static GoogleAnalytics sAnalytics;
-    private static Tracker sTracker;
+    private static AppEventsLogger sTracker;
 
     /**
      * Gets the default {@link Tracker} for this {@link Application}.
-     *
-     * @return tracker
      */
-    synchronized public static Tracker getDefaultTracker() {
-        // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-        if (sTracker == null) {
-            sTracker = sAnalytics.newTracker(R.xml.global_tracker);
-        }
+    public static AppEventsLogger getDefaultTracker() {
         return sTracker;
-    }
-
-    protected void enableStrictMode() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .permitDiskReads()
-                .penaltyLog()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .build());
     }
 
     @Override
@@ -84,10 +65,23 @@ public class Application extends MultiDexApplication {
 
         RxPaparazzo.register(this);
 
-        sAnalytics = GoogleAnalytics.getInstance(this);
-        if (BuildConfig.DEBUG) sAnalytics.setDryRun(true);
+        sTracker = AppEventsLogger.newLogger(this);
+        /*TODO if (BuildConfig.DEBUG)*/
+        AppEventsLogger.activateApp(this);
 
         EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
         EmojiCompat.init(config);
+    }
+
+    protected void enableStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectAll()
+                .permitDiskReads()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
     }
 }
