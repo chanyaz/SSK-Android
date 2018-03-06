@@ -84,8 +84,7 @@ dependencies {
     implementation 'jp.wasabeef:recyclerview-animators:2.3.0'
 
     // Analytics
-    implementation 'com.amazonaws:aws-android-sdk-mobileanalytics:2.4.2'
-    implementation 'com.amazonaws:aws-android-sdk-pinpoint:2.4.2'
+    implementation 'com.amazonaws:aws-android-sdk-pinpoint:2.6.16'
 
 
     // *** Dev tools *** \\
