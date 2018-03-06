@@ -7,7 +7,6 @@ import android.support.text.emoji.EmojiCompat;
 import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
 
 import com.facebook.appevents.AppEventsLogger;
-import com.google.android.gms.analytics.Tracker;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
 import com.squareup.leakcanary.LeakCanary;
@@ -27,7 +26,7 @@ public class Application extends MultiDexApplication {
     private static AppEventsLogger sTracker;
 
     /**
-     * Gets the default {@link Tracker} for this {@link Application}.
+     * Gets the default {@link AppEventsLogger} for this {@link Application}.
      */
     public static AppEventsLogger getDefaultTracker() {
         return sTracker;

@@ -8,7 +8,6 @@ import base.app.Application.getDefaultTracker
 import base.app.data.Model
 import java.util.*
 
-
 /**
  * Implementation of analytics interface
  */
