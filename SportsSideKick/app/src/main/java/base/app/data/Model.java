@@ -422,30 +422,35 @@ public class Model {
                         data.put(CLUB_ID_TAG, CLUB_ID);
 
                         GSData responseData = authenticationResponse.getScriptData();
-                        String initialEmail = responseData.getString("initial_email");
+                        String initialEmail = null;
+                        if (responseData != null) {
+                            initialEmail = responseData.getString("initial_email");
 
-                        data.put(GSConstants.FIRST_NAME, userData.get("first_name"));
-                        data.put(GSConstants.LAST_NAME, userData.get("last_name"));
-                        data.put(GSConstants.PHONE, userData.get("phone"));
-                        data.put(GSConstants.EMAIL, initialEmail);
-                        if (userData.get("picture") != null) {
-                            try {
-                                String imageInfo = userData.get("picture").toString();
-                                int indexStart = imageInfo.indexOf("url=") + 4;
-                                int indexEnd = imageInfo.indexOf("width=") - 2;
-                                String avatarUrl = imageInfo.substring(indexStart, indexEnd);
-                                data.put("avatarUrl", avatarUrl);
-                                data.put("circularAvatarUrl", avatarUrl);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                            data.put(GSConstants.FIRST_NAME, userData.get("first_name"));
+                            data.put(GSConstants.LAST_NAME, userData.get("last_name"));
+                            data.put(GSConstants.PHONE, userData.get("phone"));
+                            data.put(GSConstants.EMAIL, initialEmail);
+                            if (userData.get("picture") != null) {
+                                try {
+                                    String imageInfo = userData.get("picture").toString();
+                                    int indexStart = imageInfo.indexOf("url=") + 4;
+                                    int indexEnd = imageInfo.indexOf("width=") - 2;
+                                    String avatarUrl = imageInfo.substring(indexStart, indexEnd);
+                                    data.put("avatarUrl", avatarUrl);
+                                    data.put("circularAvatarUrl", avatarUrl);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
+
+                            Map<String, Object> map = request.getBaseData();
+                            map.put("scriptData", data);
                         }
 
-                        Map<String, Object> map = request.getBaseData();
-                        map.put("scriptData", data);
-
                         if (consumerFromLogin == null) {
-                            request.setUserName(initialEmail);
+                            if (initialEmail != null) {
+                                request.setUserName(initialEmail);
+                            }
                             request.send(onRegisteredFBCompleted);
                         } else {
                             request.send(consumerFromLogin);
