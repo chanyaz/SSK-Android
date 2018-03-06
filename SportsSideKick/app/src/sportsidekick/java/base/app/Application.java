@@ -9,6 +9,7 @@ import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
+import com.amazonaws.mobileconnectors.pinpoint.analytics.AnalyticsClient;
 import com.amazonaws.regions.Regions;
 import com.facebook.appevents.AppEventsLogger;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
@@ -27,13 +28,13 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 public class Application extends MultiDexApplication {
 
-    private static PinpointManager sTracker;
+    private static PinpointManager analyticsManager;
 
     /**
      * Gets the default {@link AppEventsLogger} for this {@link Application}.
      */
-    public static PinpointManager getDefaultTracker() {
-        return sTracker;
+    public static AnalyticsClient getDefaultTracker() {
+        return analyticsManager.getAnalyticsClient();
     }
 
     @Override
@@ -71,7 +72,7 @@ public class Application extends MultiDexApplication {
         CognitoCachingCredentialsProvider cognitoCachingCredentialsProvider = new CognitoCachingCredentialsProvider(this, "eu-west-2:ca9f6037-6a92-4484-9178-b1575679a327", Regions.US_WEST_2);
 
         PinpointConfiguration pinpointConfig = new PinpointConfiguration(this, "4b503a0c6c0c4480ac2feb157b546a87", Regions.US_EAST_1, cognitoCachingCredentialsProvider);
-        sTracker = new PinpointManager(pinpointConfig);
+        analyticsManager = new PinpointManager(pinpointConfig);
 
         EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
         EmojiCompat.init(config);

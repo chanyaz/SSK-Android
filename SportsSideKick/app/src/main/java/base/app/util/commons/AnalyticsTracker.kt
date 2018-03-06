@@ -2,7 +2,6 @@ package base.app.util.commons
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.os.Bundle
 import android.os.SystemClock
 import base.app.Application.getDefaultTracker
 import base.app.data.Model
@@ -13,10 +12,14 @@ import java.util.*
  */
 private fun sendEvent(action: String,
                       params: Map<String, String> = emptyMap()) {
-    val bundle = Bundle()
-    params.forEach { key, value -> bundle.putString(key, value) }
+    val tracker = getDefaultTracker()
 
-    getDefaultTracker().logEvent(action, bundle)
+    val event = tracker.createEvent(action)
+
+    params.forEach { key, value -> event.withAttribute(key, value) }
+
+    // TODO if (!BuildConfig.DEBUG) {
+    tracker.submitEvents()
 }
 
 fun sendEventWithSession(action: String,
