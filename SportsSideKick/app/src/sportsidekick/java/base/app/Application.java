@@ -6,6 +6,7 @@ import android.support.multidex.MultiDexApplication;
 import android.support.text.emoji.EmojiCompat;
 import android.support.text.emoji.bundled.BundledEmojiCompatConfig;
 
+import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.miguelbcr.ui.rx_paparazzo2.RxPaparazzo;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -24,6 +25,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class Application extends MultiDexApplication {
 
     private static AppEventsLogger sTracker;
+    private PinpointManager pinpointManager;
 
     /**
      * Gets the default {@link AppEventsLogger} for this {@link Application}.
@@ -66,7 +68,10 @@ public class Application extends MultiDexApplication {
 
         sTracker = AppEventsLogger.newLogger(this);
         /*TODO if (BuildConfig.DEBUG)*/
-        AppEventsLogger.activateApp(this);
+
+        // Start a session with Pinpoint
+        pinpointManager.getSessionClient().startSession();
+
 
         EmojiCompat.Config config = new BundledEmojiCompatConfig(this);
         EmojiCompat.init(config);
